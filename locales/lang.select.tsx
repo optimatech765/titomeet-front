@@ -1,0 +1,34 @@
+"use client";
+import React from 'react';
+import { useChangeLocale, useCurrentLocale } from './client';
+import { Select, SelectItem } from '@heroui/select';
+import { Avatar } from '@heroui/react';
+
+export const LangSelect = () => {
+    const locale = useCurrentLocale();
+    const changelOcale = useChangeLocale();
+    return (
+        <div>
+            <Select
+                startContent={<Avatar alt="Anglais" className="w-6 h-6" src={`https://flagcdn.com/${locale=='en'?'gb':'fr'}.svg`} />}
+                aria-label="Selection" onChange={(e) => changelOcale(e.target.value as "fr" || "en")} defaultSelectedKeys={[locale]} className="w-full">
+
+                <SelectItem
+                    value={"fr"}
+                    key="fr"
+                    startContent={<Avatar alt="France" className="w-6 h-6" src="https://flagcdn.com/fr.svg" />}
+                >
+                    Français
+                </SelectItem>
+                <SelectItem
+                    value={"en"}
+                    key="en"
+                    startContent={<Avatar alt="Anglais" className="w-6 h-6" src="https://flagcdn.com/gb.svg" />}
+                >
+                    Anglais
+                </SelectItem>
+
+            </Select>
+        </div>
+    );
+}
