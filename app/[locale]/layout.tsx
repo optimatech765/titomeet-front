@@ -4,6 +4,7 @@ import "./globals.css";
 import { NextUiProvider } from "@/providers/nextui.provider";
 import { LangProvider } from "@/providers/lang.provider";
 import { NavbarSection } from "@/sections/navbar.section";
+import { FooterSection } from "@/sections/footer.section";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,12 +43,19 @@ export default function RootLayout({
       >
         <NextUiProvider>
           <LangProvider locale={params?.locale}>
-            <header>
-              <NavbarSection />
-            </header>
+            
+            {/* navbar */}
+            <NavbarSection />
+
+            {/* main */}
             <main className="font-poppins">
-                 {children}
-              </main>
+              {children}
+
+            </main>
+
+            {/* footer */}
+            <FooterSection />
+
           </LangProvider>
 
         </NextUiProvider>

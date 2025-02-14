@@ -3,7 +3,11 @@ import { EventCardComponent } from "@/components/event.card.component";
 import { SwitchThemeComponent } from "@/components/switch.theme.component";
 import { LangSelect } from "@/locales/lang.select";
 import { getI18n, getScopedI18n } from "@/locales/server";
+import { CategorieSection } from "@/sections/categorie.section";
+import { EventsSection } from "@/sections/events.section";
+import { FonctionnalitesSection } from "@/sections/fonctionnalitie.section";
 import { HeroSection } from "@/sections/hero.section";
+import { PartenairesSection } from "@/sections/partner.section";
 import { Button } from "@heroui/button";
 
 
@@ -40,18 +44,10 @@ export default async function Home() {
           <div>
             <h3 className="text-primary font-extrabold text-4xl font-poppins ">Evenements à venir</h3>
             <span className="text-[#1E1E1E] text-base">Des événements exclusifs, des places limitées</span>
-            <div className="bg-secondary h-1 max-w-36 mt-1 rounded-tl-md "></div>
+            <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
           </div>
-          <div className="mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2 lg:grid-cols-3  gap-5 mt-9">
 
-            <EventCardComponent />
-            <EventCardComponent />
-            <EventCardComponent />
-            <EventCardComponent />
-            <EventCardComponent />
-            <EventCardComponent />
-
-          </div>
+          <EventsSection />
 
           <div className="text-center mt-7">
             <Button className="bg-primary text-white rounded-full p-3 ml-2  ">
@@ -60,15 +56,30 @@ export default async function Home() {
           </div>
 
         </section>
+
+        {/* Catégories */}
         <section className="pt-6 mt-6">
-          <div>
+          <div className="space-y-1">
             <h3 className="text-primary font-extrabold text-4xl font-poppins text-center ">Categories d’evenements</h3>
             <span className="text-[#1E1E1E] text-base text-center block">Trouvez l’événement qui vous correspond</span>
-            <div className="bg-secondary h-1 max-w-36 mt-1 rounded-tl-md mx-auto rounded-r-full "></div>
+            <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md mx-auto rounded-r-full "></div>
+          </div>
+          <div>
+            <CategorieSection />
           </div>
         </section>
       </div>
 
+
+      {/* Fonctionnalités */}
+      <section className="bg-footer">
+        <FonctionnalitesSection />
+      </section>
+
+      {/* Partenaires */}
+      <section className="bg-partner">
+        <PartenairesSection />
+      </section>
 
     </div>
   );

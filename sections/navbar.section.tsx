@@ -9,7 +9,7 @@ export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Navbar isBordered className="px-6 bg-white text-black" position={"sticky"}>
+        <Navbar   className="px-6 bg-white sticky border-slate-300 border-1 text-black" position={"sticky"} isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
             <Button isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
                 <Menu size={24} />
