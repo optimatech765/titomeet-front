@@ -5,6 +5,7 @@ import { NextUiProvider } from "@/providers/nextui.provider";
 import { LangProvider } from "@/providers/lang.provider";
 import { NavbarSection } from "@/sections/navbar.section";
 import { FooterSection } from "@/sections/footer.section";
+import { SwitchThemeComponent } from "@/components/switch.theme.component";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,10 +49,12 @@ export default function RootLayout({
             <NavbarSection />
 
             {/* main */}
-            <main className="font-poppins">
+            <main className="font-poppins ">
               {children}
 
             </main>
+
+              {/* <SwitchThemeComponent /> */}
 
             {/* footer */}
             <FooterSection />

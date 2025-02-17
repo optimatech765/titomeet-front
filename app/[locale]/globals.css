@@ -6,8 +6,20 @@
 
 @layer components {
     .underline-hover {
-        @apply relative font-semibold text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1.5 
-               after:bg-secondary  after:transition-all after:duration-500 hover:after:w-full underline-offset-8 ;
+        @apply relative mt-1 font-semibold text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1.5 
+               after:bg-secondary  after:transition-all after:duration-500 hover:after:w-full underline-offset-[20px] ;
+    }
+
+    .information-text{
+        @apply text-gray-600 font-light text-sm;
+    }
+
+    .intormation-title{
+        @apply text-base font-semibold;
+    }
+
+    .information-title1{
+        @apply text-xl font-semibold;
     }
     
 }

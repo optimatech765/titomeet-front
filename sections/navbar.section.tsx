@@ -55,7 +55,7 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH underline-hover underline="active" as={Link} href="/evenements" className="font-semibold underline-hover text-black">
+                    <LinkH underline-hover underline="active" as={Link} href="/events" className="font-semibold underline-hover text-black">
                         Événements
                     </LinkH>
                 </NavbarItem>
@@ -70,12 +70,12 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="/login" className="font-semibold underline-hover text-black">
+                    <LinkH as={Link} href="/auth" className="font-semibold underline-hover text-black">
                         Se connecter
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} href="/register" color="secondary" variant="solid" className="rounded-full">
+                    <Button as={Link} href="/auth/register" color="secondary" variant="solid" className="rounded-full px-10">
                         S’inscrire
                     </Button>
                 </NavbarItem>

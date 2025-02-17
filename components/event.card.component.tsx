@@ -1,8 +1,8 @@
 "use client";
 
 
-import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
-import { CalendarDays, MapPin, Users, Clock, MapPinIcon, AlignHorizontalDistributeCenter } from "lucide-react";
+import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share, Share2 } from "lucide-react";
 import Image from "next/image";
 
 export const EventCardComponent = () => {
@@ -15,6 +15,23 @@ export const EventCardComponent = () => {
           layout="fill"
           objectFit="cover"
         />
+        <div className="absolute top-0 left-0 w-full h-full "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
+          <div className="absolute flex items-center justify-items-end justify-end w-full pt-4 pr-4  ">
+
+            <Button isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
+              <Share2 className="w-6 h-6 text-red-500 text-right " />
+            </Button>
+
+
+            <Button isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
+              <Heart className="w-6 h-6 text-red-500  text-right " />
+            </Button>
+
+          </div>
+
+        </div>
+
+
       </CardHeader>
 
       <CardBody className="pt-2">

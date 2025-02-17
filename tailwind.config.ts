@@ -19,6 +19,7 @@ export default {
       backgroundImage: {
         "hero-pattern": "url('/img/search-img.png')",
         "footer-pattern": "url('/img/footer-image.png')",
+        "auth-img": "url('/img/login-image.jpg')",
         footer:"linear-gradient(180deg, #FEEBEC 0%, #FFFFFF 100%)",
         gradiantBg: "linear-gradient(180deg, #FFFFFF 0%, #FEEBEC 51.14%)",
         partner:"linear-gradient(180deg, #FEFCFC 0%, #F4953E 100%),linear-gradient(180deg, #FEFCFC 0%, #F8BF8B 99.8%, #F4953E 100%);"
