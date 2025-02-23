@@ -21,5 +21,9 @@
     .information-title1{
         @apply text-xl font-semibold;
     }
+
+    .footer-link{
+        @apply text-sm font-light;
+    }
     
 }

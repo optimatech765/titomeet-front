@@ -1,4 +1,6 @@
 "use client"
+import { useI18n, useScopedI18n } from "@/locales/client";
+import { getI18n, getScopedI18n } from "@/locales/server";
 import { Button } from "@heroui/button";
 import { Card, Image, Input } from "@heroui/react";
 import { MapPinIcon, SearchIcon } from "lucide-react";
@@ -6,6 +8,9 @@ import NextImage from "next/image";
 
 
 export const HeroSection = () => {
+    const t = useI18n()
+    const landingT = useScopedI18n('landing')
+    const landingTButton = useScopedI18n('landing.button')
     return (
         <section className="bg-white px-3 md:px-7 lg:px-14 py-3">
             <div className="max-w-7xl mx-auto flex lg:flex-row  justify-between">
@@ -13,19 +18,19 @@ export const HeroSection = () => {
                 <div className="lg:w-1/2  lg:text-left space-y-7 mt-9">
                     <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
                         <p className="text-primary">Tit<span className="text-secondary" >o</span>meet,</p>
-                        <p className="text-black">Le plaisir de se retrouver</p>
+                        <p className="text-black">{landingT('title')}</p>
                     </h1>
                     <p className="text-gray-600 mt-4 text-lg">
-                        Participez à des événements uniques et créez des connexions authentiques.
+                        {landingT('description')}
                     </p>
 
                     {/* Boutons */}
                     <div className="mt-6 mb-4 flex sm:flex-row items-center gap-4">
                         <Button color="primary" radius="full" size="lg">
-                            Découvrir les évènements
+                        {landingTButton('first')}
                         </Button>
                         <Button color="secondary" variant="bordered" radius={"full"} size="lg">
-                            Créer un évènement
+                            {landingTButton('second')}
                         </Button>
                     </div>
 

@@ -7,15 +7,15 @@ import React from 'react';
 export const FooterSection = () => {
     return (
         <div className="">
-            <footer className="bg-footer-pattern bg-cover h-56 pt-11 px-10">
+            <footer className="bg-footer-pattern bg-cover min-h-56 pt-11 px-10">
 
-                <div className="grid gap-4 grid-cols-3">
+                <div className="md:grid gap-4 grid-cols-3">
                     <div className={"col-span-2"}>
-                        <div className="grid gap-4 grid-cols-3">
+                        <div className="md:grid gap-4 grid-cols-3">
                             <div>
 
                                 {/* <Image alt='logo ' src={"/img/footer-logo.png"} height={100} width={300} className={""} /> */}
-                                <p className={"font-poppins "} >
+                                <p className={"font-poppins footer-link "} >
                                     Rejoignez une communauté dynamique et vivez des événements uniques
                                 </p>
                                 
@@ -25,20 +25,20 @@ export const FooterSection = () => {
                             <div>
                                 <span className={"font-semibold font-poppins "} >Recevez les dernières actualités</span>
                                 <div>
-                                    <Link href={"#"} scroll={true} className='block'>Accueil</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Evenements</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Mes Evenements</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Services</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Accueil</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Evenements</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Mes Evenements</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Services</Link>
                                 </div>
                             </div>
 
                             <div>
                                 <span className={"font-semibold font-poppins "} >Aides</span>
                                 <div>
-                                    <Link href={"#"} scroll={true} className='block'>FAQ</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Conditions générales</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Politiques de confidentialité</Link>
-                                    <Link href={"#"} scroll={true} className='block'>Support client</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>FAQ</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Conditions générales</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Politiques de confidentialité</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>Support client</Link>
                                 </div>
                             </div>
                         </div>

@@ -44,7 +44,7 @@ export const EventCardComponent = () => {
           </div>
 
           <div>
-            <h3 className="text-lg text-black font-bold ">After Work Networking</h3>
+            <h3 className="text-lg text-black font-normal md:font-semibold xl:font-bold ">After Work Networking</h3>
             <p className="text-gray-600 text-sm mt-1">Lorem ipsum dolor sit amet,</p>
 
             <div className="mt-2 grid space-y-3 sm:space-y-0 sm:grid-cols-2 font-normal text-gray-700 text-sm">

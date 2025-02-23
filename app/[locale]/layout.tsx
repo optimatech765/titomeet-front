@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${geistSans.variable}  ${geistMono.variable} antialiased`}
+        className={`${poppins.variable} antialiased`}
       >
         <NextUiProvider>
           <LangProvider locale={params?.locale}>

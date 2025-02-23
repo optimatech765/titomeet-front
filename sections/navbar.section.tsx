@@ -4,12 +4,14 @@ import { Button, Drawer, DrawerContent, Link as LinkH, Navbar, NavbarBrand, Navb
 import { useState } from "react";
 import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
+import { LangSelect } from "@/locales/lang.select";
+import { SwitchThemeComponent } from "@/components/switch.theme.component";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Navbar   className="px-6 bg-white sticky border-slate-300 border-1 text-black" position={"sticky"} isBordered={true}>
+        <Navbar className="px-6 bg-white sticky justify-evenly border-slate-300 border-1 text-black" position={"sticky"} isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
             <Button isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
                 <Menu size={24} />
@@ -48,14 +50,14 @@ export const NavbarSection = () => {
 
 
             {/* Liens de navigation (cachés sur mobile) */}
-            <NavbarContent className="hidden md:flex gap-6">
+            <NavbarContent className="hidden lg:flex gap-6">
                 <NavbarItem isActive>
-                    <LinkH aria-current="page" underline-hover="active" as={Link} href="/" className="font-semibold underline-hover text-black">
+                    <LinkH aria-current="page"  as={Link} href="/" className="font-semibold underline-hover text-black">
                         Accueil
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH underline-hover underline="active" as={Link} href="/events" className="font-semibold underline-hover text-black">
+                    <LinkH  underline="active" as={Link} href="/events" className="font-semibold underline-hover text-black">
                         Événements
                     </LinkH>
                 </NavbarItem>
@@ -79,9 +81,19 @@ export const NavbarSection = () => {
                         S’inscrire
                     </Button>
                 </NavbarItem>
+
+                <NavbarItem>
+
+                    <LangSelect />
+
+
+                </NavbarItem>
+                <NavbarItem>
+                    <SwitchThemeComponent />
+                </NavbarItem>
             </NavbarContent>
 
-          
+
         </Navbar>
     );
 }

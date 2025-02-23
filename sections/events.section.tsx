@@ -37,7 +37,7 @@ export const EventsSection = () => {
 
     return (
         <div className="min-h-screen">
-            <div className="mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2 lg:grid-cols-3  gap-5 mt-9">
+            <div className="mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2 lg:grid-cols-3  gap-5 mt-2">
                 {items.map((item) => (
                     <EventCardComponent key={item} />
                 ))}

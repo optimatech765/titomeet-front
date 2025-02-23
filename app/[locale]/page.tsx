@@ -14,36 +14,24 @@ import { Button } from "@heroui/button";
 export default async function Home() {
 
   const t = await getI18n()
-  const landingT = await getScopedI18n('landing')
+  const landingTEvent = await getScopedI18n('landing.event')
 
 
   return (
     <div>
-      {/* <LangSelect /> */}
-      {/* <SwitchThemeComponent /> */}
 
       {/* Ajout du composant section hero */}
       <HeroSection />
 
-      {/* <Button
-        className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
-        radius="full"
-      >
-        {t('hello')}
-      </Button> */}
-      {/* <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-center">{landingT('title')}</h1>
-        <p className="text-center text-lg">{landingT('description')}</p>
-      </div> */}
-
+      {/* Section pour afficher les événements */}
       <div className="bg-gradiantBg py-20 px-7 md:px-14">
 
         <section className="pb-6">
 
 
           <div>
-            <h3 className="text-primary font-extrabold text-4xl font-poppins ">Evenements à venir</h3>
-            <span className="text-[#1E1E1E] text-base">Des événements exclusifs, des places limitées</span>
+            <h3 className="text-primary font-extrabold text-4xl font-poppins ">{landingTEvent('title')}</h3>
+            <span className="text-[#1E1E1E] text-base">{landingTEvent('description')}</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
           </div>
 

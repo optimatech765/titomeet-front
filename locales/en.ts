@@ -3,8 +3,16 @@ export default {
     'hello': 'Hello',
     'hello.world': 'Hello world!',
     'welcome': 'Hello {name}!',
-    'landing':{
-        'title': 'Welcome to Nextbol',
-        'description': 'Nextbol is a template for creating a new Next.js project with a beautiful UI and a lot of features.'
+    'landing': {
+        'title': 'The pleasure of getting together',
+        'description': 'Take part in unique events and make authentic connections.',
+        'button': {
+            'first': 'Discover the events',
+            'second': 'Create an event'
+        },
+        "event": {
+            "title": "Upcoming events",
+            "description": "Exclusive events, limited seating"
+        }
     }
-  } as const
+} as const
