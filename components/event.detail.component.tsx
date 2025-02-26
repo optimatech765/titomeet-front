@@ -1,10 +1,12 @@
 
 "use client";
-import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider } from "@heroui/react";
+import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure } from "@heroui/react";
 import { Calendar, ChevronLeft, Clock, Heart, MapPin, Users, Users2Icon, UsersIcon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
+import { EventRegisterModal } from "./event.register.modal";
 
 export const EventDetails = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <div>
 
@@ -108,8 +110,8 @@ export const EventDetails = () => {
                         </div>
 
                         <div className="mt-6 flex gap-2">
-                            <Button size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Rejoindre</Button>
-                            <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Rejoindre</Button>
+                            <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Participer</Button>
+                            <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
                         </div>
 
                     </div>
@@ -176,6 +178,13 @@ export const EventDetails = () => {
 
             </div>
 
+
+            {/* Ticket buy modal */}
+            <EventRegisterModal
+                isOpen={isOpen}
+                onClose={onClose}
+
+            />
         </div>
 
     );

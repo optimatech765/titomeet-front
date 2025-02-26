@@ -13,12 +13,12 @@ export const HorizontalEventCardComponent = () => {
             shadow="sm"
         >
             <div>
-                <section className="grid grid-cols-6 md:grid-cols-12 gap-1 justify-center">
+                <section className="sm:flex md:grid grid-cols-6 md:grid-cols-12 gap-1 justify-center">
                     <div className="relative col-span-6 md:col-span-3 ">
                         <Image
                             // as={Image}
                             alt="Album cover"
-                            className=" h-full "
+                            className=" h-full w-full "
                             src="/img/event-image.jpg"
                             width={300}
                             height={300}
@@ -76,12 +76,12 @@ export const HorizontalEventCardComponent2 = () => {
             shadow="sm"
         >
             <div>
-                <section className="grid grid-cols-6 md:grid-cols-12 gap-1 justify-center">
+                <section className="sm:flex md:grid grid-cols-6 md:grid-cols-12 gap-1 justify-center">
                     <div className="relative col-span-6 md:col-span-3 ">
                         <Image
                             // as={Image}
                             alt="Album cover"
-                            className=" h-full "
+                            className=" h-full w-full"
                             src="/img/event-image.jpg"
                             width={300}
                             height={300}

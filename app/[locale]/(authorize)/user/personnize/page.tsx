@@ -90,7 +90,7 @@ export default function InterestsSelection() {
                                         <button
                                             key={option}
                                             className={`px-3 py-1 rounded-full text-xs font-medium border  ${selected.includes(option)
-                                                ? "bg-red-500 text-white"
+                                                ? "bg-tertiary text-primary"
                                                 : "bg-gray-100 text-gray-700"
                                                 }`}
                                             onClick={() => toggleSelection(option)}

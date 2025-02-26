@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({
+export default async  function RootLayout({
   children,
   params
 }: Readonly<{
@@ -37,13 +37,15 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
 
+  const locale = await params.locale;
+
   return (
     <html lang="en">
       <body
         className={`${poppins.variable} antialiased`}
       >
         <NextUiProvider>
-          <LangProvider locale={params?.locale}>
+          <LangProvider locale={locale}>
             
             {/* navbar */}
             <NavbarSection />
