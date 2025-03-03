@@ -1,9 +1,10 @@
 "use client";
 
 import { EventCardComponent } from "@/components/event.card.component";
+import clsx from "clsx";
 import { useState, useEffect, useRef } from "react";
 
-export const EventsSection = () => {
+export const EventsSection = ({withSearch=false}: {withSearch?: boolean}) => {
     const [items, setItems] = useState(Array.from({ length: 9 }, (_, i) => i + 8));
     const [isLoading, setIsLoading] = useState(false);
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -36,8 +37,8 @@ export const EventsSection = () => {
     };
 
     return (
-        <div className="min-h-screen">
-            <div className="mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2 lg:grid-cols-3  gap-5 mt-2">
+        <div className="min-h-screen ">
+            <div className={clsx({"lg:grid-cols-3 xl:grid-cols-4":!withSearch,"xl:grid-cols-3":withSearch},"mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2   gap-5 mt-2")} >
                 {items.map((item) => (
                     <EventCardComponent key={item} />
                 ))}

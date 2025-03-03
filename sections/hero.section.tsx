@@ -12,8 +12,8 @@ export const HeroSection = () => {
     const landingT = useScopedI18n('landing')
     const landingTButton = useScopedI18n('landing.button')
     return (
-        <section className="bg-white px-3 md:px-7 lg:px-14 py-3">
-            <div className="max-w-7xl mx-auto flex lg:flex-row  justify-between">
+        <section className="bg-white  py-3">
+            <div className="section-container mx-auto flex lg:flex-row  justify-between">
                 {/* Texte et boutons */}
                 <div className="lg:w-1/2  lg:text-left space-y-7 mt-9">
                     <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
@@ -25,9 +25,9 @@ export const HeroSection = () => {
                     </p>
 
                     {/* Boutons */}
-                    <div className="mt-6 mb-4 flex sm:flex-row items-center gap-4">
+                    <div className="mt-6 mb-4 flex flex-col sm:flex-row items-center gap-4">
                         <Button color="primary" radius="full" size="lg">
-                        {landingTButton('first')}
+                            {landingTButton('first')}
                         </Button>
                         <Button color="secondary" variant="bordered" radius={"full"} size="lg">
                             {landingTButton('second')}
@@ -36,7 +36,7 @@ export const HeroSection = () => {
 
                     {/* Barre de recherche */}
 
-                    <div className="mt-14  h-[93px] bg-hero-pattern bg-red-100 p-2 rounded-md flex items-center gap-4 shadow-md">
+                    <div className="mt-14  min-h-[93px] bg-hero-pattern bg-red-100  p-2 rounded-md  flex flex-col md:flex-row items-center gap-4 shadow-md">
                         <Input
                             type="text"
                             placeholder="Rechercher événement"
@@ -54,8 +54,13 @@ export const HeroSection = () => {
                             size="lg"
                         />
 
-                        <Button isIconOnly className="bg-white text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+                        <Button isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
+                            <span className="md:hidden">Rechercher</span>
+                        </Button>
+                        <Button className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+                            <SearchIcon className="w-4 h-4 " />
+                            <span className="">Rechercher</span>
                         </Button>
                     </div>
 
@@ -63,7 +68,7 @@ export const HeroSection = () => {
                 </div>
 
                 {/* Image avec NextUI Card */}
-                <div className="lg:w-1/2 flex justify-end mt-4 ">
+                <div className="lg:w-1/2  justify-end mt-4 hidden lg:flex ">
                     <Card radius="lg" shadow="md" className="rounded-[160px] shadow-lg  max-h-[525px] max-w-[525px] overflow-hidden">
                         <Image
                             as={NextImage}

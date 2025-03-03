@@ -1,9 +1,9 @@
 import { Button, Card } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Check, CheckCircle, Clock, FilePenLine, MapPinIcon, MessageCircleMore, Share2 } from 'lucide-react';
+import { AlignHorizontalDistributeCenter, Check, CheckCircle, Clock, Eclipse, FilePenLine, MapPinIcon, MessageCircleMore, Share2, Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-export const PastEventJoined = () => {
+export const PastEndEventCard = () => {
     const [liked, setLiked] = React.useState(false);
     return (
         <Card
@@ -13,7 +13,7 @@ export const PastEventJoined = () => {
         >
             <div>
                 <section className="sm:grid grid-cols-6 sm:grid-cols-12 gap-1 justify-center">
-                    <div className="relative col-span-6 sm:col-span-3">
+                    <div className="relative col-span-6 sm:col-span-3 ">
                         <Image
                             // as={Image}
                             alt="Album cover"
@@ -61,8 +61,8 @@ export const PastEventJoined = () => {
 
                             </div>
                             <p className='font-normal text-xs text-[#6A6A6A] flex gap-1 items-center '>
-                                <Check className="w-4 h-4 bg-green-500 text-white rounded-full" />
-                                <span>inscrit</span>
+                                <Eclipse className="w-4 h-4 bg-primary text-white rounded-full" />
+                                <span>Terminé</span>
                             </p>
 
                             <div className="flex gap-2 items-center">
@@ -75,17 +75,8 @@ export const PastEventJoined = () => {
                                     radius='full'
                                     color='primary'
                                     className="mt-2 border-1 text-xs font-semibold text-primary">
-                                    Accéder à la discussion
-                                </Button>
-
-                                <Button
-                                    startContent={<FilePenLine className="w-4 h-4" />}
-                                    size='sm'
-                                    variant='ghost'
-                                    radius='full'
-                                    color='primary'
-                                    className="mt-2 border-1 text-xs font-semibold text-primary">
-                                    Modifier participation
+                                    <Star className="w-4 h-4 text-red-500" />
+                                    Laisser un avis
                                 </Button>
 
                             </div>
@@ -96,4 +87,3 @@ export const PastEventJoined = () => {
         </Card>
     );
 }
-

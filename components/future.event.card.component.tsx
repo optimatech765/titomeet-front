@@ -12,8 +12,8 @@ interface FutureEventCardComponentProps {
 
 export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({titleClass="text-primary", title = " Évènement futur", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
     return (
-        <Card>
-            <CardHeader className='flex justify-between items-center'>
+        <div className="overflow-auto space-y-3 border-1 border-gray-200 bg-white shadow-sm rounded-lg p-2">
+            <div className='flex justify-between items-center'>
                 <div>
                     <h3 className={`text-lg font-bold  ${titleClass}`}>
                         {title}
@@ -28,13 +28,13 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
                     </Link>
                 </div>
 
-            </CardHeader>
-            <CardBody className='space-y-2'>
+            </div>
+            <div className='space-y-2'>
                 <HorizontalEventCardComponent />
                 <HorizontalEventCardComponent />
 
-            </CardBody>
-        </Card>
+            </div>
+        </div>
     );
 }
 

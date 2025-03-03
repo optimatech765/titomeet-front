@@ -11,7 +11,7 @@ import React from 'react';
 
 const Page = () => {
     return (
-        <div className={"py-6 text-foreground p-10 space-y-3 mx-auto"}>
+        <div className={"py-6 text-foreground p-10 space-y-3 section-container"}>
 
             <h1 className="text-2xl font-extrabold md:flex gap-1 items-center">
                 Bienvenue, Nom d’utilisateur
@@ -37,11 +37,11 @@ const Page = () => {
                     <Divider />
 
                     <div>
-                        <EventsSection />
+                        <EventsSection withSearch={true} />
                     </div>
                 </div>
 
-                <div className='lg:col-span-4 space-y-3'>
+                <div className='lg:col-span-4 space-y-3  '>
                     <DateSelectComponent />
                     <FutureEventCardComponent />
 

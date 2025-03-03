@@ -34,11 +34,11 @@ export const HorizontalEventCardComponent = () => {
                         </div>
                         <div className="space-y-1">
                             <h2 className='text-xs font-bold'>After Work Networking</h2>
-                            <div className="mt-2 flex justify-between  w-full gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm"> 
+                            <div className="mt-2 flex flex-wrap justify-between  w-full gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm"> 
                                 <p className="flex items-center gap-0.5 text-xs font-light">
                                     <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
                                 </p>
-                                <p className="flex items-center  text-xs font-light gap-0.5 flex-1">
+                                <p className="flex items-center  text-xs font-light gap-0.5">
                                     <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
                                     <span>
                                         25 Participants
@@ -97,7 +97,7 @@ export const HorizontalEventCardComponent2 = () => {
                         </div>
                         <div className="space-y-1">
                             <h2 className='text-xs font-bold'>After Work Networking</h2>
-                            <div className="mt-2 flex gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm">
+                            <div className="mt-2 flex gap-2 items-center justify-between space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm">
                                 <p className="flex items-center gap-0.5 text-xs font-light">
                                     <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
                                 </p>
@@ -114,24 +114,24 @@ export const HorizontalEventCardComponent2 = () => {
                             </div>
 
 
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-1 items-center">
                                 <Button
-                                    startContent={<FilePenLine className="w-4 h-4" />}
+                                    startContent={<FilePenLine className="w-3 h-3" />}
                                     size='sm'
                                     variant='ghost'
                                     radius='full'
                                     color='primary'
-                                    className="mt-2 border-1 text-xs font-semibold text-primary">
+                                    className="mt-2 border-1 gap-1 px-1 text-xs font-medium text-primary">
                                    Modifier
                                 </Button>
 
                                 <Button
-                                    startContent={<MessageCircleMore className="w-4 h-4" />}
+                                    startContent={<MessageCircleMore className="w-3 h-3 mx-0" />}
                                     size='sm'
                                     variant='ghost'
                                     radius='full'
                                     color='primary'
-                                    className="mt-2 border-1 text-xs font-semibold text-primary">
+                                    className="mt-2 border-1 gap-1 px-1 text-xs font-medium text-primary">
                                     Accéder à la discussion
                                 </Button>
                             </div>

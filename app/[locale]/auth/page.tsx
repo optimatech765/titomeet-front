@@ -1,6 +1,5 @@
 "use client"
 import { Button, Checkbox, Input } from '@heroui/react';
-import { Facebook } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -20,7 +19,7 @@ const Page = () => {
 
             <div className="flex gap-4 justify-center mb-1">
                 <Button variant="flat" className="flex items-center gap-1 flex-1 h-9">
-                    <Image alt='dd' src={'/img/google.png'} width={100} height={50} className='h-4 w-4' /> Google
+                    <Image alt='dd' src={'/img/google.png'} width={120} height={70} className='h-5 w-6' /> Google
                 </Button>
                 <Button variant="flat" className="flex items-center gap-1 flex-1 h-9 ">
                     <Image alt='dd' src={'/img/facebook.png'} width={100} height={50} className='h-4 w-4' /> Facebook
@@ -44,12 +43,12 @@ const Page = () => {
 
             <div className="flex items-center justify-between mb-4">
                 <Checkbox title='Se souvenir' >Se souvenir</Checkbox>
-                <Link href="#" className="text-sm text-red-500 hover:underline">Mot de passe oublié?</Link>
+                <Link href="/auth/forgot-password" className="text-sm text-red-500 hover:underline">Mot de passe oublié?</Link>
             </div>
 
             <Button radius='full' className="w-full bg-red-500 hover:bg-red-600 text-white">Connexion</Button>
 
-            <p className="text-center mt-4 text-sm">
+            <p className="text-center mt-4 text-sm font-light">
                 Vous n'avez pas de compte? <Link href="/auth/register" className="text-red-500 underline">Inscrivez-vous</Link>
             </p>
         </div>

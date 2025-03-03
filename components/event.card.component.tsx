@@ -4,8 +4,10 @@
 import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
 import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share, Share2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export const EventCardComponent = () => {
+  const [favoris, setFavoris] = useState(false);
   return (
     <Card className="max-w-sm rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
       <CardHeader className="relative h-56 w-full overflow-hidden rounded-t-xl">
@@ -23,8 +25,13 @@ export const EventCardComponent = () => {
             </Button>
 
 
-            <Button isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
-              <Heart className="w-6 h-6 text-red-500  text-right " />
+            <Button isIconOnly
+              onPress={() => setFavoris(!favoris)}
+              className=" bg-white rounded-full p-3 ml-2  ">
+              <Heart className="w-6 h-6 text-red-500  text-right "
+                fill={favoris ? "red" : "white"}
+
+              />
             </Button>
 
           </div>
@@ -44,7 +51,7 @@ export const EventCardComponent = () => {
           </div>
 
           <div>
-            <h3 className="text-lg text-black font-normal md:font-semibold xl:font-bold ">After Work Networking</h3>
+            <h3 className="text-lg text-black font-normal md:font-semibold ">After Work Networking</h3>
             <p className="text-gray-600 text-sm mt-1">Lorem ipsum dolor sit amet,</p>
 
             <div className="mt-2 grid space-y-3 sm:space-y-0 sm:grid-cols-2 font-normal text-gray-700 text-sm">

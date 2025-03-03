@@ -8,8 +8,8 @@ import Image from "next/image";
 export const FonctionnalitesSection = () => {
     return (
         // bg-gradient-to-r from-red-50 to-pink-50
-        <section className=" p-10 rounded-xl">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <section className=" py-10 rounded-xl section-container">
+            <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 {/* Texte */}
                 <div>
                     <div className="space-y-1">
@@ -39,50 +39,62 @@ export const FonctionnalitesSection = () => {
                 </div>
 
                 {/* Images et Boutons */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 flex-end ">
 
-                    <div className="space-y-2">
+                    <div className="flex justify-end">
 
-                        <Card className="">
-                            <Image
-                                src="/img/function-Imagea.jpg"
-                                alt="Événement en groupe"
-                                width={300}
-                                height={200}
-                                className="rounded-lg object-cover"
-                            />
-                        </Card>
-                        <Button startContent={<SearchIcon hanging={20} width={20} />}
-                            as="a"
-                            href="/evenements"
-                            color="primary"
-                            variant="solid"
-                            className="w-full rounded-full "
-                        >
-                            Découvrir les événements
-                        </Button>
+                        <div className="w-fit space-y-2 flex flex-col justify-end">
+                            <div>
+                                <Image
+                                    src="/img/function-Imagea.jpg"
+                                    alt="Événement en groupe"
+                                    width={300}
+                                    height={200}
+                                    className="rounded-lg object-cover"
+                                />
+                            </div>
+                            <div>
+                                <Button startContent={<SearchIcon hanging={20} width={20} />}
+                                    as="a"
+                                    href="/evenements"
+                                    color="primary"
+                                    variant="solid"
+                                    className="w-full rounded-full "
+                                >
+                                    Découvrir les événements
+                                </Button>
+                            </div>
+
+
+                        </div>
+
                     </div>
 
-                    <div className="space-y-2">
-                        <Button startContent={<PlusIcon hanging={20} width={20} />}
-                            as="a"
-                            href="/creer-evenement"
-                            color="secondary"
-                            variant="solid"
-                            className="w-full  rounded-full "
-                        >
-                            Créer un événement
-                        </Button>
-                        <Card className=" flex flex-col justify-center items-center bg-secondary text-white">
-                            <Image
-                                src="/img/function-imageB.jpg"
-                                alt="Créer un événement"
-                                width={300}
-                                height={200}
-                                className="rounded-lg object-cover"
-                            />
+                    <div className="flex justify-end">
 
-                        </Card>
+                        <div className="w-fit space-y-2">
+                            <Button startContent={<PlusIcon hanging={20} width={20} />}
+                                as="a"
+                                href="/creer-evenement"
+                                color="secondary"
+                                variant="solid"
+                                className="w-full  rounded-full "
+                            >
+                                Créer un événement
+                            </Button>
+                            <div className=" ">
+                                <Image
+                                    src="/img/function-imageB.jpg"
+                                    alt="Créer un événement"
+                                    width={300}
+                                    height={200}
+                                    objectFit="cover"
+                                    className="rounded-lg object-cover"
+                                />
+                            </div>
+
+
+                        </div>
                     </div>
 
 

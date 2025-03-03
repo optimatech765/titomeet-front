@@ -4,9 +4,11 @@ import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader
 import { Calendar, ChevronLeft, Clock, Heart, MapPin, Users, Users2Icon, UsersIcon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
+import { PaiementModalComponent } from "./paiement.modal.component";
 
 export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isOpenPaiement, onOpen: onOpenPaiement, onClose: onClosePaiement } = useDisclosure();
     return (
         <div>
 
@@ -182,8 +184,16 @@ export const EventDetails = () => {
             {/* Ticket buy modal */}
             <EventRegisterModal
                 isOpen={isOpen}
-                onClose={onClose}
+                onClose={() => {
+                    onClose();
+                    onOpenPaiement();
+                }}
 
+            />
+
+            <PaiementModalComponent
+                isOpen={isOpenPaiement}
+                onClose={onClosePaiement}
             />
         </div>
 

@@ -1,19 +1,19 @@
 "use client";
 
-import { Button, Drawer, DrawerContent, Link as LinkH, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import { Avatar, Button, Drawer, DrawerContent, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Link as LinkH, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import { useState } from "react";
-import { Menu } from "lucide-react"; // Icône de menu
+import { Bell, MapPinIcon, Menu, MessageCircleMore } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import { LangSelect } from "@/locales/lang.select";
 import { SwitchThemeComponent } from "@/components/switch.theme.component";
 
-export const NavbarSection = () => {
+export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <Navbar
             maxWidth="full"
-            className=" bg-white section-container gap-20  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" bg-white gap-20 section-container  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
             isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
@@ -22,7 +22,17 @@ export const NavbarSection = () => {
             </Button>
             {/* Logo */}
             <NavbarBrand>
-                <img src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
+                <div className="flex items-center gap-2 flex-1">
+                    <img src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
+                    <Input
+                        startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
+                        radius="full"
+                        placeholder="Localisation"
+                        className="ml-4 rounded-full hidden md:block max-w-xs"
+                        size="sm"
+                    />
+                </div>
+
             </NavbarBrand>
 
             <NavbarContent className="lg:hidden">
@@ -61,29 +71,54 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH underline="active" as={Link} href="/events" className="font-semibold underline-hover text-black">
+                    <LinkH underline="active" as={Link} href="/user/events" className="font-semibold underline-hover text-black">
                         Événements
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="/categories" className="font-semibold underline-hover text-black">
-                        Catégories
+                    <LinkH as={Link} href="/user/our-events" className="font-semibold underline-hover text-black">
+                        Mes évènements
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="/fonctionnalites" className="font-semibold underline-hover text-black">
-                        Fonctionnalités
+                    <LinkH as={Link} href="/services" className="font-semibold underline-hover text-black">
+                        Services
                     </LinkH>
                 </NavbarItem>
+
                 <NavbarItem>
-                    <LinkH as={Link} href="/auth" className="font-semibold underline-hover text-black">
-                        Se connecter
+                    <LinkH
+
+                        as={Link}
+                        href="/message"
+                        className="font-semibold underline-hover text-black"
+                    >
+                        <MessageCircleMore className="w-10 h-10 text-white" fill={"#ee3540"} />
+
                     </LinkH>
                 </NavbarItem>
+
                 <NavbarItem>
-                    <Button as={Link} href="/auth/register" color="secondary" variant="solid" className="rounded-full px-10">
-                        S’inscrire
-                    </Button>
+                    <LinkH as={Link} href="/notifications" className="font-semibold underline-hover text-black">
+                        <Bell className="w-8 h-8 text-primary" fill={"#ee3540"} />
+                    </LinkH>
+                </NavbarItem>
+
+                <NavbarItem>
+
+
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Avatar name={"USR"} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
+                            <DropdownItem key="new">Profil</DropdownItem>
+                            <DropdownItem key="delete" className="text-danger" color="danger">
+                                <Link href="/auth">Se déconnecter</Link>
+                                {/* Se déconnecter */}
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
                 </NavbarItem>
 
                 <NavbarItem>

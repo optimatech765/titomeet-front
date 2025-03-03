@@ -24,9 +24,9 @@ export default async function Home() {
       <HeroSection />
 
       {/* Section pour afficher les événements */}
-      <div className="bg-gradiantBg py-20 px-7 md:px-14">
+      <div className="bg-gradiantBg py-20">
 
-        <section className="pb-6">
+        <section className="pb-6 section-container">
 
 
           <div>
@@ -46,7 +46,7 @@ export default async function Home() {
         </section>
 
         {/* Catégories */}
-        <section className="pt-6 mt-6">
+        <section className="pt-6 mt-6 section-container">
           <div className="space-y-1">
             <h3 className="text-primary font-extrabold text-4xl font-poppins text-center ">Categories d’evenements</h3>
             <span className="text-[#1E1E1E] text-base text-center block">Trouvez l’événement qui vous correspond</span>

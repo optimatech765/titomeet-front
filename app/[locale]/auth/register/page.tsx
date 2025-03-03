@@ -48,14 +48,24 @@ const Page = () => {
             </div>
 
 
-            <div className="flex items-center justify-between mb-4">
-                <Checkbox title='Se souvenir' >Se souvenir</Checkbox>
-                <Link href="#" className="text-sm text-red-500 hover:underline">Mot de passe oublié?</Link>
+            <div className="flex items-center font-extralight  justify-between mb-4">
+                <Checkbox title='Se souvenir' >“J’accepte les
+                    <span className="text-sm font-normal mx-1">
+                        CGU
+                    </span>
+
+                    et la
+                    <span className="text-sm font-normal ml-1">
+                        Politique de confidentialité
+                    </span>
+
+                </Checkbox>
+
             </div>
 
             <Button radius='full' className="w-full bg-red-500 hover:bg-red-600 text-white">Connexion</Button>
 
-            <p className="text-center mt-4 text-sm">
+            <p className="text-center mt-4 font-light text-sm">
                 Vous avez déjà un compte? <Link href="/auth" className="text-red-500 underline">Connectez-vous</Link>
             </p>
         </div>

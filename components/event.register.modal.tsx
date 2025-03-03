@@ -7,7 +7,6 @@ import {
     ModalBody,
     ModalFooter,
     Button,
-    useDisclosure,
     Input,
 } from "@heroui/react";
 import { Plus } from "lucide-react";
@@ -20,7 +19,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
     return (
         <>
-            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
+            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{closeButton: 'text-primary'}}>
                 <ModalContent>
                     {(onClose) => (
                         <>

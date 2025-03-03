@@ -53,11 +53,11 @@ export const FooterSection = () => {
                             <Input
                                 radius='full'
                                 size='lg'
-                                className="w-auto rounded-full  px-4 py-2 text-sm text-gray-70 focus:ring-primary focus:border-primary focus:outline-none focus:ring-1 sm:text-sm"
+                                className="w-auto pr-0 rounded-full  px-4 py-2 text-sm text-gray-70 focus:ring-primary focus:border-primary focus:outline-none focus:ring-1 sm:text-sm"
                                 placeholder="Email"
                                 type="email"
                                 endContent={
-                                    <div className='p-3'>
+                                    <div className='mx-0'>
                                         <Button className="bg-primary text-white rounded-full my-2 px-4 py-2">
                                             S'inscrire
                                         </Button>

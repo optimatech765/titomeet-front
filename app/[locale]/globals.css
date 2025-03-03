@@ -25,6 +25,10 @@
     .footer-link{
         @apply text-sm font-light;
     }
+
+    .section-container{
+        @apply px-3 md:px-7 lg:px-14;
+    }
     
 }
 
@@ -38,4 +42,8 @@
     /* Firefox */
     -ms-overflow-style: none;
     /* IE & Edge */
+}
+
+header{
+    width: 100vw !important;
 }
