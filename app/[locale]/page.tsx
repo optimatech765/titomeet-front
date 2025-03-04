@@ -1,7 +1,4 @@
 
-import { EventCardComponent } from "@/components/event.card.component";
-import { SwitchThemeComponent } from "@/components/switch.theme.component";
-import { LangSelect } from "@/locales/lang.select";
 import { getI18n, getScopedI18n } from "@/locales/server";
 import { CategorieSection } from "@/sections/categorie.section";
 import { EventsSection } from "@/sections/events.section";
