@@ -6,6 +6,7 @@ import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import { LangSelect } from "@/locales/lang.select";
 import { SwitchThemeComponent } from "@/components/switch.theme.component";
+import Image from "next/image";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,13 +17,15 @@ export const NavbarSection = () => {
             className=" bg-white section-container gap-20  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
             isBordered={true}>
+
             {/* Menu burger (affiché sur mobile) */}
             <Button isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
-                <Menu size={24} />
+                <Menu size={24} className="text-primary" />
             </Button>
+
             {/* Logo */}
             <NavbarBrand>
-                <img src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
+                <Image height={40} width={40} src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
             </NavbarBrand>
 
             <NavbarContent className="lg:hidden">
