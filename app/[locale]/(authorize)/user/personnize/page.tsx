@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/button";
-import { Card, CardBody, Divider } from "@heroui/react";
+import { Card} from "@heroui/react";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";

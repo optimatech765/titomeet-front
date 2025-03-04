@@ -1,10 +1,9 @@
 import { Button, Card } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Check, CheckCircle, Clock, FilePenLine, MapPinIcon, MessageCircleMore, Share2 } from 'lucide-react';
+import { AlignHorizontalDistributeCenter, Check, Clock, FilePenLine, MapPinIcon, MessageCircleMore, Share2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 export const PastEventJoined = () => {
-    const [liked, setLiked] = React.useState(false);
     return (
         <Card
             isBlurred

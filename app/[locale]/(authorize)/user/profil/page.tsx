@@ -1,7 +1,7 @@
 "use client";
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
 import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
-import { Camera, FilePenLine, MapPin, MapPinIcon, Pencil } from "lucide-react";
+import { Camera, FilePenLine, MapPinIcon, Pencil } from "lucide-react";
 
 const UserProfile = () => {
     return (

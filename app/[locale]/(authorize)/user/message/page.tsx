@@ -1,9 +1,7 @@
 "use client"
-import { ChatFileUploader, MultiImageUploader } from "@/components/chat.uploader.composant";
 import { Avatar, Card, Input, Button, Divider, CardBody, Switch, Link } from "@heroui/react";
 import clsx from "clsx";
 import { Search, Send, Info, Image as Picture, CheckCheck, Link2, ExternalLink, AlignHorizontalDistributeCenter, File, Play, X, EllipsisVertical, Share2, Mic } from "lucide-react";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 export default function ChatInterface() {

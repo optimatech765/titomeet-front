@@ -13,25 +13,8 @@ const months = [
     "Juil " + year, "Août " + year, "Sep " + year, "Oct " + year, "Nov " + year, "Déc " + year
 ];
 
-const mois = [
-    { key: `Jan ${year}`, label: `Janvier ${year}` },
-    { key: `Fév ${year}`, label: `Février ${year}` },
-    { key: `Mar ${year}`, label: `Mars ${year}` },
-    { key: `Avr ${year}`, label: `Avril ${year}` },
-    { key: `Mai ${year}`, label: `Mai ${year}` },
-    { key: `Juin ${year}`, label: `Juin ${year}` },
-    { key: `Juil ${year}`, label: `Juillet ${year}` },
-    { key: `Août ${year}`, label: `Août ${year}` },
-    { key: `Sep ${year}`, label: `Septembre ${year}` },
-    { key: `Oct ${year}`, label: `Octobre ${year}` },
-    { key: `Oct ${year}`, label: `Novembre ${year}` },
-    { key: `Déc ${year}`, label: `Décembre ${year}` }
-];
-
 const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 
-// Fonction pour obtenir le nombre de jours dans un mois donné
-const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
 
 export const DateSelectComponent = () => {
     const [selectedDate, setSelectedDate] = useState<number>(14);
@@ -41,7 +24,7 @@ export const DateSelectComponent = () => {
     const [weekDays, setWeekDays] = useState<number[][]>(getMonthWeeks(year, selectedMonth));
 
     const handleMonthChange = (value: number) => {
-        let newMonth = months[value];
+        const newMonth = months[value];
         const [month, year] = newMonth.split(' ');
         console.log(month, year);
         setSelectedMonth(value);
@@ -164,7 +147,7 @@ export const DateSelectComponent = () => {
 
             {/* Jours du mois */}
             <div className="grid grid-cols-7 gap-2 text-center mt-2">
-                {daysOfWeek.map((day, i) => {
+                {daysOfWeek.map((day) => {
                     <>
                         {day != 0 &&
                             <>

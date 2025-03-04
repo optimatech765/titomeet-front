@@ -1,6 +1,6 @@
 import { Button, Card, CardBody, CardHeader } from '@heroui/react';
 import React from 'react';
-import { HorizontalEventCardComponent, HorizontalEventCardComponent2 } from './horizontal.event.card.component';
+import { HorizontalEventCardComponent2 } from './horizontal.event.card.component';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 

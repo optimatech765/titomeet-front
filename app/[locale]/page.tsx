@@ -1,5 +1,5 @@
 
-import { getI18n, getScopedI18n } from "@/locales/server";
+import { getScopedI18n } from "@/locales/server";
 import { CategorieSection } from "@/sections/categorie.section";
 import { EventsSection } from "@/sections/events.section";
 import { FonctionnalitesSection } from "@/sections/fonctionnalitie.section";
@@ -10,7 +10,6 @@ import { Button } from "@heroui/button";
 
 export default async function Home() {
 
-  const t = await getI18n()
   const landingTEvent = await getScopedI18n('landing.event')
 
 

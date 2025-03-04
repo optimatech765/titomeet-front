@@ -49,7 +49,7 @@ const Page = () => {
             <Button radius='full' className="w-full bg-red-500 hover:bg-red-600 text-white">Connexion</Button>
 
             <p className="text-center mt-4 text-sm font-light">
-                Vous n'avez pas de compte? <Link href="/auth/register" className="text-red-500 underline">Inscrivez-vous</Link>
+                Vous n&apos;avez pas de compte? <Link href="/auth/register" className="text-red-500 underline">Inscrivez-vous</Link>
             </p>
         </div>
     );

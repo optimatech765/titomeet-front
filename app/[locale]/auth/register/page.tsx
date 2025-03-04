@@ -1,6 +1,5 @@
 "use client"
 import { Button, Checkbox, Input } from '@heroui/react';
-import { Facebook } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';

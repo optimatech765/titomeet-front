@@ -1,4 +1,6 @@
-import { Card, CardBody, CardHeader } from '@heroui/react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 import { HorizontalEventCardComponent } from './horizontal.event.card.component';
 import Link from 'next/link';

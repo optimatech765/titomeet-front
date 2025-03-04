@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { DateSelectComponent } from '@/components/date.select.component';
 import { PastEndEventCard } from '@/components/past.end.event.card';
@@ -6,7 +7,7 @@ import { PubCardComponent } from '@/components/pub.card.component';
 import { EventsSection } from '@/sections/events.section';
 import { EventsTabsComponent } from '@/sections/events.tabs.section';
 import { FilterSection2 } from '@/sections/filter.section';
-import { DateInput, Divider, Input } from '@heroui/react';
+import { DateInput, Divider, } from '@heroui/react';
 import { CalendarIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { CalendarDate, parseDate } from "@internationalized/date";

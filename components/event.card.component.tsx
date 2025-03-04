@@ -1,8 +1,8 @@
 "use client";
 
 
-import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
-import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share, Share2 } from "lucide-react";
+import { Button, Card, CardBody, CardHeader } from "@heroui/react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 

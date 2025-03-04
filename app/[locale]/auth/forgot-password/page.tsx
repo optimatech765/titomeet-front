@@ -1,5 +1,5 @@
 "use client"
-import { Button, Checkbox, Input } from '@heroui/react';
+import { Button, Input } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';

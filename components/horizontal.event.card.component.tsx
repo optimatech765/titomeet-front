@@ -1,11 +1,10 @@
 "use client"
-import { Button, Card, CardBody, Image as ImageUi, Slider } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Clock, FilePenLine, HeartIcon, MapPinIcon, MessageCircleMore } from 'lucide-react';
+import { Button, Card,  } from '@heroui/react';
+import { AlignHorizontalDistributeCenter, Clock, FilePenLine, MapPinIcon, MessageCircleMore } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 export const HorizontalEventCardComponent = () => {
-    const [liked, setLiked] = React.useState(false);
     return (
         <Card
             isBlurred
@@ -68,7 +67,6 @@ export const HorizontalEventCardComponent = () => {
 }
 
 export const HorizontalEventCardComponent2 = () => {
-    const [liked, setLiked] = React.useState(false);
     return (
         <Card
             isBlurred

@@ -3,11 +3,10 @@ import { Button, Card, Progress } from "@heroui/react";
 import clsx from "clsx";
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass, MapPinIcon, MessageCircleMore, Star, User } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 
 
 export const PublishEventCardComponent = ({ status = "draft", withDate = true }: { status?: string, withDate?: boolean }) => {
-    const [liked, setLiked] = useState(false);
+   
     return (
         <Card
             isBlurred

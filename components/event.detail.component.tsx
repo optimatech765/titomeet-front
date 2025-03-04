@@ -1,7 +1,7 @@
 
 "use client";
 import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure } from "@heroui/react";
-import { Calendar, ChevronLeft, Clock, Heart, MapPin, Users, Users2Icon, UsersIcon } from "lucide-react";
+import { Calendar, ChevronLeft, Clock,  MapPin, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
 import { PaiementModalComponent } from "./paiement.modal.component";
@@ -150,7 +150,7 @@ export const EventDetails = () => {
                         <Card className="mt-6 bg-transparent ">
                             <CardBody>
                                 <h2 className="information-title1">Groupe de discussion</h2>
-                                <p className="text-gray-600">Rejoignez le groupe de discussion de l'événement.</p>
+                                <p className="text-gray-600">Rejoignez le groupe de discussion de l&apos;événement.</p>
                                 <AvatarGroup  >
                                     <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
                                     <Avatar src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />

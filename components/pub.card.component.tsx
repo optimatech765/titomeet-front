@@ -1,5 +1,4 @@
 import {Image} from "@heroui/react";
-import NextImage from "next/image";
 
 export const PubCardComponent = () => {
   return (
