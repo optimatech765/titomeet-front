@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Switch } from '@heroui/react';
 import { useTheme } from 'next-themes';
@@ -16,7 +17,7 @@ export const SwitchThemeComponent = () => {
     return (
         <div>
 
-            <Switch size={"md"} startContent={<SunIcon />} endContent={<MoonIcon />} isSelected={theme === "dark"} onChange={() => setTheme(theme === "dark" ? "light" : "dark")} />
+            <Switch size={"md"} startContent={<SunIcon />} endContent={<MoonIcon />} isSelected={theme === "dark"} onChange={() => setTheme(theme === "light" ? "dark" : "light")} />
         </div>
     );
 }

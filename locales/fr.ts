@@ -4,7 +4,15 @@ export default {
   'hello.world': 'Bonjour le monde!',
   'welcome': 'Bonjour {name}!',
   'landing': {
-    'title': 'Bienvenue sur Nextbol',
-    'description': 'Nextbol est un template pour créer un nouveau projet Next.js avec une belle interface utilisateur et beaucoup de fonctionnalités.'
+    'title': 'Le plaisir de se retrouver',
+    'description': 'Participez à des événements uniques et créez des connexions authentiques.',
+    'button': {
+      'first': ' Découvrir les évènements',
+      'second': 'Créer un évènement'
+    },
+    "event": {
+      "title": "Evenements à venir",
+      "description": "Des événements exclusifs, des places limitées "
+    }
   }
 } as const

@@ -1,11 +1,13 @@
 "use client";
 
 
-import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
-import { CalendarDays, MapPin, Users, Clock, MapPinIcon, AlignHorizontalDistributeCenter } from "lucide-react";
+import { Button, Card, CardBody, CardHeader } from "@heroui/react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export const EventCardComponent = () => {
+  const [favoris, setFavoris] = useState(false);
   return (
     <Card className="max-w-sm rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
       <CardHeader className="relative h-56 w-full overflow-hidden rounded-t-xl">
@@ -15,6 +17,28 @@ export const EventCardComponent = () => {
           layout="fill"
           objectFit="cover"
         />
+        <div className="absolute top-0 left-0 w-full h-full "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
+          <div className="absolute flex items-center justify-items-end justify-end w-full pt-4 pr-4  ">
+
+            <Button isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
+              <Share2 className="w-6 h-6 text-red-500 text-right " />
+            </Button>
+
+
+            <Button isIconOnly
+              onPress={() => setFavoris(!favoris)}
+              className=" bg-white rounded-full p-3 ml-2  ">
+              <Heart className="w-6 h-6 text-red-500  text-right "
+                fill={favoris ? "red" : "white"}
+
+              />
+            </Button>
+
+          </div>
+
+        </div>
+
+
       </CardHeader>
 
       <CardBody className="pt-2">
@@ -27,7 +51,7 @@ export const EventCardComponent = () => {
           </div>
 
           <div>
-            <h3 className="text-lg text-black font-bold ">After Work Networking</h3>
+            <h3 className="text-lg text-black font-normal md:font-semibold ">After Work Networking</h3>
             <p className="text-gray-600 text-sm mt-1">Lorem ipsum dolor sit amet,</p>
 
             <div className="mt-2 grid space-y-3 sm:space-y-0 sm:grid-cols-2 font-normal text-gray-700 text-sm">
