@@ -8,17 +8,12 @@ export const PaiementModalComponent = ({ isOpen, onClose }: {
 }) => {
     return (
         <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}  classNames={{closeButton: 'text-primary'}}>
-            <ModalContent 
-            
-            >
+            <ModalContent >
                 {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1"
-                       
-
-                        >
-                            <div className=" gap-2">
-                                <h3 className="text-2xl font-semibold  text-center">
+                        <ModalHeader>
+                            <div>
+                                <h3 className="text-2xl  font-semibold  text-center">
                                     Methode de paiment
                                 </h3>
                                 <p className="text-sm font-light text-center">

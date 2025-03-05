@@ -1,20 +1,23 @@
 
 import { Button, Input, Select, SelectItem } from '@heroui/react';
-import { LayoutDashboard, LayoutGrid, MapPin, Search, SearchIcon } from 'lucide-react';
+import { LayoutGrid, MapPin, Search, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 export const FilterSection = () => {
     return (
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-5'>
 
             <Input
+                className={"col-span-2"}
                 startContent={<Search className={"text-primary "} />}
                 placeholder="Rechercher"
                 radius='full'
+                width={300}
             />
 
             <Select
+                 className={"col-span-1"}
                 radius='full'
                 placeholder="Distance"
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
@@ -25,6 +28,7 @@ export const FilterSection = () => {
             </Select>
 
             <Select
+                 className={"col-span-2"}
                 radius='full'
                 placeholder="Centre d'intérêt"
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 
 export const PublishEventCardComponent = ({ status = "draft", withDate = true }: { status?: string, withDate?: boolean }) => {
-   
+
     return (
         <Card
             isBlurred
@@ -51,20 +51,25 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
 
 
                         </div>
-                        <div className={"flex-1 flex items-center gap-1 "}>
-                            <p className="flex items-center  text-xs font-light gap-0.5">
-                                <User className="w-4 h-4 text-white" fill="red" />
-                                <span>
-                                    25 Par/45
-                                </span>
 
-                            </p>
-                            <Progress
-                                classNames={{
-                                    indicator: "bg-[#22d3ee]"
-                                }}
-                                value={25} size="md" aria-label="Loading..." className="w-full flex-1" />
-                        </div>
+                        {(status !== "programming" && status !== "draft") && <>
+                            <div className={"flex-1 flex items-center gap-1 "}>
+                                <p className="flex items-center  text-xs font-light gap-0.5">
+                                    <User className="w-4 h-4 text-white" fill="red" />
+                                    <span>
+                                        25 Par/45
+                                    </span>
+
+                                </p>
+                                <Progress
+                                    classNames={{
+                                        indicator: "bg-[#22d3ee]"
+                                    }}
+                                    value={25} size="md" aria-label="Loading..." className="w-full flex-1" />
+                            </div>
+                        </>
+                        }
+
 
                         {/* Pour les évènement programmés */}
                         {status === "programming" &&
