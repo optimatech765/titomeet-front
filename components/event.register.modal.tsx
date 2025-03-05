@@ -19,12 +19,12 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
     return (
         <>
-            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{closeButton: 'text-primary'}}>
+            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">
-                                <div className=" gap-2">
+                            <ModalHeader>
+                                <div>
                                     <h3 className="text-2xl font-semibold  text-center">
                                         Confirmation de l’inscription
                                     </h3>

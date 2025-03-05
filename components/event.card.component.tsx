@@ -1,8 +1,8 @@
 "use client";
 
 
-import { Button, Card, CardBody, CardHeader } from "@heroui/react";
-import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2 } from "lucide-react";
+import { Button, Card, CardHeader } from "@heroui/react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2, Ticket } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -41,8 +41,8 @@ export const EventCardComponent = () => {
 
       </CardHeader>
 
-      <CardBody className="pt-2">
-        <div className="flex gap-4">
+      <div className="py-2 pl-2 pr-0">
+        <div className="flex gap-2">
           <div className="">
             <div className="text-center  py-1 rounded-lg font-bold ">
               <p className="text-2xl font-bold text-black">14</p>
@@ -50,27 +50,32 @@ export const EventCardComponent = () => {
             </div>
           </div>
 
-          <div>
+          <div className="flex-1">
             <h3 className="text-lg text-black font-normal md:font-semibold ">After Work Networking</h3>
             <p className="text-gray-600 text-sm mt-1">Lorem ipsum dolor sit amet,</p>
 
-            <div className="mt-2 grid space-y-3 sm:space-y-0 sm:grid-cols-2 font-normal text-gray-700 text-sm">
-              <p className="flex items-center gap-2">
-                <MapPinIcon fill="red" className="w-4 h-4 text-white" /> Cotonou
-              </p>
-              <p className="flex items-center gap-2">
-                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" /> 25 Participants
-              </p>
-              <p className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-white" fill="red" /> 15:00
-              </p>
-              <p className="flex items-center gap-2 text-red-500">
-                GRATUIT
-              </p>
+            <div className="mt-2 flex flex-wrap justify-between items-center font-normal text-gray-700 text-sm">
+              <div className="flex items-center gap-0.5 flex-1">
+                <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> Cotonou
+              </div>
+              <div className="flex items-center gap-0.5 flex-1">
+                <AlignHorizontalDistributeCenter className="w-5 h-5 text-white mx-0" fill="red" /> 25 Participants
+              </div>
+
+            </div>
+            <div className="mt-2 flex flex-wrap justify-between items-center font-normal text-gray-700 text-sm">
+
+              <div className="flex items-center gap-0.5 flex-1">
+                <Clock className="w-5 h-5 text-white mx-0" fill="red" /> 15:00
+              </div>
+              <div className="flex items-center gap-0.5 text-red-500 flex-1">
+                <Ticket className="w-5 h-5 text-white mx-0" fill="red" />
+                Gratuit
+              </div>
             </div>
           </div>
         </div>
-      </CardBody>
+      </div>
     </Card>
   );
 }

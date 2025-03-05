@@ -1,6 +1,6 @@
 import { Button, Card, CardBody, CardHeader } from '@heroui/react';
 import React from 'react';
-import { HorizontalEventCardComponent2 } from './horizontal.event.card.component';
+import { HorizontalEventCardComponent } from './horizontal.event.card.component';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 
@@ -27,8 +27,8 @@ export const MyEventEventCardComponent = () => {
 
             </CardHeader>
             <CardBody className='space-y-2'>
-                <HorizontalEventCardComponent2 />
-                <HorizontalEventCardComponent2 />
+                <HorizontalEventCardComponent />
+                <HorizontalEventCardComponent />
 
             </CardBody>
         </Card>

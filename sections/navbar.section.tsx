@@ -19,8 +19,8 @@ export const NavbarSection = () => {
             isBordered={true}>
 
             {/* Menu burger (affiché sur mobile) */}
-            <Button isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
-                <Menu size={24} className="text-primary" />
+            <Button isIconOnly variant="light" className="lg:hidden text-primary" onPress={() => setIsOpen(true)}>
+                <Menu size={24} className="text-primary" fill="#ee3540" />
             </Button>
 
             {/* Logo */}

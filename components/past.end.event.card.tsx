@@ -1,5 +1,5 @@
 import { Button, Card } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPinIcon, MessageCircleMore, Share2, Star } from 'lucide-react';
+import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPinIcon, Share2, Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -44,7 +44,7 @@ export const PastEndEventCard = () => {
                         </div>
                         <div className="space-y-1 flex flex-col justify-between justify-items-stretch ">
                             <h2 className='text-xs font-bold'>After Work Networking</h2>
-                            <div className="mt-2 flex justify-between  w-full gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm">
+                            <div className="mt-2 flex flex-wrap justify-between  w-full gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm">
                                 <p className="flex items-center gap-0.5 text-xs font-light">
                                     <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
                                 </p>
@@ -68,7 +68,7 @@ export const PastEndEventCard = () => {
 
 
                                 <Button
-                                    startContent={<MessageCircleMore className="w-4 h-4" />}
+                                   
                                     size='sm'
                                     variant='ghost'
                                     radius='full'

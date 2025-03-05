@@ -1,7 +1,7 @@
 
 "use client";
 import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure } from "@heroui/react";
-import { Calendar, ChevronLeft, Clock,  MapPin, Users2Icon } from "lucide-react";
+import { Calendar, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
 import { PaiementModalComponent } from "./paiement.modal.component";
@@ -10,9 +10,9 @@ export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isOpenPaiement, onOpen: onOpenPaiement, onClose: onClosePaiement } = useDisclosure();
     return (
-        <div>
+        <div className={""}>
 
-            <div className="container mx-auto p-6 mb-12">
+            <div className=" mx-auto p-6 mb-12 section-container">
                 <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                     <ChevronLeft className="text-black" />
                     Détails de l’évènement
@@ -40,16 +40,19 @@ export const EventDetails = () => {
                         <span className={"intormation-title"}>12/02/25</span>
                     </p>
                     <div className="flex items-center gap-4 text-sm text-black mt-4">
-                        <span className="flex items-center gap-1 font-normal text-lg">
-                            <Calendar size={18} /> Samedi 14 Avril 2025
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <MapPin size={18} /> Cotonou
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <Clock size={18} /> 15:00
-                        </span>
-                        <span className="text-black font-semibold">Gratuit</span>
+                        <p className="flex items-center gap-1 font-normal text-lg">
+                            <Calendar  className="w-5 h-5 text-primary mx-0" />
+                            Samedi 14 Avril 2025
+                        </p>
+                        <p className="flex items-center gap-1">
+                            <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> Cotonou
+                        </p>
+                        <p className="flex items-center gap-1">
+                            <Clock className="w-5 h-5 text-white mx-0" fill="red" /> 15:00
+                        </p>
+                        <p className="text-black flex items-center gap-1 font-semibold">
+                            <Ticket className="w-5 h-5 text-white mx-0" fill="red" />
+                            Gratuit</p>
                     </div>
                 </div>
 
@@ -84,7 +87,11 @@ export const EventDetails = () => {
                                             </h2>
                                             <div className={"flex-1"}>
 
-                                                <Progress value={25} size="sm" color="secondary" className="w-full flex-1" />
+                                                <Progress 
+                                                classNames={{
+                                                    indicator: "w-full flex-1 bg-[#28B0E6] ",
+                                                }}
+                                                value={25} size={"md"}  className="w-full flex-1 text-[#28B0E6] " />
                                             </div>
 
                                         </div>
@@ -137,7 +144,7 @@ export const EventDetails = () => {
                         {/* Tags */}
                         <div className="mt-6">
                             <h2 className="information-title1">Tags</h2>
-                            <div className="grid grid-cols-3 gap-2 mt-2">
+                            <div className="flex flex-wrap gap-2 mt-2">
                                 <Chip className="bg-tertiary text-primary"> Tech</Chip>
                                 <Chip className="bg-tertiary text-primary">Networking</Chip>
                                 <Chip className="bg-tertiary text-primary">Événement</Chip>
@@ -169,7 +176,7 @@ export const EventDetails = () => {
 
             {/* Événements similaires */}
             <div className="mt-10 bg-[#F8F8F8] pb-12 ">
-                <div className="container mx-auto p-6 ">
+                <div className="section-container mx-auto p-6 ">
                     <h2 className="information-title1">Événements que vous pourriez aimer</h2>
                     <div className="grid grid-cols-3 gap-4 mt-4">
                         {[1, 2, 3].map((event) => (
