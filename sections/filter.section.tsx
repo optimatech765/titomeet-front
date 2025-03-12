@@ -17,7 +17,7 @@ export const FilterSection = () => {
             />
 
             <Select
-                 className={"col-span-1"}
+                className={"col-span-1"}
                 radius='full'
                 placeholder="Distance"
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
@@ -28,7 +28,7 @@ export const FilterSection = () => {
             </Select>
 
             <Select
-                 className={"col-span-2"}
+                className={"col-span-2"}
                 radius='full'
                 placeholder="Centre d'intérêt"
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}
@@ -44,7 +44,7 @@ export const FilterSection = () => {
 
 export const FilterSection2 = () => {
     return (
-        <div className='flex mx-auto flex-col md:flex-row gap-4 items-center min-h-[93px] bg-hero-pattern max-w-5xl rounded-md px-3'>
+        <div className='flex mx-auto flex-col md:flex-row gap-4 items-center min-h-[93px] bg-hero-pattern max-w-5xl rounded-md p-3'>
 
             <Input
                 startContent={<Search className={"text-primary "} />}

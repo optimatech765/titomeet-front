@@ -18,6 +18,7 @@ export default {
     extend: {
       backgroundImage: {
         "hero-pattern": "url('/img/search-img.png')",
+        "service-bg": "url('/img/servicesbg.png')",
         "footer-pattern": "url('/img/footer-image.png')",
         "auth-img": "url('/img/login-image.jpg')",
         footer:"linear-gradient(180deg, #FEEBEC 0%, #FFFFFF 100%)",

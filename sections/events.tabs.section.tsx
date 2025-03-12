@@ -1,4 +1,5 @@
-import { Tabs, Tab, Chip } from "@heroui/react";
+
+import { Tabs, Tab, } from "@heroui/react";
 
 export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
     return (
@@ -6,18 +7,20 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
             <Tabs
                 aria-label="Options"
                 classNames={{
-                    tabList: "gap-1 sm:gap-6 w-full relative rounded-none p-0 border-b border-divider underline-primary",
+                    tabList: "gap-1 sm:gap-6  relative rounded-none p-0 border-b border-divider underline-primary",
                     cursor: "w-full bg-[#22d3ee]",
                     tab: "max-w-fit px-0 h-12",
+                    base: "justify-center",
                     tabContent: "group-data-[selected=true]:text-primary underline-offset-4 underline-2 underline-primary",
                 }}
                 color="danger"
                 variant="underlined"
+                selectedKey={activeTab} onSelectionChange={(value) => setActiveTab(value as string)}
             >
                 <Tab
                     onClick={() => setActiveTab("events")}
                     value="events"
-                    key="Evenements"
+                    key="events"
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("events")}>
 
@@ -39,6 +42,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     }
                 />
 
+
                 <Tab
                     onClick={() => setActiveTab("favoris")}
                     key="favoris"
@@ -51,6 +55,8 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     }
                 />
 
+
+
                 <Tab
                     onClick={() => setActiveTab("history")}
                     key="history"
@@ -62,6 +68,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                         </div>
                     }
                 />
+
             </Tabs>
         </div>
     );
@@ -82,11 +89,12 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                 }}
                 color="danger"
                 variant="underlined"
+                selectedKey={activeTab} onSelectionChange={(value) => setActiveTab(value as string)}
             >
                 <Tab
                     onClick={() => setActiveTab("publish")}
                     value="publish"
-                    key="Publié"
+                    key="publish"
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("publish")}>
 

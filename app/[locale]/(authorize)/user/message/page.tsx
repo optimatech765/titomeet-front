@@ -285,7 +285,7 @@ export default function ChatInterface() {
                                                 <p className="text-sm font-medium">After Work Event</p>
                                                 <p className="text-sm text-gray-500 font-extralight ">132 Membres</p>
                                                 <Button className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"} >
-                                                    <ExternalLink className="" fill="currentColor" />
+                                                    <ExternalLink className="" />
                                                     Acceder à l’évènement
                                                 </Button>
                                             </div>

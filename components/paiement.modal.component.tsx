@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@heroui/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -7,21 +7,21 @@ export const PaiementModalComponent = ({ isOpen, onClose }: {
     onClose: () => void;
 }) => {
     return (
-        <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}  classNames={{closeButton: 'text-primary'}}>
+        <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
             <ModalContent >
                 {(onClose) => (
                     <>
-                        <ModalHeader>
-                            <div>
-                                <h3 className="text-2xl  font-semibold  text-center">
-                                    Methode de paiment
-                                </h3>
-                                <p className="text-sm font-light text-center">
-                                    Selectionnez votre methode de paiment
-                                </p>
 
-                            </div>
-                        </ModalHeader>
+                        <div className='px-6 pt-5 mb-2'>
+                            <h3 className="text-2xl  font-semibold  text-center">
+                                Methode de paiment
+                            </h3>
+                            <p className="text-sm font-light text-center">
+                                Selectionnez votre methode de paiment
+                            </p>
+
+                        </div>
+
                         <ModalBody>
                             <div className="flex justify-center justify-items-stretch items-center gap-3">
                                 <div className='border-1 rounded-md '>

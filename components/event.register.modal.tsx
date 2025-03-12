@@ -3,7 +3,6 @@ import React from "react";
 import {
     Modal,
     ModalContent,
-    ModalHeader,
     ModalBody,
     ModalFooter,
     Button,
@@ -23,17 +22,15 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader>
-                                <div>
-                                    <h3 className="text-2xl font-semibold  text-center">
-                                        Confirmation de l’inscription
-                                    </h3>
-                                    <p className="text-sm font-light text-center">
-                                        Completez votre inscription en un clic
-                                    </p>
+                            <div className='px-6 pt-5 mb-2'>
+                                <h3 className="text-2xl font-semibold  text-center">
+                                    Confirmation de l’inscription
+                                </h3>
+                                <p className="text-sm font-light text-center">
+                                    Completez votre inscription en un clic
+                                </p>
 
-                                </div>
-                            </ModalHeader>
+                            </div>
                             <ModalBody>
                                 <div className="flex flex-col gap-3">
                                     <Input
