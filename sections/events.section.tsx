@@ -38,7 +38,7 @@ export const EventsSection = ({withSearch=false}: {withSearch?: boolean}) => {
 
     return (
         <div className="min-h-screen ">
-            <div className={clsx({"lg:grid-cols-4 xl:grid-cols-5":!withSearch,"lg:grid-cols-3 xl:grid-cols-4":withSearch},"mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2   gap-3 mt-2")} >
+            <div className={clsx({"lg:grid-cols-4 xl:grid-cols-5":!withSearch,"lg:grid-cols-3 xl:grid-cols-4":withSearch},"mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")} >
                 {items.map((item) => (
                     <EventCardComponent key={item} />
                 ))}

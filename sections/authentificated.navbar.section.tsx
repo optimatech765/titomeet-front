@@ -6,6 +6,7 @@ import { Bell, MapPinIcon, Menu, MessageCircleMore } from "lucide-react"; // Ic�
 import Link from "next/link";
 import { LangSelect } from "@/locales/lang.select";
 import { SwitchThemeComponent } from "@/components/switch.theme.component";
+import Image from "next/image";
 
 export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ export const AuthentificatedNavbarSection = () => {
     return (
         <Navbar
             maxWidth="full"
-            className=" bg-white gap-20 section-container  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" bg-white gap-20 px-3 md:section-container  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
             isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
@@ -23,22 +24,24 @@ export const AuthentificatedNavbarSection = () => {
             {/* Logo */}
             <NavbarBrand>
                 <div className="flex items-center gap-2 flex-1">
-                    <img src="/img/logo.png" alt="Logo" className="h-16 w-auto" />
+                    {/* <Image height={200} width={200} src="/img/auth-logo.png" alt="Logo" className=" sm:hidden md:block lg:hidden w-full h-auto md:h-16" /> */}
+                    <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto" />
+                    {/* <Image height={200} width={200} src="/img/logo.png" alt="Logo" className="h-16 sm:hidden w-auto" /> */}
                     <Input
                         startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
                         radius="full"
                         placeholder="Localisation"
-                        className="ml-4 rounded-full hidden md:block max-w-xs"
+                        className="ml-4 rounded-full hidden sm:block max-w-xs"
                         size="sm"
                     />
                 </div>
 
             </NavbarBrand>
 
-            <NavbarContent className="lg:hidden">
-                <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
+          
+                <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
                     <DrawerContent className="w-64 p-4">
-                        <nav className="flex flex-col gap-4">
+                        <nav className="flex flex-col gap-4 ">
                             <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
                                 Accueil
                             </LinkH>
@@ -60,7 +63,7 @@ export const AuthentificatedNavbarSection = () => {
                         </nav>
                     </DrawerContent>
                 </Drawer>
-            </NavbarContent>
+           
 
 
             {/* Liens de navigation (cachés sur mobile) */}
@@ -81,7 +84,7 @@ export const AuthentificatedNavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="/services" className="font-semibold underline-hover text-black">
+                    <LinkH as={Link} href="/user/services" className="font-semibold underline-hover text-black">
                         Services
                     </LinkH>
                 </NavbarItem>
@@ -90,7 +93,7 @@ export const AuthentificatedNavbarSection = () => {
                     <LinkH
 
                         as={Link}
-                        href="/message"
+                        href="/user/message"
                         className="font-semibold underline-hover text-black"
                     >
                         <MessageCircleMore className="w-10 h-10 text-white" fill={"#ee3540"} />
@@ -99,7 +102,7 @@ export const AuthentificatedNavbarSection = () => {
                 </NavbarItem>
 
                 <NavbarItem>
-                    <LinkH as={Link} href="/notifications" className="font-semibold underline-hover text-black">
+                    <LinkH as={Link} href="/user/notifications" className="font-semibold underline-hover text-black">
                         <Bell className="w-8 h-8 text-primary" fill={"#ee3540"} />
                     </LinkH>
                 </NavbarItem>
