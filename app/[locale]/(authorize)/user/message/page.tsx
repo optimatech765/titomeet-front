@@ -37,9 +37,10 @@ export default function ChatInterface() {
         setRecording(false);
     };
 
+
     return (
-        <div className="border-1 rounded-md  m-2">
-            <div className="grid grid-cols-12 gap-1  max-h-screen  relative">
+        <div className="  m-2 section-container h-screen overflow-hidden">
+            <div className="grid grid-cols-12 gap-1 justify-items-stretch  max-h-screen  relative border-1 rounded-md">
                 {/* Sidebar - Conversations */}
                 <div className="col-span-3 bg-[#F8F8F8] rounded-s-xl p-4 ">
 

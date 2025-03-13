@@ -6,7 +6,7 @@ import React from 'react';
 
 export const ResumeStepperComponent = () => {
     return (
-        <div>
+        <div className='border rounded-md border-[#00000026] p-6 '>
 
             <ol className="relative w-full space-y-auto h-full flex flex-col justify-center text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400">
                 <li className="mb-4 ms-6">
@@ -18,8 +18,8 @@ export const ResumeStepperComponent = () => {
                         <Card shadow="sm" className="p-4 relative border bg-[#F8F8F8]">
 
                             <Pen className="absolute top-4 right-4 text-primary cursor-pointer" />
-                            <CardBody>
-                                <h3 className="text-orange-500 font-bold text-lg">Informations générales</h3>
+                            <CardBody className='pt-0'>
+                                <h3 className="text-orange-500 font-semibold text-lg">Informations générales</h3>
                                 <div className="grid grid-cols-2 gap-4 text-sm mt-2">
                                     <p><strong>Nom :</strong> After work</p>
                                     <p><strong>Catégorie :</strong> Tech</p>
@@ -45,8 +45,8 @@ export const ResumeStepperComponent = () => {
                         <Card shadow="sm" className="p-4 relative border bg-[#F8F8F8]">
 
                             <Pen className="absolute top-4 right-4 text-primary cursor-pointer" />
-                            <CardBody>
-                                <h3 className="text-orange-500 font-bold text-lg">Options avancées</h3>
+                            <CardBody className='pt-0'>
+                                <h3 className="text-secondary font-semibold text-lg">Options avancées</h3>
                                 <p className="text-sm mt-2">
                                     <strong>Nom de l’événement :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit...
                                 </p>
@@ -89,8 +89,8 @@ export const ResumeStepperComponent = () => {
                         <Card shadow="sm" className="p-4 relative border bg-[#F8F8F8]">
 
                             <Pen className="absolute top-4 right-4 text-primary cursor-pointer" />
-                            <CardBody>
-                                <h3 className="text-orange-500 font-bold text-lg">Visibilité et communication</h3>
+                            <CardBody className='pt-0'>
+                                <h3 className="text-secondary font-semibold text-lg">Visibilité et communication</h3>
                                 <div className="grid grid-cols-2 gap-4 text-sm mt-2">
                                     <p><strong>Visibilité :</strong> Public</p>
                                     <p><strong>Création discussion :</strong> Oui</p>
@@ -102,8 +102,8 @@ export const ResumeStepperComponent = () => {
                                     <h4 className="text-sm font-semibold">Programmer la publication</h4>
                                     <div className="flex justify-between space-x-2 mt-2">
                                         <div className='flex justify-between items-center gap-4'>
-                                            <DatePicker className="w-40" size='sm' radius='full' />
-                                            <TimeInput className="w-32" size='sm' radius='full' />
+                                            <DatePicker className="w-40 border-slate-300" size='sm' radius='full' variant={"bordered"} />
+                                            <TimeInput className="w-32 border-slate-300 focus:border-slate-300 outline-none " size='sm' radius='full' variant={"bordered"} />
                                         </div>
                                         <div className='flex justify-items-end justify-end'>
                                             <Button radius='full' size='sm' className='text-primary border-primary' variant={"bordered"} startContent={<Eye />}>Prévisualiser</Button>

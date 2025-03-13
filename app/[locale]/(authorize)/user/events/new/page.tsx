@@ -15,11 +15,11 @@ const Page = () => {
     return (
         <div className={"flex flex-col gap-2 pb-6"}>
             <div>
-                <div className="w-full px-8 py-4">
+                <div className="w-full px-2 md:px-8 py-4">
                     <div
                         className="relative grid w-full h-24 m-0 overflow-hidden text-slate-300  place-items-center rounded-xl bg-clip-border">
-                        <div className="w-full px-20 pt-4 pb-8">
-                            <div className="relative flex items-center justify-between w-full">
+                        <div className="w-full px-5 md:px-10 lg:px-20 pt-4 pb-8">
+                            <div className="relative flex  items-center justify-between w-full ">
                                 <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-slate-300"></div>
                                 {/* w-1/4 pour le premier 2/4 pour le second 3/4 pour le troisième et w-full pour le dernier */}
                                 <div className={clsx({
@@ -43,7 +43,10 @@ const Page = () => {
                                 </div>
                                 <div
                                     onClick={() => setActiveStep("advanced")}
-                                    className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  bg-secondary font-bold text-[#1E1E1E] transition-all duration-300">
+                                    className={clsx({
+                                        "!bg-secondary": activeStep === "advanced",
+                                        "!bg-slate-300": activeStep !== "advanced"
+                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
                                             className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
@@ -53,7 +56,10 @@ const Page = () => {
                                 </div>
                                 <div
                                     onClick={() => setActiveStep("communication")}
-                                    className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-secondary font-bold text-[#1E1E1E] transition-all duration-300">
+                                    className={clsx({
+                                        "!bg-secondary": activeStep === "communication",
+                                        "!bg-slate-300": activeStep !== "communication",
+                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
                                             className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
@@ -63,7 +69,10 @@ const Page = () => {
                                 </div>
                                 <div
                                     onClick={() => setActiveStep("resume")}
-                                    className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-slate-300 font-semibold text-[#1E1E1E] transition-all duration-300">
+                                    className={clsx({
+                                        "!bg-secondary": activeStep === "resume",
+                                        "!bg-slate-300": activeStep !== "resume"
+                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
                                             className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
@@ -79,7 +88,7 @@ const Page = () => {
 
             {/* General stepper data */}
             {activeStep === "general" &&
-                <div className='flex flex-col gap-3 px-32 '>
+                <div className='flex flex-col gap-3 px-2 md:px-10 lg:px-32 '>
                     <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
                     <GeneralInforComponent />
                     <div className='flex items-center justify-between'>
@@ -96,7 +105,7 @@ const Page = () => {
 
             {/* Advanced stepper data */}
             {activeStep === "advanced" &&
-                <div className={"flex flex-col gap-3 px-32 "}>
+                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
                     <AdvanceComponent />
                     <div className='flex items-center justify-between'>
@@ -112,7 +121,7 @@ const Page = () => {
 
             {/* communication stepper data */}
             {activeStep === "communication" &&
-                <div className={"flex flex-col gap-3 px-32 "}>
+                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
                     <VisibilityCommunicationComponent />
                     <div className='flex items-center justify-between'>
@@ -128,16 +137,27 @@ const Page = () => {
 
             {/* Resume stepper data */}
             {activeStep === "resume" &&
-                <div className={"flex flex-col gap-3 px-32 "}>
+                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}>Tout est prêt ! Vérifiez et publiez votre événement</h3>
                     <ResumeComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
-                        <Button className={" bg-primary px-20 text-white"} radius='full' >
-                            Suivant
-                        </Button>
+                    <div className='flex flex-wrap gap-4 items-center justify-between'>
+                        <div className="flex gap-2">
+                            <Button variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                                Enregistrer brouillon
+                            </Button>
+                            <Button className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                Supprimer
+                            </Button>
+                        </div>
+                        <div className="flex  gap-2">
+                            <Button className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                Précédent
+                            </Button>
+                            <Button className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                Publier
+                            </Button>
+                        </div>
+
                     </div>
                 </div>
             }
