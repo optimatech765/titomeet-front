@@ -19,7 +19,7 @@ const UserProfile = () => {
                 <Card className="p-6 relative  -mt-32 flex  items-center shadow-lg">
                     <div className="flex-1 flex flex-col justify-between w-full gap-4">
                         <div>
-                            <Avatar src="/img/user.png" size="lg" className="border-4  mx-auto md:mx-0 z-40 w-52 h-52 border-white" />
+                            <Avatar src="/img/user.png" size="lg" className="border-4  mx-auto md:mx-0 z-10 w-52 h-52 border-white" />
                             <h2 className="text-xl font-semibold mt-2 text-center">Username</h2>
                             <p className="text-gray-500 text-center">adressemail@gmail.com</p>
                             <div className="flex items-center gap-2 text-gray-600 mt-2 text-center justify-center">
@@ -55,7 +55,7 @@ const UserProfile = () => {
                     {/* Interest Section */}
                     <Card >
                         <CardBody>
-                            <h3 className="font-semibold flex items-center">Mes centres d’intérêt
+                            <h3 className="font-semibold flex items-center gap-3">Mes centres d’intérêt
                                 <FilePenLine className="w-4 h-4 text-primary ml-2" />
                             </h3>
                             <div className="flex flex-wrap gap-2 mt-2">
