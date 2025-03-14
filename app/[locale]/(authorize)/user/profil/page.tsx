@@ -2,6 +2,7 @@
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
 import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
 import { Camera, FilePenLine, MapPinIcon, Pencil } from "lucide-react";
+import Link from "next/link";
 
 const UserProfile = () => {
     return (
@@ -41,7 +42,7 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <div className="flex justify-center">
-                            <Button size="sm" radius="full" color='primary' variant={"ghost"} className="" startContent={<Pencil size={16} />}>
+                            <Button href={"/user/profil/update"} as={Link} size="sm" radius="full" color='primary' variant={"ghost"} className="" startContent={<Pencil size={16} />}>
                                 Modifier profil
                             </Button>
                         </div>

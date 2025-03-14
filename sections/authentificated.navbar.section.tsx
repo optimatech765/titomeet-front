@@ -38,32 +38,32 @@ export const AuthentificatedNavbarSection = () => {
 
             </NavbarBrand>
 
-          
-                <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
-                    <DrawerContent className="w-64 p-4">
-                        <nav className="flex flex-col gap-4 ">
-                            <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
-                                Accueil
-                            </LinkH>
-                            <LinkH as={Link} href="/evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                                Événements
-                            </LinkH>
-                            <LinkH as={Link} href="/categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                                Catégories
-                            </LinkH>
-                            <LinkH as={Link} href="/fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                                Fonctionnalités
-                            </LinkH>
-                            <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                                Se connecter
-                            </LinkH>
-                            <Button as={Link} href="/register" color="warning" className="font-bold mt-4">
-                                S’inscrire
-                            </Button>
-                        </nav>
-                    </DrawerContent>
-                </Drawer>
-           
+
+            <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
+                <DrawerContent className="w-64 p-4">
+                    <nav className="flex flex-col gap-4 ">
+                        <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
+                            Accueil
+                        </LinkH>
+                        <LinkH as={Link} href="/evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Événements
+                        </LinkH>
+                        <LinkH as={Link} href="/categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Catégories
+                        </LinkH>
+                        <LinkH as={Link} href="/fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Fonctionnalités
+                        </LinkH>
+                        <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Se connecter
+                        </LinkH>
+                        <Button as={Link} href="/register" color="warning" className="font-bold mt-4">
+                            S’inscrire
+                        </Button>
+                    </nav>
+                </DrawerContent>
+            </Drawer>
+
 
 
             {/* Liens de navigation (cachés sur mobile) */}
@@ -115,7 +115,11 @@ export const AuthentificatedNavbarSection = () => {
                             <Avatar name={"USR"} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
-                            <DropdownItem key="new">Profil</DropdownItem>
+                            <DropdownItem key="new">
+                                <Link href={"/user/profil"}>
+                                    Profil
+                                </Link>
+                            </DropdownItem>
                             <DropdownItem key="delete" className="text-danger" color="danger">
                                 <Link href="/auth">Se déconnecter</Link>
                                 {/* Se déconnecter */}
