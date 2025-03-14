@@ -33,7 +33,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                             <p className="text-sm uppercase text-red-600">AVR</p>
                         </div>
                     </div>
-                    <div className="space-y-1 px-1">
+                    <div className="space-y-1 px-1 flex-1">
                         <h2 className='text-xs font-bold'>After Work Networking</h2>
                         <div className="mt-2 flex-wrap flex gap-2 items-center justify-between font-normal text-gray-700 text-sm ">
                             <p className="flex items-center gap-0.5 text-xs font-light">
@@ -71,7 +71,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                         }
 
 
-                        {/* Pour les évènement programmés */}
+                        {/* Pour les programmés */}
                         {status === "programming" &&
                             <div className={"flex-1 flex items-center gap-1 "}>
                                 <p className="flex items-center  text-xs font-light gap-0.5">
@@ -98,7 +98,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                     variant='ghost'
                                     radius='full'
                                     color='primary'
-                                    className="mt-2 w-fit sm:w-auto border-1 flex-1 gap-1 px-1 text-xs font-medium text-primary">
+                                    className="mt-2 flex-1 border-1 flex-1 gap-1 px-1 text-xs font-medium text-primary">
                                     Voir les avis
                                 </Button>
                                 : <>
@@ -108,9 +108,9 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                         variant='ghost'
                                         radius='full'
                                         color='primary'
-                                        className="mt-2 w-fit sm:w-auto border-1 gap-1 px-1 text-xs font-medium text-primary">
+                                        className="mt-2 flex-1 border-1 gap-1 px-1 text-xs font-medium text-primary">
                                         <span className="hidden lg:flex">
-                                            Modifier évènement</span>
+                                            Modifier</span>
                                         <span className="lg:hidden flex">
                                             Modifier </span>
                                     </Button>
@@ -122,7 +122,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                             variant='ghost'
                                             radius='full'
                                             color='primary'
-                                            className="mt-2 w-fit sm:w-auto  border-1 gap-1 px-1 text-xs font-medium text-primary">
+                                            className="mt-2 flex-1  border-1 gap-1 px-1 text-xs font-medium text-primary">
                                             Accéder à la discussion
                                         </Button> :
                                         <Button
@@ -131,8 +131,8 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                             variant='ghost'
                                             radius='full'
                                             color='primary'
-                                            className="mt-2 w-full sm:w-auto  border-1 gap-1 px-1 text-xs font-medium text-primary">
-                                            Publier évènement
+                                            className="mt-2 flex-1  border-1 gap-1 px-1 text-xs font-medium text-primary">
+                                            Publier
                                         </Button>
                                     }
                                 </>}
@@ -152,8 +152,8 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                         variant='ghost'
                         radius='full'
                         color='primary'
-                        className="mt-2 w-full sm:w-auto border-1 gap-1 px-1 text-xs font-medium text-primary">
-                        Modifier évènement
+                        className="mt-2 flex-1 border-1 gap-1 px-1 text-xs font-medium text-primary">
+                        Modifier
                     </Button>
 
                     {status === "published" ?
@@ -163,7 +163,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                             variant='ghost'
                             radius='full'
                             color='primary'
-                            className="mt-2 w-full sm:w-auto  border-1 gap-1 px-1 text-xs font-medium text-primary">
+                            className="mt-2 flex-1  border-1 gap-1 px-1 text-xs font-medium text-primary">
                             Accéder à la discussion
                         </Button> :
                         <Button
@@ -172,8 +172,8 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                             variant='ghost'
                             radius='full'
                             color='primary'
-                            className="mt-2 w-full sm:w-auto  border-1 gap-1 px-1 text-xs font-medium text-primary">
-                            Publier évènement
+                            className="mt-2 flex-1  border-1 gap-1 px-1 text-xs font-medium text-primary">
+                            Publier
                         </Button>
                     }
 
