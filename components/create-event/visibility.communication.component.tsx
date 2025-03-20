@@ -1,16 +1,27 @@
-import { cn, Switch, Textarea } from '@heroui/react';
+import { cn, Switch } from '@heroui/react';
 import { Select, SelectItem } from '@heroui/select';
 import React from 'react';
 import InputContainerComponent, { InputContainerComponent2 } from './input.container.component';
+import { useEventsStore } from '@/stores/events.store';
+import { InputErrorStore } from '@/stores/input.error.store';
+import { TagTextarea } from '../tague.input.component';
 
 const VisibilityCommunicationComponent = () => {
+    const { data: eventData, updateEventData } = useEventsStore();
+    const { errorField } = InputErrorStore();
     return (
         <div className={"border rounded-md border-[#00000026] p-6 flex  flex-col gap-6 "}>
 
             <div className="flex justify-between items-center">
                 <div className='w-1/2'>
                     <InputContainerComponent title={"Visibilité de l’évènement"} >
-                        <Select labelPlacement={"outside-left"} >
+                        <Select
+                            value={eventData?.accessType}
+                            onChange={(e) => updateEventData("accessType", e.target.value)}
+                            isInvalid={errorField.field === 'accessType'}
+                            errorMessage={errorField?.message}
+                            labelPlacement={"outside-left"}
+                        >
                             <SelectItem value="1">Public</SelectItem>
                             <SelectItem value="2">Privé</SelectItem>
                         </Select>
@@ -33,20 +44,15 @@ const VisibilityCommunicationComponent = () => {
 
             <div className="flex-1">
                 <InputContainerComponent2 title={"Tags de recherche"} >
-                    <Textarea
-                        className=" border-slate-300"
-                        placeholder="Tague"
-                        variant="bordered"
-                        rows={5}
-                        fullWidth
-                        labelPlacement='outside-left'
-                        classNames={{
-                            mainWrapper: "flex-1 items-start",
-                            base: "flex-1 items-start",
-
-                        }}
+                    <TagTextarea
+                        maxTags={20}
+                        tags={eventData?.tags}
+                        onChange={(value) => updateEventData("tags", value)}
                     />
+                    {errorField.field === 'tags' && <p className="text-red-500 text-xs">{errorField?.message}</p>}
+
                 </InputContainerComponent2>
+
             </div>
 
         </div>

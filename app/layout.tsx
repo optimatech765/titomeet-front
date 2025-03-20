@@ -1,6 +1,7 @@
 import { Poppins } from 'next/font/google';
 import React from 'react';
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const poppins = Poppins({
@@ -13,6 +14,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <html lang="en">
             <body className={`${poppins.variable} antialiased flex flex-col justify-between`}>
+              
                 {children}
             </body>
 

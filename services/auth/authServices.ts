@@ -1,15 +1,17 @@
 
+import { LoginDto, SignUpDto2 } from '@/utils/dto/auth.dto';
 import axios from 'axios';
-import { NewUserDto, UserDtoForLogin } from './new.user.dto';
 
 class AuthServices {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    register(data: NewUserDto) {
-        return axios.post(`/api/users`, data)
+    register(data: SignUpDto2) {
+
+        return axios.post(`${this.baseUrl}/auth/signup`, data)
     }
 
-    login(data: UserDtoForLogin) {
-        return axios.post(`/api/auth/verify-otp`, data)
+    login(data: LoginDto) {
+        return axios.post(`${this.baseUrl}/auth/signin`, data);
     }
 
 }

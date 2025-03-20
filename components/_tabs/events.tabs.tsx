@@ -1,10 +1,19 @@
 import { DateSelectComponent } from '@/components/date.select.component';
 import { PastEventJoined } from '@/components/past.event.joined';
 import { PubCardComponent } from '@/components/pub.card.component';
+import { useEventsStore } from '@/stores/events.store';
+import { EventDto } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const EventsTabs = () => {
+    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList();
+    }, []);
+
     return (
         <div>
             <Divider className='mt-5 mb-2' />
@@ -17,13 +26,22 @@ export const EventsTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>
-                            <PastEventJoined />
+                            {eventLoading ? <>
+                                <h4>Chargement...</h4>
+                            </> : <>
+                                {dataList?.length === 0 ? <>
+                                    <div className="text-center">
+                                        Il n&apos;y a pas de data
+                                    </div>
+                                </> :
+                                    <>
+                                        {dataList.map((event: EventDto, index: number) => (
+                                            <PastEventJoined key={index} />
+                                        ))}
 
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
+                                    </>
+                                }</>
+                            }
                         </div>
                     </div>
 
@@ -33,13 +51,22 @@ export const EventsTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5'>
-                            <PastEventJoined />
+                            {eventLoading ? <>
+                                <h4>Chargement...</h4>
+                            </> : <>
+                                {dataList?.length === 0 ? <>
+                                    <div className="text-center">
+                                        Il n&apos;y a pas de data
+                                    </div>
+                                </> :
+                                    <>
+                                        {dataList.map((event: EventDto, index: number) => (
+                                            <PastEventJoined key={index} />
+                                        ))}
 
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
+                                    </>
+                                }</>
+                            }
                         </div>
                     </div>
 
@@ -50,13 +77,22 @@ export const EventsTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5'>
-                            <PastEventJoined />
+                            {eventLoading ? <>
+                                <h4>Chargement...</h4>
+                            </> : <>
+                                {dataList?.length === 0 ? <>
+                                    <div className="text-center">
+                                        Il n&apos;y a pas de data
+                                    </div>
+                                </> :
+                                    <>
+                                        {dataList.map((event: EventDto, index: number) => (
+                                            <PastEventJoined key={index} />
+                                        ))}
 
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
+                                    </>
+                                }</>
+                            }
                         </div>
                     </div>
 

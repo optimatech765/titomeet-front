@@ -1,10 +1,15 @@
 'use cliente'
+import { useEventsStore } from '@/stores/events.store';
+import { GetDate } from '@/utils/functions/date.function';
 import { Button, Card, CardBody, DatePicker, TimeInput } from '@heroui/react';
 import { Eye, Pen } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 export const ResumeStepperComponent = () => {
+
+     const { data: eventData } = useEventsStore();
+
     return (
         <div className='border rounded-md border-[#00000026] p-6 '>
 
@@ -21,15 +26,15 @@ export const ResumeStepperComponent = () => {
                             <CardBody className='pt-0'>
                                 <h3 className="text-orange-500 font-semibold text-lg">Informations générales</h3>
                                 <div className="grid grid-cols-2 gap-4 text-sm mt-2">
-                                    <p><strong>Nom :</strong> After work</p>
-                                    <p><strong>Catégorie :</strong> Tech</p>
-                                    <p><strong>Date début :</strong> 12/02/25</p>
-                                    <p><strong>Date fin :</strong> 13/02/25</p>
-                                    <p><strong>Heure début :</strong> 15:00</p>
-                                    <p><strong>Heure fin :</strong> 15:00</p>
-                                    <p><strong>Lieu :</strong> After work</p>
+                                    <p><strong>Nom :</strong> {eventData?.name}</p>
+                                    <p><strong>Catégorie :</strong> {}</p>
+                                    <p><strong>Date début :</strong> {GetDate(eventData.startDate)}</p>
+                                    <p><strong>Date fin :</strong> {GetDate(eventData.endDate)}</p>
+                                    <p><strong>Heure début :</strong> {new Date().toLocaleTimeString()}</p>
+                                    <p><strong>Heure fin :</strong> {new Date().toLocaleTimeString()}</p>
+                                    <p><strong>Lieu :</strong> {eventData?.addressId}</p>
                                     <p><strong>Adresse :</strong> Adresse complète</p>
-                                    <p><strong>Nombre de places :</strong> 100</p>
+                                    <p><strong>Nombre de places :</strong> {eventData?.capacity}</p>
                                 </div>
                             </CardBody>
                         </Card>
@@ -48,7 +53,7 @@ export const ResumeStepperComponent = () => {
                             <CardBody className='pt-0'>
                                 <h3 className="text-secondary font-semibold text-lg">Options avancées</h3>
                                 <p className="text-sm mt-2">
-                                    <strong>Nom de l’événement :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                                    <strong>Nom de l’événement :</strong> {eventData.name}
                                 </p>
                                 <div className="grid grid-cols-2 gap-4 items-center mt-3">
 
@@ -65,7 +70,7 @@ export const ResumeStepperComponent = () => {
 
                                     </div>
                                 </div>
-                                <p className="text-sm mt-3"><strong>Type d&lsquo;accès :</strong> Gratuit</p>
+                                <p className="text-sm mt-3"><strong>Type d&lsquo;accès :</strong> {eventData.accessType}</p>
                                 <div className='flex gap-8'>
                                     <p className="text-sm mt-3"><strong>Services :</strong></p>
                                     <div className="mt-1 text-[#1E1E1E]">
@@ -94,7 +99,7 @@ export const ResumeStepperComponent = () => {
                                 <div className="grid grid-cols-2 gap-4 text-sm mt-2">
                                     <p><strong>Visibilité :</strong> Public</p>
                                     <p><strong>Création discussion :</strong> Oui</p>
-                                    <p><strong>Tags :</strong> Tag - Tag - Tag - Tag</p>
+                                    <p><strong>Tags :</strong> {eventData.tags.map((tag: string) => tag).join(' - ')}</p>
                                 </div>
 
                                 {/* Programmation de la publication */}

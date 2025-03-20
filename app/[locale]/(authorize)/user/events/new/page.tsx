@@ -1,16 +1,145 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import AdvanceComponent from '@/components/create-event/advance.component';
 import GeneralInforComponent from '@/components/create-event/general.infor.component';
 import ResumeComponent from '@/components/create-event/resume.component';
 import VisibilityCommunicationComponent from '@/components/create-event/visibility.communication.component';
+import { eventSevices } from '@/services/events/event.services';
+import { useEventsStore } from '@/stores/events.store';
+import { EventStepOneValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { GetDate } from '@/utils/functions/date.function';
+import { usersServices } from '@/services/users/users.service';
+import { InputErrorStore } from '@/stores/input.error.store';
 
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
     // const [validateStep, setValidateStep] = useState([]);
+    const { data: eventData, resetData } = useEventsStore();
+
+    const {setMessageError} = InputErrorStore()
+
+    const handleSaveDraftEvent = async () => {
+        console.log(eventData);
+
+    }
+
+    const handleSaveEvent = async () => {
+        try {
+
+            const userInfo = await usersServices.userInfo();
+
+            console.log(userInfo);
+
+
+            const startDate = GetDate(eventData.startDate as any)
+            const endDate = GetDate(eventData.endDate as any);
+
+            const newData = {
+                ...eventData,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: new Date().toLocaleTimeString(),
+                endTime: new Date().toLocaleTimeString(),
+            }
+            const { error, errorData } = EventsValidator(newData);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+            }
+            else {
+
+                const toastId = toast.loading("Sauvegarde en cours...", {
+                    position: "top-right",
+                    autoClose: false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+                eventSevices.createEvent({
+                    ...eventData,
+                    startDate: startDate,
+                    endDate: endDate,
+                    startTime: new Date().toLocaleTimeString(),
+                    endTime: new Date().toLocaleTimeString(),
+                }).then(
+                    (response) => {
+                        console.log(response);
+                        toast.update(toastId, {
+                            render: "Sauvegarde réussie",
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                    },
+                    (error) => {
+                        console.log(error);
+                        toast.update(toastId, {
+                            render: "Erreur lors de la sauvegarde",
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                    }
+                );
+
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    }
+
+    const handleNextStep = () => {
+        if (activeStep === "general") {
+            const { error, errorData } = EventStepOneValidator(eventData);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+                setMessageError(errorData);
+
+            }
+            else {
+                setActiveStep("advanced");
+            }
+        }
+        if (activeStep === "advanced") {
+            setActiveStep("communication");
+        }
+        if (activeStep === "communication") {
+            setActiveStep("resume");
+        }
+    }
+
+    const handlePrevStep = () => {
+
+        if (activeStep === "advanced") {
+            setActiveStep("general");
+        }
+        if (activeStep === "communication") {
+            setActiveStep("advanced");
+        }
+        if (activeStep === "resume") {
+            setActiveStep("communication");
+        }
+    }
 
     return (
         <div className={"flex flex-col gap-2 pb-6"}>
@@ -92,11 +221,11 @@ const Page = () => {
                     <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
                     <GeneralInforComponent />
                     <div className='flex items-center justify-between'>
-                        <Button variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                             Enregistrer brouillon
                         </Button>
 
-                        <Button className={" bg-primary px-20 text-white"} radius='full' >
+                        <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                             Suivant
                         </Button>
                     </div>
@@ -109,12 +238,17 @@ const Page = () => {
                     <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
                     <AdvanceComponent />
                     <div className='flex items-center justify-between'>
-                        <Button variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                             Enregistrer brouillon
                         </Button>
-                        <Button className={" bg-primary px-20 text-white"} radius='full' >
-                            Suivant
-                        </Button>
+                        <div className="flex  gap-2">
+                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                Précédent
+                            </Button>
+                            <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                Suivant
+                            </Button>
+                        </div>
                     </div>
                 </div>
             }
@@ -125,12 +259,17 @@ const Page = () => {
                     <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
                     <VisibilityCommunicationComponent />
                     <div className='flex items-center justify-between'>
-                        <Button variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                             Enregistrer brouillon
                         </Button>
-                        <Button className={" bg-primary px-20 text-white"} radius='full' >
-                            Suivant
-                        </Button>
+                        <div className="flex  gap-2">
+                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                Précédent
+                            </Button>
+                            <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                Suivant
+                            </Button>
+                        </div>
                     </div>
                 </div>
             }
@@ -142,18 +281,18 @@ const Page = () => {
                     <ResumeComponent />
                     <div className='flex flex-wrap gap-4 items-center justify-between'>
                         <div className="flex gap-2">
-                            <Button variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                            <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                 Enregistrer brouillon
                             </Button>
-                            <Button className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Supprimer
                             </Button>
                         </div>
                         <div className="flex  gap-2">
-                            <Button className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Publier
                             </Button>
                         </div>

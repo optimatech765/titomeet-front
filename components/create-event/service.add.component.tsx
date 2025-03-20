@@ -2,7 +2,7 @@
 import { Input, Select, SelectItem } from "@heroui/react";
 import { Star, X } from "lucide-react";
 import { useState } from "react";
-import  { InputContainerComponent2 } from "./input.container.component";
+import { InputContainerComponent2 } from "./input.container.component";
 
 export const ServiceAddComponent = () => {
     const [isVisible, setIsVisible] = useState(true);
@@ -41,13 +41,13 @@ export const ServiceAddComponent = () => {
 
                     }}
                     labelPlacement={"outside-left"} >
-                    <SelectItem value="1">
+                    <SelectItem key="1">
                         <div className="flex items-center">
                             Nom de prestataire (4.5)
                             <Star className=" text-yellow-500" fill={"currentColor"} size={"15px"} />
                         </div>
                     </SelectItem>
-                    <SelectItem value="2">
+                    <SelectItem key="2">
                         <div className="flex items-center">
                             Nom de prestataire (4.5)
                             <Star className=" text-yellow-500" fill={"currentColor"} size={"15px"} />
