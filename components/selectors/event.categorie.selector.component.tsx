@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { EventCategorieStore } from '@/stores/event.categories.store';
 import { InputErrorStore } from '@/stores/input.error.store';
+import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Select, SelectItem } from '@heroui/react';
 import React, { useEffect } from 'react';
 
@@ -11,13 +13,18 @@ type EventCategorieSelectorComponent = {
 
 const EventCategorieSelectorComponent = ({ value, onChange }: EventCategorieSelectorComponent) => {
     const { errorField } = InputErrorStore();
+    const { dataList, fetchCategoriesList, isLoading } = EventCategorieStore()
 
     useEffect(() => {
-
+        fetchCategoriesList()
     }, []);
     return (
         <div>
             <Select
+                isLoading={isLoading}
+                selectionMode="multiple"
+                isMultiline={true}
+                items={dataList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
                 value={[...value]}
                 onChange={(e) => onChange(e.target.value)}
                 isInvalid={errorField.field === 'categories'}
@@ -28,9 +35,8 @@ const EventCategorieSelectorComponent = ({ value, onChange }: EventCategorieSele
                 fullWidth={true}
                 labelPlacement={"outside-left"}
             >
-                <SelectItem key="1">Hello</SelectItem>
-                <SelectItem key="2">World</SelectItem>
-                <SelectItem key="3">Foo</SelectItem>
+                {(animal) => <SelectItem>{animal.label}</SelectItem>}
+
             </Select>
         </div>
     );

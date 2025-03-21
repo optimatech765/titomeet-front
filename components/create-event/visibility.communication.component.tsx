@@ -16,14 +16,15 @@ const VisibilityCommunicationComponent = () => {
                 <div className='w-1/2'>
                     <InputContainerComponent title={"Visibilité de l’évènement"} >
                         <Select
-                            value={eventData?.accessType}
-                            onChange={(e) => updateEventData("accessType", e.target.value)}
-                            isInvalid={errorField.field === 'accessType'}
+                            value={eventData?.visibility}
+                            onChange={(e) => updateEventData("visibility", e.target.value)}
+                            isInvalid={errorField.field === 'visibility'}
                             errorMessage={errorField?.message}
                             labelPlacement={"outside-left"}
+                            selectedKeys={[eventData?.visibility]}
                         >
-                            <SelectItem value="1">Public</SelectItem>
-                            <SelectItem value="2">Privé</SelectItem>
+                            <SelectItem key="PUBLIC">Public</SelectItem>
+                            <SelectItem key="PRIVATE">Privé</SelectItem>
                         </Select>
                     </InputContainerComponent>
                 </div>
@@ -46,7 +47,7 @@ const VisibilityCommunicationComponent = () => {
                 <InputContainerComponent2 title={"Tags de recherche"} >
                     <TagTextarea
                         maxTags={20}
-                        tags={eventData?.tags}
+                        tags={eventData?.tags || []}
                         onChange={(value) => updateEventData("tags", value)}
                     />
                     {errorField.field === 'tags' && <p className="text-red-500 text-xs">{errorField?.message}</p>}

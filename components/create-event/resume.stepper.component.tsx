@@ -97,9 +97,9 @@ export const ResumeStepperComponent = () => {
                             <CardBody className='pt-0'>
                                 <h3 className="text-secondary font-semibold text-lg">Visibilité et communication</h3>
                                 <div className="grid grid-cols-2 gap-4 text-sm mt-2">
-                                    <p><strong>Visibilité :</strong> Public</p>
+                                    <p><strong>Visibilité :</strong> {eventData?.visibility==="PUBLIC"?"Publique":"Privée"}</p>
                                     <p><strong>Création discussion :</strong> Oui</p>
-                                    <p><strong>Tags :</strong> {eventData.tags.map((tag: string) => tag).join(' - ')}</p>
+                                    <p><strong>Tags :</strong> {eventData?.tags?.map((tag: string) => tag).join(' - ')}</p>
                                 </div>
 
                                 {/* Programmation de la publication */}

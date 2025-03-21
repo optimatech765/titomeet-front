@@ -16,6 +16,7 @@ export default async function Home() {
   return (
     <div>
 
+      {/* <NavbarSection /> */}
       {/* Ajout du composant section hero */}
       <HeroSection />
 

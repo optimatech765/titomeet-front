@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { UserDto } from "./auth.dto";
+
 
 type Pass = {
     passType: string;
@@ -8,21 +10,64 @@ type Pass = {
 
 export interface EventDto {
     id?: string;
-    categories: string[];
+    categories: any;
     name: string;
     description: string;
-    badge: string;
-    coverPicture: string;
+    badge: any;
+    coverPicture: any;
     addressId: string;
     capacity: number;
     tags?: string[];
     accessType: "FREE" | "PAID";
     prices?: Pass[];
-    visbility: "PUBLIC" | "PRIVATE";
+    visibility: "PUBLIC" | "PRIVATE";
     startDate: any;
     endDate: any;
     startTime: any;
     endTime: any;
+    isDraft: false;
+    providers?: string[];
+}
+
+export interface EventDtoResponse {
+    id?: string;
+    categories: any;
+    name: string;
+    description: string;
+    badge: any;
+    coverPicture: any;
+    addressId: string;
+    capacity: number;
+    tags?: string[];
+    accessType: "FREE" | "PAID";
+    prices?: Pass[];
+    visibility: "PUBLIC" | "PRIVATE";
+    startDate: any;
+    endDate: any;
+    startTime: any;
+    endTime: any;
+    isDraft: false;
+    providers?: string[];
+    address: addressDto;
+    participants: any[];
+    postedBy?: UserDto;
+    createdAt: string;
+}
+
+export interface addressDto {
+    id: string;
+    name: string;
+    city: string;
+    state: string;
+    country: string;
+    countryCode: string;
+    latitude: number;
+    longitude: number;
+    postalCode?: string;
+    line2?: string;
+    type: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface EventListDto {
@@ -32,6 +77,11 @@ export interface EventListDto {
     limit: number;
 }
 
-
-
-
+export enum EventStatus {
+    DRAFT = 'DRAFT',
+    PENDING = 'PENDING',
+    PUBLISHED = 'PUBLISHED',
+    CANCELLED = 'CANCELLED',
+    FINISHED = 'FINISHED',
+    FAVORITE = 'FAVORITE',
+}

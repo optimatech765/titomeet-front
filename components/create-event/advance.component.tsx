@@ -65,7 +65,10 @@ const AdvanceComponent = () => {
     }
 
     const removePass = (index: number) => {
-        updateEventData("prices", eventData.prices.filter((_, i) => i !== index));
+        if (eventData?.prices) {
+            updateEventData("prices", eventData?.prices.filter((_, i) => i !== index));
+        }
+
     }
 
     const cancelled = () => {

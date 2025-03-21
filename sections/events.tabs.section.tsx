@@ -92,11 +92,11 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                 selectedKey={activeTab} onSelectionChange={(value) => setActiveTab(value as string)}
             >
                 <Tab
-                    onClick={() => setActiveTab("publish")}
-                    value="publish"
-                    key="publish"
+                    onClick={() => setActiveTab("PUBLISHED")}
+                    value="PUBLISHED"
+                    key="PUBLISHED"
                     title={
-                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("publish")}>
+                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("PUBLISHED")}>
 
                             <span>Publiés</span>
 
@@ -105,10 +105,10 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                 />
 
                 <Tab
-                    onClick={() => setActiveTab("draft")}
-                    key="draft"
+                    onClick={() => setActiveTab("DRAFT")}
+                    key="DRAFT"
                     title={
-                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("draft")}>
+                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("DRAFT")}>
 
                             <span>Brouillons</span>
 
@@ -117,10 +117,10 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                 />
 
                 <Tab
-                    onClick={() => setActiveTab("programming")}
-                    key="programming"
+                    onClick={() => setActiveTab("PROGRAMMING")}
+                    key="PROGRAMMING"
                     title={
-                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("programming")}>
+                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("PROGRAMMING")}>
 
                             <span>Programmés</span>
 
@@ -129,10 +129,10 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                 />
 
                 <Tab
-                    onClick={() => setActiveTab("past")}
-                    key="past"
+                    onClick={() => setActiveTab("FINISHED")}
+                    key="FINISHED"
                     title={
-                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("past")}>
+                        <div className="flex items-center space-x-2" onClick={() => setActiveTab("FINISHED")}>
 
                             <span>Passé</span>
 

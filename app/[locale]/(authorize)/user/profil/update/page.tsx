@@ -7,6 +7,7 @@ import NotificationProfil from '@/components/profil/notification.profil';
 import { PaiementProfile } from '@/components/profil/paiement.profile';
 import { PersonnalInfoComponent } from '@/components/profil/personnal.info.component';
 import { SecurityProfil } from '@/components/profil/security.profil';
+import { useAppContext } from '@/context';
 import { Button, Card, Divider, User } from '@heroui/react';
 import clsx from 'clsx';
 import { Bell, CreditCard, LayoutDashboard, Lock, LogOut, Settings, User2 } from 'lucide-react';
@@ -15,6 +16,8 @@ import React, { useState } from 'react';
 const Page = () => {
 
     const [activeMenu, setActiveMenu] = useState("informations");
+    const { isAuth } = useAppContext();
+
     return (
         <div className='h-screen section-container py-6'>
             <Card className='h-full'>
@@ -25,8 +28,8 @@ const Page = () => {
                                 avatarProps={{
                                     src: "/img/user.png",
                                 }}
-                                description="mail@mail.com"
-                                name="Jane Doe"
+                                description={isAuth?.username}
+                                name={`` + isAuth?.firstName + " " + isAuth?.lastName}
                             />
                             <Divider className='mt-2' />
                         </div>

@@ -7,7 +7,7 @@ const FavorisTabs = () => {
         <div>
             <Divider className='mt-5 mb-2' />
             <section>
-                <EventsSection />
+                <EventsSection status="FAVORITE" />
             </section>
         </div>
     );

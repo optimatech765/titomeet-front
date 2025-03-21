@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { parseAbsoluteToLocal, parseDate } from '@internationalized/date';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { eventSevices } from "@/services/events/event.services";
-import { EventDto } from "@/utils/dto/events.dto";
+import { EventDto, EventDtoResponse } from "@/utils/dto/events.dto";
 import { create } from "zustand";
 
 
@@ -13,7 +14,8 @@ type EventStore = {
         isSearch: boolean;
         searchValue: string;
     };
-    dataList: EventDto[];
+    singleEvent: EventDtoResponse;
+    dataList: EventDtoResponse[];
     data: EventDto;
     isLoading: boolean;
     updateEventData: (keys: string, value: any) => void;
@@ -24,7 +26,8 @@ type EventStore = {
     setEventDataList: (newData: any) => void;
     setDataListConfig: (newData: any) => void;
     updateDataListConfig: (newData: any) => void;
-    fetchEventList: () => Promise<void>;
+    fetchEventList: (searchParams?: any) => Promise<void>;
+    fetchSingleEvent: (id: string) => Promise<void>;
     resetData: () => void;
 }
 
@@ -39,11 +42,35 @@ const initialEventState: EventDto = {
     tags: [],
     accessType: "FREE",
     prices: [],
-    visbility: "PUBLIC",
+    visibility: "PUBLIC",
     startDate: parseDate(new Date().toISOString().split('T')[0]),
     endDate: parseDate(new Date().toISOString().split('T')[0]),
     startTime: parseAbsoluteToLocal(new Date().toISOString()),
     endTime: parseAbsoluteToLocal(new Date().toISOString()),
+    isDraft: false,
+    providers: []
+}
+
+interface QyeryParamsDto {
+    page?: number;
+    limit?: number;
+    search?: string;
+    tags?: string[];
+    startDate?: string;
+    endDate?: string;
+    createdById?: string;
+    categories?: string[];
+}
+
+const paramsToQueryString = (params: QyeryParamsDto) => {
+    return Object.entries(params)
+        .filter(([_, value]) => value !== undefined && value !== null) // Supprime les valeurs null/undefined
+        .map(([key, value]) =>
+            Array.isArray(value)
+                ? value.map(v => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`).join('&')
+                : `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join('&');
 }
 
 
@@ -55,6 +82,7 @@ export const useEventsStore = create<EventStore>((set) => ({
         isSearch: false,
         searchValue: "",
     },
+    singleEvent: {} as EventDtoResponse,
     dataList: [],
     data: initialEventState,
     isLoading: true,
@@ -125,14 +153,15 @@ export const useEventsStore = create<EventStore>((set) => ({
             DataListConfig: { ...state.DataListConfig, ...newData },
         })),
 
-    fetchEventList: async () => {
+    fetchEventList: async (searchParams?: QyeryParamsDto) => {
         try {
+            const queryString = paramsToQueryString(searchParams || {});
             set(() => ({
                 isLoading: true,
             }));
 
             eventSevices
-                .getEvents()
+                .getEvents(queryString)
                 .then(
                     (response) => {
                         const { items, total, page, limit } = response.data;
@@ -151,6 +180,40 @@ export const useEventsStore = create<EventStore>((set) => ({
                         }));
                     },
                     (error) => {
+                        set(() => ({
+                            isLoading: false,
+                        }));
+                        console.log(error);
+                    }
+                );
+
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+        }
+    },
+    fetchSingleEvent: async (id: string) => {
+        try {
+            set(() => ({
+                isLoading: true,
+            }));
+
+            eventSevices
+                .getEvent(id)
+                .then(
+                    (response) => {
+                        console.log("Hello la famille",response)
+                        set(() => ({
+                            isLoading: false,
+                            singleEvent: response.data,
+                        }));
+                    },
+                    (error) => {
+                        set(() => ({
+                            isLoading: false,
+                        }));
                         console.log(error);
                     }
                 );

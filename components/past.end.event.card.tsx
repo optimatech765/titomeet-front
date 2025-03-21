@@ -1,9 +1,11 @@
+import { EventDtoResponse } from '@/utils/dto/events.dto';
+import { formatDate, getHourMinute } from '@/utils/functions/date.function';
 import { Button, Card } from '@heroui/react';
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPinIcon, Share2, Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-export const PastEndEventCard = () => {
+export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
     return (
         <Card
             isBlurred
@@ -38,24 +40,24 @@ export const PastEndEventCard = () => {
                     <div className="flex gap-2 col-span-6 sm:col-span-9 py-1.5">
                         <div className="">
                             <div className="text-center rounded-lg font-bold ">
-                                <p className="text-lg font-bold text-black">14</p>
-                                <p className="text-sm uppercase text-red-600">AVR</p>
+                                <p className="text-lg font-bold text-black">{formatDate(event?.startDate).day}</p>
+                                <p className="text-sm uppercase text-red-600">{formatDate(event?.startDate).month}</p>
                             </div>
                         </div>
                         <div className="space-y-1 flex flex-col justify-between justify-items-stretch ">
-                            <h2 className='text-xs font-bold'>After Work Networking</h2>
+                            <h2 className='text-xs font-bold'>{event?.name}</h2>
                             <div className="mt-2 flex flex-wrap justify-between  w-full gap-2 items-center space-y-3 sm:space-y-0 font-normal text-gray-700 text-sm">
                                 <p className="flex items-center gap-0.5 text-xs font-light">
-                                    <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
+                                    <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> {event?.address?.city}
                                 </p>
                                 <p className="flex items-center  text-xs font-light gap-0.5 ">
                                     <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
                                     <span>
-                                        25 Participants
+                                        {event?.capacity} Participants
                                     </span>
                                 </p>
                                 <p className="flex items-center  text-xs font-light gap-0.5">
-                                    <Clock className="w-4 h-4 text-white" fill="red" /> 15:00
+                                    <Clock className="w-4 h-4 text-white" fill="red" /> {getHourMinute(event?.startTime)}
                                 </p>
 
                             </div>
@@ -68,7 +70,7 @@ export const PastEndEventCard = () => {
 
 
                                 <Button
-                                   
+
                                     size='sm'
                                     variant='ghost'
                                     radius='full'

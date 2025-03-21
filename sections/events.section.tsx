@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { EventCardComponent } from "@/components/event.card.component";
+import { LoadingComponent2 } from "@/components/loading.component";
 import { useEventsStore } from "@/stores/events.store";
+import { EventDtoResponse } from "@/utils/dto/events.dto";
 import clsx from "clsx";
 import { useState, useEffect, useRef } from "react";
 
-export const EventsSection = ({ withSearch = false }: { withSearch?: boolean }) => {
+export const EventsSection = ({ withSearch = false, status }: { withSearch?: boolean, status?: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
@@ -23,7 +25,11 @@ export const EventsSection = ({ withSearch = false }: { withSearch?: boolean }) 
         if (loadMoreRef.current) {
             observer.observe(loadMoreRef.current);
         }
-        fetchEventList();
+        if (status) {
+            fetchEventList({ page: 1, limit: 25, status: status });
+        } else {
+            fetchEventList({ page: 1, limit: 25 });
+        }
         return () => {
             if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
         };
@@ -42,7 +48,8 @@ export const EventsSection = ({ withSearch = false }: { withSearch?: boolean }) 
             {eventLoading ?
                 <div ref={loadMoreRef} className="mt-4 text-center">
                     {eventLoading &&
-                        <p className="text-gray-600 text-xl font-semibold">Chargement... ici</p>}
+                        <LoadingComponent2 />
+                    }
                 </div> : <>
                     {dataList?.length === 0 ? <>
                         <div className="text-center">
@@ -52,8 +59,8 @@ export const EventsSection = ({ withSearch = false }: { withSearch?: boolean }) 
                         <>
                             <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")} >
 
-                                {dataList.map((item, index: number) => (
-                                    <EventCardComponent key={index} />
+                                {dataList.map((event: EventDtoResponse, index: number) => (
+                                    <EventCardComponent event={event} key={index} />
                                 ))}
                             </div>
                         </>

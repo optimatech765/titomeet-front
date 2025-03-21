@@ -4,6 +4,7 @@ export const customMessages = {
     "string.base": "{{#label}} doit être une chaîne de caractères",
     "string.uri": "{{#label}} doit être une URL valide",
     "string.empty": "{#label} ne doit pas être vide",
+    "array.base": "{{#label}} doit être un tableau",
     "array.min": "{#label} doit comporter au minimum {{#limit}} elément(s)",
     "array.max": "{#label} doit comporter au plus {{#limit}} elément(s)",
     "array.length": "{#label} doit comporter au minimum {{#limit}} elément(s)",

@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DatePicker, Input, Select, SelectItem, TimeInput } from '@heroui/react';
+import { DatePicker, Input, TimeInput } from '@heroui/react';
 import { Timer } from 'lucide-react';
 import React from 'react';
 import InputContainerComponent from './input.container.component';
 import { useEventsStore } from '@/stores/events.store';
 import { InputErrorStore } from '@/stores/input.error.store';
+import EventCategorieSelectorComponent from '../selectors/event.categorie.selector.component';
+import { AddressSelector } from '../selectors/address.selector';
 
 const GeneralInforComponent = () => {
     const { data: eventData, updateEventData } = useEventsStore();
@@ -32,21 +34,9 @@ const GeneralInforComponent = () => {
                 </InputContainerComponent>
 
                 <InputContainerComponent title={"Catégorie"} >
-                    <Select
-                        value={[...eventData?.categories]}
-                        onChange={(e) => updateEventData("categories", e.target.value)}
-                        isInvalid={errorFields.field === 'categories'}
-                        errorMessage={errorFields?.message}
-                        className='border-slate-300'
-                        variant='bordered'
-                        // label={"Catégorie"}
-                        fullWidth={true}
-                        labelPlacement={"outside-left"}
-                    >
-                        <SelectItem key="1">Hello</SelectItem>
-                        <SelectItem key="2">World</SelectItem>
-                        <SelectItem key="3">Foo</SelectItem>
-                    </Select>
+                    <EventCategorieSelectorComponent
+                        value={eventData?.categories}
+                        onChange={(e: any) => updateEventData("categories", e)} />
                 </InputContainerComponent>
 
                 <InputContainerComponent title={"Date de début"} >
@@ -108,7 +98,11 @@ const GeneralInforComponent = () => {
                 </InputContainerComponent>
 
                 <InputContainerComponent title={"Lieu"} >
-                    <Input
+                    <AddressSelector
+                        value={eventData?.addressId}
+                        onChange={(e) => updateEventData("addressId", e)}
+                    />
+                    {/* <Input
                         value={eventData?.addressId}
                         onChange={(e) => updateEventData("addressId", e.target.value)}
                         isInvalid={errorFields.field === 'addressId'}
@@ -121,10 +115,10 @@ const GeneralInforComponent = () => {
                         classNames={{
                             "mainWrapper": "flex-1"
                         }}
-                    />
+                    /> */}
                 </InputContainerComponent>
 
-                <InputContainerComponent title={"Adresse"} >
+                {/* <InputContainerComponent title={"Adresse"} >
                     <Input
 
                         className='border-slate-300'
@@ -137,7 +131,7 @@ const GeneralInforComponent = () => {
 
                         }}
                     />
-                </InputContainerComponent>
+                </InputContainerComponent> */}
 
                 <InputContainerComponent title={"Nombre de place"} >
                     <Input

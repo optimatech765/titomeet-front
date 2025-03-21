@@ -2,16 +2,17 @@ import { DateSelectComponent } from '@/components/date.select.component';
 import { PastEventJoined } from '@/components/past.event.joined';
 import { PubCardComponent } from '@/components/pub.card.component';
 import { useEventsStore } from '@/stores/events.store';
-import { EventDto } from '@/utils/dto/events.dto';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
 import React, { useEffect } from 'react';
+import { LoadingComponent2 } from '../loading.component';
 
 export const EventsTabs = () => {
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
 
     useEffect(() => {
 
-        fetchEventList();
+        fetchEventList({ page: 1, limit: 25 });
     }, []);
 
     return (
@@ -27,7 +28,7 @@ export const EventsTabs = () => {
 
                         <div className='space-y-3.5 sm:block'>
                             {eventLoading ? <>
-                                <h4>Chargement...</h4>
+                                <LoadingComponent2 />
                             </> : <>
                                 {dataList?.length === 0 ? <>
                                     <div className="text-center">
@@ -35,59 +36,8 @@ export const EventsTabs = () => {
                                     </div>
                                 </> :
                                     <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEventJoined key={index} />
-                                        ))}
-
-                                    </>
-                                }</>
-                            }
-                        </div>
-                    </div>
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Vendredi 18 Avril 2025</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            {eventLoading ? <>
-                                <h4>Chargement...</h4>
-                            </> : <>
-                                {dataList?.length === 0 ? <>
-                                    <div className="text-center">
-                                        Il n&apos;y a pas de data
-                                    </div>
-                                </> :
-                                    <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEventJoined key={index} />
-                                        ))}
-
-                                    </>
-                                }</>
-                            }
-                        </div>
-                    </div>
-
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            {eventLoading ? <>
-                                <h4>Chargement...</h4>
-                            </> : <>
-                                {dataList?.length === 0 ? <>
-                                    <div className="text-center">
-                                        Il n&apos;y a pas de data
-                                    </div>
-                                </> :
-                                    <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEventJoined key={index} />
+                                        {dataList.map((event: EventDtoResponse, index: number) => (
+                                            <PastEventJoined event={event} key={index} />
                                         ))}
 
                                     </>

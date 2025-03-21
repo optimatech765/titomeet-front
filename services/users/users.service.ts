@@ -13,6 +13,10 @@ class UsersServices {
         return axios.get(`${this.baseUrl}/users/me`);
     }
 
+    refreshToken() {
+        return axios.post(`${this.baseUrl}/users/refresh-token`);
+    }
+
 }
 
 const usersServices = new UsersServices();

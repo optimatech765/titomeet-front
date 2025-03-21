@@ -9,8 +9,8 @@ class EventServices {
         tokenServices.setHeader();
     }
 
-    getEvents() {
-        return axios.get(`${this.baseUrl}/events`);
+    getEvents(data:string) {
+        return axios.get(`${this.baseUrl}/events?${data}`);
     }
 
     getEvent(id: string) {

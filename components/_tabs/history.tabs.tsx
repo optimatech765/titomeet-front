@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { PubCardComponent } from '@/components/pub.card.component';
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { useEventsStore } from '@/stores/events.store';
-import { EventDto } from '@/utils/dto/events.dto';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
 
 const HistoryTabs = () => {
 
@@ -14,7 +14,7 @@ const HistoryTabs = () => {
 
     useEffect(() => {
 
-        fetchEventList();
+        fetchEventList({page:1,limit:25,status:"FINISHED"});
     }, []);
 
 
@@ -39,8 +39,8 @@ const HistoryTabs = () => {
                                     </div>
                                 </> :
                                     <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEndEventCard key={index} />
+                                        {dataList.map((event: EventDtoResponse, index: number) => (
+                                            <PastEndEventCard event={event}  key={index} />
                                         ))}
 
                                     </>
@@ -49,60 +49,7 @@ const HistoryTabs = () => {
 
                         </div>
                     </div>
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Vendredi 18 Avril 2025</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            {eventLoading ? <>
-                                <h4>Chargement...</h4>
-                            </> : <>
-                                {dataList?.length === 0 ? <>
-                                    <div className="text-center">
-                                        Il n&apos;y a pas de data
-                                    </div>
-                                </> :
-                                    <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEndEventCard key={index} />
-                                        ))}
-
-                                    </>
-                                }</>
-                            }
-
-                        </div>
-                    </div>
-
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            {eventLoading ? <>
-                                <h4>Chargement...</h4>
-                            </> : <>
-                                {dataList?.length === 0 ? <>
-                                    <div className="text-center">
-                                        Il n&apos;y a pas de data
-                                    </div>
-                                </> :
-                                    <>
-                                        {dataList.map((event: EventDto, index: number) => (
-                                            <PastEndEventCard key={index} />
-                                        ))}
-
-                                    </>
-                                }</>
-                            }
-
-
-                        </div>
-                    </div>
+                   
 
                 </div>
                 <div className='md:col-span-4 space-y-3'>

@@ -4,7 +4,10 @@ import { NextUiProvider } from "@/providers/nextui.provider";
 import { LangProvider } from "@/providers/lang.provider";
 import { FooterSection } from "@/sections/footer.section";
 import { useParams } from "next/navigation";
+import { NavbarSection } from "@/sections/navbar.section";
 import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
+import { useAppContext } from "@/context";
+// import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
 
 
 // export const metadata: Metadata = {
@@ -13,7 +16,7 @@ import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.
 // };
 
 
-export default  function RootLayout({
+export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -23,31 +26,32 @@ export default  function RootLayout({
   const locale = params.locale;
 
   return (
-      <section
-       
-      >
-        <NextUiProvider>
-          <LangProvider locale={locale as string}>
-            
-            {/* navbar */}
-            {/* <NavbarSection /> */}
-            <AuthentificatedNavbarSection />
+    <section
+      className="font-poppins "
+    >
+      <NextUiProvider>
+        <LangProvider locale={locale as string}>
 
-            {/* main */}
-            <main className="font-poppins ">
-              {children}
+          {/* navbar */}
+          {/* {!isAuth?.id ? <NavbarSection /> : <AuthentificatedNavbarSection />} 
+       <NavbarSection />*/}
+          <AuthentificatedNavbarSection />
 
-            </main>
+          {/* main */}
+          <main >
+            {children}
 
-              {/* <SwitchThemeComponent /> */}
+          </main>
 
-            {/* footer */}
-            <FooterSection />
+          {/* <SwitchThemeComponent /> */}
 
-          </LangProvider>
+          {/* footer */}
+          <FooterSection />
 
-        </NextUiProvider>
+        </LangProvider>
 
-      </section>
+      </NextUiProvider>
+
+    </section>
   );
 }

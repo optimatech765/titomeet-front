@@ -6,14 +6,15 @@ import ResumeComponent from '@/components/create-event/resume.component';
 import VisibilityCommunicationComponent from '@/components/create-event/visibility.communication.component';
 import { eventSevices } from '@/services/events/event.services';
 import { useEventsStore } from '@/stores/events.store';
-import { EventStepOneValidator, EventsValidator } from '@/utils/validator/events.validator';
+import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetDate } from '@/utils/functions/date.function';
-import { usersServices } from '@/services/users/users.service';
 import { InputErrorStore } from '@/stores/input.error.store';
+import { assetsServices } from '@/services/assets/assets.services';
+import { cleanResponse } from '@/utils/functions/other.functions';
 
 const Page = () => {
 
@@ -21,19 +22,48 @@ const Page = () => {
     // const [validateStep, setValidateStep] = useState([]);
     const { data: eventData, resetData } = useEventsStore();
 
-    const {setMessageError} = InputErrorStore()
+    const { setMessageError } = InputErrorStore()
 
     const handleSaveDraftEvent = async () => {
         console.log(eventData);
 
     }
 
+    const uploadFile = async (file: File) => {
+
+        const response = await assetsServices.getPresignUrl({
+            fileName: "" + new Date().getTime() + file.name,
+            fileType: eventData.coverPicture?.type
+        });
+
+        const { uploadUrl, fields, downloadUrl } = cleanResponse(response.data);
+
+        const formData = new FormData()
+        Object.entries(fields).forEach(([key, value]) => {
+            formData.append(key, value as string)
+        })
+
+        formData.append("file", file)
+
+        const uploadResponse = await fetch(uploadUrl, {
+            method: "POST",
+            body: formData,
+        })
+
+        if (uploadResponse.ok) {
+            // Return the fileKey and type based on file
+            return {
+                fileKey: fields.key,
+                type: file.type.includes("image") ? "image" : "pdf",
+                downloadUrl: downloadUrl,
+            }
+        }
+
+        return {}
+    }
+
     const handleSaveEvent = async () => {
         try {
-
-            const userInfo = await usersServices.userInfo();
-
-            console.log(userInfo);
 
 
             const startDate = GetDate(eventData.startDate as any)
@@ -67,8 +97,15 @@ const Page = () => {
                     progress: undefined,
                 });
 
+                const coverFile = await uploadFile(eventData.coverPicture as File);
+                const badgeFile = await uploadFile(eventData.badge as File);
+
                 eventSevices.createEvent({
                     ...eventData,
+                    categories: eventData?.categories?.split(","),
+                    capacity: +eventData.capacity,
+                    coverPicture: coverFile?.downloadUrl,
+                    badge: badgeFile?.downloadUrl,
                     startDate: startDate,
                     endDate: endDate,
                     startTime: new Date().toLocaleTimeString(),
@@ -105,7 +142,17 @@ const Page = () => {
 
     const handleNextStep = () => {
         if (activeStep === "general") {
-            const { error, errorData } = EventStepOneValidator(eventData);
+            const startDate = GetDate(eventData.startDate as any)
+            const endDate = GetDate(eventData.endDate as any);
+
+            const { error, errorData } = EventStepOneValidator({
+                ...eventData,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: new Date().toLocaleTimeString(),
+                endTime: new Date().toLocaleTimeString(),
+                categories: eventData.categories
+            });
             if (error) {
                 toast.error(errorData.message, {
                     position: "top-right",
@@ -118,13 +165,41 @@ const Page = () => {
             }
             else {
                 setActiveStep("advanced");
+                setMessageError(errorData);
             }
         }
         if (activeStep === "advanced") {
-            setActiveStep("communication");
+            const { error, errorData } = EventStepTwoValidator(eventData);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+                setMessageError(errorData);
+
+            }
+            else {
+                setActiveStep("communication");
+                setMessageError(errorData);
+            }
         }
         if (activeStep === "communication") {
-            setActiveStep("resume");
+            const { error, errorData } = EventStepThreeValidator(eventData);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+                setMessageError(errorData);
+            }
+            else {
+                setActiveStep("resume");
+                setMessageError(errorData);
+            }
         }
     }
 

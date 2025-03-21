@@ -1,11 +1,13 @@
 "use client"
+import { EventDtoResponse } from "@/utils/dto/events.dto";
+import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, Progress } from "@heroui/react";
 import clsx from "clsx";
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass, MapPinIcon, MessageCircleMore, Star, User } from "lucide-react";
 import Image from "next/image";
 
 
-export const PublishEventCardComponent = ({ status = "draft", withDate = true }: { status?: string, withDate?: boolean }) => {
+export const PublishEventCardComponent = ({ status = "draft", withDate = true, event }: { event: EventDtoResponse, status?: string, withDate?: boolean }) => {
 
     return (
         <Card
@@ -27,28 +29,31 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                 </div>
 
                 <div className="flex flex-1 gap-1 col-span-6 md:col-span-9 py-1.5">
+
                     <div className="">
                         <div className="text-center rounded-lg font-bold ">
-                            <p className="text-lg font-bold ">14</p>
-                            <p className="text-sm uppercase text-red-600">AVR</p>
+                            <p className="text-lg font-bold ">{formatDate(event?.startDate).day}</p>
+                            <p className="text-sm uppercase text-red-600">{formatDate(event?.startDate).month}</p>
                         </div>
                     </div>
+
                     <div className="space-y-1 px-1 flex-1">
-                        <h2 className='text-xs font-bold'>After Work Networking</h2>
+                        <h2 className='text-xs font-bold'>{event?.name}</h2>
                         <div className="mt-2 flex-wrap flex gap-2 items-center justify-between font-normal text-gray-700 text-sm ">
                             <p className="flex items-center gap-0.5 text-xs font-light">
-                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
+                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" />
+                                {event?.address?.city}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Clock className="w-4 h-4 text-white" fill="red" /> 15:00
+                                <Clock className="w-4 h-4 text-white" fill="red" /> {getHourMinute(event?.startTime)}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" /> Gratuit
+                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
+                                {event?.accessType === "FREE" ? "Gratuit" : "Payant"}
+
                             </p>
-
-
 
                         </div>
 
@@ -57,7 +62,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                 <p className="flex items-center  text-xs font-light gap-0.5">
                                     <User className="w-4 h-4 text-white" fill="red" />
                                     <span>
-                                        25 Par/45
+                                        {event?.participants?.length} Par/{event?.capacity}
                                     </span>
 
                                 </p>
@@ -98,7 +103,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true }:
                                     variant='ghost'
                                     radius='full'
                                     color='primary'
-                                    className="mt-2 flex-1 border-1 flex-1 gap-1 px-1 text-xs font-medium text-primary">
+                                    className="mt-2 border-1 flex-1 gap-1 px-1 text-xs font-medium text-primary">
                                     Voir les avis
                                 </Button>
                                 : <>

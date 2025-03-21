@@ -8,6 +8,7 @@ import { authValidator } from '@/utils/validator/auth.validator';
 import { Button, Checkbox, Input } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -19,6 +20,7 @@ export const Loginpage = () => {
     const errorFields = InputErrorStore((state: any) => state.errorField);
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
+    const router = useRouter()
 
 
 
@@ -49,12 +51,12 @@ export const Loginpage = () => {
                             isLoading: false,
                             autoClose: 1000,
                         });
-                        console.log("Hello la famille", response)
                         localStorage.setItem("accessToken", response?.data?.accessToken);
                         setToken(response?.data?.accessToken);
                         localStorage.setItem("refreshToken", response?.data?.refreshToken);
                         setRefreshToken(response?.data?.refreshToken);
-                        console.log(response)
+                        router.push('/user')
+
                     },
                     (error) => {
 

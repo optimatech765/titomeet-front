@@ -1,9 +1,9 @@
-
-import { notificationsServices } from "@/services/notifications/notifcations.services";
-import { NotificationDto } from "@/utils/dto/notification.dto";
+import { addressServices } from "@/services/address/address.services";
+import { AddressDto } from "@/utils/dto/address.dto";
 import { create } from "zustand";
 
-interface EventStore {
+
+interface AddressStoreDto {
     DataListConfig: {
         page: number;
         totalItems: number;
@@ -11,13 +11,12 @@ interface EventStore {
         isSearch: boolean;
         searchValue: string;
     };
-    notificationsList: NotificationDto[];
+    dataList: AddressDto[];
     isLoading: boolean;
-    fetchNotificationsList: () => Promise<void>;
-
+    fetchAddressList: (params: string) => void;
 }
 
-export const useNotificationsStore = create<EventStore>((set) => ({
+export const AddressStore = create<AddressStoreDto>((set) => ({
     DataListConfig: {
         page: 1,
         totalItems: 0,
@@ -25,24 +24,23 @@ export const useNotificationsStore = create<EventStore>((set) => ({
         isSearch: false,
         searchValue: "",
     },
-    notificationsList: [],
+    dataList: [],
     isLoading: true,
-    fetchNotificationsList: async () => {
+    fetchAddressList: async (query: string) => {
         try {
             set(() => ({
                 isLoading: true,
             }));
 
-            console.log("fetchNotificationsList")
-            notificationsServices
-                .getNotifications()
+            addressServices
+                .getAddresses(query)
                 .then(
                     (response) => {
                         const { items, total, page, limit } = response.data;
 
                         set(() => ({
                             isLoading: false,
-                            notificationsList: [...items],
+                            dataList: [...items],
                             DataListConfig: {
                                 totalItems: total,
                                 page: page,
@@ -54,9 +52,6 @@ export const useNotificationsStore = create<EventStore>((set) => ({
                         }));
                     },
                     (error) => {
-                        set(() => ({
-                            isLoading: false,
-                        }));
                         console.log(error);
                     }
                 );
@@ -68,5 +63,4 @@ export const useNotificationsStore = create<EventStore>((set) => ({
             console.error("Erreur lors de la récupération des détails :", error);
         }
     },
-
 }))
