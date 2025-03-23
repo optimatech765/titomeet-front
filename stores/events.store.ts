@@ -155,6 +155,7 @@ export const useEventsStore = create<EventStore>((set) => ({
 
     fetchEventList: async (searchParams?: QyeryParamsDto) => {
         try {
+            console.log("Salut la famille")
             const queryString = paramsToQueryString(searchParams || {});
             set(() => ({
                 isLoading: true,

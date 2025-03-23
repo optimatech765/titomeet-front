@@ -59,7 +59,11 @@ const Page = () => {
             }
         }
 
-        return {}
+        return {
+            fileKey: fields.key,
+            type: file.type.includes("image") ? "image" : "pdf",
+            downloadUrl: downloadUrl,
+        }
     }
 
     const handleSaveEvent = async () => {
@@ -100,8 +104,14 @@ const Page = () => {
                 const coverFile = await uploadFile(eventData.coverPicture as File);
                 const badgeFile = await uploadFile(eventData.badge as File);
 
+                const updatedData = eventData?.prices?.map((item: any) => ({
+                    ...item,
+                    amount: parseInt(item.amount, 10)
+                  }));
+
                 eventSevices.createEvent({
                     ...eventData,
+                    prices:updatedData,
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
                     coverPicture: coverFile?.downloadUrl,

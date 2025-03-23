@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 import axios from 'axios';
 import { tokenServices } from '../tokenService';
 
-class UsersServices {
+export class UsersServices {
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor() {
-        tokenServices.setHeader();
+    constructor(token: string) {
+        tokenServices.setHeaderToken(token);
     }
 
     userInfo() {
@@ -18,7 +19,3 @@ class UsersServices {
     }
 
 }
-
-const usersServices = new UsersServices();
-
-export { usersServices }

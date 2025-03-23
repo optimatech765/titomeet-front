@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
 
-export const PaiementModalComponent = ({ isOpen, onClose }: {
+export const PaiementModalComponent = ({ isOpen, onClose, onConfirm }: {
     isOpen: boolean;
     onClose: () => void;
+    onConfirm: () => void;
 }) => {
     return (
         <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
@@ -24,24 +26,39 @@ export const PaiementModalComponent = ({ isOpen, onClose }: {
 
                         <ModalBody>
                             <div className="flex justify-center justify-items-stretch items-center gap-3">
-                                <div className='border-1 rounded-md '>
-                                    <Image src="/img/fedapay.png" alt="fedapay" width={120} height={50} />
+                                <div className='border-1 rounded-md cursor-pointer '>
+                                    <Image src="/img/fedapay.png" alt="fedapay" width={120} height={50}
+                                        onClick={() => {
+                                            onClose()
+                                            onConfirm()
+                                        }
+                                        } />
                                 </div>
-                                <div className='border-1 rounded-md h-full'>
-                                    <Image src="/img/stripe.png" alt="stripe" width={120} height={50} className='my-7 mx-3' />
+                                <div className='border-1 rounded-md h-full cursor-pointer'>
+                                    <Image src="/img/stripe.png" alt="stripe" width={120} height={50} className='my-7 mx-3'
+                                        onClick={() => {
+                                            onClose()
+                                            onConfirm()
+                                        }
+                                        } />
                                 </div>
-                                <div className='border-1 rounded-md h-full'>
-                                    <Image src="/img/kkiapay.png" alt="kkiapay" width={120} height={50} className='my-10 mx-3' />
+                                <div className='border-1 rounded-md h-full cursor-pointer'>
+                                    <Image src="/img/kkiapay.png" alt="kkiapay" width={120} height={50} className='my-10 mx-3'
+                                        onClick={() => {
+                                            onClose()
+                                            onConfirm()
+                                        }
+                                        } />
                                 </div>
 
                             </div>
                         </ModalBody>
-                        <ModalFooter>
+                        {/* <ModalFooter>
                             <Button className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
                                 Confirmer
                             </Button>
 
-                        </ModalFooter>
+                        </ModalFooter> */}
                     </>
                 )}
             </ModalContent>

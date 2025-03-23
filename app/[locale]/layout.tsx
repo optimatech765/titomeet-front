@@ -4,9 +4,10 @@ import { NextUiProvider } from "@/providers/nextui.provider";
 import { LangProvider } from "@/providers/lang.provider";
 import { FooterSection } from "@/sections/footer.section";
 import { useParams } from "next/navigation";
-import { NavbarSection } from "@/sections/navbar.section";
 import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
-import { useAppContext } from "@/context";
+import { useEffect } from "react";
+import { useUserInfoStore } from "@/stores/userinfo.store";
+import { NavbarSection } from "@/sections/navbar.section";
 // import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
 
 
@@ -22,8 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const params = useParams();
+  const { fetchUserInfo, userInfo, isLoading } = useUserInfoStore();
 
   const locale = params.locale;
+
+  useEffect(() => {
+    fetchUserInfo();
+
+  }, []);
 
   return (
     <section
@@ -33,9 +40,8 @@ export default function RootLayout({
         <LangProvider locale={locale as string}>
 
           {/* navbar */}
-          {/* {!isAuth?.id ? <NavbarSection /> : <AuthentificatedNavbarSection />} 
-       <NavbarSection />*/}
-          <AuthentificatedNavbarSection />
+          {(!isLoading && userInfo?.id) ? <AuthentificatedNavbarSection /> : <NavbarSection />}
+
 
           {/* main */}
           <main >

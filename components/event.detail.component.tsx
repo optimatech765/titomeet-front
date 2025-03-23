@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
-import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure } from "@heroui/react";
-import { Calendar, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
+import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter } from '@heroui/react';
+import { Calendar, CheckCircle, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
 import { PaiementModalComponent } from "./paiement.modal.component";
@@ -15,6 +15,7 @@ import { LoadingComponent2 } from "./loading.component";
 
 export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isOpenConfirm, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
     const { isOpen: isOpenPaiement, onOpen: onOpenPaiement, onClose: onClosePaiement } = useDisclosure();
     const { dataList, fetchEventList, fetchSingleEvent, singleEvent, isLoading } = useEventsStore();
     const router = useRouter()
@@ -55,7 +56,7 @@ export const EventDetails = () => {
                             <span className="information-text ">Organisée par </span>
                             <span className={"intormation-title"}>{`${singleEvent?.postedBy?.firstName} ${singleEvent?.postedBy?.lastName}`}</span>
                             <span className="information-text ">publié le </span>
-                            <span className={"intormation-title"}>{singleEvent?.createdAt.split("T")[0]}</span>
+                            <span className={"intormation-title"}>{singleEvent?.createdAt?.split("T")[0]}</span>
                         </p>
                         <div className="flex items-center gap-4 text-sm text-black mt-4">
                             <p className="flex items-center gap-1 font-normal text-lg">
@@ -67,7 +68,8 @@ export const EventDetails = () => {
                                 <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> {singleEvent?.address?.city}
                             </p>
                             <p className="flex items-center gap-1">
-                                <Clock className="w-5 h-5 text-white mx-0" fill="red" /> {getHourMinute(singleEvent?.startTime)}
+                                <Clock className="w-5 h-5 text-white mx-0" fill="red" />
+                                {getHourMinute(singleEvent?.startTime || "")}
                             </p>
                             <p className="text-black flex items-center gap-1 font-semibold">
                                 <Ticket className="w-5 h-5 text-white mx-0" fill="red" />
@@ -172,11 +174,6 @@ export const EventDetails = () => {
                                             {tague}
                                         </Chip>
                                     ))}
-                                    {/* <Chip className="bg-tertiary text-primary"> Tech</Chip>
-                                <Chip className="bg-tertiary text-primary">Networking</Chip>
-                                <Chip className="bg-tertiary text-primary">Événement</Chip>
-                                <Chip className="bg-tertiary text-primary">Networking</Chip>
-                                <Chip className="bg-tertiary text-primary">Événement</Chip> */}
                                 </div>
                             </div>
 
@@ -228,7 +225,44 @@ export const EventDetails = () => {
                 <PaiementModalComponent
                     isOpen={isOpenPaiement}
                     onClose={onClosePaiement}
+                    onConfirm={onOpenConfirm}
                 />
+
+
+                {/* Modale de confirmation */}
+                <Modal backdrop={"blur"} isOpen={isOpenConfirm} onClose={onCloseConfirm} classNames={{ closeButton: 'text-primary' }}>
+                    <ModalContent >
+                        {(onCloseConfirm) => (
+                            <>
+
+                                <div className='px-6 pt-5 mb-2'>
+                                    <h3 className="text-2xl  font-semibold  flex justify-center text-center">
+                                        <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28"  />
+                                    </h3>
+                                    <h4 className="text-2xl  font-semibold  flex justify-center text-center">
+                                        Paiement réussi
+                                    </h4>
+                                    <p className="text-sm font-light text-center">
+                                        Retrouvé vos tickets dans votre boîte mail
+                                    </p>
+
+                                </div>
+
+                                <ModalBody>
+                                    <div className="flex justify-center justify-items-stretch items-center gap-3">
+
+                                    </div>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button className="w-full bg-primary text-white  " radius="full" onPress={onCloseConfirm}>
+                                        Fermer
+                                    </Button>
+
+                                </ModalFooter>
+                            </>
+                        )}
+                    </ModalContent>
+                </Modal>
             </>}
         </div>
 

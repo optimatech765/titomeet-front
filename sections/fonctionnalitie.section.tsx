@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Button, Card } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
 
@@ -15,7 +15,7 @@ export const FonctionnalitesSection = () => {
                     <div className="space-y-1">
                         <h2 className="font-extrabold text-gray-900 text-4xl font-poppins">Fonctionnalités</h2>
                         <p className="text-[#1E1E1E] text-base  block">
-                            Trouvez l'événement parfait ou lancez le vôtre
+                            Trouvez l&apos;événement parfait ou lancez le vôtre
                         </p>
                         <div className="bg-primary h-2 max-w-36 mt-1 rounded-tl-md " />
                     </div>
@@ -32,7 +32,7 @@ export const FonctionnalitesSection = () => {
                             <div className="bg-secondary text-4xl w-4 h-4 rounded-full " /> Organisez vos propres rencontres
                         </li>
                         <li className="flex items-center gap-1 text-gray-800">
-                            <div className="bg-secondary text-4xl w-4 h-4 rounded-full " /> Profitez d'une expérience sur mesure
+                            <div className="bg-secondary text-4xl w-4 h-4 rounded-full " /> Profitez d&apos;une expérience sur mesure
                         </li>
                     </ul>
 
@@ -56,7 +56,7 @@ export const FonctionnalitesSection = () => {
                             <div>
                                 <Button startContent={<SearchIcon hanging={20} width={20} />}
                                     as="a"
-                                    href="/evenements"
+                                    href="#evenements"
                                     color="primary"
                                     variant="solid"
                                     className="w-full rounded-full "
@@ -75,7 +75,7 @@ export const FonctionnalitesSection = () => {
                         <div className="w-fit space-y-2">
                             <Button startContent={<PlusIcon hanging={20} width={20} />}
                                 as="a"
-                                href="/creer-evenement"
+                                href="/user/events/new"
                                 color="secondary"
                                 variant="solid"
                                 className="w-full  rounded-full "

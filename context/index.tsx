@@ -2,7 +2,7 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
-import { usersServices } from "@/services/users/users.service";
+import { UsersServices } from "@/services/users/users.service";
 import { LoadingComponent } from "@/components/loading.component";
 
 
@@ -27,10 +27,12 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
 
     useEffect(() => {
         const fetchClientData = async () => {
+            const token = localStorage.getItem('accessToken');
+            const userServices = new UsersServices(token || "");
 
             try {
 
-                usersServices.userInfo().then(
+                userServices.userInfo().then(
                     (res) => {
                         const { status, data } = res;
 
@@ -42,7 +44,7 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
 
                         }
                         else if (status === 302) {
-                            usersServices.refreshToken().then(
+                            userServices.refreshToken().then(
                                 (response) => {
                                     const { data: refreshData } = response;
                                     if (refreshData?.role === "USER") {

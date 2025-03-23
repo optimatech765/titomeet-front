@@ -5,12 +5,18 @@ import axios from "axios";
 class TokenService {
     setHeader() {
         let authorizationToken = ""
-        if (localStorage) {
+        if (localStorage?.getItem('accessToken')) {
             authorizationToken = localStorage?.getItem('accessToken') || "";
         }
         if (authorizationToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${authorizationToken}`;
         }
+    }
+
+    setHeaderToken(token: string) {
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
     }
 
     refreshToken(token: string) {

@@ -1,6 +1,7 @@
 "use client";
 
 
+import { useAppContext } from "@/context";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, CardHeader } from "@heroui/react";
@@ -11,9 +12,10 @@ import { useState } from "react";
 
 export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
   const [favoris, setFavoris] = useState(false);
+  const { isAuth } = useAppContext();
 
   return (
-    <Link href={`/user/events/${event.id}`}>
+    <Link href={isAuth?.id ? `/user/events/${event.id}` : `/events/${event.id}`}>
       <Card className="max-w-sm rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
         <CardHeader className="relative h-56 w-full overflow-hidden rounded-t-xl">
           <Image
@@ -57,7 +59,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
 
             <div className="flex-1">
               <h3 className="text-lg text-black font-normal md:font-semibold ">{event?.name}</h3>
-              <p className="text-gray-600 text-sm mt-1">{event?.description?.slice(0, 100)}...</p>
+              <p className="text-gray-600 text-sm mt-1">{event?.description?.slice(0, 20)}...</p>
 
               <div className="mt-2 flex flex-wrap justify-between items-center font-normal text-gray-700 text-sm">
                 <div className="flex items-center gap-0.5 flex-1">
