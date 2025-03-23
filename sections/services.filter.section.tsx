@@ -16,9 +16,9 @@ const ServicesFilterSection = () => {
                 placeholder="Catégorie"
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
             <Input
@@ -32,9 +32,9 @@ const ServicesFilterSection = () => {
                 placeholder="Note"
                 startContent={ <Star className={" text-primary"} fill='#ee3540' />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
             <Button isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">

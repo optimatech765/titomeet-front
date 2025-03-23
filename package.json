@@ -11,7 +11,7 @@
   "dependencies": {
     "@heroui/button": "^2.2.10",
     "@heroui/react": "^2.7.5",
-    "@heroui/select": "^2.4.10",
+    "@heroui/select": "2.4.10",
     "@heroui/system": "^2.4.7",
     "@heroui/theme": "^2.4.6",
     "@serwist/next": "^9.0.11",
@@ -32,6 +32,11 @@
     "react-toastify": "^11.0.5",
     "swiper": "^11.2.6",
     "zustand": "^5.0.3"
+  },
+  "resolutions": {
+    "@react-aria/i18n": "3.12.5",
+    "@react-aria/selection": "3.23.0",
+    "@react-aria/utils": "3.28.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
