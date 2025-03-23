@@ -34,9 +34,9 @@
     "zustand": "^5.0.3"
   },
   "resolutions": {
-    "@react-aria/i18n": "3.10.2",
+    "@react-aria/i18n": "3.12.6",
     "@react-aria/selection": "3.23.0",
-    "@react-aria/utils": "3.28.0"
+    "@react-aria/utils": "3.28.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
