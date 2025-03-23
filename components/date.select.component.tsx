@@ -109,7 +109,7 @@ export const DateSelectComponent = () => {
                 // onSelectionChange={handleMonthChange}
                 >
                     {months.map((month, index) => (
-                        <SelectItem key={month} value={index.toString()} aria-label={month}>
+                        <SelectItem key={index.toString()} aria-label={month}>
                             {month}
                         </SelectItem>
                     ))}
