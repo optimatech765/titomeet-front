@@ -1,14 +1,25 @@
 
+"use client";
 import axios from "axios";
 
 class TokenService {
-    setHeader(authorizationToken:string) {
+    setHeader() {
+        let authorizationToken = ""
+        if (localStorage?.getItem('accessToken')) {
+            authorizationToken = localStorage?.getItem('accessToken') || "";
+        }
         if (authorizationToken) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${authorizationToken}`;
         }
     }
 
-    refreshToken(token:string) {
+    setHeaderToken(token: string) {
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    }
+
+    refreshToken(token: string) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
 

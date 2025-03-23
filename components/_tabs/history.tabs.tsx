@@ -1,12 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PastEndEventCard } from '@/components/past.end.event.card';
-import {DateInput, Divider } from '@heroui/react';
+import { DateInput, Divider } from '@heroui/react';
 import { CalendarIcon } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PubCardComponent } from '@/components/pub.card.component';
 import { CalendarDate, parseDate } from "@internationalized/date";
+import { useEventsStore } from '@/stores/events.store';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
 
 const HistoryTabs = () => {
+
+    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList({page:1,limit:25,status:"FINISHED"});
+    }, []);
+
+
     return (
         <div>
             <Divider className='mt-5 mb-2' />
@@ -19,36 +30,26 @@ const HistoryTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>
-                            <PastEndEventCard />
+                            {eventLoading ? <>
+                                <h4>Chargement...</h4>
+                            </> : <>
+                                {dataList?.length === 0 ? <>
+                                    <div className="text-center">
+                                        Il n&apos;y a pas de data
+                                    </div>
+                                </> :
+                                    <>
+                                        {dataList.map((event: EventDtoResponse, index: number) => (
+                                            <PastEndEventCard event={event}  key={index} />
+                                        ))}
 
-                            <PastEndEventCard />
-
-                            <PastEndEventCard />
-                        </div>
-                    </div>
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Vendredi 18 Avril 2025</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            <PastEndEventCard />
-                        </div>
-                    </div>
-
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            <PastEndEventCard />
-
+                                    </>
+                                }</>
+                            }
 
                         </div>
                     </div>
+                   
 
                 </div>
                 <div className='md:col-span-4 space-y-3'>

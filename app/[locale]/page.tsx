@@ -16,6 +16,7 @@ export default async function Home() {
   return (
     <div>
 
+      {/* <NavbarSection /> */}
       {/* Ajout du composant section hero */}
       <HeroSection />
 
@@ -25,7 +26,7 @@ export default async function Home() {
         <section className="pb-6 section-container">
 
 
-          <div>
+          <div id="evenements">
             <h3 className="text-primary font-extrabold text-4xl font-poppins ">{landingTEvent('title')}</h3>
             <span className="text-[#1E1E1E] text-base">{landingTEvent('description')}</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
@@ -42,7 +43,7 @@ export default async function Home() {
         </section>
 
         {/* Catégories */}
-        <section className="pt-6 mt-6 section-container">
+        <section className="pt-6 mt-6 section-container" id="categories" >
           <div className="space-y-1">
             <h3 className="text-primary font-extrabold text-4xl font-poppins text-center ">Categories d’evenements</h3>
             <span className="text-[#1E1E1E] text-base text-center block">Trouvez l’événement qui vous correspond</span>
@@ -56,12 +57,12 @@ export default async function Home() {
 
 
       {/* Fonctionnalités */}
-      <section className="bg-footer">
+      <section className="bg-footer" id="fonctionnalites">
         <FonctionnalitesSection />
       </section>
 
       {/* Partenaires */}
-      <section className="bg-partner">
+      <section className="bg-partner" id="partenaires">
         <PartenairesSection />
       </section>
 

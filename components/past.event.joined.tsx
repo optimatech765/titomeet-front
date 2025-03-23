@@ -1,10 +1,12 @@
+import { EventDtoResponse } from '@/utils/dto/events.dto';
+import { formatDate, getHourMinute } from '@/utils/functions/date.function';
 import { Button, Card } from '@heroui/react';
 import clsx from 'clsx';
 import { Check, Clock, Eclipse, FilePenLine, MapPinIcon, MessageCircleMore, Star, Users } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-export const PastEventJoined = ({ withDate = true, status = "active" }: { withDate?: boolean, status?: string }) => {
+export const PastEventJoined = ({ withDate = true, status = "active", event }: { event: EventDtoResponse, withDate?: boolean, status?: string }) => {
     return (
         <Card
             isBlurred
@@ -27,21 +29,21 @@ export const PastEventJoined = ({ withDate = true, status = "active" }: { withDa
                 <div className="flex flex-1 gap-1 col-span-6 md:col-span-9 py-1.5">
                     <div className="pl-2">
                         <div className="text-center rounded-lg font-bold ">
-                            <p className="text-lg font-bold ">14</p>
-                            <p className="text-sm uppercase text-red-600">AVR</p>
+                            <p className="text-lg font-bold ">{formatDate(event?.startDate).day}</p>
+                            <p className="text-sm uppercase text-red-600">{formatDate(event?.startDate).month}</p>
                         </div>
                     </div>
                     <div className="space-y-1 px-1">
-                        <h2 className='text-xs font-bold'>After Work Networking</h2>
+                        <h2 className='text-xs font-bold'>{event?.name}</h2>
                         <div className="mt-2 flex-wrap flex gap-2 items-center justify-between font-normal text-gray-700 text-sm ">
                             <p className="flex items-center gap-0.5 text-xs font-light">
-                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
+                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> {event?.address?.city}
                             </p>
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Users className="w-4 h-4 text-white" fill="red" /> 25 Participants
+                                <Users className="w-4 h-4 text-white" fill="red" />  {event?.capacity} Participants
                             </p>
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Clock className="w-4 h-4 text-white" fill="red" /> 15:00
+                                <Clock className="w-4 h-4 text-white" fill="red" /> {getHourMinute(event?.startTime)}
                             </p>
                         </div>
                         <div className={"flex-1 flex items-center gap-1 "}>

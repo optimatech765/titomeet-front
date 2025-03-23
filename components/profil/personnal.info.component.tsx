@@ -1,9 +1,19 @@
 import { Avatar, Button, Input } from '@heroui/react';
 import { CameraIcon } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { InputContainerComponentTop } from '../create-event/input.container.component';
+import { useUserInfoStore } from '@/stores/userinfo.store';
+import { useAppContext } from '@/context';
 
 export const PersonnalInfoComponent = () => {
+    const { isAuth } = useAppContext();
+    const { setUserInfo, userInfo } = useUserInfoStore();
+
+
+    useEffect(() => {
+        setUserInfo(isAuth);
+    }, []);
+
     return (
         <div className='flex flex-col justify-between h-full'>
             <div>
@@ -28,16 +38,19 @@ export const PersonnalInfoComponent = () => {
                     {/* Formulaire */}
                     <div className="grid grid-cols-2 gap-4 mt-6 flex-1 px-10">
 
-                        <InputContainerComponentTop title={"Nom et prénoms"} >
-                            <Input className="w-full" />
+                        <InputContainerComponentTop title={"Nom"} >
+                            <Input className="w-full" value={ userInfo?.lastName} />
+                        </InputContainerComponentTop>
+                        <InputContainerComponentTop title={"Prénoms"} >
+                            <Input className="w-full" value={userInfo?.firstName} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Nom d'utilisateur"} >
-                            <Input className="w-full" />
+                            <Input className="w-full" value={userInfo?.username} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Adresse email"} >
-                            <Input className="w-full" />
+                            <Input className="w-full" value={userInfo?.email} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Localisation"} >

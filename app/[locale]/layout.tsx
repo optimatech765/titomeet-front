@@ -5,6 +5,10 @@ import { LangProvider } from "@/providers/lang.provider";
 import { FooterSection } from "@/sections/footer.section";
 import { useParams } from "next/navigation";
 import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
+import { useEffect } from "react";
+import { useUserInfoStore } from "@/stores/userinfo.store";
+import { NavbarSection } from "@/sections/navbar.section";
+// import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.section";
 
 
 // export const metadata: Metadata = {
@@ -13,41 +17,47 @@ import { AuthentificatedNavbarSection } from "@/sections/authentificated.navbar.
 // };
 
 
-export default  function RootLayout({
+export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const params = useParams();
+  const { fetchUserInfo, userInfo, isLoading } = useUserInfoStore();
 
   const locale = params.locale;
 
+  useEffect(() => {
+    fetchUserInfo();
+
+  }, []);
+
   return (
-      <section
-       
-      >
-        <NextUiProvider>
-          <LangProvider locale={locale as string}>
-            
-            {/* navbar */}
-            {/* <NavbarSection /> */}
-            <AuthentificatedNavbarSection />
+    <section
+      className="font-poppins "
+    >
+      <NextUiProvider>
+        <LangProvider locale={locale as string}>
 
-            {/* main */}
-            <main className="font-poppins ">
-              {children}
+          {/* navbar */}
+          {(!isLoading && userInfo?.id) ? <AuthentificatedNavbarSection /> : <NavbarSection />}
 
-            </main>
 
-              {/* <SwitchThemeComponent /> */}
+          {/* main */}
+          <main >
+            {children}
 
-            {/* footer */}
-            <FooterSection />
+          </main>
 
-          </LangProvider>
+          {/* <SwitchThemeComponent /> */}
 
-        </NextUiProvider>
+          {/* footer */}
+          <FooterSection />
 
-      </section>
+        </LangProvider>
+
+      </NextUiProvider>
+
+    </section>
   );
 }

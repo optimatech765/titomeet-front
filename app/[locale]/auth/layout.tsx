@@ -14,10 +14,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <Image alt='dd' src={'/img/login-image.jpg'} width={400} height={400} className="w-full h-full object-cover" />
 
                     </div>
-                    <div className={" px-4 mx-auto md:px-16"}>
+                    <div className={" px-4 md:px-16"}>
                         {children}
                     </div>
-
 
                 </div>
             </Card>

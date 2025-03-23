@@ -1,4 +1,4 @@
-"use client";
+
 import { NotificationsCardComponent } from '@/components/notification.card.component';
 import React from 'react';
 

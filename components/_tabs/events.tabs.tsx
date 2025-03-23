@@ -1,10 +1,20 @@
 import { DateSelectComponent } from '@/components/date.select.component';
 import { PastEventJoined } from '@/components/past.event.joined';
 import { PubCardComponent } from '@/components/pub.card.component';
+import { useEventsStore } from '@/stores/events.store';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { LoadingComponent2 } from '../loading.component';
 
 export const EventsTabs = () => {
+    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList({ page: 1, limit: 25 });
+    }, []);
+
     return (
         <div>
             <Divider className='mt-5 mb-2' />
@@ -17,46 +27,22 @@ export const EventsTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>
-                            <PastEventJoined />
+                            {eventLoading ? <>
+                                <LoadingComponent2 />
+                            </> : <>
+                                {dataList?.length === 0 ? <>
+                                    <div className="text-center">
+                                        Il n&apos;y a pas de data
+                                    </div>
+                                </> :
+                                    <>
+                                        {dataList.map((event: EventDtoResponse, index: number) => (
+                                            <PastEventJoined event={event} key={index} />
+                                        ))}
 
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-                        </div>
-                    </div>
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Vendredi 18 Avril 2025</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-                        </div>
-                    </div>
-
-
-
-                    <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
-                        <Divider className='mt-1.5 mb-2' />
-
-                        <div className='space-y-3.5'>
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
-
-                            <PastEventJoined />
+                                    </>
+                                }</>
+                            }
                         </div>
                     </div>
 

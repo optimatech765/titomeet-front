@@ -4,16 +4,26 @@ import { PubCardComponent } from '@/components/pub.card.component';
 import { OurEventsTabsComponent } from '@/sections/events.tabs.section';
 import { Button, Divider } from '@heroui/react';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { PublishEventCardComponent } from '@/components/publish.event.card.component';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
+import { useEventsStore } from '@/stores/events.store';
+import {EventDtoResponse } from '@/utils/dto/events.dto';
+import { LoadingComponent2 } from '@/components/loading.component';
+import { useAppContext } from '@/context';
 
 const Page = () => {
-    const [activeTab, setActiveTab] = useState("publish");
+    const [activeTab, setActiveTab] = useState("PUBLISHED");
+    const { isAuth } = useAppContext();
 
+    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
 
+    useEffect(() => {
+
+        fetchEventList({ page: 1, limit: 25,createdById:isAuth?.id,status:activeTab});
+    }, [activeTab]);
 
     return (
         <div className='space-y-9 my-7 section-container'>
@@ -40,7 +50,7 @@ const Page = () => {
                 <div className='flex flex-col md:flex-row flex-wrap  gap-10 lg:gap-20'>
 
                     {/* Evènements publiés */}
-                    {activeTab === "publish" &&
+                    {activeTab === "PUBLISHED" &&
                         <>
 
                             <div className='flex-1 space-y-3'>
@@ -50,20 +60,32 @@ const Page = () => {
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 sm:block'>
-                                        <PublishEventCardComponent status={"published"} />
-                                        <PublishEventCardComponent status={"published"} />
-                                        <PublishEventCardComponent status={"published"} />
+                                        {eventLoading ? <>
+                                            <LoadingComponent2 />
+                                        </> : <>
+                                            {dataList?.length === 0 ? <>
+                                                <div className="text-center h-full flex justify-center items-center">
+                                                    <h3>Aucun évènement</h3>
+                                                </div>
+                                            </> :
+                                                <>
+                                                    {dataList.map((event: EventDtoResponse, index: number) => (
+                                                        <PublishEventCardComponent event={event} status={"published"} key={index} />
+                                                    ))}
+
+                                                </>
+                                            }</>
+                                        }
                                     </div>
                                 </div>
 
                             </div>
 
                         </>
-
                     }
 
                     {/* Evènements brouillons */}
-                    {activeTab === "draft" &&
+                    {activeTab === "DRAFT" &&
                         <>
 
                             <div className='flex-1 space-y-3'>
@@ -73,9 +95,22 @@ const Page = () => {
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
-                                        <PublishEventCardComponent />
-                                        <PublishEventCardComponent />
-                                        <PublishEventCardComponent />
+                                        {eventLoading ? <>
+                                            <LoadingComponent2 />
+                                        </> : <>
+                                            {dataList?.length === 0 ? <>
+                                                <div className="text-center">
+                                                    Il n&apos;y a pas de data
+                                                </div>
+                                            </> :
+                                                <>
+                                                    {dataList.map((event: EventDtoResponse, index: number) => (
+                                                        <PublishEventCardComponent event={event} key={index} />
+                                                    ))}
+
+                                                </>
+                                            }</>
+                                        }
                                     </div>
                                 </div>
 
@@ -86,7 +121,7 @@ const Page = () => {
                     }
 
                     {/* Evènements programmés */}
-                    {activeTab === "programming" &&
+                    {activeTab === "PROGRAMMING" &&
                         <>
 
 
@@ -97,9 +132,23 @@ const Page = () => {
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
-                                        <PublishEventCardComponent status={"programming"} />
-                                        <PublishEventCardComponent status={"programming"} />
-                                        <PublishEventCardComponent status={"programming"} />
+
+                                        {eventLoading ? <>
+                                            <LoadingComponent2 />
+                                        </> : <>
+                                            {dataList?.length === 0 ? <>
+                                                <div className="text-center">
+                                                    Il n&apos;y a pas de data
+                                                </div>
+                                            </> :
+                                                <>
+                                                    {dataList.map((event: EventDtoResponse, index: number) => (
+                                                        <PublishEventCardComponent event={event} status={"programming"} key={index} />
+                                                    ))}
+
+                                                </>
+                                            }</>
+                                        }
                                     </div>
                                 </div>
 
@@ -109,7 +158,7 @@ const Page = () => {
                     }
 
                     {/* Evènements passé */}
-                    {activeTab === "past" &&
+                    {activeTab === "FINISHED" &&
                         <>
 
                             <div className='flex-1 space-y-3'>
@@ -119,9 +168,22 @@ const Page = () => {
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
-                                        <PublishEventCardComponent status={"past"} />
-                                        <PublishEventCardComponent status={"past"} />
-                                        <PublishEventCardComponent status={"past"} />
+                                        {eventLoading ? <>
+                                            <LoadingComponent2 />
+                                        </> : <>
+                                            {dataList?.length === 0 ? <>
+                                                <div className="text-center">
+                                                    Il n&apos;y a pas de data
+                                                </div>
+                                            </> :
+                                                <>
+                                                    {dataList.map((event: EventDtoResponse, index: number) => (
+                                                        <PublishEventCardComponent event={event} status={"FINISHED"} key={index} />
+                                                    ))}
+
+                                                </>
+                                            }</>
+                                        }
                                     </div>
                                 </div>
 

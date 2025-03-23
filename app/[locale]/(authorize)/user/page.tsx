@@ -3,6 +3,7 @@
 import { DateSelectComponent } from '@/components/date.select.component';
 import { FutureEventCardComponent } from '@/components/future.event.card.component';
 import { MyEventEventCardComponent } from '@/components/myevent.card.component';
+import { useAppContext } from '@/context';
 import { EventsSection } from '@/sections/events.section';
 import { FilterSection } from '@/sections/filter.section';
 import { Divider } from '@heroui/react';
@@ -10,11 +11,13 @@ import Image from 'next/image';
 import React from 'react';
 
 const Page = () => {
+    const { isAuth } = useAppContext();
+    
     return (
         <div className={"py-6 text-foreground p-10 space-y-3 section-container"}>
 
             <h1 className="text-2xl font-extrabold md:flex gap-1 items-center">
-                Bienvenue, Nom d’utilisateur
+                Bienvenue, {isAuth?.username}
                 <Image
                     src="/img/face.png"
                     alt="logo"

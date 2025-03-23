@@ -1,10 +1,12 @@
 "use client";
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
+import { useAppContext } from "@/context";
 import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
 import { Camera, FilePenLine, MapPinIcon, Pencil } from "lucide-react";
 import Link from "next/link";
 
 const UserProfile = () => {
+    const { isAuth } = useAppContext();
     return (
         <div className="max-w-6xl mx-auto p-6">
             {/* Header */}
@@ -21,8 +23,8 @@ const UserProfile = () => {
                     <div className="flex-1 flex flex-col justify-between w-full gap-4">
                         <div>
                             <Avatar src="/img/user.png" size="lg" className="border-4  mx-auto md:mx-0 z-10 w-52 h-52 border-white" />
-                            <h2 className="text-xl font-semibold mt-2 text-center">Username</h2>
-                            <p className="text-gray-500 text-center">adressemail@gmail.com</p>
+                            <h2 className="text-xl font-semibold mt-2 text-center">{isAuth?.username}</h2>
+                            <p className="text-gray-500 text-center">{isAuth?.email}</p>
                             <div className="flex items-center gap-2 text-gray-600 mt-2 text-center justify-center">
                                 <MapPinIcon fill="red" className="w-4 h-4 text-white" /> <span>Localisation</span>
                             </div>
