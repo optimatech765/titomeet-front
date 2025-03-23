@@ -7,7 +7,7 @@ export const SlidesImages = [
     {
         title: "Image 1",
         subtitle: "Subtitle 1",
-        image: "/img/celtiis.jpg",
+        image: "/img/function-imageB.jpg",
     },
     {
         title: "Image 2",
