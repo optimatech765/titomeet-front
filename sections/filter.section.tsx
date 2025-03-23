@@ -22,9 +22,9 @@ export const FilterSection = () => {
                 placeholder="Distance"
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
             <Select
@@ -33,9 +33,9 @@ export const FilterSection = () => {
                 placeholder="Centre d'intérêt"
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
         </div>
     );
@@ -56,9 +56,9 @@ export const FilterSection2 = () => {
                 placeholder="Centre d'intérêt"
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
             <Input
@@ -72,9 +72,9 @@ export const FilterSection2 = () => {
                 placeholder="Distance"
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
             >
-                <SelectItem value="all">Tous</SelectItem>
-                <SelectItem value="events">Évènements</SelectItem>
-                <SelectItem value="places">Lieux</SelectItem>
+                <SelectItem key="all">Tous</SelectItem>
+                <SelectItem key="events">Évènements</SelectItem>
+                <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
             <Button isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
