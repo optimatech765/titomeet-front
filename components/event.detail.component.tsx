@@ -194,6 +194,8 @@ export const EventDetails = () => {
                                 </CardBody>
 
                             </Card>
+
+                           
                         </div>
                     </div>
                 </div>

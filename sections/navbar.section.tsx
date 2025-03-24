@@ -65,7 +65,7 @@ export const NavbarSection = () => {
                 </NavbarItem>
                 <NavbarItem>
                     <LinkH underline="active" as={Link} href="#evenements" className="font-semibold underline-hover text-black">
-                        Événements
+                        Évènements
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>

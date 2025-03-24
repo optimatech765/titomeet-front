@@ -59,7 +59,7 @@ const Page = () => {
             }
         }
 
-        return {
+       return {
             fileKey: fields.key,
             type: file.type.includes("image") ? "image" : "pdf",
             downloadUrl: downloadUrl,
