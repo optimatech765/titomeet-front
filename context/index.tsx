@@ -28,6 +28,8 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
     useEffect(() => {
         const fetchClientData = async () => {
             const token = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+
             const userServices = new UsersServices(token || "");
 
             try {
@@ -37,17 +39,21 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                         const { status, data } = res;
 
                         console.log(data.role)
-                        if ( data?.role === "USER") {
+                        if (data?.role === "USER") {
 
                             setIsLoading(false)
                             setIsAuth({ ...data })
 
                         }
                         else if (status === 302) {
-                            userServices.refreshToken().then(
+                            const userService = new UsersServices(refreshToken || "");
+                            userService.refreshToken().then(
                                 (response) => {
+
                                     const { data: refreshData } = response;
-                                    if (refreshData?.role === "USER") {
+                                    localStorage.setItem("accessToken", refreshData?.accessToken);
+                                    localStorage.setItem("refreshToken", refreshData?.refreshToken);
+                                    if (refreshData?.user?.role === "USER") {
 
                                         setIsLoading(false)
                                         setIsAuth({ ...refreshData })
