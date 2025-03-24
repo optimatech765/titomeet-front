@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
-import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter } from '@heroui/react';
+import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
 import { Calendar, CheckCircle, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
@@ -12,6 +12,7 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
+import { EmailShareButton, FacebookShareButton, WhatsappShareButton } from "react-share";
 
 export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -144,7 +145,32 @@ export const EventDetails = () => {
 
                             <div className="mt-6 flex gap-2">
                                 <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Participer</Button>
-                                <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
+
+                                <Dropdown>
+                                    <DropdownTrigger>
+                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
+                                    </DropdownTrigger>
+                                    <DropdownMenu aria-label="Static Actions">
+                                        <DropdownItem key="new">
+                                            <EmailShareButton url={window.location.href} title="Share this event">
+                                                Email
+                                            </EmailShareButton>
+                                        </DropdownItem>
+                                        <DropdownItem key="copy">
+                                            <FacebookShareButton url={window.location.href} title="Share this event">
+                                                Facebook
+                                            </FacebookShareButton>
+                                        </DropdownItem>
+                                        <DropdownItem key="edit">
+                                            <WhatsappShareButton url={window.location.href} title="Share this event">
+                                                Whatsapp
+                                            </WhatsappShareButton>
+                                        </DropdownItem>
+
+                                    </DropdownMenu>
+                                </Dropdown>
+
+
                             </div>
 
                         </div>
@@ -195,7 +221,7 @@ export const EventDetails = () => {
 
                             </Card>
 
-                           
+
                         </div>
                     </div>
                 </div>
@@ -239,7 +265,7 @@ export const EventDetails = () => {
 
                                 <div className='px-6 pt-5 mb-2'>
                                     <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                        <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28"  />
+                                        <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28" />
                                     </h3>
                                     <h4 className="text-2xl  font-semibold  flex justify-center text-center">
                                         Paiement réussi

@@ -30,8 +30,6 @@ const Page = () => {
 
     const handleSaveDraftEvent = async () => {
         console.log(eventData);
-
-
     }
 
     const uploadFile = async (file: File) => {
@@ -233,9 +231,14 @@ const Page = () => {
 
     useEffect(() => {
         fetchSingleEvent(event as string);
-        setEventData(singleEvent);
-
+        console.log(singleEvent);
     }, []);
+
+    useEffect
+    (() => {
+        setEventData({ ...singleEvent, startDate: singleEvent?.startDate?.split('T')[0], endDate: singleEvent?.endDate?.split('T')[0] });
+    }, [singleEvent]);
+  
 
     return (
         <div className={"flex flex-col gap-2 pb-6"}>
