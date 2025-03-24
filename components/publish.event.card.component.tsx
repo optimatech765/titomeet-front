@@ -5,6 +5,7 @@ import { Button, Card, Progress } from "@heroui/react";
 import clsx from "clsx";
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass, MapPinIcon, MessageCircleMore, Star, User } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export const PublishEventCardComponent = ({ status = "draft", withDate = true, event }: { event: EventDtoResponse, status?: string, withDate?: boolean }) => {
@@ -108,6 +109,8 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                                 </Button>
                                 : <>
                                     <Button
+                                        as={Link}
+                                        href={`/user/events/${event?.id}/update`}
                                         startContent={<FilePenLine className="w-3 h-3" />}
                                         size='sm'
                                         variant='ghost'
@@ -152,6 +155,8 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                 {/* Affichage des boutons en version mobile */}
                 <div className="sm:hidden gap-1 p-2 flex flex-col items-center">
                     <Button
+                        as={Link}
+                        href={`/user/events/${event?.id}/update`}
                         startContent={<FilePenLine className="w-3 h-3" />}
                         size='sm'
                         variant='ghost'

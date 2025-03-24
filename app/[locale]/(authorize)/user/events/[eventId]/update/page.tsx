@@ -9,23 +9,28 @@ import { useEventsStore } from '@/stores/events.store';
 import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetDate } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
+import { useParams } from 'next/navigation';
 
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
     // const [validateStep, setValidateStep] = useState([]);
-    const { data: eventData, resetData } = useEventsStore();
+    const { data: eventData, resetData, fetchSingleEvent, singleEvent, setEventData } = useEventsStore();
+
+    const params = useParams();
+    const event = params?.eventId
 
     const { setMessageError } = InputErrorStore()
 
     const handleSaveDraftEvent = async () => {
         console.log(eventData);
+
 
     }
 
@@ -59,7 +64,7 @@ const Page = () => {
             }
         }
 
-       return {
+        return {
             fileKey: fields.key,
             type: file.type.includes("image") ? "image" : "pdf",
             downloadUrl: downloadUrl,
@@ -107,11 +112,11 @@ const Page = () => {
                 const updatedData = eventData?.prices?.map((item: any) => ({
                     ...item,
                     amount: parseInt(item.amount, 10)
-                  }));
+                }));
 
                 eventSevices.createEvent({
                     ...eventData,
-                    prices:updatedData,
+                    prices: updatedData,
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
                     coverPicture: coverFile?.downloadUrl,
@@ -225,6 +230,12 @@ const Page = () => {
             setActiveStep("communication");
         }
     }
+
+    useEffect(() => {
+        fetchSingleEvent(event as string);
+        setEventData(singleEvent);
+
+    }, []);
 
     return (
         <div className={"flex flex-col gap-2 pb-6"}>

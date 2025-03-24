@@ -14,21 +14,20 @@ export const FooterSection = () => {
                         <div className="md:grid gap-4 grid-cols-3">
                             <div>
 
-                                {/* <Image alt='logo ' src={"/img/footer-logo.png"} height={100} width={300} className={""} /> */}
+                                <Image alt='logo ' src={"/img/footer.png"} height={100} width={300} className={""} />
                                 <p className={"font-poppins footer-link "} >
                                     Rejoignez une communauté dynamique et vivez des événements uniques
                                 </p>
-                                
                                 
                             </div>
 
                             <div>
                                 <span className={"font-semibold font-poppins "} >Recevez les dernières actualités</span>
                                 <div>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Accueil</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Evenements</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Mes Evenements</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Services</Link>
+                                    <Link href={"/"} scroll={true} className='block footer-link'>Accueil</Link>
+                                    <Link href={"#evenements"} scroll={true} className='block footer-link'>Événements</Link>
+                                    <Link href={"/user/our-events"} scroll={true} className='block footer-link'>Mes Événements</Link>
+                                    <Link href={"#fonctionnalites"} scroll={true} className='block footer-link'>Services</Link>
                                 </div>
                             </div>
 
@@ -59,7 +58,7 @@ export const FooterSection = () => {
                                 endContent={
                                     <div className='mx-0'>
                                         <Button className="bg-primary text-white rounded-full my-2 px-4 py-2">
-                                            S'inscrire
+                                            S&apos;inscrire
                                         </Button>
                                     </div>
                                 }
