@@ -35,7 +35,7 @@ const GeneralInforComponent = () => {
 
                 <InputContainerComponent title={"Catégorie"} >
                     <EventCategorieSelectorComponent
-                        value={eventData?.categories}
+                        value={Array.isArray(eventData?.categories) ? eventData.categories : []}
                         onChange={(e: any) => updateEventData("categories", e)} />
                 </InputContainerComponent>
 
