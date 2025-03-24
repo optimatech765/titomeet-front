@@ -1,13 +1,11 @@
 "use client"
-import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Button, Card, Progress, } from '@heroui/react';
 import clsx from 'clsx';
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass, MapPinIcon, MessageCircleMore, Star, User } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
-export const HorizontalEventCardComponent = ({ withDate = false, status = "programming", data }: { data: EventDtoResponse, status?: string, withDate?: boolean }) => {
+export const HorizontalEventCardComponent = ({ withDate = false, status = "programming" }: { status?: string, withDate?: boolean }) => {
     return (
         <Card
             isBlurred
@@ -99,8 +97,6 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                                 </Button>
                                 : <>
                                     <Button
-                                        as={Link}
-                                        href={`/user/events/${data?.id}/update`}
                                         startContent={<FilePenLine className="w-3 h-3" />}
                                         size='sm'
                                         variant='ghost'
@@ -145,8 +141,6 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                 {/* Affichage des boutons en version mobile */}
                 <div className="sm:hidden gap-1 p-2 flex flex-col items-center">
                     <Button
-                        as={Link}
-                        href={`/user/events/${data?.id}/update`}
                         startContent={<FilePenLine className="w-3 h-3" />}
                         size='sm'
                         variant='ghost'
