@@ -1,18 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
+import AwaitDataLoader from '@/components/await.data.loader';
+import { LoadingComponent2 } from '@/components/loading.component';
 import { ServiceCardComponent } from '@/components/service.card.component';
 import ServicesFilterSection from '@/sections/services.filter.section';
+import { useProvidersStore } from '@/stores/providers.store';
 import { Button, Divider, Modal, ModalBody, ModalContent, useDisclosure } from '@heroui/react';
 import { BriefcaseBusiness, Globe, Mail, MapPin, PhoneCall, Star } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Page = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    return (
-        <div className='relative min-h-screen flex flex-col gap-5 section-container pt-6 pb-12 bg-service-bg bg-cover bg-no-repeat'>
 
-            <div className="absolute opacity-70 bg-white h-full w-full  top-0 left-0 bg-transparent "></div>
+    const { isLoading, dataList, fetchProvidersList } = useProvidersStore();
+
+    useEffect(() => {
+        fetchProvidersList();
+    }, []);
+
+
+    return (
+        <div className='relative min-h-screen flex flex-col gap-5 section-container pt-6 pb-12 '>
+
+         
             <section className='flex flex-wrap justify-between items-center'>
                 <h3 className='font-extrabold text-2xl z-10'>Services disponibles</h3>
                 <Button className='mt-2 bg-primary text-white' radius='full' >
@@ -23,14 +34,19 @@ const Page = () => {
                 <ServicesFilterSection />
             </section>
 
+
             <Divider />
 
             <section className={"flex flex-wrap gap-4 justify-center"}>
-                {[...Array(15)].map((_, i) => (
-                    <div onClick={() => onOpen()} key={i}>
-                        <ServiceCardComponent />
-                    </div>
-                ))}
+                <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={isLoading}>
+                    <>
+                        {dataList.map((_, i) => (
+                            <div onClick={() => onOpen()} key={i}>
+                                <ServiceCardComponent />
+                            </div>
+                        ))}
+                    </>
+                </AwaitDataLoader>
 
             </section>
 

@@ -20,7 +20,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                         // as={Image}
                         alt="Album cover"
                         className=" h-full w-full"
-                        src="/img/event-image.jpg"
+                        src={event.coverPicture}
                         width={300}
                         height={300}
                     />

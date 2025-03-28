@@ -19,7 +19,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                             // as={Image}
                             alt="Album cover"
                             className=" h-full w-full "
-                            src="/img/event-image.jpg"
+                            src={event.coverPicture}
                             width={300}
                             height={300}
                         />
