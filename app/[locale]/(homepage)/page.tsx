@@ -5,7 +5,6 @@ import { EventsSection } from "@/sections/events.section";
 import { FonctionnalitesSection } from "@/sections/fonctionnalitie.section";
 import { HeroSection } from "@/sections/hero.section";
 import { PartenairesSection } from "@/sections/partner.section";
-import { Button } from "@heroui/button";
 
 
 export default async function Home() {
@@ -34,11 +33,11 @@ export default async function Home() {
 
           <EventsSection />
 
-          <div className="text-center mt-7">
+          {/* <div className="text-center mt-7">
             <Button className="bg-primary text-white rounded-full p-3 ml-2  ">
               Voir tous les événements
             </Button>
-          </div>
+          </div> */}
 
         </section>
 

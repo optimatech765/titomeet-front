@@ -119,39 +119,42 @@ const AdvanceComponent = () => {
             </div>
 
             {/* selection du type d'accès et du type de ticket */}
-            <div className='flex flex-wrap gap-4 justify-between'>
-                <div className='flex-1'>
-                    <InputContainerComponent title={"Type d'accès"} >
-                        <Select className=''
-                            value={eventData?.accessType}
-                            onChange={(e) => updateEventData("accessType", e.target.value)}
-                            isInvalid={errorField.field === 'accessType'}
-                            errorMessage={errorField?.message}
-                            labelPlacement={"outside-left"}
-                            onSelectionChange={(e) => {
-                                console.log(e.anchorKey)
-                                updateEventData("accessType", e.anchorKey)
-                            }}
-                            selectedKeys={[eventData?.accessType]}
-                        >
-                            <SelectItem key="FREE">Gratuit</SelectItem>
-                            <SelectItem key="PAID">Payant</SelectItem>
-                        </Select>
-                    </InputContainerComponent>
+            <div>
+                <div className='flex flex-wrap gap-4 justify-between'>
+                    <div className='flex-1'>
+                        <InputContainerComponent title={"Type d'accès"} >
+                            <Select className=''
+                                value={eventData?.accessType}
+                                onChange={(e) => updateEventData("accessType", e.target.value)}
+                                isInvalid={errorField.field === 'accessType'}
+                                errorMessage={errorField?.message}
+                                labelPlacement={"outside-left"}
+                                onSelectionChange={(e) => {
+                                    console.log(e.anchorKey)
+                                    updateEventData("accessType", e.anchorKey)
+                                }}
+                                selectedKeys={[eventData?.accessType]}
+                            >
+                                <SelectItem key="FREE">Gratuit</SelectItem>
+                                <SelectItem key="PAID">Payant</SelectItem>
+                            </Select>
+                        </InputContainerComponent>
+                    </div>
+                    <div className='flex-1 flex justify-end'>
+                        {eventData?.accessType === "PAID" &&
+                            <div className='md:w-1/2'>
+                                <Button onPress={onOpen2} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
+                                    Ajouter un prix
+                                </Button>
+                            </div>
+                        }
+                    </div>
+
                 </div>
-                <div className='flex-1 flex justify-end'>
-                    {eventData?.accessType === "PAID" &&
-                        <div className='md:w-1/2'>
-                            <Button onPress={onOpen2} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
-                                Ajouter un prix
-                            </Button>
-                        </div>
-                    }
 
-
+                <div>
 
                 </div>
-
             </div>
 
 

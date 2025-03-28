@@ -21,11 +21,11 @@ export const FonctionnalitesSection = () => {
                     </div>
 
                     <ul className="mt-6 space-y-3">
-                        <li className="flex items-center gap-2 text-gray-800">
-                            <div className="bg-secondary text-4xl w-4 h-4 rounded-full " />
-                            <span className="block">Explorez les événements</span>
-                        </li>
                         <li className="flex items-center gap-1 text-gray-800">
+                            <div className="bg-secondary text-4xl w-4 h-4 rounded-full " />
+                            Explorez les événements
+                        </li>
+                        <li className="flex items-enter gap-1 text-gray-800">
                             <div className="bg-secondary text-4xl w-4 h-4 rounded-full " /> Rejoignez la communauté, discutez et échangez
                         </li>
                         <li className="flex items-center gap-1 text-gray-800">

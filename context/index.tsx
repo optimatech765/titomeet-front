@@ -37,12 +37,10 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                 userServices.userInfo().then(
                     (res) => {
                         const { status, data } = res;
-
-                        console.log(data.role)
                         if (data?.role === "USER") {
-
-                            setIsLoading(false)
+                            
                             setIsAuth({ ...data })
+                            setIsLoading(false)
 
                         }
                         else if (status === 302) {
@@ -54,9 +52,9 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                                     localStorage.setItem("accessToken", refreshData?.accessToken);
                                     localStorage.setItem("refreshToken", refreshData?.refreshToken);
                                     if (refreshData?.user?.role === "USER") {
-
-                                        setIsLoading(false)
+                                       
                                         setIsAuth({ ...refreshData })
+                                        setIsLoading(false)
                                     }
                                 },
                                 (error) => {
@@ -82,6 +80,7 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                 router.push('/auth')
             }
         }
+
         fetchClientData()
     }, [])
 
