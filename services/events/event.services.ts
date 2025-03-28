@@ -28,6 +28,10 @@ class EventServices {
     deleteEvent(id: string) {
         return axios.delete(`${this.baseUrl}/events/${id}`);
     }
+
+    toggleFavorit(id: string) {
+        return axios.post(`${this.baseUrl}/events/${id}/toggle-favorite`);
+    }
 }
 
 const eventSevices = new EventServices();

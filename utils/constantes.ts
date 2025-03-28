@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BriefcaseBusiness, CalendarCheck, LayoutDashboard, UserRound, Wallet } from 'lucide-react';
 export const SlidesImages = [
     {
@@ -27,32 +28,51 @@ export const menuItems = [
     {
         libelle: "Tableau de bord",
         icon: LayoutDashboard,
-        lien: "/",
-        tague:"home"
+        lien: "/admin",
+        tague: "home"
     },
     {
         libelle: "Evènements",
         icon: CalendarCheck,
-        lien: "/",
-        tague:"events"
+        lien: "/admin/events",
+        tague: "events"
     },
     {
         libelle: "Utilisateurs",
         icon: UserRound,
-        lien: "/",
-        tague:"users"
+        lien: "/admin/users",
+        tague: "users"
     },
     {
         libelle: "Prestataires",
         icon: BriefcaseBusiness,
-        lien: "/",
-        tague:"providers"
+        lien: "/admin/providers",
+        tague: "providers"
     },
     {
         libelle: "Paiement",
         icon: Wallet,
-        lien: "/",
-        tague:"paiements"
+        lien: "/admin/payments",
+        tague: "paiements"
     },
-    
+
 ];
+
+export const statusColorMap: any = {
+    active: {
+        color: "success",
+        text: "Actif",
+
+    },
+    paused: {
+        color: "warning",
+        text: "En pause",
+
+    },
+    vacation: {
+        color: "danger",
+        text: "Vacation",
+
+    },
+
+} as any;

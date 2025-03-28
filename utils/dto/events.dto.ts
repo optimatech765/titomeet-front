@@ -52,6 +52,7 @@ export interface EventDtoResponse {
     participants: any[];
     postedBy?: UserDto;
     createdAt: string;
+    isFavorite?: boolean;
 }
 
 export interface addressDto {

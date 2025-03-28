@@ -32,7 +32,7 @@ export const SidebarSection = ({ openSideBar, isOpen, setIsOpen }:
 
                         {menuItems.map((item: any) => (
                             <>
-                                <Link onClick={() => setActiveLink(item?.tague)} href={item?.lien}
+                                <Link key={item.tague} onClick={() => setActiveLink(item?.tague)} href={item?.lien}
                                     className={clsx({
                                         "text-[#1E1E1E]": activeLink !== item?.tague,
                                         "bg-primary text-white": activeLink === item?.tague,
@@ -94,7 +94,7 @@ export const SidebarSection = ({ openSideBar, isOpen, setIsOpen }:
 
                             {menuItems.map((item: any) => (
                                 <>
-                                    <Link onClick={() => setActiveLink(item?.tague)} href={item?.lien}
+                                    <Link key={item.libelle} onClick={() => setActiveLink(item?.tague)} href={item?.lien}
                                         className={clsx({
                                             "text-[#1E1E1E]": activeLink !== item?.tague,
                                             "bg-primary text-white": activeLink === item?.tague,
