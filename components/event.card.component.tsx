@@ -96,7 +96,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
                 <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> {event?.address?.city}
               </div>
               <div className="flex items-center gap-0.5 flex-1">
-                <AlignHorizontalDistributeCenter className="w-5 h-5 text-white mx-0" fill="red" /> {event?.capacity} Participants
+                <AlignHorizontalDistributeCenter className="w-5 h-5 text-white mx-0" fill="red" /> {event?.participants?.length} Participants
               </div>
 
             </div>
