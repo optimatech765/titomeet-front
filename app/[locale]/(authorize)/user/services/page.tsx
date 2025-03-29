@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-import AwaitDataLoader from '@/components/await.data.loader';
+import { AwaitDataLoader } from '@/components/await.data.loader';
 import { LoadingComponent2 } from '@/components/loading.component';
 import { ServiceCardComponent } from '@/components/service.card.component';
 import ServicesFilterSection from '@/sections/services.filter.section';
@@ -23,7 +23,7 @@ const Page = () => {
     return (
         <div className='relative min-h-screen flex flex-col gap-5 section-container pt-6 pb-12 '>
 
-         
+
             <section className='flex flex-wrap justify-between items-center'>
                 <h3 className='font-extrabold text-2xl z-10'>Services disponibles</h3>
                 <Button className='mt-2 bg-primary text-white' radius='full' >

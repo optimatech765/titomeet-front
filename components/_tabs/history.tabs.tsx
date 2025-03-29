@@ -7,7 +7,7 @@ import { PubCardComponent } from '@/components/pub.card.component';
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
-import AwaitDataLoader from '../await.data.loader';
+import {AwaitDataLoader} from '../await.data.loader';
 
 const HistoryTabs = () => {
 

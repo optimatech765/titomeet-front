@@ -10,7 +10,7 @@ export class AdminState {
     }
 
     getHomeState(){
-        return axios.get(`${this.baseUrl}/admin/state`);
+        return axios.get(`${this.baseUrl}/admin/stats`);
     }
     
 }

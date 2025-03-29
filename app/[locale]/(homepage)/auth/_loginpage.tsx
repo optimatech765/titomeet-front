@@ -55,7 +55,11 @@ export const Loginpage = () => {
                         setToken(response?.data?.accessToken);
                         localStorage.setItem("refreshToken", response?.data?.refreshToken);
                         setRefreshToken(response?.data?.refreshToken);
-                        router.push('/user')
+                        if(response?.data?.user?.role === 'ADMIN'){
+                            router.push('/admin')
+                        }else{
+                            router.push('/user')
+                        }
 
                     },
                     (error) => {

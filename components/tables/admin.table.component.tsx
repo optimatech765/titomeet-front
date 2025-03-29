@@ -11,6 +11,7 @@ interface ColumnsDto {
 }
 
 export const AdminTableComponent = ({
+    
     columns,
     valuesList,
     title,
@@ -27,7 +28,14 @@ export const AdminTableComponent = ({
         const cellValue = item[columnKey];
 
         switch (columnKey) {
-
+            case "category":
+                return (
+                    <>{cellValue.name}</>
+                );
+            case "address":
+                return (
+                    <>{cellValue.name} - {cellValue.country}</>
+                );
             case "status":
                 return (
                     <StatusComponent status={cellValue} />

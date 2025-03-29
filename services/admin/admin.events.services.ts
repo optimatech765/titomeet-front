@@ -31,19 +31,19 @@ export class AdminEventsServices {
     }
 
     getEvents(queryString: string) {
-        return axios.get(`${this.baseUrl}/admin/events/events?${queryString}`);
+        return axios.get(`${this.baseUrl}/admin/events?${queryString}`);
     }
 
     updateEvent(id: string, data: any) {
-        return axios.put(`${this.baseUrl}/admin/events/events/${id}`, data);
+        return axios.put(`${this.baseUrl}/admin/events/${id}`, data);
     }
 
     deleteEvent(id: string) {
-        return axios.delete(`${this.baseUrl}/admin/events/events/${id}`);
+        return axios.delete(`${this.baseUrl}/admin/events/${id}`);
     }
 
     getEventsById(id: string) {
-        return axios.get(`${this.baseUrl}/admin/events/events/${id}`);
+        return axios.get(`${this.baseUrl}/admin/events/${id}`);
     }
 
 }

@@ -4,59 +4,24 @@ import { StatusComponent } from "@/components/status.component";
 import { Button, Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
 import { BriefcaseBusiness, CalendarCheck, EllipsisIcon, HandCoins, Users } from "lucide-react";
 import Link from "next/link";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { CustomChart } from "../../../../components/charts/user.chart.component";
 import { RevenueChart } from "@/components/charts/revenu.chart.component";
+import { useAdminEventsStore } from "@/stores/admin/admin.events.store";
+import { UseAdminStateStore } from "@/stores/admin/admin.home.stat.store";
+import { AwaitDataLoader, AwaitDataLoaderStats } from "@/components/await.data.loader";
 
 
 
 const Dashboard = () => {
-
-  const renderCell = React.useCallback((user: any, columnKey: any) => {
-    const cellValue = user[columnKey];
-
-    switch (columnKey) {
-
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
-          </div>
-        );
-      case "status":
-        return (
-          <StatusComponent status={cellValue} />
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <EllipsisIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="view">View</DropdownItem>
-                <DropdownItem key="edit">Edit</DropdownItem>
-                <DropdownItem key="delete">Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
 
   return (
     <Fragment>
       <h1 className="text-2xl font-extrabold text-gray-900">
         Tableau de bord
       </h1>
-
-      <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-6">
+      <AdminState />
+      {/* <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-6">
         <div className="bg-[#17C964] overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center h-[126px]">
           <div className="bg-white rounded-full p-2 flex items-center justify-center">
             <Users className="w-8 h-8 text-[#17C964]" />
@@ -107,7 +72,7 @@ const Dashboard = () => {
             <BriefcaseBusiness className="w-12 h-12 text-slate-300" />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="grid md:grid-cols-2 gap-6 mt-6">
 
@@ -133,40 +98,7 @@ const Dashboard = () => {
       <section className="grid md:grid-cols-2 gap-6 mt-6">
         <div className="overflow-auto w-full">
           <h2 className="text-2xl font-extrabold mb-2">Evènements récents</h2>
-          <Card className="border-1">
-            <CardBody>
-              <Table
-
-                // isVirtualized={true}
-                fullWidth={true}
-                removeWrapper
-                aria-label="Example static collection table"
-                className='mt-2'
-                classNames={{
-                  th: "text-sm font-medium text-gray-700 bg-slate-300",
-                  tbody: " font-semibold",
-                  wrapper: "overflow-auto max-h-[200px] shadow-xl",
-                  base:"overflow-auto w-full"
-                }} >
-                <TableHeader className='' columns={columns}>
-                  {(column) => (
-                    <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
-                      {column.name}
-                    </TableColumn>
-                  )}
-                </TableHeader>
-                <TableBody items={Paiements}>
-                  {(item) => (
-                    <TableRow key={item.id}>
-                      {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-
-            </CardBody>
-
-          </Card>
+          <LastEvents />
         </div>
         <div className="rounded-lg ">
           <h2 className="text-2xl font-extrabold mb-2">Notifications</h2>
@@ -219,34 +151,6 @@ const columns = [
 ];
 
 
-const Paiements = [
-  {
-    id: 1,
-    date: "2025-03-10",
-    event: "Conférence Tech",
-    paiement: "Carte Bancaire",
-    amount: 150,
-    status: "active"
-  },
-  {
-    id: 2,
-    date: "2025-03-11",
-    event: "Atelier Blockchain",
-    paiement: "PayPal",
-    amount: 200,
-    status: "paused"
-  },
-  {
-    id: 3,
-    date: "2025-03-12",
-    event: "Séminaire IA",
-    paiement: "Virement",
-    amount: 300,
-    status: "vacation"
-  }
-]
-
-
 const timelineData = [
   {
     title: "Étape 1",
@@ -264,3 +168,171 @@ const timelineData = [
     description: "Mise en production et lancement officiel.",
   },
 ];
+
+const AdminState = () => {
+  const {
+    valueList,
+    fetchList,
+    isLoading,
+  } = UseAdminStateStore()
+
+  useEffect(() => {
+    fetchList()
+  }, [])
+
+  return (
+    <>
+      <AwaitDataLoaderStats
+        dataLength={valueList?.length}
+        isLoading={isLoading}
+        emptyMessage={"<h1>Erreur lors de la récupération des détails</h1>"}
+      >
+        <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-6">
+          <div className="bg-[#17C964] overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center h-[126px]">
+            <div className="bg-white rounded-full p-2 flex items-center justify-center">
+              <Users className="w-8 h-8 text-[#17C964]" />
+            </div>
+
+            <div className="ml-4">
+              <p className="text-sm opacity-80 font-bold">Utilisateurs</p>
+              <p className="text-2xl font-bold">{valueList?.totalUsers}</p>
+            </div>
+            <div className="absolute -right-1 z-0 -bottom-4 flex items-center justify-center">
+              <Users className="w-12 h-12 text-slate-300" />
+            </div>
+          </div>
+          <div className="bg-orange-500 overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center">
+            <div className="bg-white rounded-full p-2 flex items-center justify-center">
+              <HandCoins className="w-8 h-8 text-orange-500" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm opacity-80 font-bold">Gains</p>
+              <p className="text-2xl font-bold">{valueList?.totalBookings}</p>
+            </div>
+            <div className="absolute -right-1 z-0 -bottom-4 flex items-center justify-center">
+              <HandCoins className="w-12 h-12 text-slate-300" />
+            </div>
+          </div>
+          <div className="bg-red-500 overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center">
+            <div className="bg-white rounded-full p-2 flex items-center justify-center">
+              <CalendarCheck className="w-8 h-8 text-red-500" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm opacity-80 font-bold">Evènements</p>
+              <p className="text-2xl font-bold">{valueList?.totalEvents}</p>
+            </div>
+            <div className="absolute -right-1 z-0 -bottom-4 flex items-center justify-center">
+              <CalendarCheck className="w-12 h-12 text-slate-300" />
+            </div>
+          </div>
+          <div className="bg-blue-500 overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center">
+            <div className="bg-white rounded-full p-2 flex items-center justify-center">
+              <BriefcaseBusiness className="w-8 h-8 text-blue-500" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm opacity-80 font-bold">Prestataires</p>
+              <p className="text-2xl font-bold">{valueList?.totalProviders}</p>
+            </div>
+
+            <div className="absolute -right-1 z-0 -bottom-4 flex items-center justify-center">
+              <BriefcaseBusiness className="w-12 h-12 text-slate-300" />
+            </div>
+          </div>
+        </section>
+      </AwaitDataLoaderStats>
+
+    </>
+
+  )
+}
+
+const LastEvents = () => {
+  const { valueList, isLoading, fetchList } = useAdminEventsStore()
+  const renderCell = React.useCallback((user: any, columnKey: any) => {
+    const cellValue = user[columnKey];
+
+    switch (columnKey) {
+
+      case "role":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-sm capitalize">{cellValue}</p>
+            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
+          </div>
+        );
+      case "status":
+        return (
+          <StatusComponent status={cellValue} />
+        );
+      case "actions":
+        return (
+          <div className="relative flex justify-end items-center gap-2">
+            <Dropdown>
+              <DropdownTrigger>
+                <Button isIconOnly size="sm" variant="light">
+                  <EllipsisIcon className="text-default-300" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem key="view">View</DropdownItem>
+                <DropdownItem key="edit">Edit</DropdownItem>
+                <DropdownItem key="delete">Delete</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        );
+      default:
+        return cellValue;
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchList()
+  }, []);
+
+  return (
+    <Fragment>
+      <AwaitDataLoader
+        dataLength={valueList.length}
+        isLoading={isLoading}
+        emptyMessage={"<h1>Erreur lors de la récupération des détails</h1>"}
+      >
+        <Card className="border-1">
+          <CardBody>
+            <Table
+
+              // isVirtualized={true}
+              fullWidth={true}
+              removeWrapper
+              aria-label="Example static collection table"
+              className='mt-2'
+              classNames={{
+                th: "text-sm font-medium text-gray-700 bg-slate-300",
+                tbody: " font-semibold",
+                wrapper: "overflow-auto max-h-[200px] shadow-xl",
+                base: "overflow-auto w-full"
+              }} >
+              <TableHeader className='' columns={columns}>
+                {(column) => (
+                  <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+                    {column.name}
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody items={valueList}>
+                {(item) => (
+                  <TableRow key={item?.id}>
+                    {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+
+          </CardBody>
+
+        </Card>
+      </AwaitDataLoader>
+    </Fragment>
+
+  )
+}

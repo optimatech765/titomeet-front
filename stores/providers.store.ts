@@ -3,6 +3,15 @@ import { ProvidersServices } from "@/services/providers/providers.services";
 import { ProviderDto } from "@/utils/dto/providers.dto";
 import { create } from "zustand";
 
+
+const columns = [
+    { name: "Nom", uid: "name", sortable: true },
+    { name: "Description", uid: "description", sortable: true },
+    { name: "Adresse", uid: "address", sortable: true },
+    { name: "Catégorie", uid: "address", sortable: false },
+    { name: "ACTIONS", uid: "actions", sortable: false },
+];
+
 interface UseProviderDto {
     DataListConfig: {
         page: number;
@@ -11,6 +20,7 @@ interface UseProviderDto {
         isSearch: boolean;
         searchValue: string;
     };
+    columnsValue: any[];
     isLoading: boolean;
     dataList: any[];
     setProviders: (newData: any[]) => void;
@@ -27,6 +37,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
         isSearch: false,
         searchValue: "",
     },
+    columnsValue: columns,
     dataList: [],
     isLoading: true,
     setProviders: (newData: ProviderDto[]) =>
