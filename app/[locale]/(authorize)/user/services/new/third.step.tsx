@@ -11,6 +11,8 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
         { name: "Nomdudocument.pdf", size: "1.8 Mb" },
     ]);
 
+
+
     const removeFile = (index: number) => {
         setFiles(files.filter((_, i) => i !== index));
     };
@@ -37,7 +39,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                 <label className="border-2 justify-center border-dashed flex gap-3 bg-slate-200  border-gray-300 rounded-lg p-6 text-center text-gray-500 cursor-pointer">
                     <Upload size={24} className=" mb-2" />
                     Glissez-déposez vos fichiers ici ou cliquez pour les importer
-                    <input type="file" multiple className="hidden" onChange={(e) => setFiles(e.target.files)} />
+                    <input type="file" multiple className="hidden" onChange={(e) => console.log(e.target.files)} />
                 </label>
                 <div className="mt-4 space-y-2">
                     {files.map((file, index) => (
