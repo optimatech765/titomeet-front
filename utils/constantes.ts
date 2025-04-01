@@ -32,6 +32,19 @@ export const menuItems = [
         tague: "home"
     },
     {
+        libelle: "Catégories Evènements",
+        icon: CalendarCheck,
+        lien: "/admin/events-categories",
+        tague: "events-categories"
+    },
+    {
+        libelle: "Catégories Services",
+        icon: CalendarCheck,
+        lien: "/admin/providers-categories",
+        tague: "providers-categories"
+    },
+    
+    {
         libelle: "Evènements",
         icon: CalendarCheck,
         lien: "/admin/events",

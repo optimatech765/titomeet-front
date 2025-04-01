@@ -1,12 +1,16 @@
 "use client";
+import { AdminAuthWrapper } from "@/context";
 import { DashLayout } from "@/sections/dashboard.layout";
 import React from 'react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <DashLayout>
-            {children}
-        </DashLayout>
+        <AdminAuthWrapper>
+            <DashLayout>
+                {children}
+            </DashLayout>
+        </AdminAuthWrapper>
+
     );
 }
 

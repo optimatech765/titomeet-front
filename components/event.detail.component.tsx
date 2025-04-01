@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
+
+import dynamic from 'next/dynamic';
+
+const BadgeGenerator = dynamic(async () => (await import('./badge.generator.component')).BadgeGenerator, {
+    ssr: false,
+});
+
 import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
 import { Calendar, CheckCircle, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
@@ -13,6 +20,8 @@ import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
 import { EmailShareButton, FacebookShareButton, WhatsappShareButton } from "react-share";
+import Image from 'next/image';
+
 
 export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,10 +49,12 @@ export const EventDetails = () => {
 
                     {/* Header */}
                     <div className="relative w-full h-64">
-                        <img
-                            src="/img/event-image.jpg"
+                        <Image
+                            width={350}
+                            height={500}
+                            src={singleEvent?.coverPicture}
                             alt="Event Banner"
-                            className="w-full h-full object-cover rounded-xl"
+                            className="w-full h-full object-contain rounded-xl"
                         />
                     </div>
 
@@ -221,7 +232,7 @@ export const EventDetails = () => {
 
                             </Card>
 
-
+                            <BadgeGenerator imageUrl={singleEvent?.badge} />
                         </div>
                     </div>
                 </div>

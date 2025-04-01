@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { tokenServices } from "../tokenService";
+import { CategorieDto } from "@/utils/dto/categorie.dto";
 
 class CategoriesServices {
 
@@ -12,6 +13,10 @@ class CategoriesServices {
 
     getCategories() {
         return axios.get(`${this.baseUrl}/events/categories`);
+    }
+
+    addCategories(data:CategorieDto) {
+        return axios.post(`${this.baseUrl}/admin/events/categories`,data);
     }
 
 }

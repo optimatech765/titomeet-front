@@ -15,7 +15,9 @@ export class UsersServices {
     }
 
     refreshToken() {
-        return axios.post(`${this.baseUrl}/users/refresh-token`);
+        return axios.post(`${this.baseUrl}/auth/refresh`,{
+            refreshToken: tokenServices.getRefreshToken()
+        });
     }
 
 }

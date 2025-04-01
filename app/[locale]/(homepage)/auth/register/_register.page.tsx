@@ -194,7 +194,10 @@ export const RegisterPage = () => {
 
             </div>
 
-            <Button type='button' onPress={handleSubmit} radius='full'
+            <Button type='button'
+                isLoading={isLoading}
+                onPress={handleSubmit}
+                radius='full'
                 disabled={isLoading}
                 className={clsx({
                     "cursor-wait": isLoading

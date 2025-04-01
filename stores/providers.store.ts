@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { categoriesServices } from "@/services/categories/categories.services";
-import { CategorieDto } from "@/utils/dto/categorie.dto";
+import { ProvidersServices } from "@/services/providers/providers.services";
+import { ProviderDto } from "@/utils/dto/providers.dto";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 
-interface EventCategoriesStoreDto {
+
+const columns = [
+    { name: "Nom", uid: "name", sortable: true },
+    { name: "Description", uid: "description", sortable: true },
+    { name: "Adresse", uid: "address", sortable: true },
+    { name: "Catégorie", uid: "address", sortable: false },
+    { name: "ACTIONS", uid: "actions", sortable: false },
+];
+
+interface UseProviderDto {
     DataListConfig: {
         page: number;
         totalItems: number;
@@ -12,17 +21,23 @@ interface EventCategoriesStoreDto {
         isSearch: boolean;
         searchValue: string;
     };
+    columnsValue: any[];
     isLoading: boolean;
     isSubmit: boolean;
-    dataList: CategorieDto[];
-    setEventCategories: (newData: CategorieDto[]) => void;
-    updateEventCategories: (id: string, newData: CategorieDto) => void;
-    deleteEventCategories: (id: string) => void;
-    fetchCategoriesList: () => void;
-    handleSubmit: (data: CategorieDto) => void;
+    dataList: any[];
+    setProviders: (newData: any[]) => void;
+    updateProviders: (id: string, newData: any) => void;
+    deleteProviders: (id: string) => void;
+    fetchProvidersList: () => void;
+    providersCategoriesList: any[];
+    handleSubmitProvidersCategories: (data: any) => void;
+    fetchProvidersCategoriesList: () => void;
+    providerData: any;
+    setProviderData: (newData: any) => void;
+    updateProviderData: (key: string, value: any) => void;
 }
 
-export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
+export const useProvidersStore = create<UseProviderDto>((set) => ({
     DataListConfig: {
         page: 1,
         totalItems: 0,
@@ -30,14 +45,16 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
         isSearch: false,
         searchValue: "",
     },
-    isSubmit: false,
+    providerData: {},
+    columnsValue: columns,
     dataList: [],
     isLoading: true,
-    setEventCategories: (newData: CategorieDto[]) =>
+    isSubmit: false,
+    setProviders: (newData: ProviderDto[]) =>
         set(() => ({
             dataList: [...newData],
         })),
-    updateEventCategories: (id: string, newData: CategorieDto) =>
+    updateProviders: (id: string, newData: ProviderDto) =>
         set((state: any) => {
             const index = state.dataList.findIndex((item: any) => item.id === id);
 
@@ -56,7 +73,7 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             // Retourner le nouvel état avec la liste d'adresses mise à jour
             return { dataList: [...updatedDataList] };
         }),
-    deleteEventCategories: (id: string) =>
+    deleteProviders: (id: string) =>
         set((state: any) => {
             const index = state.dataList.findIndex((item: any) => item.id === id);
 
@@ -71,14 +88,17 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             // Retourner le nouvel état avec la liste d'adresses mise à jour
             return { dataList: [...updatedData] };
         }),
-    fetchCategoriesList: async () => {
+    fetchProvidersList: async () => {
         try {
             set(() => ({
                 isLoading: true,
             }));
 
-            categoriesServices
-                .getCategories()
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
+            providersServices
+                .getProvders()
                 .then(
                     (response) => {
                         const { items, total, page, limit } = response.data;
@@ -111,22 +131,26 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             console.error("Erreur lors de la récupération des détails :", error);
         }
     },
-    handleSubmit: async (data: CategorieDto) => {
+    providersCategoriesList: [],
+    handleSubmitProvidersCategories: async (data: any) => {
         try {
             set(() => ({
                 isSubmit: true,
             }));
 
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
             const toastId = toast.loading("Enregistrement en cours...");
-            categoriesServices
-                .addCategories(data)
+            providersServices
+                .addProvidersCategories(data)
                 .then(
                     (response) => {
                         const data = response.data;
 
-                        set((state: EventCategoriesStoreDto) => ({
+                        set((state: any) => ({
                             isSubmit: false,
-                            dataList: [...state.dataList, data],
+                            providersCategoriesList: [...state.providersCategoriesList, data],
 
                         }));
                         toast.update(toastId, {
@@ -157,4 +181,56 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             toast.error("Erreur lors de l'enegistrement");
         }
     },
+    fetchProvidersCategoriesList: async () => {
+        try {
+            set(() => ({
+                isLoading: true,
+            }));
+
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
+            providersServices
+                .getProvidersCategories()
+                .then(
+                    (response) => {
+                        const { items, total, page, limit } = response.data;
+
+                        set(() => ({
+                            isLoading: false,
+                            providersCategoriesList: [...items],
+                            DataListConfig: {
+                                totalItems: total,
+                                page: page,
+                                perPageItems: limit,
+                                isSearch: false,
+                                searchValue: "",
+
+                            }
+                        }));
+                    },
+                    (error) => {
+                        set(() => ({
+                            isLoading: false,
+                        }));
+                        console.log(error);
+                    }
+                );
+
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+        }
+    },
+    setProviderData: (newData: any) =>
+        set(() => ({
+            providerData: newData,
+        })),
+    updateProviderData: (key: string, value: any) =>
+        set((state: any) => {
+            const updatedData = { ...state.providerData, [key]: value };
+            return { providerData: updatedData };
+        }),
 }));

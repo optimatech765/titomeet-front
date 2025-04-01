@@ -20,7 +20,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                         // as={Image}
                         alt="Album cover"
                         className=" h-full w-full"
-                        src="/img/event-image.jpg"
+                        src={event.coverPicture}
                         width={300}
                         height={300}
                     />
@@ -40,7 +40,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                                 <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> {event?.address?.city}
                             </p>
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Users className="w-4 h-4 text-white" fill="red" />  {event?.capacity} Participants
+                                <Users className="w-4 h-4 text-white" fill="red" />  {event?.participants?.length} Participants
                             </p>
                             <p className="flex items-center  text-xs font-light gap-0.5">
                                 <Clock className="w-4 h-4 text-white" fill="red" /> {getHourMinute(event?.startTime)}

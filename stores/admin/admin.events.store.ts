@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AdminEventsServices } from "@/services/admin/admin.events.services";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { toast } from "react-toastify";
 import { create } from "zustand";
@@ -35,7 +36,7 @@ const columns = [
 
 export const useAdminEventsStore = create<AdminEventsStoreDto>((set) => ({
 
-    isLoading: true,
+    isLoading: false,
     valueList: [],
     columnsValue: columns,
     page: 1,
@@ -60,8 +61,24 @@ export const useAdminEventsStore = create<AdminEventsStoreDto>((set) => ({
     // Pour récupérer la liste des évènements depuis la db
     fetchList: async () => {
         try {
-            console.log("Salut la famille")
+            set(() => ({ isLoading: true }));
+            const token = localStorage.getItem('accessToken');
+            const adminEvents = new AdminEventsServices(token || "");
+            adminEvents.getEvents("limit=2").then(
+                (res) => {
+                    const { data } = res;
+                    console.log(data)
+                    set(() => ({ isLoading: false, valueList: data.items }))
+
+                },
+                (error) => {
+                    toast.error("Erreur lors de la récupération des détails");
+                    console.log(error)
+                    set(() => ({ isLoading: false }));
+                }
+            )
         } catch (error) {
+            set(() => ({ isLoading: false }));
             toast.error("Erreur lors de la récupération des détails");
             console.log(error)
         }

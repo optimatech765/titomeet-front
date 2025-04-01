@@ -3,6 +3,7 @@
 
 import { useAppContext } from "@/context";
 import { eventSevices } from "@/services/events/event.services";
+import { useEventsStore } from "@/stores/events.store";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, CardHeader } from "@heroui/react";
@@ -14,12 +15,19 @@ import { toast } from "react-toastify";
 export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
   const { isAuth } = useAppContext();
   const router = useRouter();
+  const { UpdateEventsDataList } = useEventsStore();
 
   const handleFavoris = (id: string) => {
     try {
-      if (isAuth?.id && isAuth?.id == "") {
+      if (isAuth?.id && isAuth?.id !== "") {
+
         eventSevices.toggleFavorit(id).then((response) => {
           console.log(response);
+          toast.success("Evènement favoris modifié avec succès",{
+            position: "top-center",
+            autoClose: 1000,
+          });
+          UpdateEventsDataList(id, { isFavorite: !event?.isFavorite });
         },
           (error) => {
             console.log(error);
@@ -41,7 +49,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
       <CardHeader className="relative h-56 w-full overflow-hidden rounded-t-xl">
         <Image
           onClick={() => router.push(isAuth?.id ? `/user/events/${event.id}` : `/events/${event.id}`)}
-          src="/img/event-image.jpg" // Remplace par ton image
+          src={event.coverPicture} // Remplace par ton image
           alt="After Work Networking"
           layout="fill"
           objectFit="cover"
@@ -60,7 +68,6 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
               className=" bg-white rounded-full p-3 ml-2  ">
               <Heart className="w-6 h-6 text-red-500  text-right "
                 fill={event?.isFavorite ? "red" : "white"}
-
               />
             </Button>
 
@@ -89,7 +96,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
                 <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> {event?.address?.city}
               </div>
               <div className="flex items-center gap-0.5 flex-1">
-                <AlignHorizontalDistributeCenter className="w-5 h-5 text-white mx-0" fill="red" /> {event?.capacity} Participants
+                <AlignHorizontalDistributeCenter className="w-5 h-5 text-white mx-0" fill="red" /> {event?.participants?.length} Participants
               </div>
 
             </div>

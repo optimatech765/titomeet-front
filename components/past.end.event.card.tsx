@@ -19,7 +19,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                             // as={Image}
                             alt="Album cover"
                             className=" h-full w-full "
-                            src="/img/event-image.jpg"
+                            src={event.coverPicture}
                             width={300}
                             height={300}
                         />
@@ -53,7 +53,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                                 <p className="flex items-center  text-xs font-light gap-0.5 ">
                                     <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
                                     <span>
-                                        {event?.capacity} Participants
+                                        {event?.participants?.length} Participants
                                     </span>
                                 </p>
                                 <p className="flex items-center  text-xs font-light gap-0.5">

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputContainerComponent from './create-event/input.container.component';
 
-const ImageInputComponent = ({ title, onChange }: { onChange: (a: File) => void, title: string }) => {
+const ImageInputComponent = ({ title, onChange, value }: { onChange: (a: File) => void, title: string, value: any }) => {
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -15,6 +15,12 @@ const ImageInputComponent = ({ title, onChange }: { onChange: (a: File) => void,
             onChange(file);
         }
     };
+
+    useEffect(() => {
+        if (value) {
+            setImagePreview(URL.createObjectURL(value));
+        }
+    }, [value]);
 
     return (
         <div

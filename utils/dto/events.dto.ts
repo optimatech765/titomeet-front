@@ -3,7 +3,7 @@
 import { UserDto } from "./auth.dto";
 
 
-type Pass = {
+export type Pass = {
     passType: string;
     price: string;
 }

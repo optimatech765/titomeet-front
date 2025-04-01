@@ -24,7 +24,7 @@ export const ServiceAddComponent = () => {
                 <Input
                     variant="bordered"
                     classNames={{
-                        "mainWrapper": "flex-1 bg-white",
+                        "mainWrapper": "flex-1 ",
                         "input": "bg-white rounded-md",
                         // inputWrapper: "bg-white"
                     }}

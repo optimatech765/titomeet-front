@@ -34,6 +34,7 @@ const EventCategorieSelectorComponent = ({ value, onChange }: EventCategorieSele
                 // label={"Catégorie"}
                 fullWidth={true}
                 labelPlacement={"outside-left"}
+                selectedKeys={value}
             >
                 {(animal) => <SelectItem>{animal.label}</SelectItem>}
 

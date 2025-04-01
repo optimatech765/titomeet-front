@@ -20,7 +20,7 @@ export const LangSelect = () => {
                     key="fr"
                     startContent={<Avatar alt="France" className="w-6 h-6" src="https://flagcdn.com/fr.svg" />}
                 >
-                    Français
+                    Fr
                 </SelectItem>
                 <SelectItem
                     aria-label={"Anglais"}
@@ -28,7 +28,7 @@ export const LangSelect = () => {
                     key="en"
                     startContent={<Avatar alt="Anglais" className="w-6 h-6" src="https://flagcdn.com/gb.svg" />}
                 >
-                    Anglais
+                    En
                 </SelectItem>
 
             </Select>

@@ -26,6 +26,10 @@ class TokenService {
     removeHeader() {
         axios.defaults.headers.common['Authorization'] = '';
     }
+
+    getRefreshToken() {
+        return localStorage?.getItem('refreshToken') || "";
+    }
 }
 
 export const tokenServices = new TokenService();

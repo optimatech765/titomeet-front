@@ -7,6 +7,7 @@ import { PubCardComponent } from '@/components/pub.card.component';
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
+import {AwaitDataLoader} from '../await.data.loader';
 
 const HistoryTabs = () => {
 
@@ -14,7 +15,7 @@ const HistoryTabs = () => {
 
     useEffect(() => {
 
-        fetchEventList({page:1,limit:25,status:"FINISHED"});
+        fetchEventList({ page: 1, limit: 25, status: "FINISHED" });
     }, []);
 
 
@@ -30,28 +31,18 @@ const HistoryTabs = () => {
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>
-                            {eventLoading ? <>
-                                <h4>Chargement...</h4>
-                            </> : <>
-                                {dataList?.length === 0 ? <>
-                                    <div className="text-center">
-                                        Il n&apos;y a pas de data
-                                    </div>
-                                </> :
-                                    <>
-                                        {dataList.map((event: EventDtoResponse, index: number) => (
-                                            <PastEndEventCard event={event}  key={index} />
-                                        ))}
 
-                                    </>
-                                }</>
-                            }
-
+                            <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={eventLoading}>
+                                <>
+                                    {dataList.map((event: EventDtoResponse, index: number) => (
+                                        <PastEndEventCard event={event} key={index} />
+                                    ))}
+                                </>
+                            </AwaitDataLoader>
                         </div>
                     </div>
-                   
-
                 </div>
+                
                 <div className='md:col-span-4 space-y-3'>
                     <div className='flex items-center gap-2  justify-between'>
                         <DateInput
