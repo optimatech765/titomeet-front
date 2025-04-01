@@ -377,7 +377,7 @@ const Page = () => {
             {activeStep === "resume" &&
                 <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}>Tout est prêt ! Vérifiez et publiez votre événement</h3>
-                    <ResumeComponent />
+                    <ResumeComponent setActiveStep={setActiveStep} />
                     <div className='flex flex-wrap gap-4 items-center justify-between'>
                         <div className="flex gap-2">
                             <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
