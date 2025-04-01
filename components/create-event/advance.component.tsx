@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Input, Modal, ModalBody, ModalContent, Select, SelectItem, Textarea, useDisclosure } from '@heroui/react';
 import React, { useState } from 'react';
@@ -7,6 +8,7 @@ import InputContainerComponent, { InputContainerComponent2 } from './input.conta
 import { InputErrorStore } from '@/stores/input.error.store';
 import { useEventsStore } from '@/stores/events.store';
 import { InfoIcon } from 'lucide-react';
+import { PricingComponent } from './pricing.component';
 
 interface Pass {
     name: string;
@@ -101,6 +103,7 @@ const AdvanceComponent = () => {
             <div className='flex flex-wrap gap-4 justify-between'>
                 <div>
                     <ImageInputComponent
+                        value={eventData.coverPicture}
                         title="Photo de couverture"
                         onChange={(e) => updateEventData("coverPicture", e)}
 
@@ -110,6 +113,7 @@ const AdvanceComponent = () => {
 
                 <div>
                     <ImageInputComponent
+                        value={eventData.badge}
                         onChange={(e) => updateEventData("badge", e)}
                         title="Badge"
                     />
@@ -152,9 +156,11 @@ const AdvanceComponent = () => {
 
                 </div>
 
-                <div>
-
-                </div>
+                {eventData?.prices?.map((price: any, index: number) => (
+                    <div key={price?.name} className="my-4">
+                        <PricingComponent data={price} />
+                    </div>
+                ))}
             </div>
 
 
@@ -303,7 +309,7 @@ const AdvanceComponent = () => {
                                             errorMessage={errorField?.message}
                                             className='border-slate-300'
                                             variant='bordered'
-                                            placeholder={"Prix"}
+                                            placeholder={"Nom du ticket"}
                                             fullWidth={true}
 
 
@@ -321,7 +327,7 @@ const AdvanceComponent = () => {
                                             errorMessage={errorField?.message}
                                             className='border-slate-300'
                                             variant='bordered'
-                                            placeholder={"Prix"}
+                                            placeholder={"Prix du ticket"}
                                             fullWidth={true}
 
 

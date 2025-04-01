@@ -1,8 +1,10 @@
+import { useProvidersStore } from '@/stores/providers.store';
 import { Avatar, Button, Card, CardBody, Textarea } from '@heroui/react';
 import { Camera } from 'lucide-react';
 import React from 'react';
 
 export const SecondStemp = ({ setActiveStep }: { setActiveStep: (activeStep: number) => void }) => {
+    const { updateProviderData, providerData } = useProvidersStore();
     return (
 
         <Card className=" mt-6 mx-14">
@@ -20,6 +22,8 @@ export const SecondStemp = ({ setActiveStep }: { setActiveStep: (activeStep: num
                 </div>
                 <div className="mt-6 space-y-4">
                     <Textarea
+                        onChange={(e) => updateProviderData("description", e.target.value)}
+                        value={providerData.description}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",
@@ -27,6 +31,8 @@ export const SecondStemp = ({ setActiveStep }: { setActiveStep: (activeStep: num
                         }}
                         placeholder="Description du service" />
                     <Textarea
+                        onChange={(e) => updateProviderData("offers", e.target.value)}
+                        value={providerData.offers}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",

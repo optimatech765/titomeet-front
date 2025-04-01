@@ -1,4 +1,5 @@
 "use client"
+import { useProvidersStore } from '@/stores/providers.store';
 import { Button, Card, CardBody, Input } from '@heroui/react';
 import { Info, Trash, Upload } from 'lucide-react';
 import React, { useState } from 'react';
@@ -13,7 +14,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
     const removeFile = (index: number) => {
         setFiles(files.filter((_, i) => i !== index));
     };
-
+    const { updateProviderData, providerData } = useProvidersStore();
 
     return (
         <Card className=" mt-6 mx-14">
@@ -25,6 +26,8 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                     Liste des fichiers requis
                 </div>
                 <Input placeholder="Registre de commerce - IFU - Documents" className="mb-4"
+                    onChange={(e) => updateProviderData("documents", e.target.value)}
+                    value={providerData.documents}
                     classNames={{
                         input: "w-full bg-white",
                         base: "w-full bg-white",
@@ -34,7 +37,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                 <label className="border-2 justify-center border-dashed flex gap-3 bg-slate-200  border-gray-300 rounded-lg p-6 text-center text-gray-500 cursor-pointer">
                     <Upload size={24} className=" mb-2" />
                     Glissez-déposez vos fichiers ici ou cliquez pour les importer
-                    <input type="file" multiple className="hidden" />
+                    <input type="file" multiple className="hidden" onChange={(e) => setFiles(e.target.files)} />
                 </label>
                 <div className="mt-4 space-y-2">
                     {files.map((file, index) => (
@@ -44,7 +47,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         >
                             <span className="text-gray-700">{file.name} - {file.size}</span>
                             <button onClick={() => removeFile(index)} className="text-primary">
-                                <Trash size={20}  />
+                                <Trash size={20} />
                             </button>
                         </div>
                     ))}

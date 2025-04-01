@@ -9,10 +9,13 @@ export const AddressSelector = ({ value, onChange }: { value: string, onChange: 
     const { fetchAddressList, dataList, isLoading } = AddressStore();
     const lieux = dataList.map((item) => ({ key: item.id, label: item.name }));
     const [searchValue, setSearchValue] = React.useState("");
+   
 
     useEffect(() => {
         fetchAddressList(searchValue);
     }, [searchValue]);
+
+   
 
     return (
         <div>
@@ -30,7 +33,7 @@ export const AddressSelector = ({ value, onChange }: { value: string, onChange: 
                 className="max-w-xs"
                 defaultItems={lieux}
                 defaultSelectedKey={value}
-                placeholder="Lieu"
+                placeholder="Lieu"  
             >
                 {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
             </Autocomplete>

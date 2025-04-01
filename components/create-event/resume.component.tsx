@@ -2,10 +2,10 @@
 import React from 'react';
 import { ResumeStepperComponent } from './resume.stepper.component';
 
-const ResumeComponent = () => {
+const ResumeComponent = ({ setActiveStep }: { setActiveStep: (value:string) => void }) => {
     return (
         <div className=''>
-            <ResumeStepperComponent />
+            <ResumeStepperComponent setActiveStep={setActiveStep} />
         </div>
     );
 }

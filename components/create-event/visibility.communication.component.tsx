@@ -1,7 +1,6 @@
-import { cn, Switch } from '@heroui/react';
-import { Select, SelectItem } from '@heroui/select';
-import React from 'react';
-import InputContainerComponent, { InputContainerComponent2 } from './input.container.component';
+
+import React, { useEffect } from 'react';
+import { InputContainerComponent2 } from './input.container.component';
 import { useEventsStore } from '@/stores/events.store';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { TagTextarea } from '../tague.input.component';
@@ -9,10 +8,15 @@ import { TagTextarea } from '../tague.input.component';
 const VisibilityCommunicationComponent = () => {
     const { data: eventData, updateEventData } = useEventsStore();
     const { errorField } = InputErrorStore();
+
+    useEffect(() => {
+        updateEventData("visibility", "PUBLIC")
+    }, [])
+
     return (
         <div className={"border rounded-md border-[#00000026] p-6 flex  flex-col gap-6 "}>
 
-            <div className="flex justify-between items-center">
+            {/* <div className="flex justify-between items-center">
                 <div className='w-1/2'>
                     <InputContainerComponent title={"Visibilité de l’évènement"} >
                         <Select
@@ -41,7 +45,7 @@ const VisibilityCommunicationComponent = () => {
                     }}
                     className='md:w-1/3' >Création du groupe
                 </Switch>
-            </div>
+            </div> */}
 
             <div className="flex-1">
                 <InputContainerComponent2 title={"Tags de recherche"} >

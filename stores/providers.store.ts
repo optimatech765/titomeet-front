@@ -23,7 +23,7 @@ interface UseProviderDto {
     };
     columnsValue: any[];
     isLoading: boolean;
-    isSubmit:boolean;
+    isSubmit: boolean;
     dataList: any[];
     setProviders: (newData: any[]) => void;
     updateProviders: (id: string, newData: any) => void;
@@ -32,6 +32,9 @@ interface UseProviderDto {
     providersCategoriesList: any[];
     handleSubmitProvidersCategories: (data: any) => void;
     fetchProvidersCategoriesList: () => void;
+    providerData: any;
+    setProviderData: (newData: any) => void;
+    updateProviderData: (key: string, value: any) => void;
 }
 
 export const useProvidersStore = create<UseProviderDto>((set) => ({
@@ -42,6 +45,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
         isSearch: false,
         searchValue: "",
     },
+    providerData: {},
     columnsValue: columns,
     dataList: [],
     isLoading: true,
@@ -169,7 +173,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
                         });
                     }
                 );
-        } catch (error) {            
+        } catch (error) {
             set(() => ({
                 isSubmit: false,
             }));
@@ -220,5 +224,13 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
             console.error("Erreur lors de la récupération des détails :", error);
         }
     },
-
+    setProviderData: (newData: any) =>
+        set(() => ({
+            providerData: newData,
+        })),
+    updateProviderData: (key: string, value: any) =>
+        set((state: any) => {
+            const updatedData = { ...state.providerData, [key]: value };
+            return { providerData: updatedData };
+        }),
 }));

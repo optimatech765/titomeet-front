@@ -32,7 +32,7 @@ type EventStore = {
 }
 
 const initialEventState: EventDto = {
-    categories: [],
+    categories: "",
     name: "",
     description: "",
     badge: "",

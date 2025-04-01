@@ -37,13 +37,14 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                 userServices.userInfo().then(
                     (res) => {
                         const { status, data } = res;
+                        console.log(res)
                         if (data?.role === "USER") {
-                            
+
                             setIsAuth({ ...data })
                             setIsLoading(false)
 
                         }
-                        else if (status === 302) {
+                        else if (status === 401) {
                             const userService = new UsersServices(refreshToken || "");
                             userService.refreshToken().then(
                                 (response) => {
@@ -52,7 +53,7 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                                     localStorage.setItem("accessToken", refreshData?.accessToken);
                                     localStorage.setItem("refreshToken", refreshData?.refreshToken);
                                     if (refreshData?.user?.role === "USER") {
-                                       
+
                                         setIsAuth({ ...refreshData })
                                         setIsLoading(false)
                                     }
@@ -69,9 +70,33 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                         }
                     },
                     (error) => {
-                        console.log(error)
-                        router.push('/auth')
-                        setIsLoading(false)
+                        if (error.status === 401) {
+                            const userService = new UsersServices(refreshToken || "");
+                            userService.refreshToken().then(
+                                (response) => {
+
+                                    const { data: refreshData } = response;
+                                    localStorage.setItem("accessToken", refreshData?.accessToken);
+                                    localStorage.setItem("refreshToken", refreshData?.refreshToken);
+                                    if (refreshData?.user?.role === "USER") {
+
+                                        setIsAuth({ ...refreshData })
+                                        setIsLoading(false)
+                                    }
+                                },
+                                (error) => {
+                                    console.log(error)
+                                    router.push('/auth')
+                                    setIsLoading(false)
+                                }
+                            )
+                        }
+                        else {
+                            console.log(error)
+                            router.push('/auth')
+                            setIsLoading(false)
+                        }
+
                     }
                 )
             }
@@ -132,12 +157,12 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                     (res) => {
                         const { status, data } = res;
                         if (data?.role === "ADMIN") {
-                            
+
                             setIsAuth({ ...data })
                             setIsLoading(false)
 
                         }
-                        else if (status === 302) {
+                        else if (status === 401) {
                             const userService = new UsersServices(refreshToken || "");
                             userService.refreshToken().then(
                                 (response) => {
@@ -146,7 +171,7 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                                     localStorage.setItem("accessToken", refreshData?.accessToken);
                                     localStorage.setItem("refreshToken", refreshData?.refreshToken);
                                     if (refreshData?.user?.role === "ADMIN") {
-                                       
+
                                         setIsAuth({ ...refreshData })
                                         setIsLoading(false)
                                     }
@@ -163,9 +188,32 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                         }
                     },
                     (error) => {
-                        console.log(error)
-                        router.push('/auth')
-                        setIsLoading(false)
+                        if (error.status === 401) {
+                            const userService = new UsersServices(refreshToken || "");
+                            userService.refreshToken().then(
+                                (response) => {
+
+                                    const { data: refreshData } = response;
+                                    localStorage.setItem("accessToken", refreshData?.accessToken);
+                                    localStorage.setItem("refreshToken", refreshData?.refreshToken);
+                                    if (refreshData?.user?.role === "USER") {
+
+                                        setIsAuth({ ...refreshData })
+                                        setIsLoading(false)
+                                    }
+                                },
+                                (error) => {
+                                    console.log(error)
+                                    router.push('/auth')
+                                    setIsLoading(false)
+                                }
+                            )
+                        }
+                        else {
+                            console.log(error)
+                            router.push('/auth')
+                            setIsLoading(false)
+                        }
                     }
                 )
             }

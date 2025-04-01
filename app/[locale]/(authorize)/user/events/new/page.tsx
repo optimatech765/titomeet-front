@@ -15,17 +15,107 @@ import { GetDate } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
+    const [isLoading, setIsLoading] = useState(false);
     // const [validateStep, setValidateStep] = useState([]);
     const { data: eventData, resetData } = useEventsStore();
 
     const { setMessageError } = InputErrorStore()
 
+    const router = useRouter();
+
     const handleSaveDraftEvent = async () => {
-        console.log(eventData);
+        try {
+
+
+            const startDate = GetDate(eventData.startDate as any)
+            const endDate = GetDate(eventData.endDate as any);
+
+            const newData = {
+                ...eventData,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: new Date().toLocaleTimeString(),
+                endTime: new Date().toLocaleTimeString(),
+            }
+            const { error, errorData } = EventsValidator(newData);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+            }
+            else {
+                setIsLoading(true)
+
+                const toastId = toast.loading("Sauvegarde en cours...", {
+                    position: "top-right",
+                    autoClose: false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+                const coverFile = await uploadFile(eventData.coverPicture as File);
+                const badgeFile = await uploadFile(eventData.badge as File);
+
+                const updatedData = eventData?.prices?.map((item: any) => ({
+                    ...item,
+                    amount: parseInt(item.amount, 10)
+                }));
+
+                eventSevices.createEvent({
+                    ...eventData,
+                    prices: updatedData,
+                    categories: eventData?.categories?.split(","),
+                    capacity: +eventData.capacity,
+                    coverPicture: coverFile?.downloadUrl,
+                    badge: badgeFile?.downloadUrl,
+                    startDate: startDate,
+                    endDate: endDate,
+                    startTime: new Date().toLocaleTimeString(),
+                    endTime: new Date().toLocaleTimeString(),
+                    isDraft: true,
+                }).then(
+                    (response) => {
+                        console.log(response);
+                        toast.update(toastId, {
+                            render: "Sauvegarde réussie",
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                        setIsLoading(false);
+                        resetAllData();
+                        router.push("/user/events");
+                    },
+                    (error) => {
+                        console.log(error);
+                        toast.update(toastId, {
+                            render: "Erreur lors de la sauvegarde",
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                        setIsLoading(false);
+                    }
+                );
+
+            }
+
+        } catch (error) {
+            setIsLoading(false);
+            console.log(error);
+
+        }
 
     }
 
@@ -59,7 +149,7 @@ const Page = () => {
             }
         }
 
-       return {
+        return {
             fileKey: fields.key,
             type: file.type.includes("image") ? "image" : "pdf",
             downloadUrl: downloadUrl,
@@ -88,9 +178,10 @@ const Page = () => {
                     hideProgressBar: false,
                     closeOnClick: true,
                 });
+                setIsLoading(false)
             }
             else {
-
+                setIsLoading(true)
                 const toastId = toast.loading("Sauvegarde en cours...", {
                     position: "top-right",
                     autoClose: false,
@@ -107,11 +198,11 @@ const Page = () => {
                 const updatedData = eventData?.prices?.map((item: any) => ({
                     ...item,
                     amount: parseInt(item.amount, 10)
-                  }));
+                }));
 
                 eventSevices.createEvent({
                     ...eventData,
-                    prices:updatedData,
+                    prices: updatedData,
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
                     coverPicture: coverFile?.downloadUrl,
@@ -129,6 +220,9 @@ const Page = () => {
                             isLoading: false,
                             autoClose: 3000,
                         });
+                        setIsLoading(false)
+                        resetAllData();
+                        router.push("/user/events");
                     },
                     (error) => {
                         console.log(error);
@@ -138,13 +232,14 @@ const Page = () => {
                             isLoading: false,
                             autoClose: 3000,
                         });
+                        setIsLoading(false)
                     }
                 );
 
             }
 
         } catch (error) {
-
+            setIsLoading(false)
             console.log(error);
 
         }
@@ -226,6 +321,12 @@ const Page = () => {
         }
     }
 
+    const resetAllData = () => {
+        setActiveStep("general");
+        setIsLoading(false)
+        resetData();
+    }
+
     return (
         <div className={"flex flex-col gap-2 pb-6"}>
             <div>
@@ -305,10 +406,8 @@ const Page = () => {
                 <div className='flex flex-col gap-3 px-2 md:px-10 lg:px-32 '>
                     <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
                     <GeneralInforComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
+                    <div className='flex items-center justify-end'>
+
 
                         <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                             Suivant
@@ -322,10 +421,8 @@ const Page = () => {
                 <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
                     <AdvanceComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
+                    <div className='flex items-center justify-end'>
+
                         <div className="flex  gap-2">
                             <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
@@ -343,10 +440,8 @@ const Page = () => {
                 <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
                     <VisibilityCommunicationComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
+                    <div className='flex items-center justify-end'>
+
                         <div className="flex  gap-2">
                             <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
@@ -363,13 +458,13 @@ const Page = () => {
             {activeStep === "resume" &&
                 <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
                     <h3 className={" font-normal"}>Tout est prêt ! Vérifiez et publiez votre événement</h3>
-                    <ResumeComponent />
+                    <ResumeComponent setActiveStep={setActiveStep} />
                     <div className='flex flex-wrap gap-4 items-center justify-between'>
                         <div className="flex gap-2">
-                            <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                            <Button isLoading={isLoading} onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                 Enregistrer brouillon
                             </Button>
-                            <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button onPress={resetAllData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Supprimer
                             </Button>
                         </div>
@@ -377,7 +472,7 @@ const Page = () => {
                             <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button isLoading={isLoading} onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Publier
                             </Button>
                         </div>

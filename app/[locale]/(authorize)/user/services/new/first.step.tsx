@@ -1,8 +1,10 @@
 "use client"
+import { useProvidersStore } from '@/stores/providers.store';
 import { Button, Card, CardBody, Input, Select, SelectItem } from '@heroui/react';
 import React from 'react';
 
 export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: number) => void }) => {
+    const {updateProviderData, providerData } = useProvidersStore();
     return (
 
         <Card className=" mt-6 mx-14">
@@ -10,6 +12,8 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                 <h3 className="text-lg font-semibold mb-4">Informations générales</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
+                        onChange={(e) => updateProviderData("name", e.target.value)}
+                        value={providerData.name}
                         placeholder="Nom du prestataire/Entreprise"
                         classNames={{
                             input: "w-full bg-white",
@@ -29,6 +33,8 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         <SelectItem key="tech">Technologie</SelectItem>
                     </Select>
                     <Input
+                        onChange={(e) => updateProviderData("email", e.target.value)}
+                        value={providerData.email}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",
@@ -36,6 +42,8 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         }}
                         type="email" placeholder="Adresse mail" />
                     <Input
+                        onChange={(e) => updateProviderData("address", e.target.value)}
+                        value={providerData.address}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",
@@ -43,6 +51,8 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         }}
                         placeholder="Localisation" />
                     <Input
+                        onChange={(e) => updateProviderData("phone", e.target.value)}
+                        value={providerData.phone}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",
@@ -50,6 +60,8 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         }}
                         type="tel" placeholder="Téléphone" />
                     <Input
+                        onChange={(e) => updateProviderData("website", e.target.value)}
+                        value={providerData.website}
                         classNames={{
                             input: "w-full bg-white",
                             base: "w-full bg-white",

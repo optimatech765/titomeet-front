@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DatePicker, Input, TimeInput } from '@heroui/react';
 import { Timer } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputContainerComponent from './input.container.component';
 import { useEventsStore } from '@/stores/events.store';
 import { InputErrorStore } from '@/stores/input.error.store';
@@ -12,6 +12,9 @@ const GeneralInforComponent = () => {
     const { data: eventData, updateEventData } = useEventsStore();
     const errorFields = InputErrorStore((state: any) => state.errorField);
 
+    useEffect(() => {
+        console.log(eventData)
+    }, [eventData]);
     return (
         <div className={"border rounded-md border-[#00000026] p-6 "}>
             <div className={"flex flex-col md:grid grid-cols-1 md:gap-6 md:grid-cols-2"}>
@@ -35,7 +38,7 @@ const GeneralInforComponent = () => {
 
                 <InputContainerComponent title={"Catégorie"} >
                     <EventCategorieSelectorComponent
-                        value={Array.isArray(eventData?.categories) ? eventData.categories : []}
+                        value={eventData?.categories ? eventData?.categories?.split(",") : []}
                         onChange={(e: any) => updateEventData("categories", e)} />
                 </InputContainerComponent>
 
@@ -102,36 +105,8 @@ const GeneralInforComponent = () => {
                         value={eventData?.addressId}
                         onChange={(e) => updateEventData("addressId", e)}
                     />
-                    {/* <Input
-                        value={eventData?.addressId}
-                        onChange={(e) => updateEventData("addressId", e.target.value)}
-                        isInvalid={errorFields.field === 'addressId'}
-                        errorMessage={errorFields?.message}
-                        className='border-slate-300'
-                        variant='bordered'
-                        placeholder={"Lieu"}
-                        labelPlacement={"outside-left"}
-                        fullWidth={true}
-                        classNames={{
-                            "mainWrapper": "flex-1"
-                        }}
-                    /> */}
+                    
                 </InputContainerComponent>
-
-                {/* <InputContainerComponent title={"Adresse"} >
-                    <Input
-
-                        className='border-slate-300'
-                        variant='bordered'
-                        placeholder={"Adresse"}
-                        labelPlacement={"outside-left"}
-                        fullWidth={true}
-                        classNames={{
-                            "mainWrapper": "flex-1"
-
-                        }}
-                    />
-                </InputContainerComponent> */}
 
                 <InputContainerComponent title={"Nombre de place"} >
                     <Input
