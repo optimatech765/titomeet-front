@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProvidersServices } from "@/services/providers/providers.services";
 import { ProviderDto } from "@/utils/dto/providers.dto";
+import { toast } from "react-toastify";
 import { create } from "zustand";
 
 
@@ -22,11 +23,15 @@ interface UseProviderDto {
     };
     columnsValue: any[];
     isLoading: boolean;
+    isSubmit:boolean;
     dataList: any[];
     setProviders: (newData: any[]) => void;
     updateProviders: (id: string, newData: any) => void;
     deleteProviders: (id: string) => void;
     fetchProvidersList: () => void;
+    providersCategoriesList: any[];
+    handleSubmitProvidersCategories: (data: any) => void;
+    fetchProvidersCategoriesList: () => void;
 }
 
 export const useProvidersStore = create<UseProviderDto>((set) => ({
@@ -40,6 +45,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
     columnsValue: columns,
     dataList: [],
     isLoading: true,
+    isSubmit: false,
     setProviders: (newData: ProviderDto[]) =>
         set(() => ({
             dataList: [...newData],
@@ -121,4 +127,98 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
             console.error("Erreur lors de la récupération des détails :", error);
         }
     },
+    providersCategoriesList: [],
+    handleSubmitProvidersCategories: async (data: any) => {
+        try {
+            set(() => ({
+                isSubmit: true,
+            }));
+
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
+            const toastId = toast.loading("Enregistrement en cours...");
+            providersServices
+                .addProvidersCategories(data)
+                .then(
+                    (response) => {
+                        const data = response.data;
+
+                        set((state: any) => ({
+                            isSubmit: false,
+                            providersCategoriesList: [...state.providersCategoriesList, data],
+
+                        }));
+                        toast.update(toastId, {
+                            render: "Enregistrement réussi",
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                    },
+                    (error) => {
+                        set(() => ({
+                            isSubmit: false,
+                        }));
+                        console.log(error);
+                        toast.update(toastId, {
+                            render: "Erreur lors de l'enregistrement",
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                    }
+                );
+        } catch (error) {            
+            set(() => ({
+                isSubmit: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+            toast.error("Erreur lors de l'enegistrement");
+        }
+    },
+    fetchProvidersCategoriesList: async () => {
+        try {
+            set(() => ({
+                isLoading: true,
+            }));
+
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
+            providersServices
+                .getProvidersCategories()
+                .then(
+                    (response) => {
+                        const { items, total, page, limit } = response.data;
+
+                        set(() => ({
+                            isLoading: false,
+                            providersCategoriesList: [...items],
+                            DataListConfig: {
+                                totalItems: total,
+                                page: page,
+                                perPageItems: limit,
+                                isSearch: false,
+                                searchValue: "",
+
+                            }
+                        }));
+                    },
+                    (error) => {
+                        set(() => ({
+                            isLoading: false,
+                        }));
+                        console.log(error);
+                    }
+                );
+
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+        }
+    },
+
 }));

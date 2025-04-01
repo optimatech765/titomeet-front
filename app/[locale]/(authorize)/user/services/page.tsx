@@ -8,6 +8,7 @@ import { useProvidersStore } from '@/stores/providers.store';
 import { Button, Divider, Modal, ModalBody, ModalContent, useDisclosure } from '@heroui/react';
 import { BriefcaseBusiness, Globe, Mail, MapPin, PhoneCall, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect } from 'react';
 
 const Page = () => {
@@ -26,7 +27,7 @@ const Page = () => {
 
             <section className='flex flex-wrap justify-between items-center'>
                 <h3 className='font-extrabold text-2xl z-10'>Services disponibles</h3>
-                <Button className='mt-2 bg-primary text-white' radius='full' >
+                <Button as={Link} href="/user/services/new" className='mt-2 bg-primary text-white' radius='full' >
                     Devenir prestataire
                 </Button>
             </section>

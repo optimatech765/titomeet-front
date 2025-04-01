@@ -17,6 +17,7 @@ export const Loginpage = () => {
         email: '',
         password: '',
     })
+    const [isLoading, setIsLoading] = useState(false);
     const errorFields = InputErrorStore((state: any) => state.errorField);
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
@@ -31,7 +32,7 @@ export const Loginpage = () => {
 
             const { valid, errorData } = authValidator(loginInfo)
             if (valid) {
-
+                setIsLoading(true);
                 // Affiche un toast au début de la requête
                 const toastsId = toast.loading("Connexion...", {
                     hideProgressBar: false,
@@ -55,9 +56,12 @@ export const Loginpage = () => {
                         setToken(response?.data?.accessToken);
                         localStorage.setItem("refreshToken", response?.data?.refreshToken);
                         setRefreshToken(response?.data?.refreshToken);
-                        if(response?.data?.user?.role === 'ADMIN'){
+                        if (response?.data?.user?.role === 'ADMIN') {
+
                             router.push('/admin')
-                        }else{
+
+                        } else {
+
                             router.push('/user')
                         }
 
@@ -70,11 +74,12 @@ export const Loginpage = () => {
                             isLoading: false,
                             autoClose: 1000,
                         });
-
+                        setIsLoading(false);
                         console.log(error)
                     })
 
             } else {
+                setIsLoading(false);
                 setMessageError(errorData)
             }
 
@@ -156,6 +161,8 @@ export const Loginpage = () => {
             </div>
 
             <Button
+                disabled={isLoading}
+                isLoading={isLoading}
                 type="button"
                 onPress={handleSubmit}
                 radius='full'

@@ -30,4 +30,20 @@ export class ProvidersServices {
         return axios.delete(`${this.baseUrl}/providers/${id}`);
     }
 
+    getProvidersCategories() {
+        return axios.get(`${this.baseUrl}/providers/categories`);
+    }
+
+    addProvidersCategories(data: any) {
+        return axios.post(`${this.baseUrl}/admin/providers/categories`, data);
+    }
+
+    deleteProvidersCategories(id: string) {
+        return axios.delete(`${this.baseUrl}/admin/providers/categories/${id}`);
+    }
+
+    updateProvidersCategories(id: string, data: any) {
+        return axios.put(`${this.baseUrl}/admin/providers/categories/${id}`, data);
+    }
+
 }

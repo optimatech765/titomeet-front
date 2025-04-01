@@ -107,7 +107,7 @@ export const HeroSection = () => {
                             spaceBetween={0} 
                             slidesPerView={1} 
                             loop={true}
-                            speed={100}
+                            speed={1000}
                             direction="horizontal" // Assure un glissement horizontal
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
 

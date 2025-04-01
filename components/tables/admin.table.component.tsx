@@ -11,12 +11,13 @@ interface ColumnsDto {
 }
 
 export const AdminTableComponent = ({
-    
+    isLoading = false,
     columns,
     valuesList,
     title,
     emptyContent,
 }: {
+    isLoading?: boolean,
     title: string,
     columns: ColumnsDto[],
     valuesList: any[],
@@ -50,9 +51,9 @@ export const AdminTableComponent = ({
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu>
-                                <DropdownItem key="view">View</DropdownItem>
-                                <DropdownItem key="edit">Edit</DropdownItem>
-                                <DropdownItem key="delete">Delete</DropdownItem>
+                                <DropdownItem key="view" onPress={() => alert("view")}>View</DropdownItem>
+                                <DropdownItem key="edit" onPress={() => alert("edit")}>Edit</DropdownItem>
+                                <DropdownItem key="delete" onPress={() => alert("delete")}>Delete</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -168,7 +169,12 @@ export const AdminTableComponent = ({
                                 </TableColumn>
                             )}
                         </TableHeader>
-                        <TableBody items={valuesList} emptyContent={emptyContent}>
+                        <TableBody
+                            loadingContent={<p>Chargement des données</p>}
+                            isLoading={isLoading}
+                            items={valuesList}
+                            emptyContent={emptyContent}
+                        >
                             {(item) => (
                                 <TableRow key={item.id}>
                                     {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { categoriesServices } from "@/services/categories/categories.services";
 import { CategorieDto } from "@/utils/dto/categorie.dto";
+import { toast } from "react-toastify";
 import { create } from "zustand";
 
 interface EventCategoriesStoreDto {
@@ -12,11 +13,13 @@ interface EventCategoriesStoreDto {
         searchValue: string;
     };
     isLoading: boolean;
+    isSubmit: boolean;
     dataList: CategorieDto[];
     setEventCategories: (newData: CategorieDto[]) => void;
     updateEventCategories: (id: string, newData: CategorieDto) => void;
     deleteEventCategories: (id: string) => void;
     fetchCategoriesList: () => void;
+    handleSubmit: (data: CategorieDto) => void;
 }
 
 export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
@@ -27,6 +30,7 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
         isSearch: false,
         searchValue: "",
     },
+    isSubmit: false,
     dataList: [],
     isLoading: true,
     setEventCategories: (newData: CategorieDto[]) =>
@@ -105,6 +109,52 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
                 isLoading: false,
             }));
             console.error("Erreur lors de la récupération des détails :", error);
+        }
+    },
+    handleSubmit: async (data: CategorieDto) => {
+        try {
+            set(() => ({
+                isSubmit: true,
+            }));
+
+            const toastId = toast.loading("Enregistrement en cours...");
+            categoriesServices
+                .addCategories(data)
+                .then(
+                    (response) => {
+                        const data = response.data;
+
+                        set((state: EventCategoriesStoreDto) => ({
+                            isSubmit: false,
+                            dataList: [...state.dataList, data],
+
+                        }));
+                        toast.update(toastId, {
+                            render: "Enregistrement réussi",
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                    },
+                    (error) => {
+                        set(() => ({
+                            isSubmit: false,
+                        }));
+                        console.log(error);
+                        toast.update(toastId, {
+                            render: "Erreur lors de l'enregistrement",
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                    }
+                );
+        } catch (error) {
+            set(() => ({
+                isSubmit: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+            toast.error("Erreur lors de l'enegistrement");
         }
     },
 }));

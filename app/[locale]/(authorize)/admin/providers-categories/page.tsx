@@ -2,7 +2,7 @@
 "use client"
 import { AdminTableComponent } from '@/components/tables/admin.table.component';
 import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.cataegorie.store';
-import { EventCategorieStore } from '@/stores/event.categories.store';
+import { useProvidersStore } from '@/stores/providers.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, Textarea, useDisclosure } from '@heroui/react';
 import { Plus } from 'lucide-react';
@@ -16,21 +16,20 @@ const Page = () => {
         name: "",
         description: "",
     });
-    const { isLoading,
-        fetchCategoriesList,
-        dataList: categorieList,
-        handleSubmit,
-        isSubmit } = EventCategorieStore()
+    const { fetchProvidersCategoriesList,
+        handleSubmitProvidersCategories,
+        isSubmit,
+        providersCategoriesList } = useProvidersStore();
 
     const { columnsValue } = useAdminEventCategoriesStore();
 
     useEffect(() => {
-        fetchCategoriesList();
+        fetchProvidersCategoriesList();
     }, []);
 
     const handleSubmi = () => {
         delete categorieData.id;
-        handleSubmit(categorieData);
+        handleSubmitProvidersCategories(categorieData);
     }
 
     useEffect(() => {
@@ -55,10 +54,9 @@ const Page = () => {
 
             <section>
                 <AdminTableComponent
-                    isLoading={isLoading}
-                    title={"Liste des catégories des événements"}
+                    title={"Liste des catégories des services "}
                     columns={columnsValue}
-                    valuesList={categorieList}
+                    valuesList={providersCategoriesList}
                     emptyContent={<p className="text-center text-gray-500">Aucune catégorie trouvé</p>}
                 />
             </section>
