@@ -7,7 +7,7 @@ import { useEventsStore } from "@/stores/events.store";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, CardHeader } from "@heroui/react";
-import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2, Ticket } from "lucide-react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2, Ticket, Lock } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
 
         eventSevices.toggleFavorit(id).then((response) => {
           console.log(response);
-          toast.success("Evènement favoris modifié avec succès",{
+          toast.success("Evènement favoris modifié avec succès", {
             position: "top-center",
             autoClose: 1000,
           });
@@ -85,6 +85,11 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
               <p className="text-2xl font-bold text-black">{formatDate(event?.startDate).day}</p>
               <p className="text-sm uppercase text-red-600">{formatDate(event?.startDate).month}</p>
             </div>
+            {event?.accessType === "PAID" && <div>
+
+              <Lock className="w-6 h-6 text-secondary-blue text-right " />
+            </div>
+            }
           </div>
 
           <div className="flex-1">

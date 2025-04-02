@@ -37,6 +37,8 @@ export const EventDetails = () => {
         fetchEventList({ limit: 2 });
 
     }, []);
+
+
     return (
         <div className={""}>
             {isLoading && <LoadingComponent2 />}

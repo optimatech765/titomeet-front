@@ -32,6 +32,10 @@ class EventServices {
     toggleFavorit(id: string) {
         return axios.post(`${this.baseUrl}/events/${id}/toggle-favorite`);
     }
+
+    buyTicket(id: string, data: any) {
+        return axios.post(`${this.baseUrl}/events/${id}/orders`, data);
+    }
 }
 
 const eventSevices = new EventServices();

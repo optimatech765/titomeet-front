@@ -13,7 +13,9 @@ import {
 } from "@heroui/react";
 import { Plus } from "lucide-react";
 import { useEventsStore } from "@/stores/events.store";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { eventSevices } from "@/services/events/event.services";
+import { toast } from "react-toastify";
 
 interface shopInterface {
     productName: string;
@@ -29,8 +31,11 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
     const { singleEvent, isLoading } = useEventsStore();
     const [shopCart, setshopCart] = useState<shopInterface[]>([]);
+    const [clientEmail, setClientEmail] = useState<string>("");
+    const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const params = useParams();
     const event = params?.eventId
+    const router = useRouter();
 
     const handleChange = (e: any, index: number) => {
         const newShopCart = [...shopCart];
@@ -40,11 +45,43 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
     const handleAddQuantity = (index: number) => {
         const newShopCart = [...shopCart];
-        newShopCart[index].productQuantity = newShopCart[index].productQuantity + 1;
+        newShopCart[index].productQuantity = +newShopCart[index].productQuantity + 1;
         setshopCart(newShopCart);
     }
 
     const totalPrice = shopCart?.reduce((acc, curr) => acc + curr.productPrice * curr.productQuantity, 0);
+
+    const handleShoppingCart = async () => {
+
+        try {
+            setBuyLoading(true);
+            const data = shopCart?.map((item: any) => ({
+                quantity: item?.productQuantity,
+                priceId: item?.id,
+            }))
+
+
+            eventSevices.buyTicket(event as string, {
+                eventId: event as string,
+                email: clientEmail,
+                items: data,
+            }).then(
+                (response) => {
+                    console.log(response);
+                    toast.success("Vous avez acheté votre ticket");
+                    router.push(`/user/events/${event}/order-confirm`);
+                },
+                (error) => {
+                    console.log(error);
+                    toast.error("Une erreur est survenue lors de l'achat");
+                    setBuyLoading(false);
+                }
+            )
+        } catch (error) {
+            setBuyLoading(false);
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         const newShopCart = singleEvent?.prices?.map((item: any) => ({
@@ -94,6 +131,8 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                                     ))}
 
                                     <Input
+                                        value={clientEmail}
+                                        onChange={(e) => setClientEmail(e.target.value)}
                                         type="email"
                                         labelPlacement={"outside"}
                                         label={<span className="text-sm font-medium text-gray-700">Adresse mail de reception de ticket</span>}
@@ -120,7 +159,11 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                             </ModalBody>
                             {!isLoading &&
                                 <ModalFooter>
-                                    <Button className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
+                                    <Button isDisabled={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
+                                        Annuler
+                                    </Button>
+
+                                    <Button isLoading={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={handleShoppingCart}>
                                         Acheter ticket
                                     </Button>
 
