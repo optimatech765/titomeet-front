@@ -11,6 +11,7 @@ import 'swiper/css';// Importer les styles de Swiper
 import { Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
 import { useEventsStore } from "@/stores/events.store";
+import "swiper/css/autoplay";
 
 
 export const HeroSection = () => {
@@ -23,12 +24,12 @@ export const HeroSection = () => {
     });
     const { fetchEventList } = useEventsStore();
 
-    const handleFindEvent =() => {
+    const handleFindEvent = () => {
         fetchEventList({ search: searchParameter.keyWord })
     }
 
     useEffect(() => {
-        if(searchParameter.keyWord === ""){
+        if (searchParameter.keyWord === "") {
             fetchEventList()
         }
     }, [searchParameter.keyWord]);
@@ -85,7 +86,7 @@ export const HeroSection = () => {
                             size="lg"
                         />
 
-                        <Button onPress={handleFindEvent}  isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+                        <Button onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
                             <span className="md:hidden">Rechercher</span>
                         </Button>
@@ -102,12 +103,22 @@ export const HeroSection = () => {
                 <div className="lg:w-1/2  justify-end mt-4 hidden lg:flex ">
                     <Card radius="lg" shadow="md" className="rounded-[160px] shadow-lg  max-h-[525px] max-w-[525px] overflow-hidden">
                         <Swiper
+                            style={{ overflow: "visible" }}
                             modules={[Autoplay]}
-                            autoplay={{ delay: 2500, disableOnInteraction: false }} 
-                            spaceBetween={0} 
-                            slidesPerView={1} 
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                                waitForTransition: false
+                            }}
+                            spaceBetween={0}
+                            slidesPerView={"auto"}
                             loop={true}
                             speed={1000}
+                            watchSlidesProgress={true}
+                            loopAdditionalSlides={3}
+                            freeMode={true}
+                            // lazy={true}
+                            grabCursor={true} // Rend le défilement plus fluide
                             direction="horizontal" // Assure un glissement horizontal
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
 
