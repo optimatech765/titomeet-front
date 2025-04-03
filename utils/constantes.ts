@@ -87,5 +87,14 @@ export const statusColorMap: any = {
         text: "Vacation",
 
     },
+    PUBLISHED:{
+        color: "success",
+        text: "Actif",
+    },
+    PENDING: {
+        color: "warning",
+        text: "En pause",
+
+    },
 
 } as any;

@@ -82,11 +82,11 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       const { page, perPageItems, searchValue, isSearch } = get().dataListConfig;
 
-      const token = localStorage.getItem("token") || "";
+      const token = localStorage.getItem("accessToken") || "";
       const userService = new UsersServices(token)
       const response = await userService.getUsers(queryString);
 
-      const { items, total } = response.data;
+      const { items, total } = response.data; 
 
       set((state) => ({
         isLoading: false,
@@ -106,7 +106,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     const toastId = toast.loading("Ajout en cours...");
 
     try {
-      const token = localStorage.getItem("token") || "";
+      const token = localStorage.getItem("accessToken") || "";
       const userService = new UsersServices(token)
       const response = await userService.addUser(data);
       const newUser: UserDto = response.data;

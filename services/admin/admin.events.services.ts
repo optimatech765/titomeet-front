@@ -31,7 +31,7 @@ export class AdminEventsServices {
     }
 
     getEvents(queryString: string) {
-        return axios.get(`${this.baseUrl}/admin/events?${queryString}`);
+        return axios.get(`${this.baseUrl}/events?${queryString}`);
     }
 
     updateEvent(id: string, data: any) {

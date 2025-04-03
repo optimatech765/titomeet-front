@@ -12,12 +12,12 @@ export const StatusComponent = ({ status }: { status: string }) => {
                     }
                     className='items-center px-2'
 
-                    color={statusColorMap[status]["color"]}
+                    color={statusColorMap?.[status]?.["color"]}
                     size="sm"
                     variant="flat"
                 >
                     <span className=" font-semibold capitalize">
-                        {statusColorMap[status]["text"]}
+                        {statusColorMap?.[status]?.["text"]}
                     </span>
 
                 </Chip>

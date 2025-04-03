@@ -10,6 +10,7 @@ import { RevenueChart } from "@/components/charts/revenu.chart.component";
 import { useAdminEventsStore } from "@/stores/admin/admin.events.store";
 import { UseAdminStateStore } from "@/stores/admin/admin.home.stat.store";
 import { AwaitDataLoader, AwaitDataLoaderStats } from "@/components/await.data.loader";
+import {  formatDateFrench   } from "@/utils/functions/date.function";
 
 
 
@@ -144,8 +145,8 @@ const Dashboard = () => {
 export default Dashboard;
 
 const columns = [
-  { name: "Date", uid: "date" },
-  { name: "Evènement", uid: "event" },
+  { name: "Date", uid: "startDate" },
+  { name: "Evènement", uid: "name" },
   { name: "Statut", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
 ];
@@ -253,6 +254,8 @@ const LastEvents = () => {
 
     switch (columnKey) {
 
+      case "startDate":
+        return <div className="text-sm text-gray-600">{formatDateFrench(user.startDate)}</div>
       case "role":
         return (
           <div className="flex flex-col">
