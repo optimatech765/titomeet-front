@@ -36,6 +36,10 @@ class EventServices {
     buyTicket(id: string, data: any) {
         return axios.post(`${this.baseUrl}/events/${id}/orders`, data);
     }
+
+    getShopInfo(id: string) {
+        return axios.get(`${this.baseUrl}/orders/${id}`);
+    }
 }
 
 const eventSevices = new EventServices();

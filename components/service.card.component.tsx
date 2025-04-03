@@ -1,15 +1,20 @@
+import { ProvidersResponseDto } from '@/utils/dto/providers.dto';
 import { Card, CardBody } from '@heroui/react';
 import { MapPin, Star } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export const ServiceCardComponent = () => {
+export const ServiceCardComponent = ({ data }: { data: ProvidersResponseDto }) => {
+
+    useEffect(() => {
+        console.log("Je suis ici data", data)
+    }, [data]);
     return (
         <Card className="max-w-md cursor-pointer rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
             <CardBody className='px-3 md:px-9'>
                 <div className='flex flex-col gap-1.5'>
                     <Image
-                        src={"/img/service.png"}
+                        src={data.image}
                         alt={"service"}
                         width={200}
                         height={200}
@@ -17,9 +22,9 @@ export const ServiceCardComponent = () => {
                     />
                 </div>
                 <div className='flex flex-col gap-1.5'>
-                    <h3 className='font-semibold text-lg text-center'>Nom du pretataire</h3>
-                    <span className='text-lg font-light text-center block'>Catégorie de service</span>
-                    <span className='text-xs justify-center flex items-center'><MapPin className={"text-white h-4 w-4 "} fill='#ee3540' /> Localisation</span>
+                    <h3 className='font-semibold text-lg text-center'>{data?.name}</h3>
+                    <span className='text-lg font-light text-center block'>{data?.category?.name}</span>
+                    <span className='text-xs justify-center flex items-center'><MapPin className={"text-white h-4 w-4 "} fill='#ee3540' /> {data?.address?.city},{data?.address?.country}</span>
                     <div className='flex justify-center items-center gap-2 mt-2'>
                         <Star className={"h-3 w-3 text-secondary "} fill='#f08621' />
                         <Star className={"h-3 w-3 text-secondary "} fill='#f08621' />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const cleanResponse = (response: any): any => {
     if (typeof response === 'string') {
@@ -19,4 +20,27 @@ export const cleanResponse = (response: any): any => {
 
     console.log(response);
     return response;
+}
+
+export const paramsToQueryString = (params: QyeryParamsDto) => {
+    return Object.entries(params)
+        .filter(([_, value]) => value !== undefined && value !== null) // Supprime les valeurs null/undefined
+        .map(([key, value]) =>
+            Array.isArray(value)
+                ? value.map(v => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`).join('&')
+                : `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join('&');
+}
+
+
+export interface QyeryParamsDto {
+    page?: number;
+    limit?: number;
+    search?: string;
+    tags?: string[];
+    startDate?: string;
+    endDate?: string;
+    createdById?: string;
+    categories?: string[];
 }

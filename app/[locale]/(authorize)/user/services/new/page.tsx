@@ -7,6 +7,7 @@ import { ThirdStep } from './third.step';
 
 const Page = () => {
     const [activeStep, setActiveStep] = useState(1);
+    
     return (
         <div>
             <div className="max-w-5xl mx-auto py-12 mb-16">

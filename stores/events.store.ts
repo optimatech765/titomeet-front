@@ -4,6 +4,7 @@ import { parseAbsoluteToLocal, parseDate } from '@internationalized/date';
 import { eventSevices } from "@/services/events/event.services";
 import { EventDto, EventDtoResponse } from "@/utils/dto/events.dto";
 import { create } from "zustand";
+import { paramsToQueryString, QyeryParamsDto } from '@/utils/functions/other.functions';
 
 
 type EventStore = {
@@ -51,27 +52,7 @@ const initialEventState: EventDto = {
     providers: []
 }
 
-interface QyeryParamsDto {
-    page?: number;
-    limit?: number;
-    search?: string;
-    tags?: string[];
-    startDate?: string;
-    endDate?: string;
-    createdById?: string;
-    categories?: string[];
-}
 
-const paramsToQueryString = (params: QyeryParamsDto) => {
-    return Object.entries(params)
-        .filter(([_, value]) => value !== undefined && value !== null) // Supprime les valeurs null/undefined
-        .map(([key, value]) =>
-            Array.isArray(value)
-                ? value.map(v => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`).join('&')
-                : `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        )
-        .join('&');
-}
 
 
 export const useEventsStore = create<EventStore>((set) => ({
@@ -205,7 +186,7 @@ export const useEventsStore = create<EventStore>((set) => ({
                 .getEvent(id)
                 .then(
                     (response) => {
-                        console.log("Hello la famille",response)
+                        console.log("Hello la famille", response)
                         set(() => ({
                             isLoading: false,
                             singleEvent: response.data,

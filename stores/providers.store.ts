@@ -32,7 +32,7 @@ interface UseProviderDto {
     providersCategoriesList: any[];
     handleSubmitProvidersCategories: (data: any) => void;
     fetchProvidersCategoriesList: () => void;
-    providerData: any;
+    providerData: ProviderDto;
     setProviderData: (newData: any) => void;
     updateProviderData: (key: string, value: any) => void;
 }
@@ -45,7 +45,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
         isSearch: false,
         searchValue: "",
     },
-    providerData: {},
+    providerData: {} as ProviderDto,
     columnsValue: columns,
     dataList: [],
     isLoading: true,
@@ -101,11 +101,12 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
                 .getProvders()
                 .then(
                     (response) => {
-                        const { items, total, page, limit } = response.data;
 
+                        const { items, total, page, limit } = response.data;
+                        console.log(items);
                         set(() => ({
                             isLoading: false,
-                            dataList: [...items],
+                            dataList: items,
                             DataListConfig: {
                                 totalItems: total,
                                 page: page,
@@ -233,4 +234,5 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
             const updatedData = { ...state.providerData, [key]: value };
             return { providerData: updatedData };
         }),
+
 }));

@@ -30,7 +30,7 @@ export const AddressSelector = ({ value, onChange }: { value: string, onChange: 
                 }}
                 errorMessage={errorField?.message}
                 isLoading={isLoading}
-                className="max-w-xs"
+                className=""
                 defaultItems={lieux}
                 defaultSelectedKey={value}
                 placeholder="Lieu"  
