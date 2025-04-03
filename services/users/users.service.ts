@@ -20,4 +20,13 @@ export class UsersServices {
         });
     }
 
+    getUsers(data:string){
+        return axios.get(`${this.baseUrl}/admin/users?${data}`);
+    }
+
+    addUser(data:any){
+        return axios.post(`${this.baseUrl}/admin/users`,data);
+    }
+
+
 }

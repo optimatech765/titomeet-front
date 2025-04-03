@@ -123,7 +123,7 @@ const Page = () => {
 
         const response = await assetsServices.getPresignUrl({
             fileName: "" + new Date().getTime() + file.name,
-            fileType: eventData.coverPicture?.type
+            fileType: file?.type
         });
 
         const { uploadUrl, fields, downloadUrl } = cleanResponse(response.data);

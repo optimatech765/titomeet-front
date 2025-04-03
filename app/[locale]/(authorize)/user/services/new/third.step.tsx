@@ -1,22 +1,124 @@
 "use client"
+import { assetsServices } from '@/services/assets/assets.services';
+import { ProvidersServices } from '@/services/providers/providers.services';
 import { useProvidersStore } from '@/stores/providers.store';
+import { cleanResponse } from '@/utils/functions/other.functions';
 import { Button, Card, CardBody, Input } from '@heroui/react';
 import { Info, Trash, Upload } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: number) => void }) => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [files, setFiles] = useState([
         { name: "Nomdudocument.pdf", size: "1.8 Mb" },
         { name: "Nomdudocument.pdf", size: "1.8 Mb" },
     ]);
 
-
-
     const removeFile = (index: number) => {
         setFiles(files.filter((_, i) => i !== index));
     };
-    const { updateProviderData, providerData } = useProvidersStore();
+    const { updateProviderData, providerData,setProviderData } = useProvidersStore();
+
+    const uploadFile = async (file: File) => {
+
+        const response = await assetsServices.getPresignUrl({
+            fileName: "" + new Date().getTime() + file.name,
+            fileType: file?.type
+        });
+
+        const { uploadUrl, fields, downloadUrl } = cleanResponse(response.data);
+
+        const formData = new FormData()
+        Object.entries(fields).forEach(([key, value]) => {
+            formData.append(key, value as string)
+        })
+
+        formData.append("file", file)
+
+        const uploadResponse = await fetch(uploadUrl, {
+            method: "POST",
+            body: formData,
+        })
+
+        if (uploadResponse.ok) {
+            // Return the fileKey and type based on file
+            return {
+                fileKey: fields.key,
+                type: file.type.includes("image") ? "image" : "pdf",
+                downloadUrl: downloadUrl,
+            }
+        }
+
+        return {
+            fileKey: fields.key,
+            type: file.type.includes("image") ? "image" : "pdf",
+            downloadUrl: downloadUrl,
+        }
+    }
+
+    const router = useRouter();
+
+
+    const handleSubmitProvider = async () => {
+        try {
+            setIsLoading(true)
+            const token = localStorage.getItem('accessToken');
+            const providersServices = new ProvidersServices(token || "");
+
+            const toastId = toast.loading("Enregistrement en cours...");
+
+            const {downloadUrl} = await uploadFile(providerData.image);
+
+            providersServices
+                .addProviders({
+                    name: providerData.name,
+                    description: providerData.description,
+                    image: downloadUrl,
+                    addressId: providerData.addressId,
+                    categoryId: providerData.categoryId,
+                    email: providerData.email,
+                    phoneNumber: providerData.phoneNumber,
+                    website: providerData.website,
+                    pricingDetails: providerData.pricingDetails,
+                })
+                .then(
+                    (response) => {
+                        const data = response.data;
+                        console.log(data);
+                        toast.update(toastId, {
+                            render: "Enregistrement réussi",
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                        setIsLoading(false);
+                        setActiveStep(1);
+                        setProviderData({})
+                        router.push("/user/services");
+                    },
+                    (error) => {
+                        console.log(error);
+                        toast.update(toastId, {
+                            render: "Erreur lors de l'enregistrement",
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 5000,
+                        });
+                        setIsLoading(false);
+                    }
+                );
+        } catch (error) {
+
+            console.error("Erreur lors de la récupération des détails :", error);
+            toast.error("Erreur lors de l'enegistrement");
+            setIsLoading(false);
+        }
+    }
+
 
     return (
         <Card className=" mt-6 mx-14">
@@ -55,10 +157,10 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                     ))}
                 </div>
                 <div className="flex justify-end mt-6 gap-3">
-                    <Button radius='full' size={"sm"} onPress={() => setActiveStep(2)} className="bg-tertiary  font-medium text-primary px-6 py-2">
+                    <Button isLoading={isLoading} onPress={() => setActiveStep(2)} radius='full' size={"sm"} className="bg-tertiary  font-medium text-primary px-6 py-2">
                         Précédent
                     </Button>
-                    <Button radius='full' size={"sm"} className="bg-primary  font-medium text-white px-6 py-2">
+                    <Button isLoading={isLoading} onPress={handleSubmitProvider} radius='full' size={"sm"} className="bg-primary  font-medium text-white px-6 py-2">
                         Soumettre
                     </Button>
                 </div>

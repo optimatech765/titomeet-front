@@ -62,6 +62,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
 
             eventSevices.buyTicket(event as string, {
+                callbackUrl:`${process.env.NEXT_PUBLIC_FRONT_URL }/user/events/${event}/order-confirm`,
                 eventId: event as string,
                 email: clientEmail,
                 items: data,
@@ -69,7 +70,8 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 (response) => {
                     console.log(response);
                     toast.success("Vous avez acheté votre ticket");
-                    router.push(`/user/events/${event}/order-confirm`);
+                    // router.push(`/user/events/${event}/order-confirm`);
+                    router.push(response.data.url);
                 },
                 (error) => {
                     console.log(error);
