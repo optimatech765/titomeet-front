@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import AdvanceComponent from '@/components/create-event/advance.component';
@@ -163,13 +164,16 @@ const Page = () => {
             const startDate = GetDate(eventData.startDate as any)
             const endDate = GetDate(eventData.endDate as any);
 
+
             const newData = {
                 ...eventData,
                 startDate: startDate,
                 endDate: endDate,
                 startTime: new Date().toLocaleTimeString(),
                 endTime: new Date().toLocaleTimeString(),
+                providers: eventData?.providers?.map((item: any) => (item.id))
             }
+           
             const { error, errorData } = EventsValidator(newData);
             if (error) {
                 toast.error(errorData.message, {
@@ -201,7 +205,7 @@ const Page = () => {
                 }));
 
                 eventSevices.createEvent({
-                    ...eventData,
+                    ...newData,
                     prices: updatedData,
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
@@ -434,6 +438,7 @@ const Page = () => {
                     </div>
                 </div>
             }
+
 
             {/* communication stepper data */}
             {activeStep === "communication" &&

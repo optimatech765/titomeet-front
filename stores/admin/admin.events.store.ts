@@ -24,10 +24,10 @@ interface AdminEventsStoreDto {
 }
 
 const columns = [
-    { name: "Date", uid: "date", sortable: true },
-    { name: "Evènement", uid: "event", sortable: true },
+    { name: "Date", uid: "startDate", sortable: true },
+    { name: "Evènement", uid: "name", sortable: true },
     { name: "CATEGORIE", uid: "category", sortable: true },
-    { name: "ORGANISATEUR", uid: "organisation", sortable: true },
+    { name: "ORGANISATEUR", uid: "postedBy", sortable: true },
     { name: "PARTICIPANTS", uid: "participants", sortable: true },
     { name: "Statut", uid: "status", sortable: true },
     { name: "ACTIONS", uid: "actions", sortable: false },

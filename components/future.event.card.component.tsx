@@ -12,7 +12,7 @@ interface FutureEventCardComponentProps {
     data?: any[];
 }
 
-export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({titleClass="text-primary", title = " Évènement futur", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
+export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({titleClass="text-primary", title = " Évènement à venir", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
     return (
         <div className="overflow-auto space-y-3 border-1 border-gray-200 bg-white shadow-sm rounded-lg p-2">
             <div className='flex justify-between items-center'>

@@ -83,6 +83,8 @@ const GeneralInforComponent = () => {
                         labelPlacement={"outside-left"}
                         startContent={<Timer />}
                         fullWidth={true}
+                        hideTimeZone
+                        hourCycle={24}
                     />
                 </InputContainerComponent>
 
@@ -97,6 +99,8 @@ const GeneralInforComponent = () => {
                         labelPlacement={"outside-left"}
                         startContent={<Timer />}
                         fullWidth={true}
+                        hideTimeZone
+                        hourCycle={24}
                     />
                 </InputContainerComponent>
 

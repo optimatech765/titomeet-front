@@ -15,22 +15,16 @@ import React, { useEffect } from 'react';
 const Page = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const { isLoading, dataList, fetchProvidersList } = useProvidersStore();
+    const { fetchIsLoading, dataList, fetchProvidersList } = useProvidersStore();
 
     useEffect(() => {
         fetchProvidersList();
     }, []);
 
-    useEffect(() => {
-        
-       console.log(dataList)
-    }, [dataList]);
-
-
     return (
         <>
-            {isLoading && <LoadingComponent2 />}
-            {!isLoading &&
+            {fetchIsLoading && <LoadingComponent2 />}
+            {!fetchIsLoading &&
                 <div className='relative min-h-screen flex flex-col gap-5 section-container pt-6 pb-12 '>
 
 
@@ -48,7 +42,7 @@ const Page = () => {
                     <Divider />
 
                     <section className={"flex flex-wrap gap-4 "}>
-                        <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={isLoading}>
+                        <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={fetchIsLoading}>
                             <>
                                 {dataList.map((item: ProvidersResponseDto, i) => (
                                     <div onClick={() => onOpen()} key={i}>

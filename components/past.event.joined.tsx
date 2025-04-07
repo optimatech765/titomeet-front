@@ -10,7 +10,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
     return (
         <Card
             isBlurred
-            className="border-1  bg-background/60 dark:bg-default-100/50 max-h-fit "
+            className="border-1  bg-background/60 dark:bg-default-100/50 h-32 "
             shadow="sm"
         >
 

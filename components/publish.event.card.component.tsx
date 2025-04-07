@@ -23,7 +23,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                         // as={Image}
                         alt="Album cover"
                         className=" h-full w-full"
-                        src="/img/event-image.jpg"
+                        src={event?.coverPicture}
                         width={300}
                         height={300}
                     />
@@ -71,7 +71,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                                     classNames={{
                                         indicator: "bg-[#22d3ee]"
                                     }}
-                                    value={25} size="md" aria-label="Loading..." className="w-full flex-1" />
+                                    value={event?.participants?.length*100/event?.capacity} size="md" aria-label="Loading..." className="w-full flex-1" />
                             </div>
                         </>
                         }

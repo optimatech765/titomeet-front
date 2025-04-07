@@ -3,6 +3,7 @@ import React, { ReactNode, useState } from 'react';
 import { Button, Card, CardBody, CardHeader, DateRangePicker, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Pagination, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@heroui/react';
 import { StatusComponent } from '../status.component';
 import { ChevronsUpDown, EllipsisIcon, Search } from 'lucide-react';
+import { formatDateFrench } from '@/utils/functions/date.function';
 
 interface ColumnsDto {
     name: string;
@@ -29,13 +30,19 @@ export const AdminTableComponent = ({
         const cellValue = item[columnKey];
 
         switch (columnKey) {
+            case "participants":
+                return <div className="text-sm text-gray-600">{cellValue?.length}</div>
+            case "postedBy":
+                return <div className="text-sm text-gray-600">{cellValue?.username}</div>
+            case "startDate":
+                return <div className="text-sm text-gray-600">{formatDateFrench(cellValue)}</div>
             case "category":
                 return (
-                    <>{cellValue.name}</>
+                    <>{cellValue?.name}</>
                 );
             case "address":
                 return (
-                    <>{cellValue.name} - {cellValue.country}</>
+                    <>{cellValue?.name} - {cellValue?.country}</>
                 );
             case "status":
                 return (

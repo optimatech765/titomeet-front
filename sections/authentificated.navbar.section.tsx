@@ -42,9 +42,9 @@ export const AuthentificatedNavbarSection = () => {
             <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4 ">
-                        <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
+                        {/* <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
                             Accueil
-                        </LinkH>
+                        </LinkH> */}
                         <LinkH as={Link} href="/evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Événements
                         </LinkH>
@@ -68,11 +68,11 @@ export const AuthentificatedNavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                <NavbarItem isActive>
+                {/* <NavbarItem isActive>
                     <LinkH aria-current="page" as={Link} href="/" className="font-semibold underline-hover text-black">
                         Accueil
                     </LinkH>
-                </NavbarItem>
+                </NavbarItem> */}
                 <NavbarItem>
                     <LinkH underline="active" as={Link} href="/user/events" className="font-semibold underline-hover text-black">
                         Événements

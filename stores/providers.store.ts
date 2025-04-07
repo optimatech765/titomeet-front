@@ -35,6 +35,7 @@ interface UseProviderDto {
     providerData: ProviderDto;
     setProviderData: (newData: any) => void;
     updateProviderData: (key: string, value: any) => void;
+    fetchIsLoading: boolean;
 }
 
 export const useProvidersStore = create<UseProviderDto>((set) => ({
@@ -49,6 +50,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
     columnsValue: columns,
     dataList: [],
     isLoading: true,
+    fetchIsLoading: false,
     isSubmit: false,
     setProviders: (newData: ProviderDto[]) =>
         set(() => ({
@@ -91,7 +93,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
     fetchProvidersList: async () => {
         try {
             set(() => ({
-                isLoading: true,
+                fetchIsLoading: true,
             }));
 
             const token = localStorage.getItem('accessToken');
@@ -105,7 +107,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
                         const { items, total, page, limit } = response.data;
                         console.log(items);
                         set(() => ({
-                            isLoading: false,
+                            fetchIsLoading: false,
                             dataList: items,
                             DataListConfig: {
                                 totalItems: total,
@@ -119,7 +121,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
                     },
                     (error) => {
                         set(() => ({
-                            isLoading: false,
+                            fetchIsLoading: false,
                         }));
                         console.log(error);
                     }
@@ -127,7 +129,7 @@ export const useProvidersStore = create<UseProviderDto>((set) => ({
 
         } catch (error) {
             set(() => ({
-                isLoading: false,
+                fetchIsLoading: false,
             }));
             console.error("Erreur lors de la récupération des détails :", error);
         }
