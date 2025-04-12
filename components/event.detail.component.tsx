@@ -50,13 +50,14 @@ export const EventDetails = () => {
                     </h2>
 
                     {/* Header */}
-                    <div className="relative w-full h-64">
+                    <div className="relative w-1/2 mx-auto h-72 ">
                         <Image
                             width={350}
                             height={500}
-                            src={singleEvent?.coverPicture}
+                            src= {singleEvent?.coverPicture}
+                            // src="/img/hero-image.png"
                             alt="Event Banner"
-                            className="w-full h-full object-contain rounded-xl"
+                            className="w-full h-full object-cover object-center rounded-xl"
                         />
                     </div>
 
@@ -188,9 +189,9 @@ export const EventDetails = () => {
 
                         </div>
 
-                        <div>
+                        <div className='space-y-6'>
                             {/* Localisation */}
-                            <div className="mt-6">
+                            <div className="">
                                 <h2 className="information-title1">Localisation</h2>
                                 <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center">
                                     <MapPin size={32} className="text-red-500" />
@@ -205,7 +206,7 @@ export const EventDetails = () => {
                             </div>
 
                             {/* Tags */}
-                            <div className="mt-6">
+                            <div className="">
                                 <h2 className="information-title1">Tags</h2>
                                 <div className="flex flex-wrap gap-2 mt-2">
                                     {singleEvent?.tags?.map((tague: string) => (
@@ -217,7 +218,7 @@ export const EventDetails = () => {
                             </div>
 
                             {/* Discussion */}
-                            <Card className="mt-6 bg-transparent ">
+                            <Card className=" bg-transparent ">
                                 <CardBody>
                                     <h2 className="information-title1">Groupe de discussion</h2>
                                     <p className="text-gray-600">Rejoignez le groupe de discussion de l&apos;événement.</p>

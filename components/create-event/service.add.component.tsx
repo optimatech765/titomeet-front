@@ -1,27 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { Input, Select, SelectItem } from "@heroui/react";
-import { Star, X } from "lucide-react";
-import { useState } from "react";
+import { Input, Textarea } from "@heroui/react";
+import { X } from "lucide-react";
+
 import { InputContainerComponent2 } from "./input.container.component";
 
-export const ServiceAddComponent = () => {
-    const [isVisible, setIsVisible] = useState(true);
-
-    if (!isVisible) return null;
+export const ServiceAddComponent = ({ item, removePass }: { item: any, removePass: () => void }) => {
 
     return (
         <div className="relative px-4 py-6 bg-[#F8F8F8] rounded-lg shadow-md w-full flex flex-col gap-2">
             {/* Bouton de suppression */}
-            <button
-                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                onClick={() => setIsVisible(false)}
-            >
-                <X size={16} />
-            </button>
+
+            <X size={16} className="absolute top-0 cursor-pointer right-1 text-primary" onClick={removePass} />
 
             {/* Service ajouté */}
             <InputContainerComponent2 title={"Service ajouté"} >
                 <Input
+                    value={item?.name}
                     variant="bordered"
                     classNames={{
                         "mainWrapper": "flex-1 ",
@@ -35,26 +30,19 @@ export const ServiceAddComponent = () => {
 
             {/* Prestataire ajouté */}
             <InputContainerComponent2 title={"Prestataire ajouté"} >
-                <Select variant="bordered"
+                <Textarea
+                    value={item.description}
+                    readOnly={true}
+                    className=" border-slate-300"
+                    variant="bordered"
+                    rows={5}
+                    fullWidth
                     classNames={{
-                        "mainWrapper": "flex-1 bg-white rounded-md",
+                        mainWrapper: "flex-1 items-start",
+                        base: "flex-1 items-start",
 
                     }}
-                    labelPlacement={"outside-left"} >
-                    <SelectItem key="1">
-                        <div className="flex items-center">
-                            Nom de prestataire (4.5)
-                            <Star className=" text-yellow-500" fill={"currentColor"} size={"15px"} />
-                        </div>
-                    </SelectItem>
-                    <SelectItem key="2">
-                        <div className="flex items-center">
-                            Nom de prestataire (4.5)
-                            <Star className=" text-yellow-500" fill={"currentColor"} size={"15px"} />
-                        </div>
-
-                    </SelectItem>
-                </Select>
+                />
 
             </InputContainerComponent2>
         </div>

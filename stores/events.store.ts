@@ -185,11 +185,29 @@ export const useEventsStore = create<EventStore>((set) => ({
             eventSevices
                 .getEvent(id)
                 .then(
-                    (response) => {
-                        console.log("Hello la famille", response)
+                    async (response) => {
+                        console.log("Hello la famille", response.data)
+                        const coverPicture = await convertToBlob(response.data.coverPicture);
+                        const badge = await convertToBlob(response.data.badge);
+
                         set(() => ({
                             isLoading: false,
-                            singleEvent: response.data,
+                            singleEvent: {
+                                ...response.data,
+                                coverPicture: coverPicture,
+                                badge: badge,
+                                startDate: parseDate(response.data.startDate.split('T')[0]),
+                                endDate: parseDate(response.data.endDate.split('T')[0]),
+                                startTime: parseAbsoluteToLocal(response.data.startDate.split('T')[0] + "T" + response.data.startTime + "Z"),
+                                endTime: parseAbsoluteToLocal(response.data.endDate.split('T')[0] + "T" + response.data.endTime + "Z"),
+                            },
+                            data: {
+                                ...response.data,
+                                startDate: parseDate(response.data.startDate.split('T')[0]),
+                                endDate: parseDate(response.data.endDate.split('T')[0]),
+                                startTime: parseAbsoluteToLocal(response.data.startDate.split('T')[0] + "T" + response.data.startTime + "Z"),
+                                endTime: parseAbsoluteToLocal(response.data.endDate.split('T')[0] + "T" + response.data.endTime + "Z"),
+                            }
                         }));
                     },
                     (error) => {
@@ -212,3 +230,9 @@ export const useEventsStore = create<EventStore>((set) => ({
             return { dataList: [] };
         }),
 }));
+
+const convertToBlob = async (file: string) => {
+    const response = await fetch(file);
+    const blob = await response.blob();
+    return blob;
+}

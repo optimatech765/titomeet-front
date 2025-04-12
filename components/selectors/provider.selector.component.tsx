@@ -6,7 +6,7 @@ import { Select, SelectItem } from '@heroui/react';
 import { LayoutGrid } from 'lucide-react';
 import React, { useEffect } from 'react';
 
-type ProviderCategorieSelectorType = {
+type ProviderSelectorType = {
     value: any;
     onChange: any;
     withIcon?: boolean;
@@ -14,23 +14,23 @@ type ProviderCategorieSelectorType = {
 }
 
 
-export const ProvidersCategoriesSelectorComponent = ({ value, onChange, withIcon = false, isMultiple = true }: ProviderCategorieSelectorType) => {
+export const ProvidersSelectorComponent = ({ value, onChange, withIcon = false, isMultiple = false }: ProviderSelectorType) => {
     const { errorField } = InputErrorStore();
-    const { providersCategoriesList, fetchProvidersCategoriesList, isLoading } = useProvidersStore()
+    const { dataList, fetchProvidersList, isLoading } = useProvidersStore()
 
     useEffect(() => {
-        fetchProvidersCategoriesList()
+        fetchProvidersList()
     }, []);
 
     return (
         <div>
             <Select
-            
+
                 startContent={withIcon && <LayoutGrid fill='currentColor' className={"text-primary "} />}
                 isLoading={isLoading}
                 selectionMode={isMultiple ? "multiple" : "single"}
                 isMultiline={isMultiple}
-                items={providersCategoriesList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
+                items={dataList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
                 value={[...value]}
                 onChange={(e) => onChange(e.target.value)}
                 isInvalid={errorField.field === 'categoryId'}
@@ -39,11 +39,11 @@ export const ProvidersCategoriesSelectorComponent = ({ value, onChange, withIcon
                 // classNames={{
                 //     base: "w-full bg-white border-slate-300",
                 //     trigger: "w-full bg-white border-slate-300",
-                   
+
                 // }}
                 // variant='bordered'
                 // label={"Catégorie"}
-                variant={withIcon?"flat":"bordered"}
+                variant={withIcon ? "flat" : "bordered"}
                 fullWidth={true}
                 labelPlacement={"outside-left"}
                 selectedKeys={value}

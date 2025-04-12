@@ -1,56 +1,29 @@
+"use client"
 import { AdminTableComponent } from '@/components/tables/admin.table.component';
+import { useAdminEventsStore } from '@/stores/admin/admin.events.store';
 import React from 'react';
+import {useEffect} from 'react';
 
 export const EventsList = () => {
+    const { columnsValue, valueList, isLoading ,fetchList} = useAdminEventsStore();
+
+    useEffect(() => {
+        fetchList()
+         
+    }, []);
     return (
         <section>
             <AdminTableComponent
+                isLoading={isLoading}
                 title={"Liste des Evènements"}
-                columns={columns}
-                valuesList={valuesList}
+                columns={columnsValue}
+                valuesList={valueList}
                 emptyContent={<p className="text-center text-gray-500">Aucun évènement trouvé</p>}
             />
         </section>
     );
 }
 
-const columns = [
-    { name: "Date", uid: "date", sortable: true },
-    { name: "Evènement", uid: "event", sortable: true },
-    { name: "CATEGORIE", uid: "category", sortable: true },
-    { name: "ORGANISATEUR", uid: "organisation", sortable: true },
-    { name: "PARTICIPANTS", uid: "participants", sortable: true },
-    { name: "Statut", uid: "status", sortable: true },
-    { name: "ACTIONS", uid: "actions", sortable: false },
-];
 
-const valuesList = [
-    {
-        id: 1,
-        date: "2025-03-10",
-        event: "Conférence Tech",
-        category: "Tech",
-        organisation: "Tito",
-        participants: "10",
-        status: "active"
-    },
-    {
-        id: 2,
-        date: "2025-03-11",
-        event: "Atelier Blockchain",
-        category: "Blockchain",
-        organisation: "Tito",
-        participants: "10",
-        status: "paused"
-    },
-    {
-        id: 3,
-        date: "2025-03-12",
-        event: "Séminaire IA",
-        category: "IA",
-        organisation: "Tito",
-        participants: "10",
-        status: "vacation"
-    }
-]
+
 

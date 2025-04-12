@@ -9,6 +9,10 @@ import { InputErrorStore } from '@/stores/input.error.store';
 import { useEventsStore } from '@/stores/events.store';
 import { InfoIcon } from 'lucide-react';
 import { PricingComponent } from './pricing.component';
+import { ProvidersSelectorComponent } from '../selectors/provider.selector.component';
+import { ProvidersCategoriesSelectorComponent } from '../selectors/providers.categories.selector.component';
+import { useProvidersStore } from '@/stores/providers.store';
+import { ProviderDto } from '@/utils/dto/providers.dto';
 
 interface Pass {
     name: string;
@@ -24,37 +28,46 @@ interface Service {
 const AdvanceComponent = () => {
 
     const { data: eventData, updateEventData } = useEventsStore();
+    const { dataList } = useProvidersStore()
     const { errorField } = InputErrorStore();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2 } = useDisclosure();
+    const [newProviders, setNewProviders] = useState({
+        name: "",
+        description: "",
+        id: "",
+        categoryId: ""
+    });
     const [newPasses, setNewPasses] = useState<Pass>({
         name: "",
         amount: ""
     });
 
-    const [newServices, setNewServices] = useState<Service>(
-        {
-            serviceName: "",
-            serviceAgent: "",
-            serviceDescription: "",
-        }
-    );
+    const addNewService = () => {
+        const newServices = [...eventData?.providers || []];
+        updateEventData("providers", [...newServices, newProviders]);
+        setNewProviders({
+            name: "",
+            description: "",
+            id: "",
+            categoryId: ""
+        });
+        onClose();
+    }
 
-    // const addNewService = () => {
-    //     const newServices = [...eventData?.services || []];
-    //     updateEventData("services", [...newServices, newServices]);
-    //     setNewServices({ serviceName: "", serviceAgent: "", serviceDescription: "" });
-    //     onClose2();
-    //     alert("Service ajouté avec succès");
-    // }
+    const removeService = (index: number) => {
+        updateEventData("providers", eventData?.providers?.filter((_, i) => i !== index));
+    }
 
-    // const removeService = (index: number) => {
-    //     updateEventData("services", eventData.services.filter((_, i) => i !== index));
-    // }
-
-    // const cancelledService = () => {
-    //     setNewServices({ serviceName: "", serviceAgent: "", serviceDescription: "" });
-    // }
+    const cancelledService = () => {
+        setNewProviders({
+            name: "",
+            description: "",
+            id: "",
+            categoryId: ""
+        });
+        onClose()
+    }
 
 
     const addNewPass = () => {
@@ -144,6 +157,7 @@ const AdvanceComponent = () => {
                             </Select>
                         </InputContainerComponent>
                     </div>
+
                     <div className='flex-1 flex justify-end'>
                         {eventData?.accessType === "PAID" &&
                             <div className='md:w-1/2'>
@@ -175,9 +189,12 @@ const AdvanceComponent = () => {
                 </div>
             </div>
 
-            <ServiceAddComponent />
+            {eventData?.providers?.map((item: any, index: number) => (
+                <ServiceAddComponent key={index} item={dataList.find((item: ProviderDto) => item.id === item.id)} removePass={() => removeService(index)} />
+            ))}
+            {/* <ServiceAddComponent />
 
-            <ServiceAddComponent />
+            <ServiceAddComponent /> */}
 
 
             {/* Ajout de prestataire */}
@@ -191,54 +208,34 @@ const AdvanceComponent = () => {
                                     Ajout de service
                                 </h3>
 
-
                             </div>
 
                             <ModalBody>
                                 <div className="space-y-3">
                                     <div className={"space-y-2"}>
                                         <label className='text-sm font-medium text-gray-700'>Services</label>
-                                        <Select className=''
-
-                                            // value={eventData?.accessType}
-                                            // onChange={(e) => updateEventData("accessType", e.target.value)}
-                                            // isInvalid={errorField.field === 'accessType'}
-                                            // errorMessage={errorField?.message}
-
-                                            onSelectionChange={(e) => {
-                                                console.log(e.anchorKey)
-                                                updateEventData("accessType", e.anchorKey)
-                                            }}
-                                            selectedKeys={[eventData?.accessType]}
-                                        >
-                                            <SelectItem key="Service 1">Service 1</SelectItem>
-                                            <SelectItem key="Service 2">Service 2</SelectItem>
-                                            <SelectItem key="Service 3">Service 3</SelectItem>
-                                            <SelectItem key="Service 4">Service 4</SelectItem>
-                                        </Select>
+                                        <ProvidersCategoriesSelectorComponent
+                                            isMultiple={false}
+                                            withIcon={false}
+                                            onChange={(e: any) => setNewProviders({
+                                                ...newProviders,
+                                                categoryId: e
+                                            })}
+                                            value={newProviders?.categoryId?.split(",")}
+                                        />
                                     </div>
 
 
                                     <div className={"space-y-2"}>
-                                        <label className='text-sm font-medium text-gray-700'>Prestataires</label>
-                                        <Select className=''
-
-                                            // value={eventData?.accessType}
-                                            // onChange={(e) => updateEventData("accessType", e.target.value)}
-                                            // isInvalid={errorField.field === 'accessType'}
-                                            // errorMessage={errorField?.message}
-                                            labelPlacement={"outside"}
-                                            onSelectionChange={(e) => {
-                                                console.log(e.anchorKey)
-                                                updateEventData("accessType", e.anchorKey)
-                                            }}
-                                            selectedKeys={[eventData?.accessType]}
-                                        >
-                                            <SelectItem key="Prestataire 1">Prestataire 1</SelectItem>
-                                            <SelectItem key="Prestataire 2">Prestataire 2</SelectItem>
-                                            <SelectItem key="Prestataire 3">Prestataire 3</SelectItem>
-                                            <SelectItem key="Prestataire 4">Prestataire 4</SelectItem>
-                                        </Select>
+                                        <label className='text-sm font-medium text-gray-700'>Prestataire</label>
+                                        <ProvidersSelectorComponent
+                                            value={newProviders?.id?.split(",")}
+                                            onChange={(e: any) => setNewProviders({
+                                                ...newProviders,
+                                                id: e
+                                            })}
+                                            withIcon={false}
+                                        />
                                     </div>
 
                                     <div className={"space-y-2"} >
@@ -246,8 +243,8 @@ const AdvanceComponent = () => {
                                             <InfoIcon className='w-5 h-5 text-primary' />
                                             Informations</label>
                                         <Textarea
+                                            value={dataList.find((item: ProviderDto) => item.id === newProviders.id)?.description}
                                             readOnly={true}
-                                            value={eventData.description}
                                             className=" border-slate-300"
                                             variant="bordered"
                                             rows={5}
@@ -263,13 +260,13 @@ const AdvanceComponent = () => {
 
                                     <div className='flex gap-2 justify-between'>
                                         <div className="flex-1">
-                                            <Button size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
+                                            <Button onPress={cancelledService} size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
                                                 Annuler
                                             </Button>
                                         </div>
 
                                         <div className="flex-1">
-                                            <Button size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
+                                            <Button onPress={addNewService} size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
                                                 Ajouter
                                             </Button>
                                         </div>

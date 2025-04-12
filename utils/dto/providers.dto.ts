@@ -10,7 +10,7 @@ export interface ProviderDto {
     phoneNumber: string
     website: string
     pricingDetails: string
-    documents?:any
+    docs?:any
 }
 
 export interface ProvidersResponseDto {

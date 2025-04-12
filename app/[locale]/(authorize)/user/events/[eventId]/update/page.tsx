@@ -16,12 +16,13 @@ import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
 import { useParams } from 'next/navigation';
+import { LoadingComponent2 } from '@/components/loading.component';
 
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
     // const [validateStep, setValidateStep] = useState([]);
-    const { data: eventData, resetData, fetchSingleEvent, singleEvent, setEventData } = useEventsStore();
+    const { data: eventData, resetData, fetchSingleEvent, singleEvent, setEventData, isLoading } = useEventsStore();
 
     const params = useParams();
     const event = params?.eventId
@@ -231,176 +232,182 @@ const Page = () => {
 
     useEffect(() => {
         fetchSingleEvent(event as string);
-        console.log(singleEvent);
+        console.log("salut ici", singleEvent);
     }, []);
 
     useEffect
-    (() => {
-        setEventData({ ...singleEvent, startDate: singleEvent?.startDate?.split('T')[0], endDate: singleEvent?.endDate?.split('T')[0] });
-    }, [singleEvent]);
-  
+        (() => {
+            setEventData({ ...singleEvent });
+        }, [singleEvent]);
+
 
     return (
-        <div className={"flex flex-col gap-2 pb-6"}>
-            <div>
-                <div className="w-full px-2 md:px-8 py-4">
-                    <div
-                        className="relative grid w-full h-24 m-0 overflow-hidden text-slate-300  place-items-center rounded-xl bg-clip-border">
-                        <div className="w-full px-5 md:px-10 lg:px-20 pt-4 pb-8">
-                            <div className="relative flex  items-center justify-between w-full ">
-                                <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-slate-300"></div>
-                                {/* w-1/4 pour le premier 2/4 pour le second 3/4 pour le troisième et w-full pour le dernier */}
-                                <div className={clsx({
-                                    "w-1/4": activeStep === "general",
-                                    "w-2/4": activeStep === "advanced",
-                                    "w-3/4": activeStep === "communication",
-                                    "w-full": activeStep === "resume",
-                                },
-                                    "absolute left-0 top-2/4 h-0.5  -translate-y-2/4 bg-secondary transition-all duration-500")}
-                                >
-                                </div>
-                                <div
-                                    onClick={() => setActiveStep("general")}
-                                    className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-secondary font-bold text-[#1E1E1E] ring-0 transition-all duration-300">
-                                    <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
-                                        <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                                            Informations générales
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div
-                                    onClick={() => setActiveStep("advanced")}
-                                    className={clsx({
-                                        "!bg-secondary": activeStep === "advanced",
-                                        "!bg-slate-300": activeStep !== "advanced"
-                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
-                                    <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
-                                        <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                                            Options avancées
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div
-                                    onClick={() => setActiveStep("communication")}
-                                    className={clsx({
-                                        "!bg-secondary": activeStep === "communication",
-                                        "!bg-slate-300": activeStep !== "communication",
-                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
-                                    <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
-                                        <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                                            Visibilité et communication
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div
-                                    onClick={() => setActiveStep("resume")}
-                                    className={clsx({
-                                        "!bg-secondary": activeStep === "resume",
-                                        "!bg-slate-300": activeStep !== "resume"
-                                    }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
-                                    <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
-                                        <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                                            Resumé
-                                        </h6>
+        <>
+            {isLoading ? <LoadingComponent2 /> :
+                <div className={"flex flex-col gap-2 pb-6"}>
+                    <div>
+                        <div className="w-full px-2 md:px-8 py-4">
+                            <div
+                                className="relative grid w-full h-24 m-0 overflow-hidden text-slate-300  place-items-center rounded-xl bg-clip-border">
+                                <div className="w-full px-5 md:px-10 lg:px-20 pt-4 pb-8">
+                                    <div className="relative flex  items-center justify-between w-full ">
+                                        <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-slate-300"></div>
+                                        {/* w-1/4 pour le premier 2/4 pour le second 3/4 pour le troisième et w-full pour le dernier */}
+                                        <div className={clsx({
+                                            "w-1/4": activeStep === "general",
+                                            "w-2/4": activeStep === "advanced",
+                                            "w-3/4": activeStep === "communication",
+                                            "w-full": activeStep === "resume",
+                                        },
+                                            "absolute left-0 top-2/4 h-0.5  -translate-y-2/4 bg-secondary transition-all duration-500")}
+                                        >
+                                        </div>
+                                        <div
+                                            onClick={() => setActiveStep("general")}
+                                            className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-secondary font-bold text-[#1E1E1E] ring-0 transition-all duration-300">
+                                            <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
+                                                <h6
+                                                    className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                                    Informations générales
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div
+                                            onClick={() => setActiveStep("advanced")}
+                                            className={clsx({
+                                                "!bg-secondary": activeStep === "advanced",
+                                                "!bg-slate-300": activeStep !== "advanced"
+                                            }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
+                                            <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
+                                                <h6
+                                                    className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                                    Options avancées
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div
+                                            onClick={() => setActiveStep("communication")}
+                                            className={clsx({
+                                                "!bg-secondary": activeStep === "communication",
+                                                "!bg-slate-300": activeStep !== "communication",
+                                            }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
+                                            <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
+                                                <h6
+                                                    className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                                    Visibilité et communication
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div
+                                            onClick={() => setActiveStep("resume")}
+                                            className={clsx({
+                                                "!bg-secondary": activeStep === "resume",
+                                                "!bg-slate-300": activeStep !== "resume"
+                                            }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
+                                            <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
+                                                <h6
+                                                    className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                                    Resumé
+                                                </h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            {/* General stepper data */}
-            {activeStep === "general" &&
-                <div className='flex flex-col gap-3 px-2 md:px-10 lg:px-32 '>
-                    <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
-                    <GeneralInforComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
+                    {/* General stepper data */}
+                    {activeStep === "general" &&
+                        <div className='flex flex-col gap-3 px-2 md:px-10 lg:px-32 '>
+                            <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
+                            <GeneralInforComponent />
+                            <div className='flex items-center justify-between'>
+                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                    Enregistrer brouillon
+                                </Button>
 
-                        <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
-                            Suivant
-                        </Button>
-                    </div>
+                                <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                    Suivant
+                                </Button>
+                            </div>
+                        </div>
+                    }
+
+                    {/* Advanced stepper data */}
+                    {activeStep === "advanced" &&
+                        <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
+                            <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
+                            <AdvanceComponent />
+                            <div className='flex items-center justify-between'>
+                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                    Enregistrer brouillon
+                                </Button>
+                                <div className="flex  gap-2">
+                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                        Précédent
+                                    </Button>
+                                    <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                        Suivant
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    {/* communication stepper data */}
+                    {activeStep === "communication" &&
+                        <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
+                            <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
+                            <VisibilityCommunicationComponent />
+                            <div className='flex items-center justify-between'>
+                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                    Enregistrer brouillon
+                                </Button>
+                                <div className="flex  gap-2">
+                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                        Précédent
+                                    </Button>
+                                    <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                        Suivant
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    {/* Resume stepper data */}
+                    {activeStep === "resume" &&
+                        <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
+                            <h3 className={" font-normal"}>Tout est prêt ! Vérifiez et publiez votre événement</h3>
+                            <ResumeComponent setActiveStep={setActiveStep} />
+                            <div className='flex flex-wrap gap-4 items-center justify-between'>
+                                <div className="flex gap-2">
+                                    <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                                        Enregistrer brouillon
+                                    </Button>
+                                    <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                        Supprimer
+                                    </Button>
+                                </div>
+                                <div className="flex  gap-2">
+                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                        Précédent
+                                    </Button>
+                                    <Button onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                        Publier
+                                    </Button>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
                 </div>
             }
 
-            {/* Advanced stepper data */}
-            {activeStep === "advanced" &&
-                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
-                    <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
-                    <AdvanceComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
-                        <div className="flex  gap-2">
-                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
-                                Précédent
-                            </Button>
-                            <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
-                                Suivant
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            }
+        </>
 
-            {/* communication stepper data */}
-            {activeStep === "communication" &&
-                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
-                    <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
-                    <VisibilityCommunicationComponent />
-                    <div className='flex items-center justify-between'>
-                        <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
-                            Enregistrer brouillon
-                        </Button>
-                        <div className="flex  gap-2">
-                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
-                                Précédent
-                            </Button>
-                            <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
-                                Suivant
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            {/* Resume stepper data */}
-            {activeStep === "resume" &&
-                <div className={"flex flex-col gap-3 px-2 md:px-10 lg:px-32 "}>
-                    <h3 className={" font-normal"}>Tout est prêt ! Vérifiez et publiez votre événement</h3>
-                    <ResumeComponent setActiveStep={setActiveStep} />
-                    <div className='flex flex-wrap gap-4 items-center justify-between'>
-                        <div className="flex gap-2">
-                            <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
-                                Enregistrer brouillon
-                            </Button>
-                            <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
-                                Supprimer
-                            </Button>
-                        </div>
-                        <div className="flex  gap-2">
-                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
-                                Précédent
-                            </Button>
-                            <Button onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
-                                Publier
-                            </Button>
-                        </div>
-
-                    </div>
-                </div>
-            }
-
-        </div>
     );
 }
 

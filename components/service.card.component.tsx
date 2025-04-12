@@ -10,7 +10,7 @@ export const ServiceCardComponent = ({ data }: { data: ProvidersResponseDto }) =
         console.log("Je suis ici data", data)
     }, [data]);
     return (
-        <Card className="max-w-md cursor-pointer rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
+        <Card className="max-w-sm cursor-pointer rounded-xl shadow-lg border border-gray-200 bg-white font-poppins">
             <CardBody className='px-3 md:px-9'>
                 <div className='flex flex-col gap-1.5'>
                     <Image

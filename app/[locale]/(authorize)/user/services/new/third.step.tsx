@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { FilePreviewComponent } from '@/components/file.preview.component';
 import { assetsServices } from '@/services/assets/assets.services';
 import { ProvidersServices } from '@/services/providers/providers.services';
+import { InputErrorStore } from '@/stores/input.error.store';
 import { useProvidersStore } from '@/stores/providers.store';
 import { cleanResponse } from '@/utils/functions/other.functions';
-import { Button, Card, CardBody, Input } from '@heroui/react';
-import { Info, Trash, Upload } from 'lucide-react';
+import { ProviderValidator } from '@/utils/validator/provider.validator';
+import { Button, Card, CardBody } from '@heroui/react';
+import { Info, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -12,6 +16,7 @@ import { toast } from 'react-toastify';
 export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: number) => void }) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const { setMessageError } = InputErrorStore();
 
     const [files, setFiles] = useState([
         { name: "Nomdudocument.pdf", size: "1.8 Mb" },
@@ -21,7 +26,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
     const removeFile = (index: number) => {
         setFiles(files.filter((_, i) => i !== index));
     };
-    const { updateProviderData, providerData,setProviderData } = useProvidersStore();
+    const { updateProviderData, providerData, setProviderData } = useProvidersStore();
 
     const uploadFile = async (file: File) => {
 
@@ -65,56 +70,85 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
 
     const handleSubmitProvider = async () => {
         try {
-            setIsLoading(true)
-            const token = localStorage.getItem('accessToken');
-            const providersServices = new ProvidersServices(token || "");
 
-            const toastId = toast.loading("Enregistrement en cours...");
+            const { error, errorData } = ProviderValidator(providerData);
 
-            const {downloadUrl} = await uploadFile(providerData.image);
+            if (error) {
+                toast.error(errorData.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                });
+                setMessageError(errorData)
+                return;
+            }
+            else {
 
-            providersServices
-                .addProviders({
-                    name: providerData.name,
-                    description: providerData.description,
-                    image: downloadUrl,
-                    addressId: providerData.addressId,
-                    categoryId: providerData.categoryId,
-                    email: providerData.email,
-                    phoneNumber: providerData.phoneNumber,
-                    website: providerData.website,
-                    pricingDetails: providerData.pricingDetails,
-                })
-                .then(
-                    (response) => {
-                        const data = response.data;
-                        console.log(data);
-                        toast.update(toastId, {
-                            render: "Enregistrement réussi",
-                            type: "success",
-                            isLoading: false,
-                            autoClose: 5000,
-                        });
-                        setIsLoading(false);
-                        setActiveStep(1);
-                        setProviderData({})
-                        router.push("/user/services");
-                    },
-                    (error) => {
-                        console.log(error);
-                        toast.update(toastId, {
-                            render: "Erreur lors de l'enregistrement",
-                            type: "error",
-                            isLoading: false,
-                            autoClose: 5000,
-                        });
-                        setIsLoading(false);
-                    }
-                );
+
+                setIsLoading(true)
+                const token = localStorage.getItem('accessToken');
+                const providersServices = new ProvidersServices(token || "");
+
+                const toastId = toast.loading("Enregistrement en cours...");
+
+                const { downloadUrl } = await uploadFile(providerData.image);
+
+                const docs: any = [];
+                const { downloadUrl: cniDownloadUrl, type: cniType } = await uploadFile(providerData.docs.cni);
+                docs.push({ name: "Carte nationale d'identité", type: cniType, url: cniDownloadUrl });
+                const { downloadUrl: ifuDownloadUrl, type: ifuType } = await uploadFile(providerData.docs.ifu);
+                docs.push({ name: "Carte ifu", type: ifuType, url: ifuDownloadUrl });
+
+                if (providerData.docs.rccm) {
+                    const { downloadUrl: rccmDownloadUrl, type: rccmType } = await uploadFile(providerData.docs.rccm);
+                    docs.push({ name: "Carte rccm", type: rccmType, url: rccmDownloadUrl });
+                }
+
+                providersServices
+                    .addProviders({
+                        name: providerData.name,
+                        description: providerData.description,
+                        image: downloadUrl,
+                        addressId: providerData.addressId,
+                        categoryId: providerData.categoryId,
+                        email: providerData.email,
+                        phoneNumber: providerData.phoneNumber,
+                        website: providerData.website,
+                        pricingDetails: providerData.pricingDetails,
+                        docs:docs
+                    })
+                    .then(
+                        (response) => {
+                            const data = response.data;
+                            console.log(data);
+                            toast.update(toastId, {
+                                render: "Enregistrement réussi",
+                                type: "success",
+                                isLoading: false,
+                                autoClose: 5000,
+                            });
+                            setIsLoading(false);
+                            setActiveStep(1);
+                            setProviderData({})
+                            router.push("/user/services");
+                        },
+                        (error) => {
+                            console.log(error);
+                            toast.update(toastId, {
+                                render: "Erreur lors de l'enregistrement",
+                                type: "error",
+                                isLoading: false,
+                                autoClose: 5000,
+                            });
+                            setIsLoading(false);
+                        }
+                    );
+            }
         } catch (error) {
 
             console.error("Erreur lors de la récupération des détails :", error);
-            toast.error("Erreur lors de l'enegistrement");
+            toast.error("Erreur lors de l'enegistrement de la data");
             setIsLoading(false);
         }
     }
@@ -129,20 +163,32 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                     <Info size={18} className="mr-2" />
                     Liste des fichiers requis
                 </div>
-                <Input placeholder="Registre de commerce - IFU - Documents" className="mb-4"
-                    onChange={(e) => updateProviderData("documents", e.target.value)}
-                    value={providerData.documents}
-                    classNames={{
-                        input: "w-full bg-white",
-                        base: "w-full bg-white",
-                        inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
-                    }}
+
+                <FilePreviewComponent title={"Votre carte d'identité ou passeport*"}
+                    onChange={(e) => updateProviderData("docs",
+                        {
+                            ...providerData.docs,
+                            cni: e,
+
+                        })} />
+
+                <FilePreviewComponent title={"Votre IFU*"}
+                    onChange={(e) => updateProviderData("docs",
+                        {
+                            ...providerData.docs,
+                            ifu: e,
+                        }
+                    )}
                 />
-                <label className="border-2 justify-center border-dashed flex gap-3 bg-slate-200  border-gray-300 rounded-lg p-6 text-center text-gray-500 cursor-pointer">
-                    <Upload size={24} className=" mb-2" />
-                    Glissez-déposez vos fichiers ici ou cliquez pour les importer
-                    <input type="file" multiple className="hidden" onChange={(e) => console.log(e.target.files)} />
-                </label>
+                <FilePreviewComponent title={"Votre RCCM"}
+                    onChange={(e) => updateProviderData("docs",
+                        {
+                            ...providerData.docs,
+                            rccm: e,
+                        }
+                    )}
+                />
+
                 <div className="mt-4 space-y-2">
                     {files.map((file, index) => (
                         <div
