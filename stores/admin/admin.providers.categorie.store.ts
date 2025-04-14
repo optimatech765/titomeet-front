@@ -4,15 +4,11 @@ import { create } from 'zustand'
 import { toast } from 'react-toastify'
 import { paramsToQueryString } from '@/utils/functions/other.functions';
 import { CategorieValidator } from '@/utils/validator/categorie.validator';
-import { AdminEventsServices } from '@/services/admin/admin.events.services';
+import { AdminProvidersCategorieServices } from '@/services/admin/admin.providers.categorie';
 
 const columns = [
-    { name: "Date", uid: "startDate", sortable: true },
-    { name: "Evènement", uid: "name", sortable: true },
-    { name: "CATEGORIE", uid: "category", sortable: true },
-    { name: "ORGANISATEUR", uid: "postedBy", sortable: true },
-    { name: "PARTICIPANTS", uid: "participants", sortable: true },
-    { name: "Statut", uid: "status", sortable: true },
+    { name: "Nom", uid: "name", sortable: true },
+    { name: "Description", uid: "description", sortable: true },
     { name: "ACTIONS", uid: "actions", sortable: false },
 ];
 
@@ -35,7 +31,7 @@ interface HookInterface {
 
 }
 
-export const useAdminEventsStore = create<HookInterface>((set) => ({
+export const useAdminProvidersCategoriesStore = create<HookInterface>((set) => ({
     DataListConfig: {
         page: 1,
         totalItems: 0,
@@ -57,7 +53,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
         try {
             set({ isLoading: true })
             const token = localStorage.getItem("accessToken") || "";
-            const apiRouting = new AdminEventsServices(token);
+            const apiRouting = new AdminProvidersCategorieServices(token);
 
             apiRouting.getAll(queryString).then((response) => {
                 const { items, total,
@@ -100,7 +96,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
 
         try {
             const token = localStorage.getItem("accessToken") || "";
-            const apiRouting = new AdminEventsServices(token);
+            const apiRouting = new AdminProvidersCategorieServices(token);
 
             const { error, errorData } = CategorieValidator(item);
 
@@ -119,7 +115,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
 
                 set((state: any) => ({
                     isSubmitLoading: false,
-                    items: [data,...state.items],
+                    items: [data, ...state.items],
 
                 }));
                 toast.update(toastId, {
@@ -149,7 +145,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
         set({ isSubmitLoading: true })
         try {
             const token = localStorage.getItem("accessToken") || "";
-            const apiRouting = new AdminEventsServices(token);
+            const apiRouting = new AdminProvidersCategorieServices(token);
 
             const toastId = toast.loading(`Suppression de la demande...`);
 
@@ -188,7 +184,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
         set({ isSubmitLoading: true })
         try {
             const token = localStorage.getItem("accessToken") || "";
-            const apiRouting = new AdminEventsServices(token);
+            const apiRouting = new AdminProvidersCategorieServices(token);
 
             const toastId = toast.loading(`Mise à jour de la demande...`);
 
@@ -227,7 +223,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
         set({ isLoading: true })
         try {
             const token = localStorage.getItem("accessToken") || "";
-            const apiRouting = new AdminEventsServices(token);
+            const apiRouting = new AdminProvidersCategorieServices(token);
 
             const toastId = toast.loading(`Chargement de la demande...`);
 

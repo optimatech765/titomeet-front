@@ -10,44 +10,24 @@ export class AdminProvidersServices {
         tokenServices.setHeaderToken(token);
     }
 
-    getProviders() {
-        return axios.get(`${this.baseUrl}/admin/providers`);
+    getAll(data?:string) {
+        return axios.get(`${this.baseUrl}/providers?${data}`);
     }
 
-    getProvidersById(id: string) {
+    getById(id: string) {
         return axios.get(`${this.baseUrl}/admin/providers/${id}`);
     }
 
-    addProviders(data: any) {
+    add(data: any) {
         return axios.post(`${this.baseUrl}/admin/providers`, data);
     }
 
-    updateProviders(id: string, data: any) {
+    update(id: string, data: any) {
         return axios.put(`${this.baseUrl}/admin/providers/${id}`, data);
     }
 
-    deleteProviders(id: string) {
+    delete(id: string) {
         return axios.delete(`${this.baseUrl}/admin/providers/${id}`);
-    }
-
-    addProvidersCategories(data: any) {
-        return axios.post(`${this.baseUrl}/admin/providers/categories`, data);
-    }
-
-    getProvidersCategories() {
-        return axios.get(`${this.baseUrl}/admin/providers/categories`);
-    }
-
-    getProvidersCategoriesById(id: string) {
-        return axios.get(`${this.baseUrl}/admin/providers/categories/${id}`);
-    }
-
-    updateProvidersCategories(id: string, data: any) {
-        return axios.put(`${this.baseUrl}/admin/providers/categories/${id}`, data);
-    }
-
-    deleteProvidersCategories(id: string) {
-        return axios.delete(`${this.baseUrl}/admin/providers/categories/${id}`);
     }
 
 }
