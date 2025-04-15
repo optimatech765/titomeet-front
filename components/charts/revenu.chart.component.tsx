@@ -28,7 +28,7 @@ export const RevenueChart = () => {
                     <XAxis dataKey="mois" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="revenu" fill="#f39c12" barSize={8.74} />
+                    <Bar dataKey="revenu" fill="#f39c12" barSize={25} />
                 </BarChart>
             </ResponsiveContainer>
         </div>

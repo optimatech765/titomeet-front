@@ -53,13 +53,15 @@ export const HeroSection = () => {
                         <Button
                             as="a"
                             href="#evenements"
-                            color="primary" radius="full" size="lg">
+                           className="bg-primary text-white"
+                            radius="full" size="lg">
                             {landingTButton('first')}
                         </Button>
                         <Button
                             as="a"
                             href="/user/events/new"
-                            color="secondary" variant="bordered" radius={"full"} size="lg">
+                            className="border-primary text-primary"
+                             variant="bordered" radius={"full"} size="lg">
                             {landingTButton('second')}
                         </Button>
                     </div>
@@ -86,11 +88,11 @@ export const HeroSection = () => {
                             size="lg"
                         />
 
-                        <Button onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+                        <Button onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-secondary rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
                             <span className="md:hidden">Rechercher</span>
                         </Button>
-                        <Button onPress={handleFindEvent} className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+                        <Button onPress={handleFindEvent} className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
                             <span className="">Rechercher</span>
                         </Button>
@@ -101,7 +103,7 @@ export const HeroSection = () => {
 
                 {/* Image avec NextUI Card */}
                 <div className="lg:w-1/2  justify-end mt-4 hidden lg:flex ">
-                    <Card radius="lg" shadow="md" className="rounded-[160px] shadow-lg  max-h-[525px] max-w-[525px] overflow-hidden">
+                    <Card radius="lg" shadow="md" className="rounded-[60px] shadow-lg  max-h-[425px] max-w-[525px] overflow-hidden">
                         <Swiper
                             style={{ overflow: "visible" }}
                             modules={[Autoplay]}

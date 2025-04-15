@@ -47,7 +47,7 @@ export const NavbarSection = () => {
                             <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                                 Se connecter
                             </LinkH>
-                            <Button as={Link} href="/register" color="warning" className="font-bold mt-4">
+                            <Button as={Link} href="/register" className="font-bold mt-4 bg-primary text-white">
                                 S’inscrire
                             </Button>
                         </nav>
@@ -84,7 +84,7 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} href="/auth/register" color="secondary" variant="solid" className="rounded-full px-10">
+                    <Button as={Link} href="/auth/register" variant="solid" className=" bg-primary text-white rounded-full px-10">
                         S’inscrire
                     </Button>
                 </NavbarItem>

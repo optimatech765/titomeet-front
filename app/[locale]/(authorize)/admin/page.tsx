@@ -12,7 +12,6 @@ import { UseAdminStateStore } from "@/stores/admin/admin.home.stat.store";
 import { AwaitDataLoader, AwaitDataLoaderStats } from "@/components/await.data.loader";
 import { formatDate2 } from "@/utils/functions/date.function";
 import { TableComponent } from "@/components/table.component";
-import { DashboardCharts } from "@/sections/chart.section.admin";
 
 
 
@@ -82,8 +81,8 @@ const Dashboard = () => {
         <Card className="">
           <CardBody>
             <div className="mt-5">
-              <h2 className=" font-bold">Utilisateurs</h2>
-              <CustomChart />
+              <h2 className=" font-bold">Revenu</h2>
+              <RevenueChart />
             </div>
 
           </CardBody>
@@ -91,12 +90,11 @@ const Dashboard = () => {
         <Card >
           <CardBody>
             <div className="mt-5">
-              <h2 className=" font-bold">Revenu</h2>
-              <RevenueChart />
+              <h2 className=" font-bold">Utilisateur</h2>
+              <CustomChart />
             </div>
           </CardBody>
         </Card>
-        <DashboardCharts />
       </section>
 
       <section className="grid md:grid-cols-2 gap-6 mt-6">

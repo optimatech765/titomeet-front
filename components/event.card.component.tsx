@@ -89,12 +89,12 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
 
           <div className="flex-1">
             <h3 className="text-lg text-black font-normal md:font-semibold ">{event?.name}</h3>
-            <p className="text-gray-600 text-sm mt-1">{event?.description?.slice(0, 20)}...</p>
+            <p className="text-gray-600 text-sm mt-1 ">{event?.description?.slice(0, 20)}...</p>
 
           </div>
         </div>
 
-        <div className={"space-y-2"}>
+        <div className={"space-y-2 mt-2"}>
           <div className=" flex flex-wrap justify-between items-center font-normal text-gray-700 text-sm">
             <div className="flex items-center gap-0.5 flex-1">
               <MapPinIcon fill="red" className="w-5 h-5 text-white px-0" /> {event?.address?.city}
