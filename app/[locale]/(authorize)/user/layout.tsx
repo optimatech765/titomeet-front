@@ -10,15 +10,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
                 {/* navbar */}
                 <AuthentificatedNavbarSection />
-
-
                 {/* main */}
                 <main >
-
-
                     {children}
-
-
                 </main>
 
                 {/* footer */}

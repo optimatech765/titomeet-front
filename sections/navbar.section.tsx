@@ -39,13 +39,13 @@ export const NavbarSection = () => {
                         <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
                             Accueil
                         </LinkH>
-                        <LinkH as={Link} href="#evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                        <LinkH as={Link} href="/#evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Événements
                         </LinkH>
-                        <LinkH as={Link} href="#categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                        <LinkH as={Link} href="/#categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Catégories
                         </LinkH>
-                        <LinkH as={Link} href="#fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                        <LinkH as={Link} href="/#fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Fonctionnalités
                         </LinkH>
                         <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
@@ -68,17 +68,17 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH underline="active" as={Link} href="#evenements" className="font-semibold underline-hover text-black">
+                    <LinkH underline="active" as={Link} href="/#evenements" className="font-semibold underline-hover text-black">
                         Évènements
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="#categories" className="font-semibold underline-hover text-black">
+                    <LinkH as={Link} href="/#categories" className="font-semibold underline-hover text-black">
                         Catégories
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <LinkH as={Link} href="#fonctionnalites" className="font-semibold underline-hover text-black">
+                    <LinkH as={Link} href="/#fonctionnalites" className="font-semibold underline-hover text-black">
                         Fonctionnalités
                     </LinkH>
                 </NavbarItem>

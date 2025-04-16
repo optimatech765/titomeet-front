@@ -20,7 +20,7 @@ export default async function Home() {
       <HeroSection />
 
       {/* Section pour afficher les événements */}
-      <div className="bg-gradiantBg py-20">
+      <div className="bg-gradiantBg py-10">
 
         <section className="pb-6 section-container">
 
