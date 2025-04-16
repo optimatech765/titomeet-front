@@ -92,7 +92,7 @@ export const Loginpage = () => {
 
     }
 
-    const errors:any = [];
+    const errors: any = [];
 
     if (loginInfo.password.length < 4) {
         errors.push("le mot de passe doit contenir au moins 4 caractères");
@@ -160,13 +160,7 @@ export const Loginpage = () => {
                     isInvalid={errorFields.field === 'password'}
                     name="password"
                     isRequired
-                    errorMessage={() => (
-                        <ul>
-                          {errors.map((error:string, i:number) => (
-                            <li key={i}>{error}</li>
-                          ))}
-                        </ul>
-                      )}
+                    errorMessage={errorFields?.message}
                     radius={"full"}
                     placeholder="Entrez votre mot de passe"
                     onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}

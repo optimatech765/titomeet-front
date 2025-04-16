@@ -26,7 +26,7 @@ export default async function Home() {
 
 
           <div id="evenements">
-            <h3 className="text-primary font-extrabold text-4xl font-poppins ">{landingTEvent('title')}</h3>
+            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins ">{landingTEvent('title')}</h3>
             <span className="text-[#1E1E1E] text-base">{landingTEvent('description')}</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
           </div>
@@ -44,7 +44,7 @@ export default async function Home() {
         {/* Catégories */}
         <section className="pt-6 mt-6 section-container" id="categories" >
           <div className="space-y-1">
-            <h3 className="text-primary font-extrabold text-4xl font-poppins text-center ">Categories d’evenements</h3>
+            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins text-center ">Categories d’evenements</h3>
             <span className="text-[#1E1E1E] text-base text-center block">Trouvez l’événement qui vous correspond</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md mx-auto rounded-r-full "></div>
           </div>

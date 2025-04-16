@@ -4,6 +4,7 @@
 import { Button } from "@heroui/react";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const FonctionnalitesSection = () => {
     return (
@@ -13,7 +14,7 @@ export const FonctionnalitesSection = () => {
                 {/* Texte */}
                 <div>
                     <div className="space-y-1">
-                        <h2 className="font-extrabold text-gray-900 text-4xl font-poppins">Fonctionnalités</h2>
+                        <h2 className="font-extrabold text-gray-900 text-xl md:text-4xl font-poppins">Fonctionnalités</h2>
                         <p className="text-[#1E1E1E] text-base  block">
                             Trouvez l&apos;événement parfait ou lancez le vôtre
                         </p>
@@ -39,7 +40,7 @@ export const FonctionnalitesSection = () => {
                 </div>
 
                 {/* Images et Boutons */}
-                <div className="grid grid-cols-2 gap-4 flex-end ">
+                <div className="grid md:grid-cols-2 gap-4 flex-end ">
 
                     <div className="flex justify-end">
 
@@ -74,7 +75,7 @@ export const FonctionnalitesSection = () => {
 
                         <div className="w-fit space-y-2">
                             <Button startContent={<PlusIcon hanging={20} width={20} />}
-                                as="a"
+                                as={Link}
                                 href="/user/events/new"
                                 color="secondary"
                                 variant="solid"
