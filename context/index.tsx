@@ -37,7 +37,6 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                 userServices.userInfo().then(
                     (res) => {
                         const { status, data } = res;
-                        console.log(res)
                         if (data?.role === "USER") {
 
                             setIsAuth({ ...data })
@@ -61,12 +60,10 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                                 (error) => {
                                     console.log(error)
                                     router.push('/auth')
-                                    setIsLoading(false)
                                 }
                             )
                         } else {
                             router.push('/auth')
-                            setIsLoading(false)
                         }
                     },
                     (error) => {
@@ -87,14 +84,13 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
                                 (error) => {
                                     console.log(error)
                                     router.push('/auth')
-                                    setIsLoading(false)
+                                    
                                 }
                             )
                         }
                         else {
                             console.log(error)
                             router.push('/auth')
-                            setIsLoading(false)
                         }
 
                     }
@@ -179,12 +175,10 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                                 (error) => {
                                     console.log(error)
                                     router.push('/auth')
-                                    setIsLoading(false)
                                 }
                             )
                         } else {
                             router.push('/auth')
-                            setIsLoading(false)
                         }
                     },
                     (error) => {
@@ -205,14 +199,14 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                                 (error) => {
                                     console.log(error)
                                     router.push('/auth')
-                                    setIsLoading(false)
+                                    
                                 }
                             )
                         }
                         else {
                             console.log(error)
                             router.push('/auth')
-                            setIsLoading(false)
+                            
                         }
                     }
                 )

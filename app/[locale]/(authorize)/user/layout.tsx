@@ -6,24 +6,24 @@ import React from 'react';
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
+            <UserAuthWrapper>
+
+                {/* navbar */}
+                <AuthentificatedNavbarSection />
 
 
-            {/* navbar */}
-            <AuthentificatedNavbarSection />
+                {/* main */}
+                <main >
 
 
-            {/* main */}
-            <main >
-
-                <UserAuthWrapper>
                     {children}
-                </UserAuthWrapper>
 
-            </main>
 
-            {/* footer */}
-            <FooterSection />
+                </main>
 
+                {/* footer */}
+                <FooterSection />
+            </UserAuthWrapper>
         </>
     );
 }
