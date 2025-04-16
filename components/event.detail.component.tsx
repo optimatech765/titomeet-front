@@ -8,7 +8,7 @@ const BadgeGenerator = dynamic(async () => (await import('./badge.generator.comp
     ssr: false,
 });
 
-import { Progress, Button, Card, Avatar, Chip, CardBody, AvatarGroup, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
+import { Progress, Button, Card, Avatar, Chip, CardBody, CardHeader, Divider, useDisclosure, ModalBody, Modal, ModalContent, ModalFooter, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
 import { Calendar, CheckCircle, ChevronLeft, Clock, MapPin, MapPinIcon, Ticket, Users2Icon } from "lucide-react";
 import { EventCardComponent } from "./event.card.component";
 import { EventRegisterModal } from "./event.register.modal";
@@ -219,7 +219,7 @@ export const EventDetails = () => {
                             </div>
 
                             {/* Discussion */}
-                            <Card className=" bg-transparent ">
+                            {/* <Card className=" bg-transparent ">
                                 <CardBody>
                                     <h2 className="information-title1">Groupe de discussion</h2>
                                     <p className="text-gray-600">Rejoignez le groupe de discussion de l&apos;événement.</p>
@@ -234,7 +234,7 @@ export const EventDetails = () => {
                                     <Button size="sm" color="primary" radius="full" className="mt-2">Rejoindre</Button>
                                 </CardBody>
 
-                            </Card>
+                            </Card> */}
 
                             <BadgeGenerator imageUrl={singleEvent?.badge} />
                         </div>
