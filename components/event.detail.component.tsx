@@ -44,7 +44,7 @@ export const EventDetails = () => {
         <div className={""}>
             {isLoading && <LoadingComponent2 />}
             {!isLoading && <>
-                <div className=" mx-auto p-6 mb-12 section-container">
+                <div className=" mx-auto p-6 mb-12 section-container md:px-10">
                     <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                         <ChevronLeft className="text-black cursor-pointer " onClick={() => router.back()} />
                         Détails de l’évènement
