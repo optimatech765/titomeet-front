@@ -6,10 +6,11 @@ import { InputErrorStore } from '@/stores/input.error.store';
 import { LoginDto } from '@/utils/dto/auth.dto';
 import { authValidator } from '@/utils/validator/auth.validator';
 import { Button, Checkbox, Input } from '@heroui/react';
+import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const Loginpage = () => {
@@ -22,6 +23,7 @@ export const Loginpage = () => {
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
     const router = useRouter()
+    const [showPassword, setShowPassword] = useState(false);
 
 
 
@@ -90,21 +92,30 @@ export const Loginpage = () => {
 
     }
 
-    useEffect(() => {
-        const { errorData } = authValidator(loginInfo);
-        setMessageError(errorData);
-    }, [loginInfo]);
+    const errors:any = [];
+
+    if (loginInfo.password.length < 4) {
+        errors.push("le mot de passe doit contenir au moins 4 caractères");
+    }
+    if ((loginInfo.password.match(/[A-Z]/g) || []).length < 1) {
+        errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");
+    }
+    if ((loginInfo.password.match(/[^a-z]/gi) || []).length < 1) {
+        errors.push("Le mot de passe doit contenir au moins 1 symbole");
+    }
 
 
     return (
         <div className='py-10 flex-1'>
             <div className=" flex justify-center items-center">
+                <Link href="/">
 
-                <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                    <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                </Link>
 
             </div>
             <div className="text-center mb-6">
-                <h2 className="text-base font-semibold">Connectez vous à votre compte</h2>
+                <h2 className="text-base font-semibold text-black">Connectez vous à votre compte</h2>
                 <p className="text-gray-500 text-xs font-light">Sélectionnez votre méthode de connexion</p>
             </div>
 
@@ -124,7 +135,7 @@ export const Loginpage = () => {
             </div>
 
             <div className="mb-2 space-y-0.5">
-                <label className="block text-sm font-medium">Email</label>
+                <label className="block text-sm font-medium text-black">Email</label>
                 <Input
                     fullWidth
                     value={loginInfo?.email}
@@ -140,23 +151,30 @@ export const Loginpage = () => {
                 />
             </div>
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium">Mot de passe</label>
+                <label className="block text-sm font-medium text-black">Mot de passe</label>
                 <Input
+                    type={showPassword ? 'text' : 'password'}
+                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
                     fullWidth
                     value={loginInfo?.password}
                     isInvalid={errorFields.field === 'password'}
                     name="password"
                     isRequired
-                    errorMessage={errorFields?.message}
+                    errorMessage={() => (
+                        <ul>
+                          {errors.map((error:string, i:number) => (
+                            <li key={i}>{error}</li>
+                          ))}
+                        </ul>
+                      )}
                     radius={"full"}
-                    type="password"
                     placeholder="Entrez votre mot de passe"
                     onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
                 />
             </div>
 
-            <div className="flex items-center justify-between mb-4">
-                <Checkbox title='Se souvenir' >Se souvenir</Checkbox>
+            <div className="flex items-center justify-between mb-4 text-black">
+                <Checkbox title='Se souvenir' className='text-black' >Se souvenir</Checkbox>
                 <Link href="/auth/forgot-password" className="text-sm text-red-500 hover:underline">Mot de passe oublié?</Link>
             </div>
 
@@ -172,7 +190,7 @@ export const Loginpage = () => {
             </Button>
 
 
-            <p className="text-center mt-4 text-sm font-light">
+            <p className="text-center mt-4 text-sm font-light text-slate-500">
                 Vous n&apos;avez pas de compte? <Link href="/auth/register" className="text-red-500 underline">Inscrivez-vous</Link>
             </p>
         </div>

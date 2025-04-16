@@ -9,7 +9,10 @@ const Page = () => {
         <div className='py-10'>
             <div className=" flex justify-center items-center">
 
-                <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                <Link href="/">
+
+                    <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                </Link>
 
             </div>
             <div className="text-center mb-6">

@@ -21,19 +21,20 @@ import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function
 import { LoadingComponent2 } from "./loading.component";
 import { EmailShareButton, FacebookShareButton, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
+import clsx from 'clsx';
 
 
 export const EventDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isOpenConfirm, onOpen: onOpenConfirm, onClose: onCloseConfirm } = useDisclosure();
     const { isOpen: isOpenPaiement, onOpen: onOpenPaiement, onClose: onClosePaiement } = useDisclosure();
-    const { dataList, fetchEventList, fetchSingleEvent, singleEvent, isLoading } = useEventsStore();
+    const { dataList, fetchEventList, fetchSingleEventDetails, singleEvent, isLoading } = useEventsStore();
     const router = useRouter()
     const params = useParams();
     const event = params?.eventId
 
     useEffect(() => {
-        fetchSingleEvent(event as string);
+        fetchSingleEventDetails(event as string);
         fetchEventList({ limit: 2 });
 
     }, []);
@@ -54,7 +55,7 @@ export const EventDetails = () => {
                         <Image
                             width={350}
                             height={500}
-                            src= {singleEvent?.coverPicture}
+                            src={singleEvent?.coverPicture}
                             // src="/img/hero-image.png"
                             alt="Event Banner"
                             className="w-full h-full object-cover object-center rounded-xl"
@@ -120,7 +121,7 @@ export const EventDetails = () => {
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?.participants?.length} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?.participants?.length || 0} Participants sur {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -244,7 +245,7 @@ export const EventDetails = () => {
                 <div className="mt-10 bg-[#F8F8F8] pb-12 ">
                     <div className="section-container mx-auto p-6 ">
                         <h2 className="information-title1">Événements que vous pourriez aimer</h2>
-                        <div className="grid grid-cols-3 gap-4 mt-4">
+                        <div className={clsx("lg:grid-cols-4 mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")}>
                             {dataList?.map((event: EventDtoResponse, index: number) => (
                                 <EventCardComponent key={index} event={event} />
                             ))}

@@ -16,10 +16,9 @@ export const PartenairesSection = () => {
             </div>
 
             <div className="mt-8 flex justify-between items-center gap-8 flex-wrap section-container">
-                <Image src="/img/gozem.png" alt="Gozem" width={154} height={60} className="w-44" />
-                <Image src="/img/celtiis.jpg" alt="Celtiis" width={154} height={60} className={"w-44 rounded-lg"} />
-                <Image src="/img/gozem.png" alt="Gozem" width={154} height={60} className="w-44" />
-                <Image src="/img/celtiis.jpg" alt="Celtiis" width={154} height={60} className={"w-44 rounded-lg"} />
+                <Image src="/img/partner2.png" alt="SION MARK" width={154} height={60} className="w-44" />
+                <Image src="/img/partner1.jpg" alt="Afrika consulting" width={154} height={60} className={"w-44 rounded-lg"} />
+               
             </div>
         </section>
     );

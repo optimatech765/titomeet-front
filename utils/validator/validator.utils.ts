@@ -27,6 +27,8 @@ export const customMessages = {
     "date.min": "{{#label}} doit être après le {{#limit}}", // Message pour date min
     "date.max": "{{#label}} doit être avant le {{#limit}}", // Message pour date max
     "any.only": "{{#label}} doit être égal à {{#compare}}",
+    'string.pattern.name.majuscule': 'Le mot de passe doit contenir au moins 1 lettre majuscule',
+    'string.pattern.name.symbole': 'Le mot de passe doit contenir au moins 1 caractère spécial',
 };
 
 export const returnError = (response: any) => {

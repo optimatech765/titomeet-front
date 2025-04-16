@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card } from '@heroui/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -11,8 +12,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
                 <div className=" md:grid grid-cols-2 justify-center">
                     <div className=" md:block hidden">
-                        <Image alt='dd' src={'/img/login-image.jpg'} width={400} height={400} className="w-full h-full object-cover" />
-
+                        <Link href="/">
+                            <Image alt='dd' src={'/img/login-image.jpg'} width={400} height={400} className="w-full h-full object-cover" />
+                        </Link>
                     </div>
                     <div className={" px-4 md:px-16"}>
                         {children}

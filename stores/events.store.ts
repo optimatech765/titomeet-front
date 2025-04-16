@@ -29,6 +29,7 @@ type EventStore = {
     updateDataListConfig: (newData: any) => void;
     fetchEventList: (searchParams?: any) => Promise<void>;
     fetchSingleEvent: (id: string) => Promise<void>;
+    fetchSingleEventDetails: (id: string) => Promise<void>;
     resetData: () => void;
 }
 
@@ -207,6 +208,41 @@ export const useEventsStore = create<EventStore>((set) => ({
                                 endDate: parseDate(response.data.endDate.split('T')[0]),
                                 startTime: parseAbsoluteToLocal(response.data.startDate.split('T')[0] + "T" + response.data.startTime + "Z"),
                                 endTime: parseAbsoluteToLocal(response.data.endDate.split('T')[0] + "T" + response.data.endTime + "Z"),
+                            }
+                        }));
+                    },
+                    (error) => {
+                        set(() => ({
+                            isLoading: false,
+                        }));
+                        console.log(error);
+                    }
+                );
+
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.error("Erreur lors de la récupération des détails :", error);
+        }
+    },
+    fetchSingleEventDetails: async (id: string) => {
+        try {
+            set(() => ({
+                isLoading: true,
+            }));
+
+            eventSevices
+                .getEvent(id)
+                .then(
+                    async (response) => {
+                        set(() => ({
+                            isLoading: false,
+                            singleEvent: {
+                                ...response.data
+                            },
+                            data: {
+                                ...response.data,
                             }
                         }));
                     },
