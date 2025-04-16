@@ -23,7 +23,7 @@ export const AuthentificatedNavbarSection = () => {
             </Button>
             {/* Logo */}
             <NavbarBrand>
-                <div className="flex items-center gap-2 flex-1">
+                <div className="flex items-center justify-end gap-2 flex-1">
                     {/* <Image height={200} width={200} src="/img/auth-logo.png" alt="Logo" className=" sm:hidden md:block lg:hidden w-full h-auto md:h-16" /> */}
                     <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto" />
                     {/* <Image height={200} width={200} src="/img/logo.png" alt="Logo" className="h-16 sm:hidden w-auto" /> */}

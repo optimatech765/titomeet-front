@@ -19,10 +19,10 @@ export const PersonnalInfoComponent = () => {
             <div>
                 <h2 className="text-2xl font-semibold mb-4">Informations personnelles</h2>
 
-                <div className='flex justify-between '>
+                <div className='flex flex-col md:flex-row justify-between '>
                     {/* Photo de profil */}
                     <div className="flex items-center space-x-6">
-                        <div className="relative w-24 h-36 space-y-1.5 ">
+                        <div className="relative w-24 h-36 space-y-1.5 mx-auto ">
                             <label className='text-sm font-medium text-gray-700'>Photo de profil</label>
 
                             <Avatar
@@ -36,7 +36,7 @@ export const PersonnalInfoComponent = () => {
                     </div>
 
                     {/* Formulaire */}
-                    <div className="grid grid-cols-2 gap-4 mt-6 flex-1 px-10">
+                    <div className="grid md:grid-cols-2 gap-4 mt-6 flex-1 px-3 md:px-10">
 
                         <InputContainerComponentTop title={"Nom"} >
                             <Input className="w-full" value={ userInfo?.lastName} />
