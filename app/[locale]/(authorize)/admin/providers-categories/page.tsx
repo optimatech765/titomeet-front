@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-import { AdminTableComponent } from '@/components/tables/admin.table.component';
-import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.cataegorie.store';
-import { useProvidersStore } from '@/stores/providers.store';
+import { TableComponent } from '@/components/table.component';
+import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.categorie.store';
+import { useAdminProvidersCategoriesStore } from '@/stores/admin/admin.providers.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, Textarea, useDisclosure } from '@heroui/react';
-import { Plus } from 'lucide-react';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
+import { Ellipsis, Plus } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 const Page = () => {
@@ -16,24 +17,22 @@ const Page = () => {
         name: "",
         description: "",
     });
-    const { fetchProvidersCategoriesList,
-        handleSubmitProvidersCategories,
-        isSubmit,
-        providersCategoriesList } = useProvidersStore();
 
-    const { columnsValue } = useAdminEventCategoriesStore();
+    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading } = useAdminProvidersCategoriesStore()
 
     useEffect(() => {
-        fetchProvidersCategoriesList();
+        fetchItems();
     }, []);
 
     const handleSubmi = () => {
-        delete categorieData.id;
-        handleSubmitProvidersCategories(categorieData);
+        submitItem({
+            name: categorieData.name,
+            description: categorieData.description,
+        });
     }
 
     useEffect(() => {
-        if (isSubmit === false) {
+        if (isSubmitLoading === false) {
             onClose();
             setCategorieData({
                 id: "",
@@ -41,7 +40,7 @@ const Page = () => {
                 description: "",
             });
         }
-    }, [isSubmit]);
+    }, [isSubmitLoading]);
 
     return (
         <div className='flex flex-col gap-4'>
@@ -53,14 +52,45 @@ const Page = () => {
             </div>
 
             <section>
-                <AdminTableComponent
-                    title={"Liste des catégories des services "}
-                    columns={columnsValue}
-                    valuesList={providersCategoriesList}
-                    emptyContent={<p className="text-center text-gray-500">Aucune catégorie trouvé</p>}
-                />
-            </section>
 
+                <TableComponent
+                    objectHookName={useAdminEventCategoriesStore}
+                    title="Liste des catégories des prestataires"
+                    columns={columnsValue}
+                    valuesList={items}
+                    emptyContent={<p>Aucun résultat</p>}
+                    isLoading={isLoading}
+                >
+                    {items.map((item: any) => (
+                        <TableRow key={item.id} className="">
+                            <TableCell >{item.name}</TableCell>
+                            <TableCell >{item.description}</TableCell>
+                            <TableCell >
+                                <div>
+                                    <Dropdown>
+                                        <DropdownTrigger>
+                                            <div className="flex items-center justify-center">
+                                                <Ellipsis className="text-default-300" />
+                                            </div>
+
+                                        </DropdownTrigger>
+                                        <DropdownMenu aria-label="Static Actions">
+                                            <DropdownItem key="new">New file</DropdownItem>
+                                            <DropdownItem key="copy">Copy link</DropdownItem>
+                                            <DropdownItem key="edit">Edit file</DropdownItem>
+                                            <DropdownItem key="delete" className="text-danger" color="danger">
+                                                Delete file
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                </div>
+                            </TableCell>
+
+                        </TableRow>
+                    ))}
+
+                </TableComponent>
+            </section>
 
             <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
                 <ModalContent >
@@ -112,10 +142,10 @@ const Page = () => {
                             <ModalFooter>
                                 <Button
                                     onPress={handleSubmi}
-                                    disabled={isSubmit}
+                                    disabled={isSubmitLoading}
                                     className="w-full bg-primary text-white  "
                                     radius="full"
-                                    isLoading={isSubmit}
+                                    isLoading={isSubmitLoading}
 
                                 >
                                     Enregistrer

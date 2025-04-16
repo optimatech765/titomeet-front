@@ -8,6 +8,7 @@ import { SignUpDto } from '@/utils/dto/auth.dto';
 import { registerValidator } from '@/utils/validator/auth.validator';
 import { Button, Checkbox, Input } from '@heroui/react';
 import clsx from 'clsx';
+import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -26,6 +27,7 @@ export const RegisterPage = () => {
     const errorFields = InputErrorStore((state: any) => state.errorField);
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async () => {
         try {
@@ -88,16 +90,26 @@ export const RegisterPage = () => {
 
     }
 
-    useEffect(() => {
-        const { errorData } = registerValidator(registerInfo);
-        setMessageError(errorData);
-    }, [registerInfo]);
+    const errors: any = [];
+
+    if (registerInfo.password.length < 4) {
+        errors.push("le mot de passe doit contenir au moins 4 caractères");
+    }
+    if ((registerInfo.password.match(/[A-Z]/g) || []).length < 1) {
+        errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");
+    }
+    if ((registerInfo.password.match(/[^a-z]/gi) || []).length < 1) {
+        errors.push("Le mot de passe doit contenir au moins 1 symbole");
+    }
 
     return (
         <div className='py-10'>
             <div className=" flex justify-center items-center">
 
-                <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                <Link href="/">
+
+                    <Image alt='dd' src={'/img/auth-logo.png'} width={120} height={60} />
+                </Link>
 
             </div>
             <div className="text-center mb-6">
@@ -161,21 +173,43 @@ export const RegisterPage = () => {
             <div className="mb-1 space-y-0.5">
                 <label className="block text-sm font-medium">Mot de passe</label>
                 <Input
+                    type={showPassword ? 'text' : 'password'}
+                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} className='text-primary' onClick={() => setShowPassword(!showPassword)} />}
+                    fullWidth
                     value={registerInfo?.password}
                     isInvalid={errorFields.field === 'password'}
-                    errorMessage={errorFields?.message}
+                    name="password"
+                    isRequired
+                    errorMessage={() => (
+                        <ul>
+                            {errors.map((error: string, i: number) => (
+                                <li key={i}>{error}</li>
+                            ))}
+                        </ul>
+                    )}
+                    radius={"full"}
+                    placeholder="Confirmez votre mot de passe"
                     onChange={(e) => setRegisterInfo({ ...registerInfo, password: e.target.value })}
-                    radius={"full"} type="password" placeholder="Entrez votre mot de passe" />
+                />
+
             </div>
 
             <div className="mb-1 space-y-0.5">
                 <label className="block text-sm font-medium">Confirmer le mot de passe</label>
                 <Input
+                    type={showPassword ? 'text' : 'password'}
+                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
+                    fullWidth
                     value={registerInfo?.confirmPassword}
                     isInvalid={errorFields.field === 'confirmPassword'}
+                    name="confirmPassword"
+                    isRequired
                     errorMessage={errorFields?.message}
+                    radius={"full"}
+                    placeholder="Confirmez votre mot de passe"
                     onChange={(e) => setRegisterInfo({ ...registerInfo, confirmPassword: e.target.value })}
-                    radius={"full"} type="password" placeholder="Entrez votre mot de passe" />
+                />
+
             </div>
 
 

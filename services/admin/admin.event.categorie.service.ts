@@ -3,7 +3,7 @@ import axios from "axios";
 import { tokenServices } from "../tokenService";
 
 
-export class AdminUsersServices {
+export class AdminEventCategorieServices {
 
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,22 +12,22 @@ export class AdminUsersServices {
     }
 
     getAll(params?: string) {
-        return axios.get(`${this.baseUrl}/admin/users?${params}`);
+        return axios.get(`${this.baseUrl}/events/categories?${params}`);
     }
 
     add(data: any) {
-        return axios.post(`${this.baseUrl}/admin/users`, data);
+        return axios.post(`${this.baseUrl}/admin/events/categories`, data);
     }
 
     getById(id: string) {
-        return axios.get(`${this.baseUrl}/admin/users/${id}`);
+        return axios.get(`${this.baseUrl}/admin/events/categories/${id}`);
     }
 
     update(id: string, data: any) {
-        return axios.put(`${this.baseUrl}/admin/users/${id}`, data);
+        return axios.put(`${this.baseUrl}/admin/events/categories/${id}`, data);
     }
 
     delete(id: string) {
-        return axios.delete(`${this.baseUrl}/admin/users/${id}`);
+        return axios.delete(`${this.baseUrl}/admin/events/categories/${id}`);
     }
 }

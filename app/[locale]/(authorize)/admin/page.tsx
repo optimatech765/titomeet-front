@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { StatusComponent } from "@/components/status.component";
-import { Button, Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
-import { BriefcaseBusiness, CalendarCheck, EllipsisIcon, HandCoins, Users } from "lucide-react";
+import { Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, TableCell, TableRow } from "@heroui/react";
+import { BriefcaseBusiness, CalendarCheck, Ellipsis, HandCoins, Users } from "lucide-react";
 import Link from "next/link";
 import React, { Fragment, useEffect } from "react";
 import { CustomChart } from "../../../../components/charts/user.chart.component";
@@ -10,7 +10,8 @@ import { RevenueChart } from "@/components/charts/revenu.chart.component";
 import { useAdminEventsStore } from "@/stores/admin/admin.events.store";
 import { UseAdminStateStore } from "@/stores/admin/admin.home.stat.store";
 import { AwaitDataLoader, AwaitDataLoaderStats } from "@/components/await.data.loader";
-import {  formatDateFrench   } from "@/utils/functions/date.function";
+import { formatDate2 } from "@/utils/functions/date.function";
+import { TableComponent } from "@/components/table.component";
 
 
 
@@ -80,8 +81,8 @@ const Dashboard = () => {
         <Card className="">
           <CardBody>
             <div className="mt-5">
-              <h2 className=" font-bold">Utilisateurs</h2>
-              <CustomChart />
+              <h2 className=" font-bold">Revenu</h2>
+              <RevenueChart />
             </div>
 
           </CardBody>
@@ -89,8 +90,8 @@ const Dashboard = () => {
         <Card >
           <CardBody>
             <div className="mt-5">
-              <h2 className=" font-bold">Revenu</h2>
-              <RevenueChart />
+              <h2 className=" font-bold">Utilisateur</h2>
+              <CustomChart />
             </div>
           </CardBody>
         </Card>
@@ -98,7 +99,6 @@ const Dashboard = () => {
 
       <section className="grid md:grid-cols-2 gap-6 mt-6">
         <div className="overflow-auto w-full">
-          <h2 className="text-2xl font-extrabold mb-2">Evènements récents</h2>
           <LastEvents />
         </div>
         <div className="rounded-lg ">
@@ -144,13 +144,6 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-const columns = [
-  { name: "Date", uid: "startDate" },
-  { name: "Evènement", uid: "name" },
-  { name: "Statut", uid: "status" },
-  { name: "ACTIONS", uid: "actions" },
-];
-
 
 const timelineData = [
   {
@@ -186,7 +179,7 @@ const AdminState = () => {
       <AwaitDataLoaderStats
         dataLength={valueList?.length}
         isLoading={isLoading}
-        emptyMessage={"<h1>Erreur lors de la récupération des détails</h1>"}
+        emptyMessage={<h1>Erreur lors de la récupération des détails</h1>}
       >
         <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-6">
           <div className="bg-[#17C964] overflow-hidden relative text-white p-6 rounded-lg shadow-lg flex items-center h-[126px]">
@@ -248,92 +241,65 @@ const AdminState = () => {
 }
 
 const LastEvents = () => {
-  const { valueList, isLoading, fetchList } = useAdminEventsStore()
-  const renderCell = React.useCallback((user: any, columnKey: any) => {
-    const cellValue = user[columnKey];
-
-    switch (columnKey) {
-
-      case "startDate":
-        return <div className="text-sm text-gray-600">{formatDateFrench(user.startDate)}</div>
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
-          </div>
-        );
-      case "status":
-        return (
-          <StatusComponent status={cellValue} />
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <EllipsisIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="view">View</DropdownItem>
-                <DropdownItem key="edit">Edit</DropdownItem>
-                <DropdownItem key="delete">Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+  const { items, isLoading, fetchItems } = useAdminEventsStore()
 
   useEffect(() => {
-    fetchList()
+    fetchItems({ limit: 5 })
   }, []);
 
   return (
     <Fragment>
       <AwaitDataLoader
-        dataLength={valueList.length}
+        dataLength={items.length}
         isLoading={isLoading}
-        emptyMessage={"<h1>Erreur lors de la récupération des détails</h1>"}
+        emptyMessage={<h1>Erreur lors de la récupération des détails</h1>}
       >
-        <Card className="border-1">
-          <CardBody>
-            <Table
+        <TableComponent
+          showSearchBar={false}
+          objectHookName={useAdminEventsStore}
+          title="Evènements récents"
+          columns={[
+            { name: "Date", uid: "startDate", sortable: true },
+            { name: "Evènement", uid: "name", sortable: true },
+            { name: "Status", uid: "status", sortable: true },
+            { name: "Actions", uid: "actions", sortable: false },
+          ]}
+          valuesList={items}
+          emptyContent={<p>Aucun résultat</p>}
+          isLoading={isLoading}
+        >
+          {items.map((item) => (
+            <TableRow key={item.id} className="">
+              <TableCell >{formatDate2(item.startDate)}</TableCell>
+              <TableCell >{item.name}</TableCell>
+              <TableCell ><StatusComponent status={item.status} /></TableCell>
+              <TableCell >
+                <div>
+                  <Dropdown>
+                    <DropdownTrigger>
+                      <div className="flex items-center justify-center">
+                        <Ellipsis className="text-default-300" />
+                      </div>
 
-              // isVirtualized={true}
-              fullWidth={true}
-              removeWrapper
-              aria-label="Example static collection table"
-              className='mt-2'
-              classNames={{
-                th: "text-sm font-medium text-gray-700 bg-slate-300",
-                tbody: " font-semibold",
-                wrapper: "overflow-auto max-h-[200px] shadow-xl",
-                base: "overflow-auto w-full"
-              }} >
-              <TableHeader className='' columns={columns}>
-                {(column) => (
-                  <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
-                    {column.name}
-                  </TableColumn>
-                )}
-              </TableHeader>
-              <TableBody items={valueList}>
-                {(item) => (
-                  <TableRow key={item?.id}>
-                    {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="Static Actions">
+                      <DropdownItem key="new">New file</DropdownItem>
+                      <DropdownItem key="copy">Copy link</DropdownItem>
+                      <DropdownItem key="edit">Edit file</DropdownItem>
+                      <DropdownItem key="delete" className="text-danger" color="danger">
+                        Delete file
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
+              </TableCell>
 
-          </CardBody>
 
-        </Card>
+
+            </TableRow>
+          ))}
+
+        </TableComponent>
       </AwaitDataLoader>
     </Fragment>
 

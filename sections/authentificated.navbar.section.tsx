@@ -42,24 +42,19 @@ export const AuthentificatedNavbarSection = () => {
             <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4 ">
-                        {/* <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
+                        <LinkH as={Link} href="/user" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
                             Accueil
-                        </LinkH> */}
-                        <LinkH as={Link} href="/evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                        </LinkH>
+                        <LinkH as={Link} href="/user/events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Événements
                         </LinkH>
-                        <LinkH as={Link} href="/categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Catégories
+                        <LinkH as={Link} href="/user/our-events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Mes évènements
                         </LinkH>
-                        <LinkH as={Link} href="/fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Fonctionnalités
+                        <LinkH as={Link} href="/user/services" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                            Services
                         </LinkH>
-                        <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Se connecter
-                        </LinkH>
-                        <Button as={Link} href="/register" color="warning" className="font-bold mt-4">
-                            S’inscrire
-                        </Button>
+
                     </nav>
                 </DrawerContent>
             </Drawer>
@@ -68,11 +63,11 @@ export const AuthentificatedNavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                {/* <NavbarItem isActive>
-                    <LinkH aria-current="page" as={Link} href="/" className="font-semibold underline-hover text-black">
+                <NavbarItem isActive>
+                    <LinkH aria-current="page" as={Link} href="/user" className="font-semibold underline-hover text-black">
                         Accueil
                     </LinkH>
-                </NavbarItem> */}
+                </NavbarItem>
                 <NavbarItem>
                     <LinkH underline="active" as={Link} href="/user/events" className="font-semibold underline-hover text-black">
                         Événements
@@ -129,9 +124,8 @@ export const AuthentificatedNavbarSection = () => {
                 </NavbarItem>
 
                 <NavbarItem>
-
-                    <LangSelect />
-
+                   
+                        <LangSelect />
 
                 </NavbarItem>
                 <NavbarItem>

@@ -2,14 +2,14 @@
 import { Card, CardBody } from '@heroui/react';
 import React from 'react';
 import { EventsList } from './_events.list';
-import { ModificationList } from './_modification.list';
+// import { ModificationList } from './_modification.list';
 
 export const PageContent = () => {
     return (
         <div className='space-y-3'>
             <EventStats />
             <EventsList />
-            <ModificationList />
+            {/* <ModificationList /> */}
         </div>
     );
 }

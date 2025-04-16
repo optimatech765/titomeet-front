@@ -1,40 +1,50 @@
 "use client";
 import { Select, SelectItem } from "@heroui/react";
-import { XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContainer, AreaChart } from "recharts";
-
-const data = [
-    { name: "Jan", inscriptions: 70, actifs: 50 },
-    { name: "Fév", inscriptions: 40, actifs: 45 },
-    { name: "Mar", inscriptions: 50, actifs: 40 },
-    { name: "Avr", inscriptions: 30, actifs: 90 },
-    { name: "Mai", inscriptions: 45, actifs: 40 },
-    { name: "Juin", inscriptions: 60, actifs: 35 },
-    { name: "Juil", inscriptions: 20, actifs: 25 },
-    { name: "Août", inscriptions: 50, actifs: 60 },
-    { name: "Sep", inscriptions: 30, actifs: 85 },
-    { name: "Oct", inscriptions: 90, actifs: 70 },
-    { name: "Nov", inscriptions: 80, actifs: 60 },
-    { name: "Déc", inscriptions: 40, actifs: 20 },
-];
+import {
+    PieChart,
+    Pie,
+    Cell, ResponsiveContainer
+} from "recharts";
 
 export const CustomChart = () => {
     return (
         <div className="">
             <UserStatsHeader />
-            <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={data} margin={{ top: 20, right: 0, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    {/* <Legend /> */}
+            <div className="flex items-center ">
+                <div className="h-[180px] w-[180px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={pieData}
+                                dataKey="value"
+                                nameKey="name"
+                                innerRadius={60}
+                                outerRadius={80}
+                                paddingAngle={0}
+                            >
+                                {pieData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="text-sm space-y-1">
+                    <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-secondary" />
+                        <span>Nouveaux utilisateurs</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-secondary-blue" />
+                        <span>Utilisateurs actifs</span>
+                    </div>
+                </div>
+            </div>
+            <div className="font-semibold text-sm">
+                Total d’utilisateurs : <span className="font-bold">5000</span>
+            </div>
 
-                    {/* ✅ Courbes avec remplissage */}
-                    <Area type="linear" dataKey="inscriptions" stroke="#2ecc71" fill="rgba(46, 204, 113, 0.2)" strokeWidth={2} dot={{ stroke: "#2ecc71", strokeWidth: 2, fill: "white" }} />
-                    <Area type="linear" dataKey="actifs" stroke="#e74c3c" fill="rgba(231, 76, 60, 0.2)" strokeWidth={2} dot={{ stroke: "#e74c3c", strokeWidth: 2, fill: "white" }} />
-                </AreaChart>
-            </ResponsiveContainer>
-        </div>
+        </div >
     );
 };
 
@@ -66,17 +76,23 @@ const UserStatsHeader = () => {
                         <span className="text-xs font-thin">Utilisateurs actifs</span>
                     </div>
                     <div className="flex-1">
-                         <Select placeholder="Année" size={"sm"} >
+                        <Select placeholder="Année" size={"sm"} >
                             <SelectItem key={"dd"}>Month</SelectItem>
                             <SelectItem key={"dd"}>Month</SelectItem>
                             <SelectItem key={"dd"}>Month</SelectItem>
                         </Select>
                     </div>
-                       
-                    
+
+
                 </div>
             </div>
         </div>
     );
 };
 
+const pieData = [
+    { name: "Nouveaux utilisateurs", value: 69 },
+    { name: "Utilisateurs actifs", value: 31 },
+];
+
+const COLORS = ["#F08621", "#28B0E6"];

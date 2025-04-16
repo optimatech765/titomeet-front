@@ -1,15 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ProvidersState } from './_providers.state';
-import { AdminTableComponent } from '@/components/tables/admin.table.component';
-import { useProvidersStore } from '@/stores/providers.store';
+import { Tab, Tabs } from '@heroui/react';
+import { ActivePrividersPage } from './_active.provider.page';
+import { PendingPrividersPage } from './_pending.prividers.page';
 
 const Page = () => {
-    const {columnsValue, dataList, fetchProvidersList } = useProvidersStore();
-
-    useEffect(() => {
-        fetchProvidersList();
-    }, []);
 
     return (
         <div>
@@ -21,12 +18,22 @@ const Page = () => {
             </section>
 
             <section>
-                <AdminTableComponent
-                    title={"Liste des Prestataires"}
-                    columns={columnsValue}
-                    valuesList={dataList}
-                    emptyContent={<p className="text-center text-gray-500">Aucun prestataire trouvé</p>}
-                />
+                <div className="flex w-full flex-col">
+                    <Tabs aria-label="Options"
+                       className='bg-sec'
+                        classNames={{
+                            cursor:"bg-secondary-blue text-primary",
+                        }}
+                    >
+                        <Tab key="photos" title="Demandes">
+                            <PendingPrividersPage />
+                        </Tab>
+                        <Tab key="music" title="Prestataires">
+                            <ActivePrividersPage />
+                        </Tab>
+                    </Tabs>
+                </div>
+
             </section>
 
         </div>

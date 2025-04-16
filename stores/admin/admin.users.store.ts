@@ -1,51 +1,41 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { create } from "zustand";
-import { toast } from "react-toastify";
-import { UsersServices } from "@/services/users/users.service";
-import { paramsToQueryString, QyeryParamsDto } from "@/utils/functions/other.functions";
-import { ColumnsDto } from "@/utils/dto/colums.dto";
-// Assure-toi d'avoir un service API pour les users
-
-interface UserDto {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface DataListConfig {
-  page: number;
-  totalItems: number;
-  perPageItems: number;
-  isSearch: boolean;
-  searchValue: string;
-}
-
-
-
-interface UserStore {
-  dataListConfig: DataListConfig;
-  isLoading: boolean;
-  isSubmit: boolean;
-  users: UserDto[];
-  columnsValue: ColumnsDto[]
-  setUsers: (newData: UserDto[]) => void;
-  updateUser: (id: string, newData: UserDto) => void;
-  deleteUser: (id: string) => void;
-  fetchUsers: (params?: QyeryParamsDto) => Promise<void>;
-  handleSubmit: (data: UserDto) => Promise<void>;
-}
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// stores/useGenericStore.ts
+import { create } from 'zustand'
+import { toast } from 'react-toastify'
+import { paramsToQueryString } from '@/utils/functions/other.functions';
+import { AdminUsersServices } from '@/services/admin/admin.users.services';
 
 const columns = [
-  { name: "Nom utilisateur", uid: "username", sortable: true },
+  { name: "Nom", uid: "username", sortable: true },
   { name: "Email", uid: "email", sortable: true },
-  { name: "Prénom(s)", uid: "firstName", sortable: true },
-  { name: "Nom", uid: "lastName", sortable: true },
+  { name: "Adresse", uid: "address.name", sortable: true },
+  { name: "Date d'inscription", uid: "createdAt", sortable: true },
   { name: "Role", uid: "role", sortable: true },
+  { name: "Actions", uid: "action", sortable: false },
+
 ]
 
-export const useUserStore = create<UserStore>((set, get) => ({
-  dataListConfig: {
+
+interface HookInterface {
+  columnsValue: any
+  DataListConfig: any;
+  isSubmitLoading: boolean;
+  isLoading: boolean;
+  items: any[];
+  setItems: (items: any) => void;
+  addItem: (item: any) => void;
+  removeItem: (item: any) => void;
+  updateItem: (item: any) => void;
+  fetchItems: (searchParams?: any) => void;
+  submitItem: (item: any) => void;
+  submitDeleteItem: (item: any) => void;
+  submitUpdateItem: (item: any) => void;
+  fetchSingleItem: (id: string) => void;
+
+}
+
+export const useUserStore = create<HookInterface>((set) => ({
+  DataListConfig: {
     page: 1,
     totalItems: 0,
     perPageItems: 25,
@@ -53,85 +43,218 @@ export const useUserStore = create<UserStore>((set, get) => ({
     searchValue: "",
   },
   columnsValue: columns,
+  isSubmitLoading: false,
   isLoading: false,
-  isSubmit: false,
-  users: [],
+  items: [],
+  setItems: (items: any) => set({ items }),
+  addItem: (item: any) => set((state: any) => ({ items: [...state.items, item] })),
+  removeItem: (item: any) => set((state: any) => ({ items: state.items.filter((i: any) => i.id !== item.id) })),
+  updateItem: (item: any) => set((state: any) => ({ items: state.items.map((i: any) => i.id === item.id ? item : i) })),
+  fetchItems: async (searchParams?: any) => {
+    const queryString = paramsToQueryString(searchParams || {});
 
-  /** Met à jour la liste des utilisateurs */
-  setUsers: (newData) => set({ users: [...newData] }),
-
-  /** Met à jour un utilisateur */
-  updateUser: (id, newData) =>
-    set((state) => ({
-      users: state.users.map((user) =>
-        user.id === id ? { ...user, ...newData } : user
-      ),
-    })),
-
-  /** Supprime un utilisateur */
-  deleteUser: (id) =>
-    set((state) => ({
-      users: state.users.filter((user) => user.id !== id),
-    })),
-
-  /** Récupère la liste des utilisateurs */
-  fetchUsers: async (searchParams?: QyeryParamsDto) => {
-    set({ isLoading: true });
     try {
-      const queryString = paramsToQueryString(searchParams || {});
-
-      const { page, perPageItems, searchValue, isSearch } = get().dataListConfig;
-
+      set({ isLoading: true })
       const token = localStorage.getItem("accessToken") || "";
-      const userService = new UsersServices(token)
-      const response = await userService.getUsers(queryString);
+      const apiRouting = new AdminUsersServices(token);
 
-      const { items, total } = response.data; 
+      apiRouting.getAll(queryString).then((response) => {
+        const { items, total,
+          page,
+          limit,
+          totalPages } = response.data;
 
-      set((state) => ({
-        isLoading: false,
-        users: items,
-        dataListConfig: { ...state.dataListConfig, totalItems: total },
-      }));
+        set({
+          isLoading: false,
+          items: items,
+          DataListConfig: {
+            page,
+            totalItems: total,
+            perPageItems: limit,
+            totalPages,
+            isSearch: false,
+            searchValue: "",
+          }
+        });
+
+
+      }).catch((error) => {
+        set({ isLoading: false })
+        toast.error("Erreur lors du chargement", {
+          type: "error",
+          isLoading: false,
+          autoClose: 5000
+        })
+        console.error(error)
+      })
+
     } catch (error) {
-      console.error("Erreur fetchUsers:", error);
-      set({ isLoading: false });
-      toast.error("Erreur lors du chargement des utilisateurs");
+
+      console.log(error)
+      set({ isLoading: false })
+      toast.error(`Erreur lors du chargement`)
+    }
+  },
+  submitItem: async (item: any) => {
+
+    try {
+      const token = localStorage.getItem("accessToken") || "";
+      const apiRouting = new AdminUsersServices(token);
+
+      set({ isSubmitLoading: true })
+
+      const toastId = toast.loading(`Soumission de la demande...`);
+
+      apiRouting.add(item).then((response) => {
+        console.log(response)
+        const { data } = response;
+
+        set((state: any) => ({
+          isSubmitLoading: false,
+          items: [data, ...state.items],
+
+        }));
+        toast.update(toastId, {
+          render: "Enregistrement réussi",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
+      }).catch((error) => {
+        set({ isSubmitLoading: false })
+        toast.update(toastId, {
+          render: "Erreur lors de la soumission",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000
+        })
+        console.error(error)
+      })
+
+    } catch (error) {
+      set({ isSubmitLoading: false })
+      toast.error(`Erreur lors de la soumission`)
+      console.error(error)
+    }
+  },
+  submitDeleteItem: async (item: any) => {
+    set({ isSubmitLoading: true })
+    try {
+      const token = localStorage.getItem("accessToken") || "";
+      const apiRouting = new AdminUsersServices(token);
+
+      const toastId = toast.loading(`Suppression de la demande...`);
+
+      apiRouting.delete(item.id).then((response) => {
+        console.log(response)
+
+        set((state: any) => ({
+          isSubmitLoading: false,
+          items: state.items.filter((i: any) => i.id !== item.id),
+
+        }));
+        toast.update(toastId, {
+          render: "Suppression réussie",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
+      }).catch((error) => {
+        set({ isSubmitLoading: false })
+        toast.update(toastId, {
+          render: "Erreur lors de la suppression",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000
+        })
+        console.error(error)
+      })
+
+    } catch (error) {
+      set({ isSubmitLoading: false })
+      toast.error(`Erreur lors de la suppression`)
+      console.error(error)
+    }
+  },
+  submitUpdateItem: async (item: any) => {
+    set({ isSubmitLoading: true })
+    try {
+      const token = localStorage.getItem("accessToken") || "";
+      const apiRouting = new AdminUsersServices(token);
+
+      const toastId = toast.loading(`Mise à jour de la demande...`);
+
+      apiRouting.update(item.id, item).then((response) => {
+        console.log(response)
+
+        set((state: any) => ({
+          isSubmitLoading: false,
+          items: state.items.map((i: any) => i.id === item.id ? item : i),
+
+        }));
+        toast.update(toastId, {
+          render: "Mise à jour réussie",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
+      }).catch((error) => {
+        set({ isSubmitLoading: false })
+        toast.update(toastId, {
+          render: "Erreur lors de la mise à jour",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000
+        })
+        console.error(error)
+      })
+
+    } catch (error) {
+      set({ isSubmitLoading: false })
+      toast.error(`Erreur lors de la mise à jour`)
+      console.error(error)
+    }
+  },
+  fetchSingleItem: async (id: string) => {
+    set({ isLoading: true })
+    try {
+      const token = localStorage.getItem("accessToken") || "";
+      const apiRouting = new AdminUsersServices(token);
+
+      const toastId = toast.loading(`Chargement de la demande...`);
+
+      apiRouting.getById(id).then((response) => {
+        console.log(response)
+        const data = response.data;
+
+        set((state: any) => ({
+          isLoading: false,
+          item: state.items.map((i: any) => i.id === data.id ? { ...i, ...data } : i),
+
+        }));
+
+        toast.update(toastId, {
+          render: "Chargement réussi",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
+      }).catch((error) => {
+        set({ isLoading: false })
+        toast.update(toastId, {
+          render: "Erreur lors du chargement",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000
+        })
+        console.error(error)
+      })
+
+    } catch (error) {
+      set({ isLoading: false })
+      toast.error(`Erreur lors du chargement`)
+      console.error(error)
     }
   },
 
-  /** Ajoute un utilisateur */
-  handleSubmit: async (data) => {
-    set({ isSubmit: true });
-    const toastId = toast.loading("Ajout en cours...");
-
-    try {
-      const token = localStorage.getItem("accessToken") || "";
-      const userService = new UsersServices(token)
-      const response = await userService.addUser(data);
-      const newUser: UserDto = response.data;
-
-      set((state) => ({
-        isSubmit: false,
-        users: [...state.users, newUser],
-      }));
-
-      toast.update(toastId, {
-        render: "Utilisateur ajouté avec succès",
-        type: "success",
-        isLoading: false,
-        autoClose: 5000,
-      });
-    } catch (error) {
-      console.error("Erreur handleSubmit:", error);
-      set({ isSubmit: false });
-
-      toast.update(toastId, {
-        render: "Erreur lors de l'ajout",
-        type: "error",
-        isLoading: false,
-        autoClose: 5000,
-      });
-    }
-  },
-}));
+}))

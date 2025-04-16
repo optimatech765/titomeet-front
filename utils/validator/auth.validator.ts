@@ -1,12 +1,16 @@
 import Joi from 'joi';
-import { customMessages, passwordRegex, returnError } from './validator.utils';
+import { customMessages, returnError } from './validator.utils';
 import { LoginDto, SignUpDto } from '../dto/auth.dto';
 
 export const authValidator = (data: LoginDto) => {
 
     const schema = Joi.object({
         email: Joi.string().email({ tlds: { allow: false } }).required().label('Email'),
-        password: Joi.string().pattern(passwordRegex).required().label('Mot de passe'),
+        password: Joi.string()
+            .min(4)
+            .pattern(/[A-Z]/, 'majuscule') // au moins une majuscule
+            .pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\\/]/, 'symbole')
+            .required().label('Mot de passe'),
     })
         .messages(customMessages)
         .unknown(false)
@@ -25,7 +29,11 @@ export const registerValidator = (data: SignUpDto) => {
         lastName: Joi.string().required().label('Nom'),
         username: Joi.string().required().label('Nom d\'utilisateur'),
         email: Joi.string().email({ tlds: { allow: false } }).required().label('Email'),
-        password: Joi.string().pattern(passwordRegex).required().label('Mot de passe'),
+        password: Joi.string()
+            .min(4)
+            .pattern(/[A-Z]/, 'majuscule') // au moins une majuscule
+            .pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\\/]/, 'symbole')
+            .required().label('Mot de passe'),
         confirmPassword: Joi.string().equal(Joi.ref('password')).required().label('Confirmer le mot de passe'),
     })
         .messages({

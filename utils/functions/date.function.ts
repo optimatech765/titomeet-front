@@ -65,14 +65,23 @@ export const formatDate = (date: string) => {
 export const formatDateFrench = (date: string) => {
     const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     const daysOfWeek = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-    
+
     const dateObj = new Date(date);
-    
+
     const dayOfWeek = daysOfWeek[dateObj.getDay()]; // Jour de la semaine
     const day = dateObj.getDate(); // Jour du mois
     const month = months[dateObj.getMonth()]; // Mois en français
     const year = dateObj.getFullYear(); // Année
 
     return `${dayOfWeek} ${day} ${month} ${year}`;
+}
+
+export const formatDate2 = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Mois commence à 0
+    const year = String(date.getUTCFullYear()).slice(-2); // Prend les deux derniers chiffres
+
+    return `${day}/${month}/${year}`;
 }
 
