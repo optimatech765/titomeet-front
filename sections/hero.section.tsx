@@ -12,6 +12,7 @@ import { Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
 import { useEventsStore } from "@/stores/events.store";
 import "swiper/css/autoplay";
+import Link from "next/link";
 
 
 export const HeroSection = () => {
@@ -51,17 +52,17 @@ export const HeroSection = () => {
                     {/* Boutons */}
                     <div className="mt-6 mb-4 flex flex-col sm:flex-row items-center gap-4">
                         <Button
-                            as="a"
+                            as={Link}
                             href="#evenements"
-                           className="bg-primary text-white"
+                            className="bg-primary text-white"
                             radius="full" size="lg">
                             {landingTButton('first')}
                         </Button>
                         <Button
-                            as="a"
+                            as={Link}
                             href="/user/events/new"
                             className="border-primary text-primary"
-                             variant="bordered" radius={"full"} size="lg">
+                            variant="bordered" radius={"full"} size="lg">
                             {landingTButton('second')}
                         </Button>
                     </div>
