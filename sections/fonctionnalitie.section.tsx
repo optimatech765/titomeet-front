@@ -14,7 +14,7 @@ export const FonctionnalitesSection = () => {
                 {/* Texte */}
                 <div>
                     <div className="space-y-1">
-                        <h2 className="font-extrabold text-gray-900 text-xl md:text-4xl font-poppins">Fonctionnalités</h2>
+                        <h2 className="font-extrabold text-primary text-xl md:text-4xl font-poppins">Fonctionnalités</h2>
                         <p className="text-[#1E1E1E] text-base  block">
                             Trouvez l&apos;événement parfait ou lancez le vôtre
                         </p>
