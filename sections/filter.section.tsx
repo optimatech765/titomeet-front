@@ -1,10 +1,15 @@
 
+
+import { useEventsStore } from '@/stores/events.store';
 import { Button, Input, Select, SelectItem } from '@heroui/react';
 import { LayoutGrid, MapPin, Search, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, {useState } from 'react';
 
 export const FilterSection = () => {
+
+    const { fetchEventList } = useEventsStore();
+
     return (
         <div className='grid grid-cols-1 gap-4 md:grid-cols-5'>
 
@@ -14,6 +19,7 @@ export const FilterSection = () => {
                 placeholder="Rechercher"
                 radius='full'
                 width={300}
+                onChange={(e) => fetchEventList({ search: e.target.value })}
             />
 
             <Select
@@ -43,13 +49,32 @@ export const FilterSection = () => {
 
 
 export const FilterSection2 = () => {
+
+    const { fetchEventList } = useEventsStore();
+    const [searchParameter, setSearchParameter] = useState({
+        keyWord: "",
+        localisation: ""
+    });
+
+    const handleFindEvent = () => {
+        fetchEventList({ search: searchParameter.keyWord })
+    }
+
+
     return (
         <div className='flex mx-auto flex-col md:flex-row gap-4 items-center min-h-[93px] bg-hero-pattern max-w-5xl rounded-md p-3'>
 
             <Input
+                onClear={() => {
+                    setSearchParameter({ keyWord: "", localisation: "" })
+                    fetchEventList()
+                }}
+                type='search'
                 startContent={<Search className={"text-primary "} />}
                 placeholder="Rechercher"
                 radius='full'
+                onChange={(e) => setSearchParameter({ ...searchParameter, keyWord: e.target.value })}
+                value={searchParameter?.keyWord}
             />
             <Select
                 radius='full'
@@ -77,11 +102,15 @@ export const FilterSection2 = () => {
                 <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
-            <Button isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+            <Button
+                onPress={handleFindEvent}
+                isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                 <SearchIcon className="w-4 h-4 " />
                 <span className="md:hidden">Rechercher</span>
             </Button>
-            <Button className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
+            <Button
+                onPress={handleFindEvent}
+                className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                 <SearchIcon className="w-4 h-4 " />
                 <span className="">Rechercher</span>
             </Button>
