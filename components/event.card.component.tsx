@@ -55,7 +55,7 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
           objectFit="cover"
           className={"cursor-pointer"}
         />
-        <div className="absolute z-50 top-0 left-0 w-full h-full "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
+        <div className="absolute z-50 top-0 left-0 w-full h-fit "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
           <div className="absolute flex items-center justify-items-end justify-end w-full pt-4 pr-4  ">
 
             <Button isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
