@@ -154,7 +154,8 @@ export const Loginpage = () => {
                 <label className="block text-sm font-medium text-black">Mot de passe</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
-                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
+                    endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> :
+                        <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary cursor-pointer' />}
                     fullWidth
                     value={loginInfo?.password}
                     isInvalid={errorFields.field === 'password'}

@@ -4,8 +4,6 @@ import { Avatar, Button, Drawer, DrawerContent, Dropdown, DropdownItem, Dropdown
 import { useState } from "react";
 import { Bell, MapPinIcon, Menu, MessageCircleMore } from "lucide-react"; // Icône de menu
 import Link from "next/link";
-import { LangSelect } from "@/locales/lang.select";
-import { SwitchThemeComponent } from "@/components/switch.theme.component";
 import Image from "next/image";
 
 export const AuthentificatedNavbarSection = () => {
@@ -13,8 +11,11 @@ export const AuthentificatedNavbarSection = () => {
 
     return (
         <Navbar
+            classNames={{
+                wrapper: "px-0"
+            }}
             maxWidth="full"
-            className=" bg-white gap-20 px-3 md:section-container  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" bg-white gap-20 md:section-container  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
             isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
@@ -22,11 +23,11 @@ export const AuthentificatedNavbarSection = () => {
                 <Menu size={24} />
             </Button>
             {/* Logo */}
-            <NavbarBrand>
-                <div className="flex items-center justify-end gap-2 flex-1">
-                    {/* <Image height={200} width={200} src="/img/auth-logo.png" alt="Logo" className=" sm:hidden md:block lg:hidden w-full h-auto md:h-16" /> */}
-                    <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto" />
-                    {/* <Image height={200} width={200} src="/img/logo.png" alt="Logo" className="h-16 sm:hidden w-auto" /> */}
+            <NavbarBrand className="px-0">
+                <div className="flex items-center  gap-2 flex-1">
+                   
+                    <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto " />
+                   
                     <Input
                         startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
                         radius="full"
@@ -123,14 +124,14 @@ export const AuthentificatedNavbarSection = () => {
                     </Dropdown>
                 </NavbarItem>
 
-                <NavbarItem>
+                {/* <NavbarItem>
                    
                         <LangSelect />
 
                 </NavbarItem>
                 <NavbarItem>
                     <SwitchThemeComponent />
-                </NavbarItem>
+                </NavbarItem> */}
             </NavbarContent>
 
 
