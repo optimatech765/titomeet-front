@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { authSevices } from '@/services/auth/authServices';
 import { InputErrorStore } from '@/stores/input.error.store';
