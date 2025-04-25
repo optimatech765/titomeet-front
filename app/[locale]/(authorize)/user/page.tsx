@@ -14,7 +14,7 @@ const Page = () => {
     const { isAuth } = useAppContext();
     
     return (
-        <div className={"py-6 text-foreground p-5 md:p-10 space-y-3 section-container"}>
+        <div className={"py-6 text-foreground space-y-3 section-container"}>
 
             <h1 className="text-2xl font-extrabold md:flex gap-1 items-center">
                 Bienvenue, {isAuth?.username}

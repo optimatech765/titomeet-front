@@ -4,8 +4,6 @@ import { Button, Drawer, DrawerContent, Link as LinkH, Navbar, NavbarBrand, Navb
 import { useState } from "react";
 import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
-import { LangSelect } from "@/locales/lang.select";
-import { SwitchThemeComponent } from "@/components/switch.theme.component";
 import Image from "next/image";
 
 export const NavbarSection = () => {
@@ -14,7 +12,7 @@ export const NavbarSection = () => {
     return (
         <Navbar
             maxWidth="full"
-            className=" bg-white section-container gap-20  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" px-6 bg-white section-container gap-16  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
             isBordered={true}>
 
@@ -58,8 +56,6 @@ export const NavbarSection = () => {
                 </DrawerContent>
             </Drawer>
 
-
-
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
                 <NavbarItem isActive>
@@ -93,7 +89,7 @@ export const NavbarSection = () => {
                     </Button>
                 </NavbarItem>
 
-                <NavbarItem>
+                {/* <NavbarItem>
 
                     <LangSelect />
 
@@ -101,7 +97,7 @@ export const NavbarSection = () => {
                 </NavbarItem>
                 <NavbarItem>
                     <SwitchThemeComponent />
-                </NavbarItem>
+                </NavbarItem> */}
             </NavbarContent>
 
 
