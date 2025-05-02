@@ -42,7 +42,7 @@ export const FonctionnalitesSection = () => {
                 {/* Images et Boutons */}
                 <div className="grid md:grid-cols-2 gap-4 flex-end ">
 
-                    <div className="flex justify-end">
+                    <div className="flex justify-center md:justify-end">
 
                         <div className="w-fit space-y-2 flex flex-col justify-end">
                             <div>
@@ -71,7 +71,7 @@ export const FonctionnalitesSection = () => {
 
                     </div>
 
-                    <div className="flex justify-end">
+                    <div className="flex justify-center md:justify-end">
 
                         <div className="w-fit space-y-2">
                             <Button startContent={<PlusIcon hanging={20} width={20} />}

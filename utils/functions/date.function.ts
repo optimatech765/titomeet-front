@@ -43,7 +43,7 @@ export const DefaultTime = () => {
 }
 
 export const getHourMinute = (time: string): string => {
-    const [hour, minute] = time?.split(":");
+    const [hour, minute] = time ? time?.split(":") : [0, 0];
     return `${hour}:${minute}`;
 }
 

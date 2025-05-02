@@ -22,18 +22,18 @@ export const EventCardHorizontalComponent = ({ status = "draft", event }: { even
   return (
     <Card
       isBlurred
-      className="border bg-white dark:bg-default-100/50 max-h-fit"
+      className="border bg-white dark:bg-default-100/50 h-40  "
       shadow="sm"
     >
       <section className="grid grid-cols-1 md:grid-cols-12 gap-4  items-stretch">
         {/* Image section */}
-        <div className="relative col-span-12 md:col-span-3 h-44 md:h-auto">
+        <div className="relative col-span-12 md:col-span-3 h-auto">
           <Image
             alt="Event"
             className="h-full w-full object-cover rounded-s-md"
             src={event?.coverPicture}
-            width={300}
-            height={300}
+            width={200}
+            height={200}
           />
         </div>
 

@@ -53,6 +53,9 @@ export interface EventDtoResponse {
     postedBy?: UserDto;
     createdAt: string;
     isFavorite?: boolean;
+    _count?: {
+        orders: number;
+    };
 }
 
 export interface addressDto {

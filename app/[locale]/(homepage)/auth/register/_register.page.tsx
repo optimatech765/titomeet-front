@@ -103,7 +103,7 @@ export const RegisterPage = () => {
     }
 
     return (
-        <div className='py-10'>
+        <div className='py-10 flex-1'>
             <div className=" flex justify-center items-center">
 
                 <Link href="/">

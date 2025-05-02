@@ -12,7 +12,7 @@ import React from 'react';
 
 const Page = () => {
     const { isAuth } = useAppContext();
-    
+
     return (
         <div className={"py-6 text-foreground space-y-3 section-container"}>
 
@@ -35,6 +35,9 @@ const Page = () => {
                 <div className='lg:col-span-8 space-y-3'>
                     <div>
                         <FilterSection />
+                        <div className="block md:hidden">
+                            <DateSelectComponent />
+                        </div>
                     </div>
 
                     <Divider />
@@ -45,7 +48,10 @@ const Page = () => {
                 </div>
 
                 <div className='lg:col-span-4 space-y-3  '>
-                    <DateSelectComponent />
+                    <div className="md:block hidden">
+                        <DateSelectComponent />
+                    </div>
+
                     <FutureEventCardComponent />
 
                     <MyEventEventCardComponent />
