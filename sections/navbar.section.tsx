@@ -49,10 +49,10 @@ export const NavbarSection = () => {
                         <LinkH as={Link} href="/#providers" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Prestataires
                         </LinkH>
-                        <LinkH as={Link} href="/login" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
+                        <LinkH as={Link} href="/auth" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Se connecter
                         </LinkH>
-                        <Button as={Link} href="/register" className="font-bold mt-4 bg-primary text-white">
+                        <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
                             S’inscrire
                         </Button>
                     </nav>

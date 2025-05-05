@@ -5,8 +5,8 @@ import { Plus } from 'lucide-react';
 import { useAppContext } from '@/context';
 import { LoadingComponent2 } from './loading.component';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
-import { EventCardHorizontalComponent } from './event.card.horizontal.component';
 import { useEventsStore } from '@/stores/events.store';
+import OurHorizontalCardComponent from './events/our.horizontal.card.component';
 
 export const MyEventEventCardComponent = () => {
     const { isAuth } = useAppContext();
@@ -50,7 +50,7 @@ export const MyEventEventCardComponent = () => {
                     </> :
                         <>
                             {dataList.map((event: EventDtoResponse, index: number) => (
-                                <EventCardHorizontalComponent event={event} key={index} />
+                                <OurHorizontalCardComponent event={event} key={index} />
                             ))}
 
                         </>
