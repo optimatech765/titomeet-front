@@ -31,11 +31,11 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
                 </div>
 
             </div>
-            <div className='space-y-2'>
+            {/* <div className='space-y-2'>
                 <HorizontalEventCardComponent />
                 <HorizontalEventCardComponent />
 
-            </div>
+            </div> */}
         </div>
     );
 }
