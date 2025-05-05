@@ -69,7 +69,7 @@ export const HeroSection = () => {
 
                     {/* Barre de recherche */}
 
-                    <div className="mt-14  min-h-[93px] bg-hero-pattern bg-red-100  p-2 rounded-full  flex flex-col md:flex-row items-center gap-4 shadow-md">
+                    <div className="mt-14  min-h-[93px] bg-hero-pattern bg-red-100  p-1 rounded-lg md:rounded-full px-5  flex flex-col md:flex-row items-center gap-4 shadow-md">
                         <Input
                             onChange={(e) => setSearchParameter({ ...searchParameter, keyWord: e.target.value })}
                             type="text"

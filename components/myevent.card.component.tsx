@@ -1,10 +1,23 @@
 import { Button, Card, CardBody, CardHeader } from '@heroui/react';
-import React from 'react';
-import { HorizontalEventCardComponent } from './horizontal.event.card.component';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { useAppContext } from '@/context';
+import { LoadingComponent2 } from './loading.component';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
+import { useEventsStore } from '@/stores/events.store';
+import OurHorizontalCardComponent from './events/our.horizontal.card.component';
 
 export const MyEventEventCardComponent = () => {
+    const { isAuth } = useAppContext();
+
+    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList({ page: 1, limit: 2, createdById: isAuth?.id });
+    }, []);
+
     return (
         <Card>
             <CardHeader className='flex flex-col md:flex-row justify-between items-center'>
@@ -27,8 +40,25 @@ export const MyEventEventCardComponent = () => {
 
             </CardHeader>
             <CardBody className='space-y-2'>
-                <HorizontalEventCardComponent />
-                <HorizontalEventCardComponent />
+                {eventLoading ? <>
+                    <LoadingComponent2 />
+                </> : <>
+                    {dataList?.length === 0 ? <>
+                        <div className="text-center">
+                            Il n&apos;y a pas de data
+                        </div>
+                    </> :
+                        <>
+                            {dataList.map((event: EventDtoResponse, index: number) => (
+                                <OurHorizontalCardComponent event={event} key={index} />
+                            ))}
+
+                        </>
+                    }</>
+                }
+
+                {/* <HorizontalEventCardComponent />
+                <HorizontalEventCardComponent /> */}
 
             </CardBody>
         </Card>

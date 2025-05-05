@@ -11,7 +11,7 @@ export const NextUiProvider = ({ children }: { children: React.ReactNode }) => {
         <HeroUIProvider >
 
            
-            <NextThemesProvider attribute="class" defaultTheme="dark">
+            <NextThemesProvider attribute="class" defaultTheme="white">
             <ToastContainer position="top-right"/>
                 {children}
             </NextThemesProvider>

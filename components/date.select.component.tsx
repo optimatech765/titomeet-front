@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
 import { Select, SelectItem, Button, Card } from "@heroui/react";
@@ -9,137 +9,120 @@ import { getMonthWeeks } from "@/utils/functions/date.function";
 const date = new Date();
 const year = date.getFullYear();
 const months = [
-    "Jan " + year, "Fév " + year, "Mar " + year, "Avr " + year, "Mai " + year, "Juin " + year,
-    "Juil " + year, "Août " + year, "Sep " + year, "Oct " + year, "Nov " + year, "Déc " + year
+    "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+    "Juil", "Août", "Sep", "Oct", "Nov", "Déc"
 ];
 
 const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 
-
 export const DateSelectComponent = () => {
-    const [selectedDate, setSelectedDate] = useState<number>(14);
+    const [selectedDate, setSelectedDate] = useState<number>(date.getDate());
     const [selectedYear, setSelectedYear] = useState<number>(year);
-    const [selectedMonth, setSelectedMonth] = useState<number>(3); // Avril (index 3)
+    const [selectedMonth, setSelectedMonth] = useState<number>(date.getMonth());
+    const [weekDays, setWeekDays] = useState<number[][]>([]);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
-    const [weekDays, setWeekDays] = useState<number[][]>(getMonthWeeks(year, selectedMonth));
+
+    // Fonction pour mettre à jour les semaines du mois
+    const updateWeeks = (year: number, month: number) => {
+        const weeks = getMonthWeeks(year, month);
+        setWeekDays(weeks);
+
+        // Trouver la semaine où se trouve selectedDate
+        const weekIndex = weeks.findIndex(week => week.includes(selectedDate));
+        setSelectedWeek(weekIndex >= 0 ? weekIndex : 0);
+    };
+
+    useEffect(() => {
+        updateWeeks(selectedYear, selectedMonth);
+    }, [selectedYear, selectedMonth]);
 
     const handleMonthChange = (value: number) => {
-        const newMonth = months[value];
-        const [month, year] = newMonth.split(' ');
-        console.log(month, year);
         setSelectedMonth(value);
-        setSelectedYear(parseInt(year));
+        const currentYear = parseInt(months[value].split(" ")[1]);
+        setSelectedYear(currentYear);
 
-        const weeks = getMonthWeeks(parseInt(year), value);
-        console.log(weeks)
+        const weeks = getMonthWeeks(currentYear, value);
         setWeekDays(weeks);
-        setSelectedDate(1); // Réinitialiser au premier jour
+        setSelectedDate(1);
+        setSelectedWeek(0);
     };
-
-
 
     const handleArrowClick = (direction: "left" | "right") => {
-        console.log([selectedWeek, direction, selectedMonth]);
-
-        // Obtenir le nombre total de semaines dans le mois sélectionné
-        const totalWeeksInMonth = weekDays.length;
+        let newMonth = selectedMonth;
+        let newYear = selectedYear;
+        let newWeek = selectedWeek;
 
         if (direction === "left") {
-            if (selectedWeek === 0) {
-                if (selectedMonth === 0) {
-                    // Passer à l'année précédente, dernier mois, dernière semaine
-                    setSelectedYear(selectedYear - 1);
-                    setSelectedMonth(11);
-                    setSelectedWeek(getWeeksInMonth(selectedYear - 1, 11) - 1);
+            if (newWeek === 0) {
+                if (newMonth === 0) {
+                    newYear -= 1;
+                    newMonth = 11;
                 } else {
-                    // Passer au mois précédent, dernière semaine de ce mois
-                    setSelectedMonth(selectedMonth - 1);
-                    setSelectedWeek(getWeeksInMonth(selectedYear, selectedMonth - 1) - 1);
+                    newMonth -= 1;
                 }
+                const weeks = getMonthWeeks(newYear, newMonth);
+                newWeek = weeks.length - 1;
+                setWeekDays(weeks);
             } else {
-                // Passer à la semaine précédente dans le même mois
-                setSelectedWeek(selectedWeek - 1);
+                newWeek -= 1;
             }
-        } else { // direction === "right"
-            if (selectedWeek === totalWeeksInMonth - 1) {
-                if (selectedMonth === 11) {
-                    // Passer à l'année suivante, premier mois, première semaine
-                    setSelectedYear(selectedYear + 1);
-                    setSelectedMonth(0);
-                    setSelectedWeek(0);
+        } else {
+            if (newWeek === weekDays.length - 1) {
+                if (newMonth === 11) {
+                    newYear += 1;
+                    newMonth = 0;
                 } else {
-                    // Passer au mois suivant, première semaine
-                    setSelectedMonth(selectedMonth + 1);
-                    setSelectedWeek(0);
+                    newMonth += 1;
                 }
+                const weeks = getMonthWeeks(newYear, newMonth);
+                newWeek = 0;
+                setWeekDays(weeks);
             } else {
-                // Passer à la semaine suivante dans le même mois
-                setSelectedWeek(selectedWeek + 1);
+                newWeek += 1;
             }
         }
+
+        setSelectedYear(newYear);
+        setSelectedMonth(newMonth);
+        setSelectedWeek(newWeek);
     };
 
-    // Fonction pour calculer le nombre de semaines dans un mois donné
-    const getWeeksInMonth = (year: number, month: number) => {
-        const firstDay = new Date(year, month, 1).getDay(); // Jour de début du mois (0 = Dimanche, 6 = Samedi)
-        const daysInMonth = new Date(year, month + 1, 0).getDate(); // Nombre total de jours dans le mois
-
-        return Math.ceil((firstDay + daysInMonth) / 7); // Calcul du nombre de semaines
-    };
-
-    const daysOfWeek = weekDays[selectedWeek];
+    const daysOfWeek = weekDays[selectedWeek] || [];
 
     return (
         <Card className="p-4 border border-gray-200 rounded-xl shadow-sm w-full">
-            {/* Sélecteur de mois et année */}
+            {/* Sélecteur de mois */}
             <div className="flex items-center justify-between text-primary">
                 <Select
-
                     aria-label="Sélectionnez un mois"
                     className="w-28 text-primary"
-                    selectedKeys={[months[selectedMonth]]}
+                    selectedKeys={selectedMonth.toString()}
                     onChange={(e) => {
-                        const [month, year] = e.target.value.split(' ');
-                        console.log(month, year);
-                        setSelectedMonth(months.indexOf(e.target.value));
-                        setSelectedYear(parseInt(year));
-                        handleMonthChange(months.indexOf(e.target.value))
+                        const index = parseInt(e.target.value);
+                        handleMonthChange(index);
                     }}
-
-                // onSelectionChange={handleMonthChange}
                 >
                     {months.map((month, index) => (
                         <SelectItem key={index.toString()} aria-label={month}>
-                            {month}
+                            {month} {year}
                         </SelectItem>
                     ))}
                 </Select>
 
+
                 {/* Flèches de navigation */}
                 <div className="flex gap-2">
-                    <Button
-                        isIconOnly
-                        variant="light"
-                        size="sm"
-                        className=" text-primary"
-                        onPress={() => handleArrowClick("left")}
-                    >
+                    <Button isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("left")}>
                         <ChevronLeft size={16} />
                     </Button>
-                    <Button
-                        isIconOnly
-                        variant="light"
-                        size="sm"
-                        className=" text-primary"
-                        onPress={() => handleArrowClick("right")}
-                    >
+                    <Button isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("right")}>
                         <ChevronRight size={16} />
                     </Button>
                 </div>
             </div>
 
             {/* Jours de la semaine */}
-            <div className="grid grid-cols-7 gap-2 text-center mt-1 text-base font-normal ">
+            <div className="grid grid-cols-7 gap-2 text-center mt-2 text-base font-normal">
                 {days.map((day, index) => (
                     <span key={index}>{day}</span>
                 ))}
@@ -147,57 +130,24 @@ export const DateSelectComponent = () => {
 
             {/* Jours du mois */}
             <div className="grid grid-cols-7 gap-2 text-center mt-2">
-                {daysOfWeek.map((day) => {
-                    <>
-                        {day != 0 &&
-                            <>
-                                {
-                                    <button
-                                        key={day}
-                                        className={clsx(
-                                            "w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium",
-                                            day === selectedDate
-                                                ? "bg-red-200 text-red-600"
-                                                : "text-gray-800 hover:bg-gray-100"
-                                        )}
-                                        onClick={() => setSelectedDate(day)}
-                                    >
-                                        {day}
-                                    </button>
-                                }
-                            </>
-
-                        }
-
-                    </>
-
-                    return (
-                        <>
-                            {day != 0 ?
-                                <>
-                                    {
-                                        <button
-                                            key={day}
-                                            className={clsx(
-                                                "w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium",
-                                                day === selectedDate
-                                                    ? "bg-red-200 text-red-600"
-                                                    : "text-gray-800 hover:bg-gray-100"
-                                            )}
-                                            onClick={() => setSelectedDate(day)}
-                                        >
-                                            {day}
-                                        </button>
-                                    }
-                                </> : <>
-                                    <div></div>
-                                </>
-
-                            }
-                        </>
-
-                    );
-                })}
+                {daysOfWeek.map((day, index) =>
+                    day === 0 ? (
+                        <div key={index}></div>
+                    ) : (
+                        <button
+                            key={index}
+                            className={clsx(
+                                "w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium",
+                                day === selectedDate
+                                    ? "bg-red-200 text-red-600"
+                                    : "text-gray-800 hover:bg-gray-100"
+                            )}
+                            onClick={() => setSelectedDate(day)}
+                        >
+                            {day}
+                        </button>
+                    )
+                )}
             </div>
         </Card>
     );

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Time } from "@internationalized/date";
 
-export const getMonthWeeks = (year: number, month: number) => {
-    console.log(year, month)
+export const getMonthWeeks = (years: number, month: number) => {
+
+    const year = new Date().getFullYear();
     const firstDay = new Date(year, month, 1).getDay(); // Jour de la semaine du 1er jour (0 = Dimanche)
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -10,14 +11,14 @@ export const getMonthWeeks = (year: number, month: number) => {
     let currentWeek: number[] = new Array(firstDay === 0 ? 6 : firstDay - 1).fill(0); // Décalage si mois ne commence pas un lundi
 
     for (let day = 1; day <= daysInMonth; day++) {
-        currentWeek.push(day);
+        currentWeek?.push(day);
         if (currentWeek.length === 7) {
             weeks.push(currentWeek);
             currentWeek = [];
         }
     }
 
-    if (currentWeek.length > 0) {
+    if (currentWeek?.length > 0) {
         weeks.push([...currentWeek, ...new Array(7 - currentWeek.length).fill(0)]); // Compléter la dernière semaine
     }
 
@@ -42,7 +43,7 @@ export const DefaultTime = () => {
 }
 
 export const getHourMinute = (time: string): string => {
-    const [hour, minute] = time?.split(":");
+    const [hour, minute] = time ? time?.split(":") : [0, 0];
     return `${hour}:${minute}`;
 }
 

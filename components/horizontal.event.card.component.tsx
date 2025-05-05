@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { getHourMinute } from '@/utils/functions/date.function';
 import { Button, Card, Progress, } from '@heroui/react';
 import clsx from 'clsx';
 import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass, MapPinIcon, MessageCircleMore, Star, User } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-export const HorizontalEventCardComponent = ({ withDate = false, status = "programming" }: { status?: string, withDate?: boolean }) => {
+export const HorizontalEventCardComponent = ({ withDate = false, status = "programming",event }: { status?: string, withDate?: boolean,event:any }) => {
     return (
         <Card
             isBlurred
@@ -33,18 +35,21 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                         </div>
                     </div>
                     <div className="space-y-1 px-1 flex-1">
-                        <h2 className='text-xs font-bold'>After Work Networking</h2>
+                        <h2 className='text-xs font-bold'>{event?.name}</h2>
                         <div className="mt-2 flex-wrap flex gap-2 items-center justify-between font-normal text-gray-700 text-sm ">
                             <p className="flex items-center gap-0.5 text-xs font-light">
-                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> Cotonou
+                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> 
+                                {event?.address?.city}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Clock className="w-4 h-4 text-white" fill="red" /> 15:00
+                                <Clock className="w-4 h-4 text-white" fill="red" /> 
+                                {getHourMinute(event?.startTime)}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" /> Gratuit
+                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" /> 
+                                {event?.accessType === "FREE" ? "Gratuit" : "Payant"}
                             </p>
 
 
@@ -54,7 +59,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                             <p className="flex items-center  text-xs font-light gap-0.5">
                                 <User className="w-4 h-4 text-white" fill="red" />
                                 <span>
-                                    25 Par/45
+                                {event?._count?.orders || 0} Par/{event?.capacity}
                                 </span>
 
                             </p>

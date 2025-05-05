@@ -16,6 +16,7 @@ import { useEventsStore } from "@/stores/events.store";
 import { useParams, useRouter } from "next/navigation";
 import { eventSevices } from "@/services/events/event.services";
 import { toast } from "react-toastify";
+import { useAppContext } from "@/context";
 
 interface shopInterface {
     productName: string;
@@ -30,8 +31,9 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 }) => {
 
     const { singleEvent, isLoading } = useEventsStore();
+    const { isAuth } = useAppContext();
     const [shopCart, setshopCart] = useState<shopInterface[]>([]);
-    const [clientEmail, setClientEmail] = useState<string>("");
+    const [clientEmail, setClientEmail] = useState<string>(isAuth?.email ?? "");
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const params = useParams();
     const event = params?.eventId
@@ -56,13 +58,13 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
         try {
             setBuyLoading(true);
             const data = shopCart?.map((item: any) => ({
-                quantity: item?.productQuantity,
-                priceId: item?.id,
+                quantity: +item?.productQuantity,
+                priceId: item?.id || "free",
             }))
 
 
             eventSevices.buyTicket(event as string, {
-                callbackUrl:`${process.env.NEXT_PUBLIC_FRONT_URL }/user/events/${event}/order-confirm`,
+                callbackUrl: isAuth ? `${process.env.NEXT_PUBLIC_FRONT_URL}/user/events/${event}/order-confirm` : `${process.env.NEXT_PUBLIC_FRONT_URL}/events/${event}/order-confirm`,
                 eventId: event as string,
                 email: clientEmail,
                 items: data,
@@ -70,7 +72,6 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 (response) => {
                     console.log(response);
                     toast.success("Vous avez acheté votre ticket");
-                    // router.push(`/user/events/${event}/order-confirm`);
                     router.push(response.data.url);
                 },
                 (error) => {
@@ -93,7 +94,14 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
             totalPrice: 0,
             id: item?.id
         })) as shopInterface[];
-        setshopCart(newShopCart);
+
+        const freeData = [{
+            productName: `Ticket Gratuit`,
+            productQuantity: 0,
+            productPrice: 0,
+            totalPrice: 0,
+        }] as shopInterface[]
+        setshopCart(singleEvent.accessType === "PAID" ? newShopCart : freeData);
 
     }, []);
 
@@ -116,6 +124,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                             <ModalBody>
                                 <div className="flex flex-col gap-3">
 
+
                                     {shopCart?.map((item: any, index: number) => (
                                         <Input
                                             onChange={(e) => handleChange(e, index)}
@@ -131,6 +140,8 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                                             />}
                                         />
                                     ))}
+
+
 
                                     <Input
                                         value={clientEmail}

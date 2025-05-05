@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
@@ -19,7 +20,7 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
-import { EmailShareButton, FacebookShareButton, WhatsappShareButton } from "react-share";
+import { EmailShareButton, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
 
@@ -121,7 +122,7 @@ export const EventDetails = () => {
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?.participants?.length || 0} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?._count?.orders || 0} Participants sur {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -129,7 +130,10 @@ export const EventDetails = () => {
                                                         classNames={{
                                                             indicator: "w-full flex-1 bg-[#28B0E6] ",
                                                         }}
-                                                        value={25} size={"md"} className="w-full flex-1 text-[#28B0E6] " />
+                                                        value={(singleEvent?._count?.orders || 0) * 100 / singleEvent?.capacity}
+                                                        size={"md"}
+                                                        className="w-full flex-1 text-[#28B0E6] "
+                                                    />
                                                 </div>
 
                                             </div>
@@ -181,6 +185,20 @@ export const EventDetails = () => {
                                                 Whatsapp
                                             </WhatsappShareButton>
                                         </DropdownItem>
+                                        <DropdownItem key="edit">
+                                            <TwitterShareButton url={window.location.href} title="Share this event">
+                                                Twitter
+                                            </TwitterShareButton>
+                                        </DropdownItem>
+                                        <DropdownItem key="edit">
+                                            <LinkedinShareButton url={window.location.href} title="Share this event">
+                                                <LinkedinIcon size={20} className="text-primary" round={true} />
+                                               
+                                                Linkedin
+                                            </LinkedinShareButton>
+                                        </DropdownItem>
+
+
 
                                     </DropdownMenu>
                                 </Dropdown>
@@ -260,7 +278,6 @@ export const EventDetails = () => {
                     isOpen={isOpen}
                     onClose={() => {
                         onClose();
-                        onOpenPaiement();
                     }}
 
                 />
