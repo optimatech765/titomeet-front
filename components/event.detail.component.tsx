@@ -95,7 +95,7 @@ export const EventDetails = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-14 mt-4">
+                    <div className="md:grid md:grid-cols-3 gap-14 mt-4">
                         <div className="col-span-2">
                             {/* Description */}
                             <div className="mt-6 space-y-2.5">

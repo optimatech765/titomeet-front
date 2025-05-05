@@ -42,3 +42,6 @@ next-env.d.ts
 
 #history files
 .history
+
+#anima
+.anima
