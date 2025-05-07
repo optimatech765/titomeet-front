@@ -94,8 +94,8 @@ export const Loginpage = () => {
 
     const errors: any = [];
 
-    if (loginInfo.password.length < 4) {
-        errors.push("le mot de passe doit contenir au moins 4 caractères");
+    if (loginInfo.password.length < 8) {
+        errors.push("le mot de passe doit contenir au moins 8 caractères");
     }
     if ((loginInfo.password.match(/[A-Z]/g) || []).length < 1) {
         errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");

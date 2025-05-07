@@ -93,8 +93,8 @@ const Page = () => {
 
     const errors: any = [];
 
-    if (passwordInfo.password.length < 4) {
-        errors.push("le mot de passe doit contenir au moins 4 caractères");
+    if (passwordInfo.password.length < 8) {
+        errors.push("le mot de passe doit contenir au moins 8 caractères");
     }
     if ((passwordInfo.password.match(/[A-Z]/g) || []).length < 1) {
         errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");
@@ -133,7 +133,7 @@ const Page = () => {
                                 <Eye size={20} className='text-primary cursor-pointer' onClick={() => setShowPassword(!showPassword)} />}
                             fullWidth
                             value={passwordInfo?.password}
-                            isInvalid={errorFields.field === 'password'}
+                            isInvalid={errors?.length>0 || errorFields.field === 'password'}
                             name="password"
                             isRequired
                             errorMessage={() => (

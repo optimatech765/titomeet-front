@@ -52,7 +52,7 @@ export const EventDetails = () => {
                     </h2>
 
                     {/* Header */}
-                    <div className="relative w-1/2 mx-auto h-72 ">
+                    <div className="relative md:w-1/2 mx-auto h-72 ">
                         <Image
                             width={350}
                             height={500}
