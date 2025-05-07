@@ -22,7 +22,7 @@ export const BadgeGenerator = ({imageUrl}: {imageUrl: string}) => {
     const imageRef = useRef<Konva.Image>(null);
 
     const stageWidth = 350;
-    const stageHeight = 500;
+    const stageHeight = 400;
 
     // Charger l'image du badge
     useEffect(() => {

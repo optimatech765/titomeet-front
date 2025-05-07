@@ -20,7 +20,7 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
-import { EmailShareButton, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
+import { EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
 
@@ -51,15 +51,13 @@ export const EventDetails = () => {
                         Détails de l’évènement
                     </h2>
 
-                    {/* Header */}
-                    <div className="relative md:w-1/2 mx-auto h-72 ">
+                    <div className="relative w-full h-64">
                         <Image
                             width={350}
                             height={500}
                             src={singleEvent?.coverPicture}
-                            // src="/img/hero-image.png"
                             alt="Event Banner"
-                            className="w-full h-full object-cover object-center rounded-xl"
+                            className="w-full h-full object-contain rounded-xl"
                         />
                     </div>
 
@@ -122,7 +120,7 @@ export const EventDetails = () => {
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?._count?.orders || 0} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?.orders?.length|| 0} Participants sur {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -130,7 +128,7 @@ export const EventDetails = () => {
                                                         classNames={{
                                                             indicator: "w-full flex-1 bg-[#28B0E6] ",
                                                         }}
-                                                        value={(singleEvent?._count?.orders || 0) * 100 / singleEvent?.capacity}
+                                                        value={(singleEvent?.accessType === "PAID" ? (singleEvent?._count?.orders || 0) * 100 / singleEvent?.capacity : singleEvent?.orders?.length * 100 / singleEvent?.capacity)}
                                                         size={"md"}
                                                         className="w-full flex-1 text-[#28B0E6] "
                                                     />
@@ -170,31 +168,45 @@ export const EventDetails = () => {
                                         <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="Static Actions">
-                                        <DropdownItem key="new">
-                                            <EmailShareButton url={window.location.href} title="Share this event">
-                                                Email
-                                            </EmailShareButton>
-                                        </DropdownItem>
+
                                         <DropdownItem key="copy">
-                                            <FacebookShareButton url={window.location.href} title="Share this event">
-                                                Facebook
+                                            <FacebookShareButton 
+                                            url={window.location.href} 
+                                            title={"Share this event"}
+                                            hashtag={"tito.me"}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <FacebookIcon size={20} className="text-primary" round={true} />
+                                                    <span>Facebook</span>
+                                                    
+                                                </div>
                                             </FacebookShareButton>
                                         </DropdownItem>
                                         <DropdownItem key="edit">
                                             <WhatsappShareButton url={window.location.href} title="Share this event">
-                                                Whatsapp
+                                                <div className="flex items-center gap-2">
+                                                    <WhatsappIcon size={20} className="text-primary" round={true} />
+                                                    <span>Whatsapp</span>
+                                                </div>
                                             </WhatsappShareButton>
                                         </DropdownItem>
                                         <DropdownItem key="edit">
                                             <TwitterShareButton url={window.location.href} title="Share this event">
-                                                Twitter
+                                                <div className="flex items-center gap-2">
+                                                    <TwitterIcon size={20} className="text-primary" round={true} />
+                                                    <span>Twitter</span>
+                                                </div>
+
                                             </TwitterShareButton>
                                         </DropdownItem>
                                         <DropdownItem key="edit">
-                                            <LinkedinShareButton url={window.location.href} title="Share this event">
-                                                <LinkedinIcon size={20} className="text-primary" round={true} />
-                                               
-                                                Linkedin
+                                            <LinkedinShareButton url={window.location.href} title="Share this event" >
+                                                <div className="flex items-center gap-2">
+                                                    <LinkedinIcon size={20} className="text-primary" round={true} />
+
+                                                    <span>Linkedin</span>
+                                                </div>
+
                                             </LinkedinShareButton>
                                         </DropdownItem>
 
@@ -236,24 +248,6 @@ export const EventDetails = () => {
                                 </div>
                             </div>
 
-                            {/* Discussion */}
-                            {/* <Card className=" bg-transparent ">
-                                <CardBody>
-                                    <h2 className="information-title1">Groupe de discussion</h2>
-                                    <p className="text-gray-600">Rejoignez le groupe de discussion de l&apos;événement.</p>
-                                    <AvatarGroup  >
-                                        <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
-                                        <Avatar src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
-                                        <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
-                                        <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026302d" />
-                                        <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
-
-                                    </AvatarGroup>
-                                    <Button size="sm" color="primary" radius="full" className="mt-2">Rejoindre</Button>
-                                </CardBody>
-
-                            </Card> */}
-
                             <BadgeGenerator imageUrl={singleEvent?.badge} />
                         </div>
                     </div>
@@ -272,7 +266,6 @@ export const EventDetails = () => {
 
                 </div>
 
-
                 {/* Ticket buy modal */}
                 <EventRegisterModal
                     isOpen={isOpen}
@@ -287,7 +280,6 @@ export const EventDetails = () => {
                     onClose={onClosePaiement}
                     onConfirm={onOpenConfirm}
                 />
-
 
                 {/* Modale de confirmation */}
                 <Modal backdrop={"blur"} isOpen={isOpenConfirm} onClose={onCloseConfirm} classNames={{ closeButton: 'text-primary' }}>

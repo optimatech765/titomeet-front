@@ -91,8 +91,8 @@ export const OrderConfirmPage = () => {
                                     <MapPin size={18} className='text-primary' /> {singleEvent?.address?.city}
                                 </span>
                                 <span className="flex items-center gap-1 text-base font-normal">
-                                    <Clock size={18} className='text-primary' /> 
-                                     {getHourMinute(singleEvent?.startTime || "")}
+                                    <Clock size={18} className='text-primary' />
+                                    {getHourMinute(singleEvent?.startTime || "")}
                                 </span>
                                 <span className="flex items-center gap-1 text-black text-base font-normal">
                                     <Banknote size={18} className='text-primary' />
@@ -111,12 +111,12 @@ export const OrderConfirmPage = () => {
                         <div className="border-1 rounded-lg p-5 bg-[#F8F8F8]">
                             <h3 className='text-xl font-semibold'>Détails de la  réservation</h3>
                             <div>
-                                {shoppingInfo?.items?.map((item:any)=>(
-                                    <TicketInfoRow title={item?.eventPrice?.name} value={`${item?.quantity} X ${item?.eventPrice?.amount}`} key={item?.name} />
+                                {shoppingInfo?.items?.map((item: any) => (
+                                    <TicketInfoRow title={item?.eventPrice?.name} value={`${item?.quantity || 0} X ${item?.eventPrice?.amount || 0}`} key={item?.name} />
                                 ))}
                                 {/* <TicketInfoRow title="id" value="25" />
                                 <TicketInfoRow title="Ticket" value="02" /> */}
-                                <TicketInfoRow title="Total" value={`${shoppingInfo?.totalAmount} XOF`} />
+                                <TicketInfoRow title="Total" value={`${shoppingInfo?.totalAmount || 0} XOF`} />
                             </div>
 
                             <div className="rounded-lg border-1 p-1.5 mt-3.5 bg-[#F6DBC2] text-base font-normal">

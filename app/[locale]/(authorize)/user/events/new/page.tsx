@@ -206,7 +206,10 @@ const Page = () => {
 
                 eventSevices.createEvent({
                     ...newData,
-                    prices: updatedData,
+                    prices: newData.accessType==='PAID'? updatedData : [{
+                        name: "Gratuit",
+                        amount: 0
+                    }],
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
                     coverPicture: coverFile?.downloadUrl,

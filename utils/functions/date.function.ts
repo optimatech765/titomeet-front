@@ -52,7 +52,7 @@ export const formatDate = (date: string) => {
 
     const dateObj = new Date(date);
 
-    const day = dateObj.getDate();
+    const day = String(dateObj.getDate()).padStart(2, '0');
     const month = months[dateObj.getMonth()]; // Get the 3-letter month abbreviation
     const year = dateObj.getFullYear();
 
