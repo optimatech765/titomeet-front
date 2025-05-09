@@ -358,7 +358,7 @@ const Page = () => {
                                     className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-secondary font-bold text-[#1E1E1E] ring-0 transition-all duration-300">
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                            className="stepper-Title">
                                             Informations générales
                                         </h6>
                                     </div>
@@ -371,7 +371,7 @@ const Page = () => {
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                            className="stepper-Title">
                                             Options avancées
                                         </h6>
                                     </div>
@@ -384,8 +384,9 @@ const Page = () => {
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                            className="stepper-Title">
                                             Visibilité et communication
+
                                         </h6>
                                     </div>
                                 </div>
@@ -397,7 +398,7 @@ const Page = () => {
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
-                                            className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                                            className="stepper-Title">
                                             Resumé
                                         </h6>
                                     </div>

@@ -86,3 +86,9 @@ export const formatDate2 = (dateString: string) => {
     return `${day}/${month}/${year}`;
 }
 
+export const verifyIsPastDate = (date: string) => {
+    const dateObj = new Date(date);
+    const now = new Date();
+    return dateObj.getTime() < now.getTime();
+}
+

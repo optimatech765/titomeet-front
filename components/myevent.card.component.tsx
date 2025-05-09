@@ -5,13 +5,13 @@ import { Plus } from 'lucide-react';
 import { useAppContext } from '@/context';
 import { LoadingComponent2 } from './loading.component';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
-import { useEventsStore } from '@/stores/events.store';
+import { useOurEventsStore } from '@/stores/our.events.store';
 import OurHorizontalCardComponent from './events/our.horizontal.card.component';
 
 export const MyEventEventCardComponent = () => {
     const { isAuth } = useAppContext();
 
-    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+    const { fetchEventList, dataList, isLoading: eventLoading } = useOurEventsStore();
 
     useEffect(() => {
 

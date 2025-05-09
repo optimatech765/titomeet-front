@@ -1,11 +1,11 @@
 import { DateSelectComponent } from '@/components/date.select.component';
-import { PastEventJoined } from '@/components/past.event.joined';
 import { PubCardComponent } from '@/components/pub.card.component';
 import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
 import React, { useEffect } from 'react';
 import { LoadingComponent2 } from '../loading.component';
+import { PartcipateEventCardHorizontalComponent } from '../events/partcipate.event.card.horizontal.component';
 
 export const EventsTabs = () => {
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
@@ -37,7 +37,7 @@ export const EventsTabs = () => {
                                 </> :
                                     <>
                                         {dataList.map((event: EventDtoResponse, index: number) => (
-                                            <PastEventJoined event={event} key={index} />
+                                            <PartcipateEventCardHorizontalComponent event={event} key={index} />
                                         ))}
 
                                     </>
