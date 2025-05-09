@@ -156,9 +156,9 @@ const Page = () => {
                             <SidebarButton label="Paramètres avancés" active={activeMenu === "advanced"} onClick={() => setActiveMenu("advanced")} icon={<Settings className="w-4 h-4" />} />
                         </div>
 
-                        <button className="mt-4 bg-primary text-white px-4 py-2 flex items-center gap-2 w-full">
+                        <Button radius='full' className="mt-4 bg-primary  text-white px-4 py-2 flex items-center gap-2 w-full">
                             <LogOut className="w-4 h-4" /> Déconnexion
-                        </button>
+                        </Button>
                     </div>
 
                     {/* Content */}

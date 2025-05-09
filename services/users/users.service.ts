@@ -28,5 +28,9 @@ export class UsersServices {
         return axios.post(`${this.baseUrl}/admin/users`,data);
     }
 
+    updateUser(data:any){
+        return axios.put(`${this.baseUrl}/users/me`,data);
+    }
+
 
 }

@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useAppContext } from '@/context';
+import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
+import { PartcipateEventCardHorizontalComponent } from './events/partcipate.event.card.horizontal.component';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
 
 interface FutureEventCardComponentProps {
     title?: string;
@@ -11,7 +15,16 @@ interface FutureEventCardComponentProps {
     data?: any[];
 }
 
-export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({titleClass="text-primary", title = " Évènement à venir", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
+export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({ titleClass = "text-primary", title = " Évènement à venir", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
+    const { isAuth } = useAppContext();
+
+    const { fetchEventList, dataList, isLoading: eventLoading } = useAttendeeEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList({ page: 1, limit: 2, attendeeId: isAuth?.id });
+    }, []);
+
     return (
         <div className="overflow-auto space-y-3 border-1 border-gray-200 bg-white shadow-sm rounded-lg p-2">
             <div className='flex justify-between items-center'>
@@ -30,11 +43,9 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
                 </div>
 
             </div>
-            {/* <div className='space-y-2'>
-                <HorizontalEventCardComponent />
-                <HorizontalEventCardComponent />
-
-            </div> */}
+            {dataList.map((event: EventDtoResponse, index: number) => (
+                <PartcipateEventCardHorizontalComponent event={event} key={index} />
+            ))}
         </div>
     );
 }

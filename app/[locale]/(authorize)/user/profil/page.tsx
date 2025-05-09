@@ -1,12 +1,28 @@
 "use client";
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
+import { LoadingComponent2 } from "@/components/loading.component";
+import { MyEventEventCardComponent } from "@/components/myevent.card.component";
 import { useAppContext } from "@/context";
+import { useAttendeeEventsStore } from "@/stores/attendee.event.store";
+import { useEventsStore } from "@/stores/events.store";
 import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
 import { Camera, FilePenLine, MapPinIcon, Pencil } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const UserProfile = () => {
     const { isAuth } = useAppContext();
+    const { fetchEventList: fetchAttendeeEvent, dataList: attendeeList, isLoading: attendeeLoading } = useAttendeeEventsStore();
+
+
+    const { fetchEventList, dataList, isLoading } = useEventsStore();
+
+    useEffect(() => {
+
+        fetchEventList({ page: 1, limit: 25, createdById: isAuth?.id });
+        fetchAttendeeEvent({ page: 1, limit: 25, attendeeId: isAuth?.id });
+    }, []);
+
     return (
         <div className="max-w-6xl mx-auto p-6">
             {/* Header */}
@@ -34,12 +50,24 @@ const UserProfile = () => {
                         <div className="flex justify-around w-full gap-2 ">
                             <div className="text-center bg-[#00000026] rounded-lg py-1 px-3 text-foreground">
                                 <p className="text-sm">Participations</p>
-                                <p className="text-lg font-semibold">25</p>
+                                <p className="text-lg font-semibold">
+                                    {attendeeLoading ? <>
+                                        <LoadingComponent2 />
+                                    </> : <>
+                                        {attendeeList?.length}
+                                    </>
+                                    }
+                                </p>
 
                             </div>
                             <div className="text-center bg-[#00000026] rounded-lg py-1 px-3 text-foreground ">
                                 <p className=" text-sm">Organisations</p>
-                                <p className="text-lg font-semibold">10</p>
+                                <p className="text-lg font-semibold">{isLoading ?
+                                    <>
+                                        {/* span loader */}
+                                        <span className="loader"></span>
+                                    </>
+                                    : dataList?.length}</p>
 
                             </div>
                         </div>
@@ -80,12 +108,7 @@ const UserProfile = () => {
                             titleClass={"text-foreground"}
                             data={[]}
                         />
-                        <FutureEventCardComponent
-                            title="Mes évènements"
-                            subtitle=""
-                            titleClass={"text-foreground"}
-                            data={[]}
-                        />
+                        <MyEventEventCardComponent showButton={false} />
                     </div>
 
                 </div>

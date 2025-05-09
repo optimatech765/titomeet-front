@@ -1,18 +1,21 @@
 import { DateSelectComponent } from '@/components/date.select.component';
 import { PubCardComponent } from '@/components/pub.card.component';
-import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
 import React, { useEffect } from 'react';
 import { LoadingComponent2 } from '../loading.component';
 import { PartcipateEventCardHorizontalComponent } from '../events/partcipate.event.card.horizontal.component';
+import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
+import { useAppContext } from '@/context';
 
 export const EventsTabs = () => {
-    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+     const { isAuth } = useAppContext();
+
+    const { fetchEventList, dataList, isLoading: eventLoading } = useAttendeeEventsStore();
 
     useEffect(() => {
 
-        fetchEventList({ page: 1, limit: 25 });
+        fetchEventList({ page: 1, limit: 25,attendeeId: isAuth?.id });
     }, []);
 
     return (
