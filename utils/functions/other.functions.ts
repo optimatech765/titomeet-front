@@ -44,3 +44,8 @@ export interface QyeryParamsDto {
     createdById?: string;
     categories?: string[];
 }
+
+export const getInitials = (firstname: string, lastname: string) => {
+    if (!firstname || !lastname) return '';
+    return firstname[0].toUpperCase() + lastname[0].toUpperCase();
+}
