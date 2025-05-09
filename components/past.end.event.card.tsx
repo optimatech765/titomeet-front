@@ -88,7 +88,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                                             variant='ghost'
                                             radius='full'
                                             color='primary'
-                                            className="mt-2 border-1 text-xs font-semibold text-primary">
+                                            className="mt-2 border-1 text-xs font-semibold text-primary w-full md:w-1/2">
                                             <Star className="w-4 h-4 text-red-500" />
                                             Laisser un avis
                                         </Button>
