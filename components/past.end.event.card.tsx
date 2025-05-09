@@ -51,8 +51,8 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                             </div>
                         </div>
 
-                        <CardBody>
-                            <div className="flex gap-2 col-span-6 sm:col-span-9 py-1.5">
+                        <CardBody className='col-span-6 sm:col-span-9 '>
+                            <div className="flex gap-2">
                                 <div className="">
                                     <div className="text-center rounded-lg font-bold ">
                                         <p className="text-lg font-bold text-black">{formatDate(event?.startDate).day}</p>
