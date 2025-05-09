@@ -3,23 +3,33 @@
 import { StatusComponent } from '@/components/status.component';
 import { TableComponent } from '@/components/table.component';
 import { useAdminEventsStore } from '@/stores/admin/admin.events.store';
-import { formatDate2 } from '@/utils/functions/date.function';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, TableCell, TableRow } from '@heroui/react';
-import { Ellipsis } from 'lucide-react';
-import React from 'react';
+import { formatDate2, formatDateFrench, getHourMinute } from '@/utils/functions/date.function';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, useDisclosure } from '@heroui/react';
+import { Calendar, Clock, Ellipsis, MapPinIcon, Ticket } from 'lucide-react';
+import Image from 'next/image';
+import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 
 export const EventsList = () => {
 
     const { items, isLoading, fetchItems, columnsValue } = useAdminEventsStore()
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
     useEffect(() => {
         fetchItems()
 
     }, []);
+
+    const onpenModal = (event: any) => {
+        setSelectedEvent(event);
+        onOpen();
+    }
+
     return (
-        <section>
+        <Fragment>
             <section>
+
 
                 <TableComponent
                     objectHookName={useAdminEventsStore}
@@ -30,7 +40,7 @@ export const EventsList = () => {
                     isLoading={isLoading}
                 >
                     {items.map((item: any) => (
-                        <TableRow key={item.id} className="">
+                        <TableRow key={item.id} className="cursor-pointer" onClick={() => onpenModal(item)}>
                             <TableCell >{formatDate2(item.startDate)}</TableCell>
                             <TableCell >{item.name}</TableCell>
                             <TableCell >{item.categories.map((cat: any) => cat.name).join(", ")}</TableCell>
@@ -39,22 +49,7 @@ export const EventsList = () => {
                             <TableCell ><StatusComponent status={item.status} /></TableCell>
                             <TableCell >
                                 <div>
-                                    <Dropdown>
-                                        <DropdownTrigger>
-                                            <div className="flex items-center justify-center">
-                                                <Ellipsis className="text-default-300" />
-                                            </div>
-
-                                        </DropdownTrigger>
-                                        <DropdownMenu aria-label="Static Actions">
-                                            <DropdownItem key="new">New file</DropdownItem>
-                                            <DropdownItem key="copy">Copy link</DropdownItem>
-                                            <DropdownItem key="edit">Edit file</DropdownItem>
-                                            <DropdownItem key="delete" className="text-danger" color="danger">
-                                                Delete file
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
+                                    <Ellipsis className="text-default-300" />
                                 </div>
                             </TableCell>
 
@@ -62,9 +57,102 @@ export const EventsList = () => {
                     ))}
 
                 </TableComponent>
+
+
             </section>
 
-        </section>
+            <Modal
+                size={"3xl"}
+                isOpen={isOpen}
+                onOpenChange={onOpenChange} classNames={{
+                    closeButton: 'text-primary',
+                }}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <div className='px-6 pt-5 mb-2 flex justify-end items-center '>
+
+                            </div>
+                            <ModalBody>
+                                <div className=" mx-auto p-6 mb-12 section-container md:px-10">
+                                    <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
+
+                                        Détails
+                                    </h2>
+
+                                    <div className="relative w-full h-64">
+                                        <Image
+                                            objectFit='cover'
+                                            width={350}
+                                            height={500}
+                                            src={selectedEvent?.coverPicture}
+                                            alt="Event Banner"
+                                            className="w-full h-full object-contain rounded-xl"
+                                        />
+                                    </div>
+
+                                    <div className="mt-3">
+                                        <h1 className="text-2xl font-extrabold">{selectedEvent?.name}</h1>
+                                        <p className="information-text ">
+                                            Rencontrez des passionnés de la
+                                            tech autour d’un verre !
+                                        </p>
+                                        <p className="space-x-2 mt-2">
+                                            <span className="information-text ">Organisée par </span>
+                                            <span className={"intormation-title"}>{`${selectedEvent?.postedBy?.firstName} ${selectedEvent?.postedBy?.lastName}`}</span>
+                                            <span className="information-text ">publié le </span>
+                                            <span className={"intormation-title"}>{selectedEvent?.createdAt?.split("T")[0]}</span>
+                                        </p>
+                                        <div className="flex items-center gap-4 text-sm text-black mt-4">
+                                            <p className="flex items-center gap-1 font-normal text-lg">
+                                                <Calendar className="w-5 h-5 text-primary mx-0" />
+                                                {formatDateFrench(selectedEvent?.startDate)}
+                                                {/* Samedi 14 Avril 2025 */}
+                                            </p>
+                                            <p className="flex items-center gap-1">
+                                                <MapPinIcon fill="red" className="w-5 h-5 text-white mx-0" /> {selectedEvent?.address?.city}
+                                            </p>
+                                            <p className="flex items-center gap-1">
+                                                <Clock className="w-5 h-5 text-white mx-0" fill="red" />
+                                                {getHourMinute(selectedEvent?.startTime || "")}
+                                            </p>
+                                            <p className="text-black flex items-center gap-1 font-semibold">
+                                                <Ticket className="w-5 h-5 text-white mx-0" fill="red" />
+                                                {selectedEvent?.accessType === "FREE" ? "Gratuit" : "Payant"}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="md:grid md:grid-cols-3 gap-14 mt-4">
+                                        <div className="col-span-2">
+                                            {/* Description */}
+                                            <div className="mt-6 space-y-2.5">
+                                                <h2 className="information-title1">Description</h2>
+                                                <p className="information-text ">
+                                                    {selectedEvent?.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Approuver
+                                </Button>
+                                <Button color="primary" onPress={onClose}>
+                                    Refuser
+                                </Button>
+                                <Button color="primary" onPress={onClose}>
+                                    Correction
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+        </Fragment>
+
     );
 }
 
