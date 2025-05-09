@@ -5,9 +5,12 @@ import { useState } from "react";
 import { Bell, MapPinIcon, Menu, MessageCircleMore } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import Image from "next/image";
+import { getInitials } from "@/utils/functions/other.functions";
+import { useAppContext } from "@/context";
 
 export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isAuth } = useAppContext();
 
     return (
         <Navbar
@@ -108,7 +111,7 @@ export const AuthentificatedNavbarSection = () => {
 
                     <Dropdown>
                         <DropdownTrigger>
-                            <Avatar name={"USR"} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
+                            <Avatar name={getInitials(isAuth?.firstName, isAuth?.lastName)} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
                             <DropdownItem key="new">

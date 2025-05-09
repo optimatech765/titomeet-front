@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { formatDate, getHourMinute } from '@/utils/functions/date.function';
-import { Card, Image,  Progress, Button, CardBody } from '@heroui/react';
-import { Clock, MapPin, MessageCircleMore, PencilLine, Users } from "lucide-react";
+import { Card, Progress, Button, CardBody } from '@heroui/react';
+import { Clock, MapPin, MessageCircleMore, PencilLine, Ticket, Users } from "lucide-react";
+import Image from 'next/image';
 import React from 'react';
 
-export const OurHorizontalCardComponent = ({event}:{event:any}) => {
+export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
     return (
         <Card
             isBlurred
@@ -14,17 +15,16 @@ export const OurHorizontalCardComponent = ({event}:{event:any}) => {
         >
             <div>
                 <div className="grid grid-cols-6 md:grid-cols-12 gap-2 md:gap-1  justify-center">
-                    <div className="relative col-span-6 md:col-span-4">
+                    <div className="relative col-span-6 md:col-span-4 h-56 md:h-40 ">
                         <Image
                             alt="Album cover"
                             className="object-cover  "
-                            height={150}
-                            shadow="md"
+                            layout="fill"
+                            objectFit="cover"
                             src={event.coverPicture}
-                            width="100%"
+
                         />
                     </div>
-
                     <CardBody className="flex flex-col col-span-6 md:col-span-8 py-2">
 
                         <div className="flex items-start gap-3">
@@ -33,11 +33,14 @@ export const OurHorizontalCardComponent = ({event}:{event:any}) => {
                                 <p className="text-sm text-danger font-bold uppercase">{formatDate(event?.startDate).month}</p>
                             </div>
                             <div>
-                                <p className="text-xs md:text-lg md:font-semibold">{event?.name}</p>
+                                <p className="event-card-title">{event?.name}</p>
                                 <div className="flex flex-wrap gap-2 items-center text-sm text-default-500">
                                     <div className="flex items-center gap-1 text-xs"><MapPin size={16} />  {event?.address?.city}</div>
                                     <div className="flex items-center gap-1 text-xs"><Clock size={16} /> {getHourMinute(event?.startTime)}</div>
-                                    <div className="flex items-center gap-1 text-xs"><Clock size={16} /> 15:00</div>
+                                    <div className="flex items-center gap-1">
+                                        <Ticket className="w-5 h-5 text-white px-0" fill="red" />
+                                        {event?.accessType === "FREE" ? "Gratuit" : "Payant"}
+                                    </div>
                                 </div>
                             </div>
                         </div>

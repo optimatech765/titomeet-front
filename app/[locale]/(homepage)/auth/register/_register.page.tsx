@@ -92,8 +92,8 @@ export const RegisterPage = () => {
 
     const errors: any = [];
 
-    if (registerInfo.password.length < 4) {
-        errors.push("le mot de passe doit contenir au moins 4 caractères");
+    if (registerInfo.password.length < 8) {
+        errors.push("le mot de passe doit contenir au moins 8 caractères");
     }
     if ((registerInfo.password.match(/[A-Z]/g) || []).length < 1) {
         errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");
@@ -174,10 +174,10 @@ export const RegisterPage = () => {
                 <label className="block text-sm font-medium">Mot de passe</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
-                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} className='text-primary' onClick={() => setShowPassword(!showPassword)} />}
+                    endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} className='text-primary' onClick={() => setShowPassword(!showPassword)} />}
                     fullWidth
                     value={registerInfo?.password}
-                    isInvalid={errorFields.field === 'password'}
+                    isInvalid={errors?.length > 0 || errorFields.field === 'password'}
                     name="password"
                     isRequired
                     errorMessage={() => (
@@ -198,7 +198,7 @@ export const RegisterPage = () => {
                 <label className="block text-sm font-medium">Confirmer le mot de passe</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
-                    endContent={showPassword ? <EyeOff className='text-primary' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
+                    endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
                     fullWidth
                     value={registerInfo?.confirmPassword}
                     isInvalid={errorFields.field === 'confirmPassword'}

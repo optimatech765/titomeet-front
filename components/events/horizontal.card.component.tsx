@@ -1,6 +1,7 @@
 "use client"
-import { Card, Image,  Progress, Button, CardBody } from '@heroui/react';
+import { Card, Progress, Button, CardBody } from '@heroui/react';
 import { Clock, MapPin, PencilLine, Users } from "lucide-react";
+import Image from 'next/image';
 import React from 'react';
 
 export const HorizontalCardComponent = () => {
@@ -12,14 +13,14 @@ export const HorizontalCardComponent = () => {
         >
             <div>
                 <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4  justify-center">
-                    <div className="relative col-span-6 md:col-span-4">
+                    <div className="relative col-span-6 md:col-span-4 h-56 md:h-40 ">
                         <Image
                             alt="Album cover"
                             className="object-cover  "
-                            height={150}
-                            shadow="md"
-                            src="/img/event-image.jpg"
-                            width="100%"
+                            layout="fill"
+                            objectFit="cover"
+                            src={"/img/event-image.jpg"}
+
                         />
                     </div>
 
@@ -35,7 +36,7 @@ export const HorizontalCardComponent = () => {
                                 <div className="flex flex-wrap gap-2 items-center text-sm text-default-500">
                                     <div className="flex items-center gap-1"><MapPin size={16} /> Cotonou</div>
                                     <div className="flex items-center gap-1"><Clock size={16} /> 15:00</div>
-                                     <div className="flex items-center gap-1"><Clock size={16} /> 15:00</div>
+                                    <div className="flex items-center gap-1"><Clock size={16} /> 15:00</div>
                                 </div>
                             </div>
                         </div>

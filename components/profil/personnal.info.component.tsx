@@ -7,7 +7,7 @@ import { useAppContext } from '@/context';
 
 export const PersonnalInfoComponent = () => {
     const { isAuth } = useAppContext();
-    const { setUserInfo, userInfo } = useUserInfoStore();
+    const { setUserInfo, userInfo,updateUserInfo,handleUpdateUser,isLoading } = useUserInfoStore();
 
 
     useEffect(() => {
@@ -39,18 +39,18 @@ export const PersonnalInfoComponent = () => {
                     <div className="grid md:grid-cols-2 gap-4 mt-6 flex-1 px-3 md:px-10">
 
                         <InputContainerComponentTop title={"Nom"} >
-                            <Input className="w-full" value={ userInfo?.lastName} />
+                            <Input className="w-full" value={ userInfo?.lastName} onChange={(e) => updateUserInfo("lastName", e.target.value)} />
                         </InputContainerComponentTop>
                         <InputContainerComponentTop title={"Prénoms"} >
-                            <Input className="w-full" value={userInfo?.firstName} />
+                            <Input className="w-full" value={userInfo?.firstName} onChange={(e) => updateUserInfo("firstName", e.target.value)} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Nom d'utilisateur"} >
-                            <Input className="w-full" value={userInfo?.username} />
+                            <Input className="w-full" value={userInfo?.username} onChange={(e) => updateUserInfo("username", e.target.value)} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Adresse email"} >
-                            <Input className="w-full" value={userInfo?.email} />
+                            <Input className="w-full" value={userInfo?.email} onChange={(e) => updateUserInfo("email", e.target.value)} />
                         </InputContainerComponentTop>
 
                         <InputContainerComponentTop title={"Localisation"} >
@@ -65,7 +65,7 @@ export const PersonnalInfoComponent = () => {
 
             {/* Bouton sauvegarder */}
             <div className="mt-6">
-                <Button className="bg-red-500 text-white px-6 py-2" radius='full' >
+                <Button isLoading={isLoading} className="bg-red-500 text-white px-6 py-2" radius='full' onPress={()=>handleUpdateUser(userInfo)} >
                     Sauvegarder
                 </Button>
             </div>

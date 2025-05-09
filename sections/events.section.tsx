@@ -7,7 +7,7 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import clsx from "clsx";
 import { useState, useEffect, useRef } from "react";
 
-export const EventsSection = ({ withSearch = false, status }: { withSearch?: boolean, status?: string }) => {
+export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { withSearch?: boolean, status?: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();

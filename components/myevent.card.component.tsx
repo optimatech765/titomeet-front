@@ -5,13 +5,13 @@ import { Plus } from 'lucide-react';
 import { useAppContext } from '@/context';
 import { LoadingComponent2 } from './loading.component';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
-import { useEventsStore } from '@/stores/events.store';
+import { useOurEventsStore } from '@/stores/our.events.store';
 import OurHorizontalCardComponent from './events/our.horizontal.card.component';
 
-export const MyEventEventCardComponent = () => {
+export const MyEventEventCardComponent = ({ showButton = true }: { showButton?: boolean }) => {
     const { isAuth } = useAppContext();
 
-    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+    const { fetchEventList, dataList, isLoading: eventLoading } = useOurEventsStore();
 
     useEffect(() => {
 
@@ -25,13 +25,17 @@ export const MyEventEventCardComponent = () => {
                     <h3 className="text-lg font-bold text-primary">
                         Mes évènements
                     </h3>
-                    <p className="text-xs font-light">
-                        Evènements organisés
-                    </p>
+                    {showButton &&
+                        <p className="text-xs font-light">
+                            Evènements organisés
+                        </p>
+                    }
                 </div>
-                <Button as={Link} href={"/user/events/new"} startContent={<Plus className="w-4 h-4 text-white" />} size='sm' radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
-                    Créer un évènement
-                </Button>
+                {showButton &&
+                    <Button as={Link} href={"/user/events/new"} startContent={<Plus className="w-4 h-4 text-white" />} size='sm' radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
+                        Créer un évènement
+                    </Button>
+                }
                 <div>
                     <Link href={"#"} className="text-xs font-medium text-primary">
                         Voir tout

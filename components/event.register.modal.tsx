@@ -59,7 +59,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
             setBuyLoading(true);
             const data = shopCart?.map((item: any) => ({
                 quantity: +item?.productQuantity,
-                priceId: item?.id || "free",
+                priceId: item?.id,
             }))
 
 
@@ -72,7 +72,12 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 (response) => {
                     console.log(response);
                     toast.success("Vous avez acheté votre ticket");
-                    router.push(response.data.url);
+                    if(singleEvent.accessType === "PAID"){
+                        router.push(response.data.url);
+                    }else{
+                        router.push(`/user/events/${event}/order-confirm`);
+                    }
+                 
                 },
                 (error) => {
                     console.log(error);
@@ -101,7 +106,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
             productPrice: 0,
             totalPrice: 0,
         }] as shopInterface[]
-        setshopCart(singleEvent.accessType === "PAID" ? newShopCart : freeData);
+        setshopCart(newShopCart);
 
     }, []);
 

@@ -29,6 +29,14 @@
     .section-container{
         @apply px-3 md:px-7 lg:px-14;
     }
+
+    .stepper-Title{
+        @apply hidden md:block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit;
+    }
+
+    .event-card-title{
+        @apply font-medium md:text-lg md:font-semibold;
+    }
     
 }
 
