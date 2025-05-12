@@ -87,7 +87,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                     if (singleEvent.accessType === "PAID") {
                         router.push(response.data.url);
                     } else {
-                        router.push(`/user/events/${event}/order-confirm`);
+                        router.push(`/events/${event}/order-confirm`);
                     }
 
                 },
