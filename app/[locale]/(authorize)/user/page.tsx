@@ -35,7 +35,7 @@ const Page = () => {
                 <div className='lg:col-span-8 space-y-3'>
                     <div>
                         <FilterSection />
-                        <div className="block md:hidden">
+                        <div className="block md:hidden mt-3">
                             <DateSelectComponent />
                         </div>
                     </div>

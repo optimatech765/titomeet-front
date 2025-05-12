@@ -1,14 +1,30 @@
 
 
+import { EventCategorieStore } from '@/stores/event.categories.store';
 import { useEventsStore } from '@/stores/events.store';
+import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Button, Input, Select, SelectItem } from '@heroui/react';
 import { LayoutGrid, MapPin, Search, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import React, {useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+const distanceList = [
+    { key: 1, label: '1 km' },
+    { key: 5, label: '5 km' },
+    { key: 10, label: '10 km' },
+    { key: 15, label: '15 km' },
+    { key: 20, label: '20 km' },
+    { key: 25, label: '25 km' },
+    { key: 30, label: '30 km' },
+]
 export const FilterSection = () => {
 
     const { fetchEventList } = useEventsStore();
+    const { dataList, fetchCategoriesList, isLoading } = EventCategorieStore()
+
+    useEffect(() => {
+        fetchCategoriesList()
+    }, []);
 
     return (
         <div className='grid grid-cols-1 gap-4 md:grid-cols-5'>
@@ -23,25 +39,27 @@ export const FilterSection = () => {
             />
 
             <Select
+                items={distanceList}
+                onChange={(e) => fetchEventList({ distance: e.target.value })}
                 className={"col-span-1"}
                 radius='full'
                 placeholder="Distance"
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
             >
-                <SelectItem key="all">Tous</SelectItem>
-                <SelectItem key="events">Évènements</SelectItem>
-                <SelectItem key="places">Lieux</SelectItem>
+                {(ditance) => <SelectItem>{ditance.label}</SelectItem>}
             </Select>
 
             <Select
+                items={dataList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
+                onChange={(e) => fetchEventList({ categories: e.target.value })}
+                isLoading={isLoading}
                 className={"col-span-2"}
                 radius='full'
                 placeholder="Centre d'intérêt"
-                startContent={<LayoutGrid fill='currentColor' className={"text-primary "} />}
+                startContent={<LayoutGrid fill='currentColor' className={"text-primary w-6 h-6  "} />}
+                
             >
-                <SelectItem key="all">Tous</SelectItem>
-                <SelectItem key="events">Évènements</SelectItem>
-                <SelectItem key="places">Lieux</SelectItem>
+                {(animal) => <SelectItem>{animal.label}</SelectItem>}
             </Select>
         </div>
     );

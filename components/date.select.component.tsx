@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
 import { Select, SelectItem, Button, Card } from "@heroui/react";
 import { getMonthWeeks } from "@/utils/functions/date.function";
+import { useEventsStore } from "@/stores/events.store";
 
 const date = new Date();
 const year = date.getFullYear();
@@ -15,7 +17,8 @@ const months = [
 
 const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 
-export const DateSelectComponent = () => {
+export const DateSelectComponent = ({ onChange }: { onChange?: any }) => {
+    const { fetchEventList, } = useEventsStore();
     const [selectedDate, setSelectedDate] = useState<number>(date.getDate());
     const [selectedYear, setSelectedYear] = useState<number>(year);
     const [selectedMonth, setSelectedMonth] = useState<number>(date.getMonth());
@@ -88,6 +91,20 @@ export const DateSelectComponent = () => {
     };
 
     const daysOfWeek = weekDays[selectedWeek] || [];
+
+    useEffect(() => {
+        // create new date from selectedDate, selectedMonth and selectedYear
+        const newDate = new Date(selectedYear, selectedMonth, selectedDate);
+        if (onChange) {
+            onChange(`${newDate.getFullYear()}-${selectedMonth.toString().padStart(2, "0")}-${newDate.getDate()}`)
+        } else {
+            fetchEventList({
+                startDate: `${newDate.getFullYear()}-${selectedMonth.toString().padStart(2, "0")}-${newDate.getDate()}`,
+            })
+        }
+
+    }, [selectedDate]);
+
 
     return (
         <Card className="p-4 border border-gray-200 rounded-xl shadow-sm w-full">

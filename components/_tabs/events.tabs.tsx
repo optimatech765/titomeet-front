@@ -9,14 +9,18 @@ import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
 import { useAppContext } from '@/context';
 
 export const EventsTabs = () => {
-     const { isAuth } = useAppContext();
+    const { isAuth } = useAppContext();
 
     const { fetchEventList, dataList, isLoading: eventLoading } = useAttendeeEventsStore();
 
     useEffect(() => {
 
-        fetchEventList({ page: 1, limit: 25,attendeeId: isAuth?.id });
+        fetchEventList({ page: 1, limit: 25, attendeeId: isAuth?.id });
     }, []);
+
+    const onChange = (data: string) => {
+        fetchEventList({ page: 1, limit: 25, attendeeId: isAuth?.id, startDate:data  });
+    }
 
     return (
         <div>
@@ -49,11 +53,9 @@ export const EventsTabs = () => {
                         </div>
                     </div>
 
-
-
                 </div>
                 <div className='md:col-span-4 space-y-3'>
-                    <DateSelectComponent />
+                    <DateSelectComponent onChange={onChange} />
 
                     <PubCardComponent />
                 </div>
