@@ -193,12 +193,12 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
 
             const toastId = toast.loading(`Mise à jour de la demande...`);
 
-            apiRouting.update(item.id, {status: item.status}).then((response) => {
+            apiRouting.updateStatus(item.id, item.status).then((response) => {
                 console.log(response)
 
                 set((state: any) => ({
                     isSubmitLoading: false,
-                    items: state.items.map((i: any) => i.id === item.id ? item : i),
+                    items: state.items.map((i: any) => i.id === item.id ? {...i,...response.data} : i),
 
                 }));
                 toast.update(toastId, {

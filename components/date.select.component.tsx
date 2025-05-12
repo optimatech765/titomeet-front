@@ -96,10 +96,10 @@ export const DateSelectComponent = ({ onChange }: { onChange?: any }) => {
         // create new date from selectedDate, selectedMonth and selectedYear
         const newDate = new Date(selectedYear, selectedMonth, selectedDate);
         if (onChange) {
-            onChange(`${newDate.getFullYear()}-${selectedMonth.toString().padStart(2, "0")}-${newDate.getDate()}`)
+            onChange(`${newDate.getFullYear()}-${(selectedMonth+1).toString().padStart(2, "0")}-${newDate.getDate()}`)
         } else {
             fetchEventList({
-                startDate: `${newDate.getFullYear()}-${selectedMonth.toString().padStart(2, "0")}-${newDate.getDate()}`,
+                startDate: `${newDate.getFullYear()}-${(selectedMonth+1).toString().padStart(2, "0")}-${newDate.getDate()}`,
             })
         }
 

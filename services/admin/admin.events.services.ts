@@ -22,6 +22,12 @@ export class AdminEventsServices {
         return axios.put(`${this.baseUrl}/admin/events/${id}`, data);
     }
 
+    updateStatus(id: string, data: string) {
+        return axios.put(`${this.baseUrl}/admin/events/${id}/status`,{
+            status: data
+        });
+    }
+
     delete(id: string) {
         return axios.delete(`${this.baseUrl}/admin/events/${id}`);
     }
