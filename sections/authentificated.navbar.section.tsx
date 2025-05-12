@@ -65,6 +65,9 @@ export const AuthentificatedNavbarSection = () => {
                         <LinkH as={Link} href="/user/services" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Services
                         </LinkH>
+                        <LinkH  onPress={logOut} className="text-lg font-semibold">
+                            Se déconnecter
+                        </LinkH>
 
                     </nav>
                 </DrawerContent>
