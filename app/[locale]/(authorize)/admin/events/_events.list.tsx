@@ -12,9 +12,9 @@ import { useEffect } from 'react';
 
 export const EventsList = () => {
 
-    const { items, isLoading, fetchItems, columnsValue } = useAdminEventsStore()
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [selectedEvent, setSelectedEvent] = useState<any>(null);
+    const { items, isLoading, fetchItems, columnsValue,submitUpdateItem } = useAdminEventsStore()
+    const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
+    const [selectedEvent, setSelectedEvent,] = useState<any>(null);
 
     useEffect(() => {
         fetchItems()
@@ -24,6 +24,15 @@ export const EventsList = () => {
     const onpenModal = (event: any) => {
         setSelectedEvent(event);
         onOpen();
+    }
+
+
+    const handleApprouve = () => {
+        submitUpdateItem({
+            id: selectedEvent.id,
+            status: "PUBLISHED"
+        });
+        onClose();
     }
 
     return (
@@ -86,14 +95,14 @@ export const EventsList = () => {
                                         //     backgroundPosition: "center",
                                         // }}
                                     >
-                                        {/* <Image
+                                        <Image
                                             objectFit='cover'
                                             width={800}
                                             height={500}
                                             src={selectedEvent?.coverPicture}
                                             alt="Event Banner"
                                             className="w-full h-full object-cover object-center rounded-xl"
-                                        /> */}
+                                        />
                                     </div>
 
                                     <div className="mt-3">
@@ -143,7 +152,7 @@ export const EventsList = () => {
                             </ModalBody>
                             <ModalFooter>
                                 <div className="flex justify-between items-center flex-1 gap-3">
-                                    <Button color="danger" onPress={onClose} fullWidth >
+                                    <Button color="danger" onPress={handleApprouve} fullWidth >
                                         Approuver
                                     </Button>
                                     <Button color="primary" onPress={onClose} fullWidth>

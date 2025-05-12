@@ -7,10 +7,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { getInitials } from "@/utils/functions/other.functions";
 import { useAppContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuth } = useAppContext();
+    const router = useRouter();
+
+    const logOut = () => {
+        localStorage.removeItem("accessToken");
+        router.push("/auth");
+    }
 
     return (
         <Navbar
@@ -28,9 +35,9 @@ export const AuthentificatedNavbarSection = () => {
             {/* Logo */}
             <NavbarBrand className="px-0">
                 <div className="flex items-center  gap-2 flex-1">
-                   
+
                     <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto " />
-                   
+
                     <Input
                         startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
                         radius="full"
@@ -120,7 +127,7 @@ export const AuthentificatedNavbarSection = () => {
                                 </Link>
                             </DropdownItem>
                             <DropdownItem key="delete" className="text-danger" color="danger">
-                                <Link href="/auth">Se déconnecter</Link>
+                                <span className={"cursor-pointer"} onClick={logOut} >Se déconnecter</span>
                                 {/* Se déconnecter */}
                             </DropdownItem>
                         </DropdownMenu>
