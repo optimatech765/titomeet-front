@@ -38,7 +38,7 @@ export const EventDetails = () => {
         fetchSingleEventDetails(event as string);
         fetchEventList({ limit: 2 });
 
-    }, []);
+    }, [event]);
 
 
     return (
