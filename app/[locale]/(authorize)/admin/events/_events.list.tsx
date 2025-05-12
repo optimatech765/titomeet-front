@@ -62,7 +62,8 @@ export const EventsList = () => {
             </section>
 
             <Modal
-                size={"3xl"}
+                scrollBehavior={"inside"}
+                size={"2xl"}
                 isOpen={isOpen}
                 onOpenChange={onOpenChange} classNames={{
                     closeButton: 'text-primary',
@@ -70,25 +71,29 @@ export const EventsList = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <div className='px-6 pt-5 mb-2 flex justify-end items-center '>
 
-                            </div>
-                            <ModalBody>
+                            <ModalBody >
                                 <div className=" mx-auto p-6 mb-12 section-container md:px-10">
                                     <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
 
                                         Détails
                                     </h2>
 
-                                    <div className="relative w-full h-64">
-                                        <Image
+                                    <div className={`w-full h-64`}
+                                        // style={{
+                                        //     backgroundImage: `url(${selectedEvent?.coverPicture || ""})`,
+                                        //     backgroundSize: "cover",
+                                        //     backgroundPosition: "center",
+                                        // }}
+                                    >
+                                        {/* <Image
                                             objectFit='cover'
-                                            width={350}
+                                            width={800}
                                             height={500}
                                             src={selectedEvent?.coverPicture}
                                             alt="Event Banner"
-                                            className="w-full h-full object-contain rounded-xl"
-                                        />
+                                            className="w-full h-full object-cover object-center rounded-xl"
+                                        /> */}
                                     </div>
 
                                     <div className="mt-3">
@@ -123,8 +128,8 @@ export const EventsList = () => {
                                         </div>
                                     </div>
 
-                                    <div className="md:grid md:grid-cols-3 gap-14 mt-4">
-                                        <div className="col-span-2">
+                                    <div className=" gap-14 mt-4">
+                                        <div className="">
                                             {/* Description */}
                                             <div className="mt-6 space-y-2.5">
                                                 <h2 className="information-title1">Description</h2>
@@ -137,15 +142,18 @@ export const EventsList = () => {
                                 </div>
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
-                                    Approuver
-                                </Button>
-                                <Button color="primary" onPress={onClose}>
-                                    Refuser
-                                </Button>
-                                <Button color="primary" onPress={onClose}>
-                                    Correction
-                                </Button>
+                                <div className="flex justify-between items-center flex-1 gap-3">
+                                    <Button color="danger" onPress={onClose} fullWidth >
+                                        Approuver
+                                    </Button>
+                                    <Button color="primary" onPress={onClose} fullWidth>
+                                        Refuser
+                                    </Button>
+                                    <Button color="primary" onPress={onClose} fullWidth >
+                                        Correction
+                                    </Button>
+                                </div>
+
                             </ModalFooter>
                         </>
                     )}
