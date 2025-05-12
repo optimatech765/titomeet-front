@@ -12,8 +12,8 @@ import { useEffect } from 'react';
 
 export const EventsList = () => {
 
-    const { items, isLoading, fetchItems, columnsValue,submitUpdateItem } = useAdminEventsStore()
-    const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
+    const { items, isLoading, fetchItems, columnsValue, submitUpdateItem } = useAdminEventsStore()
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [selectedEvent, setSelectedEvent,] = useState<any>(null);
 
     useEffect(() => {
@@ -89,11 +89,11 @@ export const EventsList = () => {
                                     </h2>
 
                                     <div className={`w-full h-64`}
-                                        // style={{
-                                        //     backgroundImage: `url(${selectedEvent?.coverPicture || ""})`,
-                                        //     backgroundSize: "cover",
-                                        //     backgroundPosition: "center",
-                                        // }}
+                                    // style={{
+                                    //     backgroundImage: `url(${selectedEvent?.coverPicture || ""})`,
+                                    //     backgroundSize: "cover",
+                                    //     backgroundPosition: "center",
+                                    // }}
                                     >
                                         <Image
                                             objectFit='cover'
@@ -152,15 +152,19 @@ export const EventsList = () => {
                             </ModalBody>
                             <ModalFooter>
                                 <div className="flex justify-between items-center flex-1 gap-3">
-                                    <Button color="danger" onPress={handleApprouve} fullWidth >
-                                        Approuver
-                                    </Button>
+                                    {selectedEvent.status === "PENDING" &&
+                                        <Button color="danger" onPress={handleApprouve} fullWidth >
+                                            Approuver
+                                        </Button>
+                                    }
                                     <Button color="primary" onPress={onClose} fullWidth>
-                                        Refuser
+                                    {selectedEvent.status === "PUBLISHED" ?"Annuler": "Refuser"}
                                     </Button>
-                                    <Button color="primary" onPress={onClose} fullWidth >
-                                        Correction
-                                    </Button>
+                                    {selectedEvent.status === "PENDING" &&
+                                        <Button color="primary" onPress={onClose} fullWidth >
+                                            Correction
+                                        </Button>
+                                    }
                                 </div>
 
                             </ModalFooter>
