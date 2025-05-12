@@ -23,15 +23,16 @@ const ServicesFilterSection = () => {
     }
 
     return (
-        <div className='flex max-w-4xl mx-auto flex-col md:flex-row gap-4 items-center min-h-[93px] bg-hero-pattern  rounded-md p-3'>
+        <div className='md:flex max-w-4xl mx-auto space-y-2 md:space-y-0 md:flex-row gap-4 items-center min-h-[93px] bg-hero-pattern  rounded-md p-3'>
 
             <div className='flex-1'>
                 <Input
                     startContent={<Search className={"text-primary "} />}
                     placeholder="Rechercher"
-                    radius='full'
+
                     onChange={(e) => handleChange("searchValue", e.target.value)}
                     value={filterData.searchValue}
+                    fullWidth
                 />
             </div>
 
@@ -52,7 +53,7 @@ const ServicesFilterSection = () => {
 
             <div className='flex-1'>
                 <Select
-                    radius='full'
+
                     placeholder="Note"
                     startContent={<Star className={" text-primary"} fill='#ee3540' />}
                     onChange={(e) => handleChange("isFavorite", e.target.value)}
@@ -64,15 +65,18 @@ const ServicesFilterSection = () => {
                 </Select>
             </div>
 
+            <div>
+                <Button isIconOnly className="bg-white hidden md:block text-primary p-3 hover:bg-primary hover:text-white">
+                    <Search className="w-4 h-4 " />
+                    <span className="md:hidden">Rechercher</span>
+                </Button>
+                <Button className="md:hidden flex w-full text-lg bg-secondary text-white  p-3 hover:bg-primary hover:text-white">
+                    <Search className="w-4 h-4 " />
+                    <span className="">Rechercher</span>
+                </Button>
 
-            <Button isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
-                <Search className="w-4 h-4 " />
-                <span className="md:hidden">Rechercher</span>
-            </Button>
-            <Button className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
-                <Search className="w-4 h-4 " />
-                <span className="">Rechercher</span>
-            </Button>
+            </div>
+
 
         </div>
     );

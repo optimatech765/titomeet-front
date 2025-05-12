@@ -41,13 +41,21 @@ const Page = () => {
 
                     <Divider />
 
-                    <section className={"flex flex-wrap gap-4 "}>
+                    <section className={"space-y-3 sm:space-y-0 sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4 "}>
                         <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={fetchIsLoading}>
                             <>
                                 {dataList.map((item: ProvidersResponseDto, i) => (
-                                    <div onClick={() => onOpen()} key={i}>
+                                    <>
+                                    <div onClick={() => onOpen()} key={i} className='flex-1'>
                                         <ServiceCardComponent data={item} />
                                     </div>
+                                    <div onClick={() => onOpen()} key={i+"h"} className='flex-1'>
+                                        <ServiceCardComponent data={item} />
+                                    </div>
+                                    <div onClick={() => onOpen()} key={i+"f"} className='flex-1'>
+                                        <ServiceCardComponent data={item} />
+                                    </div>
+                                    </>
                                 ))}
                             </>
                         </AwaitDataLoader>

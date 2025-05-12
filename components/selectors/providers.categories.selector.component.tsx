@@ -25,7 +25,7 @@ export const ProvidersCategoriesSelectorComponent = ({ value, onChange, withIcon
     return (
         <div>
             <Select
-            
+        
                 startContent={withIcon && <LayoutGrid fill='currentColor' className={"text-primary "} />}
                 isLoading={isLoading}
                 selectionMode={isMultiple ? "multiple" : "single"}
@@ -35,18 +35,11 @@ export const ProvidersCategoriesSelectorComponent = ({ value, onChange, withIcon
                 onChange={(e) => onChange(e.target.value)}
                 isInvalid={errorField.field === 'categoryId'}
                 errorMessage={errorField?.message}
-                // className='border-slate-300'
-                // classNames={{
-                //     base: "w-full bg-white border-slate-300",
-                //     trigger: "w-full bg-white border-slate-300",
-                   
-                // }}
-                // variant='bordered'
-                // label={"Catégorie"}
                 variant={withIcon?"flat":"bordered"}
                 fullWidth={true}
                 labelPlacement={"outside-left"}
                 selectedKeys={value}
+                className=''
             >
                 {(animal) => <SelectItem>{animal.label}</SelectItem>}
 
