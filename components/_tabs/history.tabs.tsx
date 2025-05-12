@@ -7,15 +7,17 @@ import { PubCardComponent } from '@/components/pub.card.component';
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
-import {AwaitDataLoader} from '../await.data.loader';
+import { AwaitDataLoader } from '../await.data.loader';
+import { useAppContext } from '@/context';
 
 const HistoryTabs = () => {
 
+    const { isAuth } = useAppContext();
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
 
     useEffect(() => {
 
-        fetchEventList({ page: 1, limit: 25, status: "FINISHED" });
+        fetchEventList({ page: 1, limit: 25, status: "FINISHED", attendeeId: isAuth?.id, });
     }, []);
 
 
@@ -42,7 +44,7 @@ const HistoryTabs = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className='md:col-span-4 space-y-3'>
                     <div className='flex items-center gap-2  justify-between'>
                         <DateInput
