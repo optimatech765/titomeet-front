@@ -32,6 +32,7 @@ interface HookInterface {
     submitDeleteItem: (item: any) => void;
     submitUpdateItem: (item: any) => void;
     fetchSingleItem: (id: string) => void;
+    
 
 }
 
@@ -192,7 +193,7 @@ export const useAdminEventsStore = create<HookInterface>((set) => ({
 
             const toastId = toast.loading(`Mise à jour de la demande...`);
 
-            apiRouting.update(item.id, item).then((response) => {
+            apiRouting.update(item.id, {status: item.status}).then((response) => {
                 console.log(response)
 
                 set((state: any) => ({

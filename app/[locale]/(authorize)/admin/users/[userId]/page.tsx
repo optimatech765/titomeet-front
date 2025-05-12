@@ -1,14 +1,29 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UserState } from './_user.state';
 import { AdminTableComponent } from '@/components/tables/admin.table.component';
 import { Avatar, Card, CardBody } from '@heroui/react';
 import { MapPinIcon } from 'lucide-react';
+import { useUserStore } from '@/stores/admin/admin.users.store';
+import { useParams } from 'next/navigation';
+import { LoadingComponent } from '@/components/loading.component';
 
 
 const Page = () => {
+
+    const params = useParams();
+    const { userId } = params;
+    const { isLoading, fetchSingleItem } = useUserStore()
+
+    useEffect(() => {
+        fetchSingleItem(userId as string);
+    }, [userId]);
+
+    
     return (
         <div className="sm:flex  gap-3 sm:overflow-y-hidden h-screen">
+            {isLoading ?<LoadingComponent /> :
+            <>
             <div className={"sm:w-1/4"}>
                 <Card className='border-1 border-slate-300'>
                     <CardBody>
@@ -65,6 +80,8 @@ const Page = () => {
                 
 
             </div>
+            </>}
+
         </div>
     );
 }

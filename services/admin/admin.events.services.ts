@@ -29,5 +29,6 @@ export class AdminEventsServices {
     getById(id: string) {
         return axios.get(`${this.baseUrl}/admin/events/${id}`);
     }
+    
 
 }

@@ -102,14 +102,7 @@ export const EventDetails = () => {
                                     {singleEvent?.description}
                                 </p>
                             </div>
-
-                            {/* Avantages */}
-                            {/* <div className="mt-6 space-y-2.5">
-                            <h2 className="information-title1">Avantages</h2>
-                            <p className="information-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor...
-                            </p>
-                        </div> */}
+                          
 
                             {/* Participants */}
                             <div className="mt-6 space-y-2.5">

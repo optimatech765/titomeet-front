@@ -7,15 +7,20 @@ import { TableComponent } from '@/components/table.component';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, TableCell, TableRow } from '@heroui/react';
 import { formatDate2 } from '@/utils/functions/date.function';
 import { Ellipsis } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
 
         const { items, isLoading, fetchItems, columnsValue } = useUserStore()
     
-
     useEffect(() => {
         fetchItems();
     }, []);
+    const router = useRouter()
+
+    const details = (id: string) => {
+        router.push('/admin/users/' + id);
+    }
 
     return (
         <div>
@@ -34,11 +39,11 @@ const Page = () => {
                 >
                     {items.map((item: any) => (
                         <TableRow key={item.id} className="">
-                            <TableCell > {item?.firstName} {item.lastName}  </TableCell>
-                            <TableCell >{item.email}</TableCell>
-                            <TableCell >{item?.address?.name}</TableCell>
-                            <TableCell >{formatDate2(item?.createdAt)}</TableCell>
-                            <TableCell >{item?.role}</TableCell>
+                            <TableCell className='cursor-pointer' onClick={()=>details(item.id)} > {item?.firstName} {item.lastName}  </TableCell>
+                            <TableCell className='cursor-pointer' onClick={()=>details(item.id)}>{item.email}</TableCell>
+                            <TableCell className='cursor-pointer' onClick={()=>details(item.id)}>{item?.address?.name}</TableCell>
+                            <TableCell className='cursor-pointer' onClick={()=>details(item.id)}>{formatDate2(item?.createdAt)}</TableCell>
+                            <TableCell className='cursor-pointer' onClick={()=>details(item.id)}>{item?.role}</TableCell>
                             <TableCell >
                                 <div>
                                     <Dropdown>
