@@ -37,4 +37,8 @@ export class AdminEventsServices {
     }
     
 
+    getState() {
+        return axios.get(`${this.baseUrl}/admin/events/stats`);
+    }
+
 }

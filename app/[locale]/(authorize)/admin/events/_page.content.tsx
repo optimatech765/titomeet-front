@@ -1,7 +1,8 @@
 "use client"
 import { Card, CardBody } from '@heroui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { EventsList } from './_events.list';
+import { useAdminEventsStore } from '@/stores/admin/admin.events.store';
 // import { ModificationList } from './_modification.list';
 
 export const PageContent = () => {
@@ -15,24 +16,42 @@ export const PageContent = () => {
 }
 
 
-const stats = [
-    { title: "Événements créés", value: "2152" },
-    { title: "Événements en attente", value: "120" },
-    { title: "Événements validés", value: "200" },
-    { title: "Demandes de modifications", value: "200" },
-];
-
 const EventStats = () => {
+    const { fetchEventState, eventState } = useAdminEventsStore()
+
+    useEffect(() => {
+        fetchEventState()
+    }, []);
+
     return (
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-            {stats.map((stat, index) => (
-                <Card key={index} className="border-1">
-                    <CardBody>
-                        <p className="text-gray-500 text-center">{stat.title}</p>
-                        <p className="text-2xl font-bold text-center">{stat.value}</p>
-                    </CardBody>
-                </Card>
-            ))}
+
+
+            <Card className="border-1">
+                <CardBody>
+                    <p className="text-gray-500 text-center">Total en attente</p>
+                    <p className="text-2xl font-bold text-center">{eventState?.totalPendingEvents}</p>
+                </CardBody>
+            </Card>
+            <Card className="border-1">
+                <CardBody>
+                    <p className="text-gray-500 text-center">Total publiés</p>
+                    <p className="text-2xl font-bold text-center">{eventState?.totalPublishedEvents}</p>
+                </CardBody>
+            </Card>
+            <Card className="border-1">
+                <CardBody>
+                    <p className="text-gray-500 text-center">Total Brouillons</p>
+                    <p className="text-2xl font-bold text-center">{eventState?.totalDraftEvents}</p>
+                </CardBody>
+            </Card>
+            <Card className="border-1">
+                <CardBody>
+                    <p className="text-gray-500 text-center">Total des rejets</p>
+                    <p className="text-2xl font-bold text-center">{eventState?.totalRejectedEvents}</p>
+                </CardBody>
+            </Card>
+
         </section>
     );
 };

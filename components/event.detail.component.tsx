@@ -139,15 +139,6 @@ export const EventDetails = () => {
                                                     hello la team
                                                 </div>
                                             ))}
-
-                                            {/* <div className="border-1 rounded-md flex items-center gap-2 p-2 flex-1">
-                                            <Avatar src="/img/user.png" size="md" />
-                                            hello la team
-                                        </div>
-                                        <div className="border-1 rounded-md flex items-center gap-2 p-2 flex-1">
-                                            <Avatar src="/img/user.png" size="md" />
-                                            hello la team
-                                        </div> */}
                                         </div>
                                     </CardBody>
                                 </Card>
