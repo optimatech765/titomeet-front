@@ -33,11 +33,13 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
     const { singleEvent, isLoading } = useEventsStore();
     const { isAuth } = useAppContext();
     const [shopCart, setshopCart] = useState<shopInterface[]>([]);
+    const [buyerInfo, setBuyerInfo] = useState<any>({});
     const [clientEmail, setClientEmail] = useState<string>(isAuth?.email ?? "");
     const [buyLoading, setBuyLoading] = useState<boolean>(false);
     const params = useParams();
     const event = params?.eventId
     const router = useRouter();
+
 
     const handleChange = (e: any, index: number) => {
         const newShopCart = [...shopCart];
@@ -51,7 +53,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
         setshopCart(newShopCart);
     }
 
-    const totalPrice = shopCart?.reduce((acc, curr) => acc + curr.productPrice * curr.productQuantity, 0);
+    const totalPrice = shopCart?.reduce((acc, curr) => acc + curr.productPrice * curr.productQuantity, 0) || 0;
 
     const handleShoppingCart = async () => {
 
@@ -63,21 +65,35 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
             }))
 
 
-            eventSevices.buyTicket(event as string, {
+            let cartData: any = {
                 callbackUrl: isAuth ? `${process.env.NEXT_PUBLIC_FRONT_URL}/user/events/${event}/order-confirm` : `${process.env.NEXT_PUBLIC_FRONT_URL}/events/${event}/order-confirm`,
                 eventId: event as string,
                 email: clientEmail,
                 items: data,
-            }).then(
+            }
+
+            if (!isAuth || isAuth?.email==="") {
+                cartData = {
+                    ...cartData,
+                    firstName: buyerInfo?.firstName,
+                    lastName: buyerInfo?.lastName,
+                }
+            }
+
+            eventSevices.buyTicket(event as string, cartData).then(
                 (response) => {
                     console.log(response);
                     toast.success("Vous avez acheté votre ticket");
-                    if(singleEvent.accessType === "PAID"){
+                    if (singleEvent.accessType === "PAID") {
                         router.push(response.data.url);
-                    }else{
-                        router.push(`/user/events/${event}/order-confirm`);
+                    } else {
+                         if (!isAuth || isAuth?.email==="") {
+                        router.push(`/events/${event}/order-confirm`);
+                         }else{
+                             router.push(`/user/events/${event}/order-confirm`);
+                         }
                     }
-                 
+
                 },
                 (error) => {
                     console.log(error);
@@ -95,17 +111,11 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
         const newShopCart = singleEvent?.prices?.map((item: any) => ({
             productName: `${item?.name}-${item?.amount} XOF`,
             productQuantity: 0,
-            productPrice: +item?.amount,
+            productPrice: +item?.amount || 0,
             totalPrice: 0,
             id: item?.id
         })) as shopInterface[];
 
-        const freeData = [{
-            productName: `Ticket Gratuit`,
-            productQuantity: 0,
-            productPrice: 0,
-            totalPrice: 0,
-        }] as shopInterface[]
         setshopCart(newShopCart);
 
     }, []);
@@ -146,7 +156,27 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                                         />
                                     ))}
 
+                                    {!isAuth && <>
+                                        <Input
+                                            value={buyerInfo?.firstName}
+                                            onChange={(e) => setBuyerInfo({ ...buyerInfo, firstName: e.target.value })}
+                                            labelPlacement={"outside"}
+                                            label={<span className="text-sm font-medium text-gray-700">Prénom de l&lsquo;acheteur</span>}
+                                            radius="full"
+                                            placeholder="Prénom de l'acheteur"
+                                            className="mt-2 border-1 rounded-full"
+                                        />
+                                        <Input
+                                            value={buyerInfo?.lastName}
+                                            onChange={(e) => setBuyerInfo({ ...buyerInfo, lastName: e.target.value })}
 
+                                            labelPlacement={"outside"}
+                                            label={<span className="text-sm font-medium text-gray-700">Nom de l&lsquo;acheteur</span>}
+                                            radius="full"
+                                            placeholder="Nom de l'acheteur"
+                                            className="mt-2 border-1 rounded-full"
+                                        />
+                                    </>}
 
                                     <Input
                                         value={clientEmail}
@@ -158,6 +188,8 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                                         placeholder="Adresse mail de reception de ticket"
                                         className="mt-2 border-1 rounded-full"
                                     />
+
+
 
 
                                     <Divider className="mt-2 mb-2" />
