@@ -54,7 +54,7 @@ export const OrderConfirmComponent = () => {
         <div className=' mx-auto mb-28 mt-7 section-container'>
             {isLoading ? <LoadingComponent2 /> : <>
 
-                <h2 className="section-container text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
+                <h2 className=" text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                     {/* <ChevronLeft className="text-black" /> */}
                     Inscription confirmée
                     <Image src="/img/check.png" alt="check" width={20} height={20} />
