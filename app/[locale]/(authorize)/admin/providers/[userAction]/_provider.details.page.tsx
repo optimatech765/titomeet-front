@@ -46,7 +46,7 @@ export const DetailsDemande = () => {
 
                         </div>
 
-                        <div className="col-span-3 grid grid-cols-2 gap-4">
+                        <div className="col-span-3 grid md:grid-cols-2 gap-4">
                             <div>
                                 <p className="text-gray-500 text-sm">Nom du prestataire/entreprise</p>
                                 <p className="font-semibold">{item?.name}</p>
