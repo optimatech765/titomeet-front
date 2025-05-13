@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -28,6 +29,7 @@ export const RegisterPage = () => {
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
     const [showPassword, setShowPassword] = useState(false);
+    const router  = useRouter();
 
     const handleSubmit = async () => {
         try {
@@ -59,7 +61,7 @@ export const RegisterPage = () => {
                         setToken(response?.data?.token);
                         setRefreshToken(response?.data?.refreshToken);
                         console.log(response);
-                        setIsLoading(false);
+                        router.push("/auth");
                     },
                     (error) => {
 
