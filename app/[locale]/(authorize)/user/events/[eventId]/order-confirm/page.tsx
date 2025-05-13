@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React, { Suspense} from 'react';
-import { OrderConfirmPage } from './_order.confirm.page';
+import { OrderConfirmComponent } from '@/components/events/order.confirm.component';
 
 const Page = () => {
 
 
     return (
         <Suspense>
-            <OrderConfirmPage />
+            <OrderConfirmComponent />
         </Suspense>
 
     );
