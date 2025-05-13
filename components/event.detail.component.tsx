@@ -73,7 +73,7 @@ export const EventDetails = () => {
                             <span className="information-text ">publié le </span>
                             <span className={"intormation-title"}>{singleEvent?.createdAt?.split("T")[0]}</span>
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-black mt-4">
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-black mt-4">
                             <p className="flex items-center gap-1 font-normal text-lg">
                                 <Calendar className="w-5 h-5 text-primary mx-0" />
                                 {formatDateFrench(singleEvent?.startDate)}
