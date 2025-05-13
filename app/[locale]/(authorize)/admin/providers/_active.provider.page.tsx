@@ -12,7 +12,8 @@ export const ActivePrividersPage = () => {
     const { items, isLoading, fetchItems, columnsValue } = useAdminProvidersStore()
 
     useEffect(() => {
-        fetchItems({ status: "ACTIVE" });
+        fetchItems({ status: "APPROVED" });
+        // REJECTED
     }, []);
 
     return (

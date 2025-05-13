@@ -185,12 +185,12 @@ export const useAdminProvidersStore = create<HookInterface>((set) => ({
 
             const toastId = toast.loading(`Mise à jour de la demande...`);
 
-            apiRouting.update(item.id, item).then((response) => {
+            apiRouting.updateStatus(item.id, item.status).then((response) => {
                 console.log(response)
 
-                set((state: any) => ({
+                set(() => ({
                     isSubmitLoading: false,
-                    items: state.items.map((i: any) => i.id === item.id ? item : i),
+                    item: response?.data,
 
                 }));
                 toast.update(toastId, {

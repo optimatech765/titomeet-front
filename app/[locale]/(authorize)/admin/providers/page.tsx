@@ -20,16 +20,16 @@ const Page = () => {
             <section>
                 <div className="flex w-full flex-col">
                     <Tabs aria-label="Options"
-                       className='bg-sec'
+                        className='bg-sec'
                         classNames={{
-                            cursor:"bg-secondary-blue text-primary",
+                            cursor: "bg-secondary-blue text-primary",
                         }}
                     >
-                        <Tab key="photos" title="Demandes">
-                            <PendingPrividersPage />
-                        </Tab>
                         <Tab key="music" title="Prestataires">
                             <ActivePrividersPage />
+                        </Tab>
+                        <Tab key="photos" title="Demandes">
+                            <PendingPrividersPage />
                         </Tab>
                     </Tabs>
                 </div>
