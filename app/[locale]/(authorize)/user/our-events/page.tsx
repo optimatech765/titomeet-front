@@ -19,10 +19,10 @@ const Page = () => {
     const [activeTab, setActiveTab] = useState("PUBLISHED");
     const { isAuth } = useAppContext();
 
-    const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+    const { fetchEventList, dataList, isLoading: eventLoading, resetData } = useEventsStore();
 
     useEffect(() => {
-
+        resetData()
         fetchEventList({ page: 1, limit: 25, createdById: isAuth?.id, status: activeTab });
     }, [activeTab]);
 
@@ -72,7 +72,7 @@ const Page = () => {
                                                 <>
                                                     {dataList.map((event: EventDtoResponse, index: number) => (
                                                         // <PublishEventCardComponent event={event} status={"published"} key={index} />
-                                                        <EventCardHorizontalComponent event={event} status={"published"} key={index}/>
+                                                        <EventCardHorizontalComponent event={event} status={"PUBLISHED"} key={index} />
                                                     ))}
 
                                                 </>
@@ -107,7 +107,7 @@ const Page = () => {
                                             </> :
                                                 <>
                                                     {dataList.map((event: EventDtoResponse, index: number) => (
-                                                       <EventCardHorizontalComponent event={event} status={"draft"} key={index}/>
+                                                        <EventCardHorizontalComponent event={event} status={"DRAFT"} key={index} />
                                                     ))}
 
                                                 </>
@@ -181,7 +181,7 @@ const Page = () => {
                                                 <>
                                                     {dataList.map((event: EventDtoResponse, index: number) => (
                                                         // <PublishEventCardComponent event={event} status={"FINISHED"} key={index} />
-                                                        <EventCardHorizontalComponent event={event} status={"past"} key={index}/>
+                                                        <EventCardHorizontalComponent event={event} status={"FINISHED"} key={index} />
                                                     ))}
 
                                                 </>

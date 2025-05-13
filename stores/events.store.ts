@@ -141,6 +141,7 @@ export const useEventsStore = create<EventStore>((set) => ({
             const queryString = paramsToQueryString(searchParams || {});
             set(() => ({
                 isLoading: true,
+                dataList:[]
             }));
 
             eventSevices
@@ -151,7 +152,7 @@ export const useEventsStore = create<EventStore>((set) => ({
 
                         set(() => ({
                             isLoading: false,
-                            dataList: [...items],
+                            dataList: items,
                             DataListConfig: {
                                 totalItems: total,
                                 page: page,
