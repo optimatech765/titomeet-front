@@ -57,6 +57,7 @@ export interface EventDtoResponse {
     _count?: {
         orders: number;
     };
+    ticketsSold?: number;
 }
 
 export interface addressDto {

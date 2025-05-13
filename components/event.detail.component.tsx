@@ -23,6 +23,7 @@ import { LoadingComponent2 } from "./loading.component";
 import { EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
+import { EventMapComponent } from './events/event.map.component';
 
 
 export const EventDetails = () => {
@@ -102,7 +103,7 @@ export const EventDetails = () => {
                                     {singleEvent?.description}
                                 </p>
                             </div>
-                          
+
 
                             {/* Participants */}
                             <div className="mt-6 space-y-2.5">
@@ -113,7 +114,7 @@ export const EventDetails = () => {
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?.orders?.length|| 0} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?.ticketsSold || 0} Participants sur {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -121,7 +122,7 @@ export const EventDetails = () => {
                                                         classNames={{
                                                             indicator: "w-full flex-1 bg-[#28B0E6] ",
                                                         }}
-                                                        value={(singleEvent?.accessType === "PAID" ? (singleEvent?._count?.orders || 0) * 100 / singleEvent?.capacity : singleEvent?.orders?.length * 100 / singleEvent?.capacity)}
+                                                        value={(singleEvent?.accessType === "PAID" ? (singleEvent?.ticketsSold || 0) * 100 / singleEvent?.capacity : (singleEvent?.ticketsSold || 0) * 100 / singleEvent?.capacity)}
                                                         size={"md"}
                                                         className="w-full flex-1 text-[#28B0E6] "
                                                     />
@@ -154,15 +155,15 @@ export const EventDetails = () => {
                                     <DropdownMenu aria-label="Static Actions">
 
                                         <DropdownItem key="copy">
-                                            <FacebookShareButton 
-                                            url={window.location.href} 
-                                            title={"Share this event"}
-                                            hashtag={"tito.me"}
+                                            <FacebookShareButton
+                                                url={window.location.href}
+                                                title={"Share this event"}
+                                                hashtag={"tito.me"}
                                             >
                                                 <div className="flex items-center gap-2">
                                                     <FacebookIcon size={20} className="text-primary" round={true} />
                                                     <span>Facebook</span>
-                                                    
+
                                                 </div>
                                             </FacebookShareButton>
                                         </DropdownItem>
@@ -208,9 +209,16 @@ export const EventDetails = () => {
                             {/* Localisation */}
                             <div className="">
                                 <h2 className="information-title1">Localisation</h2>
-                                <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center">
-                                    <MapPin size={32} className="text-red-500" />
-                                </div>
+                                {singleEvent?.address?.longitude &&
+                                    <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center">
+                                        {/* <MapPin size={32} className="text-red-500" /> */}
+                                        <EventMapComponent
+                                            longitude={singleEvent?.address?.longitude}
+                                            latitude={singleEvent?.address?.latitude}
+                                            city={singleEvent?.address?.city}
+                                        />
+                                    </div>
+                                }
                                 <p className="flex items-center gap-2 mt-3">
                                     <MapPin size={12} className="text-red-500" />
                                     <span className="information-text">
