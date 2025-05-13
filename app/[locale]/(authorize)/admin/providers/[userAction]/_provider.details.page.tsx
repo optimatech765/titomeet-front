@@ -14,22 +14,24 @@ import {
 } from "@heroui/react";
 import { ChevronLeft, EllipsisVertical } from "lucide-react";
 import { useAdminProvidersStore } from "@/stores/admin/admin.providers.store";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { DemandeSkeleton } from "./_loader";
 
 export const DetailsDemande = () => {
     const { userAction } = useParams();
-    const {item, isLoading, fetchSingleItem, } = useAdminProvidersStore()
+    const { item, isLoading, fetchSingleItem, submitUpdateItem, isSubmitLoading } = useAdminProvidersStore()
+    const router = useRouter();
 
     useEffect(() => {
         fetchSingleItem(userAction as string);
     }, []);
+
     return (
         <Fragment>
             {isLoading ? <>
                 <DemandeSkeleton />
             </> : <> <div className="p-6 space-y-6 max-w-4xl mx-auto">
-                <h1 className="text-xl font-bold flex gap-2">
+                <h1 className="text-xl font-bold flex gap-2 cursor-pointer " onClick={() => router.back()}>
                     <ChevronLeft size={32} /> <span>Détails de la demande</span> </h1>
 
                 {/* Carte principale */}
@@ -37,7 +39,7 @@ export const DetailsDemande = () => {
                     <CardBody className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                         <div className="flex justify-center border-r border-gray-300">
                             <Avatar
-                                src="https://i.pravatar.cc/150?img=3"
+                                src={item?.image}
                                 size="lg"
                                 className="mx-auto md:mx-0 h-32 w-32 rounded-full"
                             />
@@ -51,23 +53,23 @@ export const DetailsDemande = () => {
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm">Categorie de service</p>
-                                <p className="font-semibold">Location</p>
+                                <p className="font-semibold">{item?.category?.name}</p>
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm">Localisation</p>
-                                <p className="font-semibold">Cotonou</p>
+                                <p className="font-semibold">{item?.address?.name}</p>
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm">Adresse mail</p>
-                                <p className="font-semibold">Location</p>
+                                <p className="font-semibold">{item?.email}</p>
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm">Numero de telephone</p>
-                                <p className="font-semibold">1111111111</p>
+                                <p className="font-semibold">{item?.phoneNumber}</p>
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm">Site web</p>
-                                <p className="font-semibold">1111111111</p>
+                                <p className="font-semibold">{item?.website}</p>
                             </div>
                         </div>
                     </CardBody>
@@ -80,18 +82,13 @@ export const DetailsDemande = () => {
                             <div>
                                 <p className="font-semibold">Description du service</p>
                                 <p className="text-sm text-gray-600">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu.
+                                    {item?.description}
                                 </p>
                             </div>
                             <div>
                                 <p className="font-semibold">Informations tarifaires</p>
                                 <p className="text-sm text-gray-600">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                                    {item?.pricingDetails}
                                 </p>
                             </div>
                         </div>
@@ -133,11 +130,31 @@ export const DetailsDemande = () => {
 
                 {/* Boutons */}
                 <div className="flex justify-end space-x-4">
-                   
-                    <Button size="sm" color="primary" radius="full" className="bg-primary text-white" >Approuver</Button>
-                    <Button size="sm" color="danger" radius="full" className="bg-tertiary text-primary">
-                        Refuser
-                    </Button>
+
+                    {(item?.status === "PENDING" || item?.status === "REJECTED") &&
+                        <Button
+                            isLoading={isSubmitLoading}
+                            onPress={() => submitUpdateItem({ id: item.id, status: "APPROVED" })}
+                            size="sm"
+                            color="primary"
+                            radius="full"
+                            className="bg-primary text-white px-8"
+                        >Approuver</Button>
+                    }
+
+                    {item?.status === "APPROVED" &&
+                        <Button
+
+                            isLoading={isSubmitLoading}
+                            onPress={() => submitUpdateItem({ id: item.id, status: "REJECTED" })}
+                            size="sm"
+                            color="danger"
+                            radius="full"
+                            className="bg-tertiary text-primary px-8">
+                            Refuser
+                        </Button>
+                    }
+
                 </div>
             </div></>}
         </Fragment>

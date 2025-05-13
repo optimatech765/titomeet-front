@@ -15,7 +15,13 @@ export class AdminProvidersServices {
     }
 
     getById(id: string) {
-        return axios.get(`${this.baseUrl}/admin/providers/${id}`);
+        return axios.get(`${this.baseUrl}/providers/${id}`);
+    }
+
+    updateStatus(id: string, data: any) {
+        return axios.put(`${this.baseUrl}/admin/providers/${id}/status`,{
+            status: data
+        });
     }
 
     add(data: any) {
