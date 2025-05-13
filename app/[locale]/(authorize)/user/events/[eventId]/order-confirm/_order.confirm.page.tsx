@@ -59,7 +59,7 @@ export const OrderConfirmPage = () => {
                     <Image src="/img/check.png" alt="check" width={20} height={20} />
                 </h2>
 
-                <div className="grid grid-cols-12 gap-2">
+                <div className="md:grid grid-cols-12 gap-2 space-y-3 md:space-y-0">
                     <div className="col-span-8">
                         {/* Header */}
                         <div className="relative w-full h-64">
