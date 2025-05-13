@@ -118,7 +118,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
 
         setshopCart(newShopCart);
 
-    }, []);
+    }, [singleEvent]);
 
 
     return (
