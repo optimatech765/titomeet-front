@@ -8,16 +8,22 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, M
 import { Ellipsis, Plus } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
+type actionType = "edit" | "add" | "delete"
+
+const initialVaue = {
+    id: "",
+    name: "",
+    description: "",
+}
+
 const Page = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [categorieData, setCategorieData] = useState<CategorieDto>({
-        id: "",
-        name: "",
-        description: "",
-    });
+    const [categorieData, setCategorieData] = useState<CategorieDto>(initialVaue);
 
-    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading } = useAdminEventCategoriesStore()
+    const [action, setAction] = useState<actionType>("add");
+
+    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem } = useAdminEventCategoriesStore()
 
     useEffect(() => {
         fetchItems();
@@ -41,10 +47,36 @@ const Page = () => {
         }
     }, [isSubmitLoading]);
 
+    const handleselectItem = (item: CategorieDto, action: actionType) => {
+        if (action === "edit") {
+            setCategorieData(item);
+            setAction("edit");
+        } else if (action === "delete") {
+            setAction("delete");
+            setCategorieData(item);
+        } else {
+            setCategorieData(initialVaue);
+            setAction("add");
+        }
+        onOpen();
+    }
+
+    const handleUpdateItem = () => {
+        submitUpdateItem({
+            id: categorieData.id,
+            name: categorieData.name,
+            description: categorieData.description,
+        });
+        setCategorieData(initialVaue);
+        setAction("add");
+        onClose();
+
+    }
+
     return (
         <div className='flex flex-col gap-4'>
             <div className='flex justify-end items-center gap-3'>
-                <Button radius={"full"} onPress={onOpen} className='bg-primary text-white'>
+                <Button radius={"full"} onPress={() => handleselectItem(initialVaue, "add")} className='bg-primary text-white'>
                     <Plus />
                     Ajouter une catégorie
                 </Button>
@@ -62,31 +94,9 @@ const Page = () => {
                     isLoading={isLoading}
                 >
                     {items.map((item) => (
-                        <TableRow key={item.id} className="">
+                        <TableRow key={item.id} onClick={() => handleselectItem(item, "edit")} className="cursor-pointer hover:bg-slate-100">
                             <TableCell className="w-1/4">{item.name}</TableCell>
                             <TableCell className="w-1/4">{item.description}</TableCell>
-                            <TableCell className="w-1/4">
-                                <div>
-                                    <Dropdown>
-                                        <DropdownTrigger>
-                                            <div className="flex items-center justify-center">
-                                                <Ellipsis className="text-default-300" />
-                                            </div>
-
-                                        </DropdownTrigger>
-                                        <DropdownMenu aria-label="Static Actions">
-                                            <DropdownItem key="new">New file</DropdownItem>
-                                            <DropdownItem key="copy">Copy link</DropdownItem>
-                                            <DropdownItem key="edit">Edit file</DropdownItem>
-                                            <DropdownItem key="delete" className="text-danger" color="danger">
-                                                Delete file
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
-                                </div>
-                            </TableCell>
-
-
 
                         </TableRow>
                     ))}
@@ -96,19 +106,23 @@ const Page = () => {
             </section>
 
 
-            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
+            <Modal backdrop={"blur"}
+                isOpen={isOpen}
+                onClose={onClose}
+                classNames={{ closeButton: 'text-primary' }}
+            >
                 <ModalContent >
                     {(onClose) => (
                         <>
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                    Ajout de catégorie
+                                    {action === "add" ? "Ajout de catégorie" : "Edition de catégorie"}
                                 </h3>
 
-                                <p className="text-sm font-light text-center">
+                                {/* <p className="text-sm font-light text-center">
                                     Ajouter une nouvelle catégorie
-                                </p>
+                                </p> */}
 
                             </div>
 
@@ -145,14 +159,15 @@ const Page = () => {
                             </ModalBody>
                             <ModalFooter>
                                 <Button
-                                    onPress={handleSubmi}
+                                    onPress={action === "add" ? handleSubmi : handleUpdateItem}
                                     disabled={isSubmitLoading}
                                     className="w-full bg-primary text-white  "
                                     radius="full"
                                     isLoading={isSubmitLoading}
 
                                 >
-                                    Enregistrer
+                                    {action === "add" ? "Ajouter" : "Modifier"}
+
                                 </Button>
 
                             </ModalFooter>
