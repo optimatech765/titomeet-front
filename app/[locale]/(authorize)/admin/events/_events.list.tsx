@@ -48,13 +48,14 @@ export const EventsList = () => {
                     emptyContent={<p>Aucun résultat</p>}
                     isLoading={isLoading}
                 >
+
                     {items.map((item: any) => (
                         <TableRow key={item.id} className="cursor-pointer" onClick={() => onpenModal(item)}>
                             <TableCell >{formatDate2(item.startDate)}</TableCell>
                             <TableCell >{item.name}</TableCell>
                             <TableCell >{item.categories.map((cat: any) => cat.name).join(", ")}</TableCell>
                             <TableCell >{item?.postedBy?.firstName} {item?.postedBy?.lastName}</TableCell>
-                            <TableCell >{item?.participants?.length}</TableCell>
+                            <TableCell >{item?.orders?.length}</TableCell>
                             <TableCell ><StatusComponent status={item.status} /></TableCell>
                             <TableCell >
                                 <div>
