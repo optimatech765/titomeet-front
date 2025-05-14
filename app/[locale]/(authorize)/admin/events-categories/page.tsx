@@ -5,7 +5,7 @@ import { TableComponent } from '@/components/table.component';
 import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
-import { Ellipsis, Plus } from 'lucide-react';
+import { Ellipsis, Plus, Trash } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 type actionType = "edit" | "add" | "delete"
@@ -23,7 +23,7 @@ const Page = () => {
 
     const [action, setAction] = useState<actionType>("add");
 
-    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem } = useAdminEventCategoriesStore()
+    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem,submitDeleteItem } = useAdminEventCategoriesStore()
 
     useEffect(() => {
         fetchItems();
@@ -97,6 +97,11 @@ const Page = () => {
                         <TableRow key={item.id} onClick={() => handleselectItem(item, "edit")} className="cursor-pointer hover:bg-slate-100">
                             <TableCell className="w-1/4">{item.name}</TableCell>
                             <TableCell className="w-1/4">{item.description}</TableCell>
+                            <TableCell className="w-1/4">
+                                <Button isIconOnly radius="full" color="danger" onPress={() => handleselectItem(item, "delete")}>
+                                    <Trash size={14} />
+                                </Button>
+                            </TableCell>
 
                         </TableRow>
                     ))}
@@ -117,60 +122,89 @@ const Page = () => {
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                    {action === "add" ? "Ajout de catégorie" : "Edition de catégorie"}
+                                    {action === "add" ? "Ajout de catégorie" : action==="edit"? "Edition de catégorie" : "Suppression de catégorie"}
                                 </h3>
-
-                                {/* <p className="text-sm font-light text-center">
-                                    Ajouter une nouvelle catégorie
-                                </p> */}
-
                             </div>
 
                             <ModalBody>
-                                <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
-                                    <Input
-                                        value={categorieData.name}
-                                        onChange={(e) => setCategorieData({ ...categorieData, name: e.target.value })}
-                                        classNames={{
-                                            input: "w-full bg-white",
-                                            base: "w-full bg-white",
-                                            inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
-                                        }}
-                                        placeholder="Nom de la catégorie"
-                                        labelPlacement={"outside"}
-                                        label={<span className="text-sm font-medium text-gray-700">Nom de la catégorie</span>}
-                                    />
+                                {action === "delete" ? (
+                                    <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
+                                        <p className='text-lg font-semibold'>Voulez-vous vraiment supprimer cette catégorie ?</p>
+                                        <p className='text-sm text-gray-500'>Cette action est irréversible.</p>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
+                                        <Input
+                                            value={categorieData.name}
+                                            onChange={(e) => setCategorieData({ ...categorieData, name: e.target.value })}
+                                            classNames={{
+                                                input: "w-full bg-white",
+                                                base: "w-full bg-white",
+                                                inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
+                                            }}
+                                            placeholder="Nom de la catégorie"
+                                            labelPlacement={"outside"}
+                                            label={<span className="text-sm font-medium text-gray-700">Nom de la catégorie</span>}
+                                        />
 
-                                    <Textarea
-                                        value={categorieData.description}
-                                        onChange={(e) => setCategorieData({ ...categorieData, description: e.target.value })}
-                                        classNames={{
-                                            input: "w-full bg-white",
-                                            base: "w-full bg-white",
-                                            inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
-                                        }}
-                                        placeholder="Description de la catégorie"
-                                        rows={5}
-                                        labelPlacement={"outside"}
-                                        label={<span className="text-sm font-medium text-gray-700">Description de la catégorie</span>}
+                                        <Textarea
+                                            value={categorieData.description}
+                                            onChange={(e) => setCategorieData({ ...categorieData, description: e.target.value })}
+                                            classNames={{
+                                                input: "w-full bg-white",
+                                                base: "w-full bg-white",
+                                                inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
+                                            }}
+                                            placeholder="Description de la catégorie"
+                                            rows={5}
+                                            labelPlacement={"outside"}
+                                            label={<span className="text-sm font-medium text-gray-700">Description de la catégorie</span>}
 
-                                    />
-                                </div>
+                                        />
+                                    </div>
+                                )
+                                }
                             </ModalBody>
+
                             <ModalFooter>
-                                <Button
-                                    onPress={action === "add" ? handleSubmi : handleUpdateItem}
-                                    disabled={isSubmitLoading}
-                                    className="w-full bg-primary text-white  "
-                                    radius="full"
-                                    isLoading={isSubmitLoading}
+                                {action !== "delete" ? (
+                                    <Button
+                                        onPress={action === "add" ? handleSubmi : handleUpdateItem}
+                                        disabled={isSubmitLoading}
+                                        className="w-full bg-primary text-white  "
+                                        radius="full"
+                                        isLoading={isSubmitLoading}
 
-                                >
-                                    {action === "add" ? "Ajouter" : "Modifier"}
+                                    >
+                                        {action === "add" ? "Ajouter" : "Modifier"}
 
-                                </Button>
+                                    </Button>
+                                ) : <>
+
+                                    <Button
+                                        onPress={() => {
+                                            submitDeleteItem(categorieData);
+                                            onClose();
+                                        }}
+                                        className="w-full bg-danger text-white  "
+                                        radius="full"
+                                        isLoading={isSubmitLoading}
+                                    >
+                                        Supprimer
+                                    </Button>
+                                    <Button
+                                        onPress={onClose}
+                                        className="w-full bg-gray-200 text-gray-700  "
+                                        radius="full"
+                                    >
+                                        Annuler
+                                    </Button>
+                                </>
+                                }
 
                             </ModalFooter>
+
+
                         </>
                     )}
                 </ModalContent>
