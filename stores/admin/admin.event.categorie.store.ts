@@ -9,7 +9,7 @@ import { AdminEventCategorieServices } from '@/services/admin/admin.event.catego
 const columns = [
     { name: "Nom", uid: "name", sortable: true },
     { name: "Description", uid: "description", sortable: true },
-    { name: "ACTIONS", uid: "actions", sortable: false },
+    { name: "Actions", uid: "actions", sortable: false }
 ];
 
 
