@@ -6,7 +6,7 @@ import React from 'react';
 
 export const FooterSection = () => {
     return (
-        <div className="">
+        <div className="mt-7">
             <footer className="bg-footer-pattern bg-cover min-h-56 pt-11 px-5 md:px-10">
 
                 <div className="md:grid gap-4 grid-cols-3">
@@ -53,11 +53,11 @@ export const FooterSection = () => {
                             placeholder="Email"
                             type="email"
                             endContent={
-                                <div className='mx-0'>
-                                    <Button className="bg-primary text-white rounded-full my-2 px-4 py-2">
-                                        S&apos;inscrire
-                                    </Button>
-                                </div>
+
+                                <Button className="bg-primary text-white rounded-full -mr-4 ">
+                                    S&apos;inscrire
+                                </Button>
+
                             }
                         />
                     </div>
