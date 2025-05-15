@@ -49,12 +49,6 @@ const Page = () => {
                                     <div onClick={() => onOpen()} key={i} className='flex-1'>
                                         <ServiceCardComponent data={item} />
                                     </div>
-                                    <div onClick={() => onOpen()} key={i+"h"} className='flex-1'>
-                                        <ServiceCardComponent data={item} />
-                                    </div>
-                                    <div onClick={() => onOpen()} key={i+"f"} className='flex-1'>
-                                        <ServiceCardComponent data={item} />
-                                    </div>
                                     </>
                                 ))}
                             </>

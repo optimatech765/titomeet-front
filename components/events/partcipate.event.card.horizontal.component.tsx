@@ -74,7 +74,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 radius='full'
                                 color='primary'
                                 className="mt-2 w-full border-1 text-xs font-semibold text-primary">
-                                Accéder à la discussion
+                                Discussion
                             </Button>
 
                             <Button
@@ -84,7 +84,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 radius='full'
                                 color='primary'
                                 className="mt-2 border-1 w-full text-xs font-semibold text-primary">
-                                Modifier participation
+                                Participation
                             </Button>
                         </div>
                     </CardBody>
