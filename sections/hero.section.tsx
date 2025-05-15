@@ -40,17 +40,22 @@ export const HeroSection = () => {
         <section className="bg-white  py-3">
             <div className="section-container mx-auto lg:flex lg:flex-row  justify-between">
                 {/* Texte et boutons */}
-                <div className="lg:w-1/2  lg:text-left space-y-7 mt-9">
-                    <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+                <div className="lg:w-1/2  lg:text-left space-y-4 mt-9">
+
+                    <div className="text-4xl md:text-5xl font-bold text-black leading-tight space-y-2">
                         <p className="text-primary">Tit<span className="text-secondary" >o</span>meet,</p>
                         <p className="text-black">{landingText(activeIndex + '.title' as any)}</p>
-                    </h1>
-                    <p className="text-gray-600 mt-4 text-lg">
-                        {landingText(activeIndex + '.description' as any)}
-                    </p>
+                    </div>
+
+                    <div>
+                        <p className="text-gray-600 text-lg">
+                            {landingText(activeIndex + '.description' as any)}
+                        </p>
+                    </div>
+
 
                     {/* Boutons */}
-                    <div className="mt-6 mb-4 flex flex-col sm:flex-row items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
                         <Button
                             as={Link}
                             href="#evenements"
@@ -69,7 +74,7 @@ export const HeroSection = () => {
 
                     {/* Barre de recherche */}
 
-                    <div className="mt-14  min-h-[93px] bg-hero-pattern bg-red-100  p-1 rounded-lg md:rounded-full px-5  flex flex-col md:flex-row items-center gap-4 shadow-md">
+                    <div className=" min-h-[93px] bg-hero-pattern bg-red-100 py-3 px-2  md:p-1 rounded-lg md:rounded-full mt-3  flex flex-col md:flex-row items-center gap-4 shadow-md">
                         <Input
                             onChange={(e) => setSearchParameter({ ...searchParameter, keyWord: e.target.value })}
                             type="text"
@@ -98,6 +103,7 @@ export const HeroSection = () => {
                             <span className="">Rechercher</span>
                         </Button>
                     </div>
+
 
 
                 </div>

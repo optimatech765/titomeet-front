@@ -44,7 +44,7 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
     };
 
     return (
-        <div className="min-h-screen ">
+        <div className="py-10 ">
             {eventLoading ?
                 <div ref={loadMoreRef} className="mt-4 text-center">
                     {eventLoading &&
@@ -57,7 +57,7 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
                         </div>
                     </> :
                         <>
-                            <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")} >
+                            <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3")} >
 
                                 {dataList.map((event: EventDtoResponse, index: number) => (
                                     <EventCardComponent event={event} key={index} />

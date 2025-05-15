@@ -121,7 +121,7 @@ const Page = () => {
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                    {action === "add" ? "Ajout de catégorie" : "Edition de catégorie"}
+                                    {action === "add" ? "Ajout de catégorie" : action==="edit"? "Edition de catégorie" : "Suppression de catégorie"}
                                 </h3>
                             </div>
 

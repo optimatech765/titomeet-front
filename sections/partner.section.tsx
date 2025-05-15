@@ -4,13 +4,14 @@ import Image from "next/image";
 
 export const PartenairesSection = () => {
     return (
-        <section className="py-16 bg-gradient-to-b from-white to-orange-200 text-center">
+        <section className=" bg-white text-center">
+            {/* bg-gradient-to-b from-white to-orange-200 */}
             <div className="space-y-1">
                 
                 <h2 className="text-xl md:text-4xl font-bold text-primary">Nos partenaires</h2>
 
                 <p className="text-gray-600 relative inline-block mt-2">
-                    Un réseau de partenaires pour des événements sans limites
+                    Un réseau de partenaires pour des évènements sans limites
                 </p>
                 <div className="bg-primary h-2 max-w-36 mt-1 rounded-tl-md mx-auto" />
             </div>

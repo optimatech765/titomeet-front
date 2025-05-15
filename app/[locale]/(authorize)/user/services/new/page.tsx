@@ -16,7 +16,7 @@ const Page = () => {
                     Devenez Prestataire sur TITOMEET & Développez Votre Activité
                 </p>
                 <p className="text-center text-gray-600 mt-2 font-light ">
-                    Rejoignez une communauté dynamique et accédez à des milliers d&#39;organisateurs d&#39;événements à la recherche de services de qualité
+                    Rejoignez une communauté dynamique et accédez à des milliers d&#39;organisateurs d&#39;évènements à la recherche de services de qualité
                 </p>
                 <Divider className="my-6" />
                 <p className="text-center font-medium">

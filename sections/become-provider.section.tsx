@@ -31,7 +31,7 @@ export const BecomeProviderSection = () => {
       <div className="flex-1 max-w-xl">
         <h2 className="text-2xl md:text-3xl font-bold mb-2">Devenez prestataire sur  <span className="text-red-600 block">TITOMEET</span></h2>
         <p className="text-gray-600 mb-6">
-          Rejoignez la communauté de prestataires et recevez des demandes pour des événements uniques.
+          Rejoignez la communauté de prestataires et recevez des demandes pour des évènements uniques.
         </p>
         <ul className="space-y-3 mb-6">
           {features.map((feature, idx) => (

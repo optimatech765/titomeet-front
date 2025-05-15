@@ -38,7 +38,7 @@ export const NavbarSection = () => {
                             Accueil
                         </LinkH>
                         <LinkH as={Link} href="/#evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Événements
+                            évènements
                         </LinkH>
                         <LinkH as={Link} href="/#categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Catégories

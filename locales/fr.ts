@@ -35,8 +35,8 @@ export default {
       'second': 'Créer un évènement'
     },
     "event": {
-      "title": "Evenements à venir",
-      "description": "Des événements exclusifs, des places limitées "
+      "title": "Evènements à venir",
+      "description": "Des évènements exclusifs, des places limitées "
     }
   }
 } as const

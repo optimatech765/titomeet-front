@@ -86,7 +86,7 @@ const Page = () => {
             {sendingEmail ? <>
                 <div className="text-center mt-6 shadow-lg p-4 rounded-lg">
                     <div className="flex tems-center justify-center">
-                        <CheckCircleIcon className="h-14 w-14 text-primary" />
+                        <CheckCircleIcon className="h-14 w-14 text-emerald-500" />
                     </div>
 
                     <p>

@@ -245,10 +245,10 @@ export const EventDetails = () => {
                     </div>
                 </div>
 
-                {/* Événements similaires */}
+                {/* évènements similaires */}
                 <div className="mt-10 bg-[#F8F8F8] pb-12 ">
                     <div className="section-container mx-auto p-6 ">
-                        <h2 className="information-title1">Événements que vous pourriez aimer</h2>
+                        <h2 className="information-title1">évènements que vous pourriez aimer</h2>
                         <div className={clsx("lg:grid-cols-4 mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")}>
                             {dataList?.map((event: EventDtoResponse, index: number) => (
                                 <EventCardComponent key={index} event={event} />
