@@ -87,7 +87,7 @@ const Page = () => {
                 <TableComponent
 
                     objectHookName={useAdminEventCategoriesStore}
-                    title="Liste des catégories des événements"
+                    title="Liste des catégories des évènements"
                     columns={columnsValue}
                     valuesList={items}
                     emptyContent={<p>Aucun résultat</p>}

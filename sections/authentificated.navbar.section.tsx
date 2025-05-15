@@ -57,7 +57,7 @@ export const AuthentificatedNavbarSection = () => {
                             Accueil
                         </LinkH>
                         <LinkH as={Link} href="/user/events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Événements
+                            évènements
                         </LinkH>
                         <LinkH as={Link} href="/user/our-events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
                             Mes évènements
@@ -84,7 +84,7 @@ export const AuthentificatedNavbarSection = () => {
                 </NavbarItem>
                 <NavbarItem>
                     <LinkH underline="active" as={Link} href="/user/events" className="font-semibold underline-hover text-black">
-                        Événements
+                        évènements
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>

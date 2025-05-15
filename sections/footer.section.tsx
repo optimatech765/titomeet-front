@@ -16,7 +16,7 @@ export const FooterSection = () => {
 
                                 <Image alt='logo ' src={"/img/footer.png"} height={100} width={300} className={""} />
                                 <p className={"font-poppins footer-link "} >
-                                    Rejoignez une communauté dynamique et vivez des événements uniques
+                                    Rejoignez une communauté dynamique et vivez des évènements uniques
                                 </p>
 
                             </div>
@@ -25,8 +25,8 @@ export const FooterSection = () => {
                                 <span className={"font-semibold font-poppins "} >Recevez les dernières actualités</span>
                                 <div>
                                     <Link href={"/"} scroll={true} className='block footer-link'>Accueil</Link>
-                                    <Link href={"#evenements"} scroll={true} className='block footer-link'>Événements</Link>
-                                    <Link href={"/user/our-events"} scroll={true} className='block footer-link'>Mes Événements</Link>
+                                    <Link href={"#evenements"} scroll={true} className='block footer-link'>évènements</Link>
+                                    <Link href={"/user/our-events"} scroll={true} className='block footer-link'>Mes évènements</Link>
                                     <Link href={"#fonctionnalites"} scroll={true} className='block footer-link'>Services</Link>
                                 </div>
                             </div>

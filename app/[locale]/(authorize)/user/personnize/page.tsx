@@ -61,7 +61,7 @@ export default function InterestsSelection() {
                 />  Personnalisez votre expérience TITOMEET
             </h1>
             <p className="footer-link text-center">
-                Sélectionnez vos centres d’intérêts pour découvrir des événements qui
+                Sélectionnez vos centres d’intérêts pour découvrir des évènements qui
                 vous correspondent
             </p>
             <p className="footer-link">

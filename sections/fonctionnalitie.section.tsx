@@ -24,7 +24,7 @@ export const FonctionnalitesSection = () => {
                     <ul className="mt-6 space-y-3">
                         <li className="flex items-center gap-1 text-gray-800">
                             <div className="bg-secondary text-4xl w-4 h-4 rounded-full " />
-                            Explorez les événements
+                            Explorez les évènements
                         </li>
                         <li className="flex items-enter gap-1 text-gray-800">
                             <div className="bg-secondary text-4xl w-4 h-4 rounded-full " /> Rejoignez la communauté, discutez et échangez
@@ -62,7 +62,7 @@ export const FonctionnalitesSection = () => {
                                     variant="solid"
                                     className="w-full rounded-full "
                                 >
-                                    Découvrir les événements
+                                    Découvrir les évènements
                                 </Button>
                             </div>
 
