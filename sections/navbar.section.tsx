@@ -39,9 +39,14 @@ export const NavbarSection = () => {
     return (
         <Navbar
             maxWidth="full"
-            className="px-0 md:px-6 bg-white section-container gap-16  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" bg-white section-container gap-16  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
-            isBordered={true}>
+            isBordered={true}
+            classNames={{
+                base: "px-0 md:px-6",
+                wrapper: "px-0 md:px-6",
+            }}
+            >
 
 
             {/* Menu burger (affiché sur mobile) */}
