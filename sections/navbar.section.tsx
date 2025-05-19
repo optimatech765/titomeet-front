@@ -79,7 +79,7 @@ export const NavbarSection = () => {
                                 }
                                 }
 
-                                 className={clsx({ "text-primary": isActive(href), "text-black underline-hover": !isActive(href) }, "text-lg font-semibold")}
+                                 className={clsx({ "text-primary": isActive(href), "text-black": !isActive(href) }, "text-lg font-semibold")}
                             >
                                 {label}
                             </LinkH>
