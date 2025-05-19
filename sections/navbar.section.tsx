@@ -1,20 +1,70 @@
 "use client";
 
 import { Button, Drawer, DrawerContent, Link as LinkH, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import Image from "next/image";
+import clsx from "clsx";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeHash, setActiveHash] = useState("/");
+
+    // Écoute les changements de hash
+    useEffect(() => {
+        const sectionIds = [
+            "/",
+            "#evenements",
+            "#categories",
+            "#fonctionnalites",
+            "#providers",
+            "#auth"
+        ];
+
+        const handleScroll = () => {
+            let current = "/";
+            for (const id of sectionIds) {
+                const section = document.querySelector(id === "/" ? "body" : id);
+                if (section) {
+                    const top = (section as HTMLElement).getBoundingClientRect().top;
+                    if (top <= 50) {
+                        current = id;
+                    }
+                }
+            }
+            setActiveHash(current);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+
+    const isActive = (href: string) => {
+        return activeHash === href;
+    };
+
+    const changeLink = (lien: string) => {
+        setActiveHash(lien);
+    }
+
 
     return (
         <Navbar
             maxWidth="full"
-            className="px-0 md:px-6 bg-white section-container gap-16  sticky justify-evenly border-slate-300 border-1 text-black"
+            className=" bg-white section-container gap-16  sticky justify-evenly border-slate-300 border-1 text-black"
             position={"sticky"}
-            isBordered={true}>
+            isBordered={true}
+            classNames={{
+                base: "px-0 md:px-6",
+                wrapper: "px-0 md:px-6",
+            }}
+        >
 
 
             {/* Menu burger (affiché sur mobile) */}
@@ -34,24 +84,29 @@ export const NavbarSection = () => {
             <Drawer className="lg:hidden" isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4">
-                        <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
-                            Accueil
-                        </LinkH>
-                        <LinkH as={Link} href="/#evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            évènements
-                        </LinkH>
-                        <LinkH as={Link} href="/#categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Catégories
-                        </LinkH>
-                        <LinkH as={Link} href="/#fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Fonctionnalités
-                        </LinkH>
-                        <LinkH as={Link} href="/#providers" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Prestataires
-                        </LinkH>
-                        <LinkH as={Link} href="/auth" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Se connecter
-                        </LinkH>
+                        {[
+                            { href: "/", label: "Accueil" },
+                            { href: "/#evenements", label: "Évènements" },
+                            { href: "/#categories", label: "Catégories" },
+                            { href: "/#fonctionnalites", label: "Fonctionnalités" },
+                            { href: "/#providers", label: "Prestataires" },
+                            { href: "/auth", label: "Se connecter" },
+                        ].map(({ href, label }) => (
+                            <LinkH
+                                as={Link}
+                                key={href}
+                                href={href}
+                                onPress={() => {
+                                    changeLink(href)
+                                    setIsOpen(false)
+                                }
+                                }
+
+                                className={clsx({ "text-primary": isActive(href) || href === "/" + activeHash, "text-black": !isActive(href) && href !== "/" + activeHash }, "text-lg font-semibold")}
+                            >
+                                {label}
+                            </LinkH>
+                        ))}
                         <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
                             S’inscrire
                         </Button>
@@ -61,51 +116,27 @@ export const NavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                <NavbarItem isActive>
-                    <LinkH aria-current="page" as={Link} href="/" className="font-semibold underline-hover text-black">
-                        Accueil
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH underline="active" as={Link} href="/#evenements" className="font-semibold underline-hover text-black">
-                        Évènements
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/#categories" className="font-semibold underline-hover text-black">
-                        Catégories
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/#fonctionnalites" className="font-semibold underline-hover text-black">
-                        Fonctionnalités
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/#providers" className="font-semibold underline-hover text-black">
-                        Prestataires
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/auth" className="font-semibold underline-hover text-black">
-                        Se connecter
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button as={Link} href="/auth/register" variant="solid" className=" bg-primary text-white rounded-full px-10">
-                        S’inscrire
-                    </Button>
-                </NavbarItem>
+                {[
+                    { href: "/", label: "Accueil" },
+                    { href: "/#evenements", label: "Évènements" },
+                    { href: "/#categories", label: "Catégories" },
+                    { href: "/#fonctionnalites", label: "Fonctionnalités" },
+                    { href: "/#providers", label: "Prestataires" },
+                    { href: "/auth", label: "Se connecter" },
+                ].map(({ href, label }) => (
+                    <NavbarItem key={href}   >
+                        <LinkH
+                            underline={isActive(href) ? "active" : "none"}
+                            onPress={() => changeLink(href)}
+                            as={Link}
+                            href={href}
+                            className={clsx({ "active-link": isActive(href) || href === "/" + activeHash, "text-black underline-hover": !isActive(href) && href !== "/" + activeHash }, "text-lg font-semibold text-black ")}
+                        >
+                            {label}
+                        </LinkH>
+                    </NavbarItem>
+                ))}
 
-                {/* <NavbarItem>
-
-                    <LangSelect />
-
-
-                </NavbarItem>
-                <NavbarItem>
-                    <SwitchThemeComponent />
-                </NavbarItem> */}
             </NavbarContent>
 
 
