@@ -13,19 +13,37 @@ export const NavbarSection = () => {
 
     // Écoute les changements de hash
     useEffect(() => {
-        const handleHashChange = () => {
-            setActiveHash(window.location.hash);
+        const sectionIds = [
+            "/",
+            "#evenements",
+            "#categories",
+            "#fonctionnalites",
+            "#providers",
+            "#auth"
+        ];
+
+        const handleScroll = () => {
+            let current = "/";
+            for (const id of sectionIds) {
+                const section = document.querySelector(id === "/" ? "body" : id);
+                if (section) {
+                    const top = (section as HTMLElement).getBoundingClientRect().top;
+                    if (top <= 50) {
+                        current = id;
+                    }
+                }
+            }
+            setActiveHash(current);
         };
 
-        // Définir le hash initial (au cas où)
-        handleHashChange();
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
-        window.addEventListener("hashchange", handleHashChange);
 
         return () => {
-            window.removeEventListener("hashchange", handleHashChange);
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
 
     const isActive = (href: string) => {
         return activeHash === href;
@@ -46,7 +64,7 @@ export const NavbarSection = () => {
                 base: "px-0 md:px-6",
                 wrapper: "px-0 md:px-6",
             }}
-            >
+        >
 
 
             {/* Menu burger (affiché sur mobile) */}
@@ -84,7 +102,7 @@ export const NavbarSection = () => {
                                 }
                                 }
 
-                                 className={clsx({ "text-primary": isActive(href), "text-black": !isActive(href) }, "text-lg font-semibold")}
+                                className={clsx({ "text-primary": isActive(href) || href === "/" + activeHash, "text-black": !isActive(href) && href !== "/" + activeHash }, "text-lg font-semibold")}
                             >
                                 {label}
                             </LinkH>
@@ -112,58 +130,13 @@ export const NavbarSection = () => {
                             onPress={() => changeLink(href)}
                             as={Link}
                             href={href}
-                            className={clsx({ "active-link": isActive(href), "text-black underline-hover": !isActive(href) }, "text-lg font-semibold text-black ")}
+                            className={clsx({ "active-link": isActive(href) || href === "/" + activeHash, "text-black underline-hover": !isActive(href) && href !== "/" + activeHash }, "text-lg font-semibold text-black ")}
                         >
                             {label}
                         </LinkH>
                     </NavbarItem>
                 ))}
-                {/*         
-                <NavbarItem isActive={isActive("/")}>
-                    <LinkH aria-current="page" as={Link} href="/" className="font-semibold underline-hover text-black">
-                        Accueil
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem isActive={isActive("/#evenements")}>
-                    <LinkH underline="active" as={Link} href="/#evenements" className="font-semibold underline-hover text-black">
-                        Évènements
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem isActive={isActive("/#categories")}>
-                    <LinkH as={Link} href="/#categories" className="font-semibold underline-hover text-black">
-                        Catégories
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem isActive={isActive("/#fonctionnalites")}>
-                    <LinkH as={Link} href="/#fonctionnalites" className="font-semibold underline-hover text-black">
-                        Fonctionnalités
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem isActive={isActive("/#providers")}>
-                    <LinkH as={Link} href="/#providers" className="font-semibold underline-hover text-black">
-                        Prestataires
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem isActive={isActive("/auth")}>
-                    <LinkH as={Link} href="/auth" className="font-semibold underline-hover text-black">
-                        Se connecter
-                    </LinkH>
-                </NavbarItem> */}
-                <NavbarItem>
-                    <Button as={Link} href="/auth/register" variant="solid" className=" bg-primary text-white rounded-full px-10">
-                        S’inscrire
-                    </Button>
-                </NavbarItem>
 
-                {/* <NavbarItem>
-
-                    <LangSelect />
-
-
-                </NavbarItem>
-                <NavbarItem>
-                    <SwitchThemeComponent />
-                </NavbarItem> */}
             </NavbarContent>
 
 

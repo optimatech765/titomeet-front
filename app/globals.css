@@ -61,3 +61,6 @@ header{
     width: 100vw !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
