@@ -1,13 +1,40 @@
 "use client";
 
 import { Button, Drawer, DrawerContent, Link as LinkH, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import Image from "next/image";
+import clsx from "clsx";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeHash, setActiveHash] = useState("/");
+
+    // Écoute les changements de hash
+    useEffect(() => {
+        const handleHashChange = () => {
+            setActiveHash(window.location.hash);
+        };
+
+        // Définir le hash initial (au cas où)
+        handleHashChange();
+
+        window.addEventListener("hashchange", handleHashChange);
+
+        return () => {
+            window.removeEventListener("hashchange", handleHashChange);
+        };
+    }, []);
+
+    const isActive = (href: string) => {
+        return activeHash === href;
+    };
+
+    const changeLink = (lien: string) => {
+        setActiveHash(lien);
+    }
+
 
     return (
         <Navbar
@@ -34,24 +61,29 @@ export const NavbarSection = () => {
             <Drawer className="lg:hidden" isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4">
-                        <LinkH as={Link} href="/" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
-                            Accueil
-                        </LinkH>
-                        <LinkH as={Link} href="/#evenements" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            évènements
-                        </LinkH>
-                        <LinkH as={Link} href="/#categories" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Catégories
-                        </LinkH>
-                        <LinkH as={Link} href="/#fonctionnalites" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Fonctionnalités
-                        </LinkH>
-                        <LinkH as={Link} href="/#providers" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Prestataires
-                        </LinkH>
-                        <LinkH as={Link} href="/auth" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Se connecter
-                        </LinkH>
+                        {[
+                            { href: "/", label: "Accueil" },
+                            { href: "/#evenements", label: "Évènements" },
+                            { href: "/#categories", label: "Catégories" },
+                            { href: "/#fonctionnalites", label: "Fonctionnalités" },
+                            { href: "/#providers", label: "Prestataires" },
+                            { href: "/auth", label: "Se connecter" },
+                        ].map(({ href, label }) => (
+                            <LinkH
+                                as={Link}
+                                key={href}
+                                href={href}
+                                onPress={() => {
+                                    changeLink(href)
+                                    setIsOpen(false)
+                                }
+                                }
+
+                                 className={clsx({ "text-primary": isActive(href), "text-black underline-hover": !isActive(href) }, "text-lg font-semibold")}
+                            >
+                                {label}
+                            </LinkH>
+                        ))}
                         <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
                             S’inscrire
                         </Button>
@@ -61,36 +93,57 @@ export const NavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                <NavbarItem isActive>
+                {[
+                    { href: "/", label: "Accueil" },
+                    { href: "/#evenements", label: "Évènements" },
+                    { href: "/#categories", label: "Catégories" },
+                    { href: "/#fonctionnalites", label: "Fonctionnalités" },
+                    { href: "/#providers", label: "Prestataires" },
+                    { href: "/auth", label: "Se connecter" },
+                ].map(({ href, label }) => (
+                    <NavbarItem key={href}   >
+                        <LinkH
+                            underline={isActive(href) ? "active" : "none"}
+                            onPress={() => changeLink(href)}
+                            as={Link}
+                            href={href}
+                            className={clsx({ "active-link": isActive(href), "text-black underline-hover": !isActive(href) }, "text-lg font-semibold text-black ")}
+                        >
+                            {label}
+                        </LinkH>
+                    </NavbarItem>
+                ))}
+                {/*         
+                <NavbarItem isActive={isActive("/")}>
                     <LinkH aria-current="page" as={Link} href="/" className="font-semibold underline-hover text-black">
                         Accueil
                     </LinkH>
                 </NavbarItem>
-                <NavbarItem>
+                <NavbarItem isActive={isActive("/#evenements")}>
                     <LinkH underline="active" as={Link} href="/#evenements" className="font-semibold underline-hover text-black">
                         Évènements
                     </LinkH>
                 </NavbarItem>
-                <NavbarItem>
+                <NavbarItem isActive={isActive("/#categories")}>
                     <LinkH as={Link} href="/#categories" className="font-semibold underline-hover text-black">
                         Catégories
                     </LinkH>
                 </NavbarItem>
-                <NavbarItem>
+                <NavbarItem isActive={isActive("/#fonctionnalites")}>
                     <LinkH as={Link} href="/#fonctionnalites" className="font-semibold underline-hover text-black">
                         Fonctionnalités
                     </LinkH>
                 </NavbarItem>
-                <NavbarItem>
+                <NavbarItem isActive={isActive("/#providers")}>
                     <LinkH as={Link} href="/#providers" className="font-semibold underline-hover text-black">
                         Prestataires
                     </LinkH>
                 </NavbarItem>
-                <NavbarItem>
+                <NavbarItem isActive={isActive("/auth")}>
                     <LinkH as={Link} href="/auth" className="font-semibold underline-hover text-black">
                         Se connecter
                     </LinkH>
-                </NavbarItem>
+                </NavbarItem> */}
                 <NavbarItem>
                     <Button as={Link} href="/auth/register" variant="solid" className=" bg-primary text-white rounded-full px-10">
                         S’inscrire
