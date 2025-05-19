@@ -136,6 +136,10 @@ export const NavbarSection = () => {
                         </LinkH>
                     </NavbarItem>
                 ))}
+                <NavbarItem>
+                    <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
+                        S’inscrire
+                    </Button></NavbarItem>
 
             </NavbarContent>
 
