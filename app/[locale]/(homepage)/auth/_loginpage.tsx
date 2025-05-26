@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { useScopedI18n } from '@/locales/client';
 import { authSevices } from '@/services/auth/authServices';
 import { useAuthStore } from '@/stores/auth';
 import { InputErrorStore } from '@/stores/input.error.store';
@@ -24,6 +25,9 @@ export const Loginpage = () => {
     const { setToken, setRefreshToken } = useAuthStore();
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false);
+    const buttonT = useScopedI18n("button");
+    const inputT = useScopedI18n("input");
+    const loginT = useScopedI18n("login");
 
 
 
@@ -115,8 +119,8 @@ export const Loginpage = () => {
 
             </div>
             <div className="text-center mb-6">
-                <h2 className="text-base font-semibold text-black">Connectez vous à votre compte</h2>
-                <p className="text-gray-500 text-xs font-light">Sélectionnez votre méthode de connexion</p>
+                <h2 className="text-base font-semibold text-black">{loginT("title")}</h2>
+                <p className="text-gray-500 text-xs font-light">{loginT("selectMethod")}</p>
             </div>
 
             <div className="flex gap-4 justify-center mb-1">
@@ -130,12 +134,12 @@ export const Loginpage = () => {
 
             <div className="flex items-center mt-1 mb-2">
                 <div className="flex-grow border-t border-gray-300"></div>
-                <span className="mx-4 text-gray-400">Ou connectez-vous avec</span>
+                <span className="mx-4 text-gray-400">{loginT("connectWith")}</span>
                 <div className="flex-grow border-t border-gray-300"></div>
             </div>
 
             <div className="mb-2 space-y-0.5">
-                <label className="block text-sm font-medium text-black">Email</label>
+                <label className="block text-sm font-medium text-black">{inputT("emailLabel")}</label>
                 <Input
                     fullWidth
                     value={loginInfo?.email}
@@ -146,12 +150,12 @@ export const Loginpage = () => {
                     radius={"full"}
                     type="email"
                     className='rounded-full'
-                    placeholder="Entrez votre adresse email"
+                    placeholder={inputT("emailPlaceholder")}
                     onChange={(e) => setLoginInfo({ ...loginInfo, email: e.target.value })}
                 />
             </div>
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium text-black">Mot de passe</label>
+                <label className="block text-sm font-medium text-black">{inputT("passwordLabel")}</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
                     endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> :
@@ -163,14 +167,14 @@ export const Loginpage = () => {
                     isRequired
                     errorMessage={errorFields?.message}
                     radius={"full"}
-                    placeholder="Entrez votre mot de passe"
+                    placeholder={inputT("passwordPlaceholder")}
                     onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
                 />
             </div>
 
             <div className="flex items-center justify-between mb-4 text-black">
-                <Checkbox title='Se souvenir' className='text-black' >Se souvenir</Checkbox>
-                <Link href="/auth/forgot-password" className="text-sm text-red-500 hover:underline">Mot de passe oublié?</Link>
+                <Checkbox title={loginT("remember")} className='text-black' >{loginT("remember")}</Checkbox>
+                <Link href="/auth/forgot-password" className="text-sm text-red-500 hover:underline">{loginT("forgotPass")}</Link>
             </div>
 
             <Button
@@ -181,12 +185,12 @@ export const Loginpage = () => {
                 radius='full'
                 className="w-full bg-red-500 hover:bg-red-600 text-white"
             >
-                Connexion
+                {buttonT("login")}
             </Button>
 
 
             <p className="text-center mt-4 text-sm font-light text-slate-500">
-                Vous n&apos;avez pas de compte? <Link href="/auth/register" className="text-red-500 underline">Inscrivez-vous</Link>
+                {loginT("noAccount")} <Link href="/auth/register" className="text-red-500 underline">{loginT("register")}</Link>
             </p>
         </div>
     );

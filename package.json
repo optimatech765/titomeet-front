@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fetch-translations": "ts-node utils/functions/fetch-translations.ts"
+    "fetch-translations": "ts-node utils/functions/fetch-translations.js"
   },
   "dependencies": {
     "@heroui/button": "^2.2.10",

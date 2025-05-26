@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { useScopedI18n } from '@/locales/client';
 import { authSevices } from '@/services/auth/authServices';
 import { useAuthStore } from '@/stores/auth';
 import { InputErrorStore } from '@/stores/input.error.store';
@@ -29,7 +30,10 @@ export const RegisterPage = () => {
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
     const { setToken, setRefreshToken } = useAuthStore();
     const [showPassword, setShowPassword] = useState(false);
-    const router  = useRouter();
+    const router = useRouter();
+    const inputT = useScopedI18n("input");
+    const buttonT = useScopedI18n("button");
+    const registerT = useScopedI18n("register");
 
     const handleSubmit = async () => {
         try {
@@ -135,45 +139,45 @@ export const RegisterPage = () => {
             </div>
 
             <div className="mb-2 space-y-0.5">
-                <label className="block text-sm font-medium">Prénom</label>
+                <label className="block text-sm font-medium">{inputT("firstNameLabel")}</label>
                 <Input
                     value={registerInfo?.firstName}
                     isInvalid={errorFields.field === 'firstName'}
                     errorMessage={errorFields?.message}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, firstName: e.target.value })}
-                    radius={"full"} className='rounded-full' placeholder="Entrez votre prénom" />
+                    radius={"full"} className='rounded-full' placeholder={inputT("firstNamePlaceholder")} />
             </div>
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium">Nom</label>
+                <label className="block text-sm font-medium">{inputT("lastNameLabel")}</label>
                 <Input
                     value={registerInfo?.lastName}
                     isInvalid={errorFields.field === 'lastName'}
                     errorMessage={errorFields?.message}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, lastName: e.target.value })}
-                    radius={"full"} placeholder="Entrez votre nom" />
+                    radius={"full"} placeholder={inputT("lastNamePlaceholder")} />
             </div>
 
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium">Nom d&apos;utilisateur</label>
+                <label className="block text-sm font-medium">{inputT("usernameLabel")}</label>
                 <Input
                     value={registerInfo?.username}
                     isInvalid={errorFields.field === 'username'}
                     errorMessage={errorFields?.message}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, username: e.target.value })}
-                    radius={"full"} placeholder="Entrez votre nom d'utilisateur" />
+                    radius={"full"} placeholder={inputT("usernamePlaceholder")} />
             </div>
 
             <div className="mb-2 space-y-0.5">
-                <label className="block text-sm font-medium">Email</label>
+                <label className="block text-sm font-medium">{inputT("emailLabel")}</label>
                 <Input
                     value={registerInfo?.email}
                     isInvalid={errorFields.field === 'email'}
                     errorMessage={errorFields?.message}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, email: e.target.value })}
-                    radius={"full"} type="email" className='rounded-full' placeholder="Entrez votre adresse email" />
+                    radius={"full"} type="email" className='rounded-full' placeholder={inputT("emailPlaceholder")} />
             </div>
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium">Mot de passe</label>
+                <label className="block text-sm font-medium">{inputT("passwordLabel")}</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
                     endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} className='text-primary' onClick={() => setShowPassword(!showPassword)} />}
@@ -190,14 +194,14 @@ export const RegisterPage = () => {
                         </ul>
                     )}
                     radius={"full"}
-                    placeholder="Confirmez votre mot de passe"
+                    placeholder={inputT("passwordPlaceholder")}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, password: e.target.value })}
                 />
 
             </div>
 
             <div className="mb-1 space-y-0.5">
-                <label className="block text-sm font-medium">Confirmer le mot de passe</label>
+                <label className="block text-sm font-medium">{inputT("passwordConfirmLabel")}</label>
                 <Input
                     type={showPassword ? 'text' : 'password'}
                     endContent={showPassword ? <EyeOff className='text-primary cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} onClick={() => setShowPassword(!showPassword)} className='text-primary' />}
@@ -208,7 +212,7 @@ export const RegisterPage = () => {
                     isRequired
                     errorMessage={errorFields?.message}
                     radius={"full"}
-                    placeholder="Confirmez votre mot de passe"
+                    placeholder={inputT("passwordConfirmPlaceholder")}
                     onChange={(e) => setRegisterInfo({ ...registerInfo, confirmPassword: e.target.value })}
                 />
 
@@ -216,14 +220,14 @@ export const RegisterPage = () => {
 
 
             <div className="flex items-center font-extralight  justify-between mb-4">
-                <Checkbox title='Se souvenir' >“J’accepte les
+                <Checkbox title='Se souvenir' >“{registerT("accept")}
                     <span className="text-sm font-normal mx-1">
                         CGU
                     </span>
 
                     et la
                     <span className="text-sm font-normal ml-1">
-                        Politique de confidentialité
+                      {registerT("policy")}
                     </span>
 
                 </Checkbox>
@@ -237,10 +241,10 @@ export const RegisterPage = () => {
                 disabled={isLoading}
                 className={clsx({
                     "cursor-wait": isLoading
-                }, "w-full bg-red-500 hover:bg-red-600 text-white")} >Connexion</Button>
+                }, "w-full bg-red-500 hover:bg-red-600 text-white")} >{buttonT("register")}</Button>
 
             <p className="text-center mt-4 font-light text-sm">
-                Vous avez déjà un compte? <Link href="/auth" className="text-red-500 underline">Connectez-vous</Link>
+               {registerT("question")} <Link href="/auth" className="text-red-500 underline"> {registerT("login")}</Link>
             </p>
         </div>
     );
