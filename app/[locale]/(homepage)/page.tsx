@@ -12,6 +12,7 @@ import { PartenairesSection } from "@/sections/partner.section";
 export default  function Home() {
 
  const eventT = useScopedI18n('event');
+  const categorieT = useScopedI18n('categorie');
 
 
   return (
@@ -39,8 +40,8 @@ export default  function Home() {
         {/* Catégories */}
         <section className="section-container" id="categories" >
           <div className="space-y-1">
-            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins text-center ">Categories d’evenements</h3>
-            <span className="text-[#1E1E1E] text-base text-center block">Trouvez l’événement qui vous correspond</span>
+            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins text-center ">{categorieT("title")}</h3>
+            <span className="text-[#1E1E1E] text-base text-center block">{categorieT("description")}</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md mx-auto rounded-r-full "></div>
           </div>
           <div>
