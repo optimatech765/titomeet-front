@@ -17,5 +17,11 @@
   "event.descriptionUpcomming": "Exclusive events, limited seating",
   "input.serachEventPlaceholder": "Search event",
   "input.location": "Location",
-  "button.search": "Search"
+  "button.search": "Search",
+  "profil.personalInfo": "Personal information",
+  "presonalInfo.firstName": "FirstName",
+  "presonalInfo.lastName": "LastName",
+  "personalInfo.userName": "Username",
+  "personalInfo.email": "Email",
+  "personalInfo.location": "Location"
 }

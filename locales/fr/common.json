@@ -17,5 +17,11 @@
   "event.descriptionUpcomming": "Des évènements exclusifs, des places limitées",
   "input.serachEventPlaceholder": "Rechercher un évènement",
   "input.location": "Localisation",
-  "button.search": "Rechercher"
+  "button.search": "Rechercher",
+  "profil.personalInfo": "Informations personnelles",
+  "presonalInfo.firstName": "Prénom",
+  "presonalInfo.lastName": "Nom",
+  "personalInfo.userName": "Nom d'utilisateur",
+  "personalInfo.email": "Adresse email",
+  "personalInfo.location": "Localisation"
 }

@@ -17,5 +17,11 @@
   "event.descriptionUpcomming": "",
   "input.serachEventPlaceholder": "",
   "input.location": "",
-  "button.search": ""
+  "button.search": "",
+  "profil.personalInfo": "",
+  "presonalInfo.firstName": "",
+  "presonalInfo.lastName": "",
+  "personalInfo.userName": "",
+  "personalInfo.email": "",
+  "personalInfo.location": ""
 }
