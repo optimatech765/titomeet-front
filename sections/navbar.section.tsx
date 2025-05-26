@@ -7,11 +7,14 @@ import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeHash, setActiveHash] = useState("/");
     const pathName = usePathname();
+    const navbarT = useScopedI18n('navbar');
+    const buttonT = useScopedI18n('button');
 
     // Écoute les changements de hash
     useEffect(() => {
@@ -34,10 +37,10 @@ export const NavbarSection = () => {
                     }
                 }
             }
-            
-            if(pathName === "/fr/auth" || pathName === "/en/auth"){
+
+            if (pathName === "/fr/auth" || pathName === "/en/auth") {
                 setActiveHash("/auth");
-            }else{
+            } else {
                 setActiveHash(current);
             }
         };
@@ -52,12 +55,20 @@ export const NavbarSection = () => {
 
 
     const isActive = (href: string) => {
-        return activeHash === href ;
+        return activeHash === href;
     };
 
     const changeLink = (lien: string) => {
         setActiveHash(lien);
     }
+
+    const linksList = [
+        { href: "/", label: navbarT("home") },
+        { href: "#evenements", label: navbarT("event") },
+        { href: "#categories", label: navbarT("categotie") },
+        { href: "#fonctionnalites", label: navbarT("functions") },
+        { href: "#providers", label: navbarT("provider") }
+    ]
 
 
     return (
@@ -90,13 +101,7 @@ export const NavbarSection = () => {
             <Drawer className="lg:hidden" isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4">
-                        {[
-                            { href: "/", label: "Accueil" },
-                            { href: "/#evenements", label: "Évènements" },
-                            { href: "/#categories", label: "Catégories" },
-                            { href: "/#fonctionnalites", label: "Fonctionnalités" },
-                            { href: "/#providers", label: "Prestataires" }
-                        ].map(({ href, label }) => (
+                        {linksList.map(({ href, label }) => (
                             <LinkH
                                 as={Link}
                                 key={href}
@@ -124,11 +129,11 @@ export const NavbarSection = () => {
 
                             className={clsx({ "text-primary": isActive("/auth"), "text-black": !isActive("/auth") }, "text-lg font-semibold")}
                         >
-                            Se connecter
+                            {buttonT("login")}
                         </LinkH>
 
                         <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
-                            S’inscrire
+                            {buttonT("register")}
                         </Button>
                     </nav>
                 </DrawerContent>
@@ -136,13 +141,7 @@ export const NavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                {[
-                    { href: "/", label: "Accueil" },
-                    { href: "/#evenements", label: "Évènements" },
-                    { href: "/#categories", label: "Catégories" },
-                    { href: "/#fonctionnalites", label: "Fonctionnalités" },
-                    { href: "/#providers", label: "Prestataires" }
-                ].map(({ href, label }) => (
+                {linksList.map(({ href, label }) => (
                     <NavbarItem key={href}   >
                         <LinkH
                             underline={isActive(href) ? "active" : "none"}
@@ -163,13 +162,14 @@ export const NavbarSection = () => {
                         href={"/auth"}
                         className={clsx({ "active-link": isActive("/auth"), "text-black underline-hover": !isActive("/auth") }, "text-lg font-semibold text-black ")}
                     >
-                        Se connecter
+                        {buttonT("login")}
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
                     <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
-                        S’inscrire
-                    </Button></NavbarItem>
+                        {buttonT("register")}
+                    </Button>
+                </NavbarItem>
 
             </NavbarContent>
 

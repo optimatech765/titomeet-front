@@ -87,5 +87,8 @@
   "navbar.event": "Events",
   "navbar.categotie": "Categories",
   "navbar.functions": "Functionalities",
-  "navbar.provider": "Providers"
+  "navbar.provider": "Providers",
+  "register.title": "Create your account",
+  "register.subtitle": "Register in just a few seconds",
+  "register.with": "Or sign up with"
 }

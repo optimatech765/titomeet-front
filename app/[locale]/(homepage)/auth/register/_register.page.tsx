@@ -119,8 +119,8 @@ export const RegisterPage = () => {
 
             </div>
             <div className="text-center mb-6">
-                <h2 className="text-base font-semibold">Connectez vous à votre compte</h2>
-                <p className="text-gray-500 text-xs font-light">Sélectionnez votre méthode de connexion</p>
+                <h2 className="text-base font-semibold">{registerT("title")}</h2>
+                <p className="text-gray-500 text-xs font-light">{registerT("subtitle")}</p>
             </div>
 
             <div className="flex gap-4 justify-center mb-1">
@@ -134,7 +134,7 @@ export const RegisterPage = () => {
 
             <div className="flex items-center mt-1 mb-2">
                 <div className="flex-grow border-t border-gray-300"></div>
-                <span className="mx-4 text-gray-400">Ou connectez-vous avec</span>
+                <span className="mx-4 text-gray-400">{registerT("with")}</span>
                 <div className="flex-grow border-t border-gray-300"></div>
             </div>
 

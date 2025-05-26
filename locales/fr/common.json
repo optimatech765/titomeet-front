@@ -87,5 +87,8 @@
   "navbar.event": "Évènements",
   "navbar.categotie": "Catégories",
   "navbar.functions": "Fonctionnalités",
-  "navbar.provider": "Prestataires"
+  "navbar.provider": "Prestataires",
+  "register.title": "Créez votre compte",
+  "register.subtitle": " Inscrivez-vous en quelques secondes",
+  "register.with": "Ou inscrivez vous avec"
 }
