@@ -8,10 +8,10 @@ import { useScopedI18n } from '@/locales/client';
 
 export const PersonnalInfoComponent = () => {
     const { isAuth } = useAppContext();
-     const profilT = useScopedI18n('profil');
-     const personalInfoT = useScopedI18n('personalInfo');
-    const { setUserInfo, userInfo,updateUserInfo,handleUpdateUser,isLoading } = useUserInfoStore();
-
+    const profilT = useScopedI18n('profil');
+    const personalInfoT = useScopedI18n('personalInfo');
+    const buttonT = useScopedI18n('button');
+    const { setUserInfo, userInfo, updateUserInfo, handleUpdateUser, isLoading } = useUserInfoStore();
 
     useEffect(() => {
         setUserInfo(isAuth);
@@ -42,7 +42,7 @@ export const PersonnalInfoComponent = () => {
                     <div className="grid md:grid-cols-2 gap-4 mt-6 flex-1 px-3 md:px-10">
 
                         <InputContainerComponentTop title={personalInfoT('lastName')} >
-                            <Input className="w-full" value={ userInfo?.lastName} onChange={(e) => updateUserInfo("lastName", e.target.value)} />
+                            <Input className="w-full" value={userInfo?.lastName} onChange={(e) => updateUserInfo("lastName", e.target.value)} />
                         </InputContainerComponentTop>
                         <InputContainerComponentTop title={personalInfoT('firstName')} >
                             <Input className="w-full" value={userInfo?.firstName} onChange={(e) => updateUserInfo("firstName", e.target.value)} />
@@ -68,8 +68,8 @@ export const PersonnalInfoComponent = () => {
 
             {/* Bouton sauvegarder */}
             <div className="mt-6">
-                <Button isLoading={isLoading} className="bg-red-500 text-white px-6 py-2" radius='full' onPress={()=>handleUpdateUser(userInfo)} >
-                    Sauvegarder
+                <Button isLoading={isLoading} className="bg-red-500 text-white px-6 py-2" radius='full' onPress={() => handleUpdateUser(userInfo)} >
+                    {buttonT('save')}
                 </Button>
             </div>
         </div>

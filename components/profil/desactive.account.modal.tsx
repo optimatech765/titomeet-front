@@ -1,4 +1,5 @@
 
+import { useScopedI18n } from '@/locales/client';
 import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
 import { ShieldBan } from 'lucide-react';
 import React from 'react';
@@ -7,6 +8,8 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
     isOpen: boolean;
     onClose: () => void;
 }) => {
+    const accountT = useScopedI18n('account');
+    const buttonT = useScopedI18n('button');
     return (
         <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
             <ModalContent >
@@ -18,10 +21,10 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
                                 <ShieldBan size={32} className='text-primary ' />
                             </div>
                             <h3 className="text-2xl  font-semibold  text-center">
-                                Souhaitez vous désactiver votre compte ?
+                               {accountT("deactive")}
                             </h3>
                             <p className="text-sm font-light text-center">
-                                Il sera impossible de vous connecter à votre compte.
+                              {accountT("deactiveMessage")}
                             </p>
 
                         </div>
@@ -30,11 +33,11 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
                             <div className="flex justify-center justify-items-stretch items-center gap-3 mb-2">
 
                                 <Button className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
-                                    Confirmer
+                                    {buttonT("confirm")}
                                 </Button>
 
                                 <Button variant='bordered' className="w-full border-primary text-primary  " radius="full" onPress={onClose}>
-                                    Annuler
+                                   { buttonT("cancel")}
                                 </Button>
 
                             </div>

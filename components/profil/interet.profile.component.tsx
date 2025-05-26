@@ -1,3 +1,4 @@
+import { useScopedI18n } from '@/locales/client';
 import { Button } from '@heroui/button';
 import { Card, CardBody, Chip } from '@heroui/react';
 import React from 'react';
@@ -5,6 +6,8 @@ import React from 'react';
 export const InteretProfileComponent = () => {
 
     const [fruits, setFruits] = React.useState(selectedActivities);
+    const buttonT = useScopedI18n('button');
+    const interetT = useScopedI18n('interet');
 
     const handleClose = (fruitToRemove: string) => {
         setFruits(fruits.filter((fruit) => fruit !== fruitToRemove));
@@ -16,9 +19,9 @@ export const InteretProfileComponent = () => {
     return (
         <div className='flex flex-col justify-between h-full'>
             <div>
-                <h2 className="text-2xl font-semibold mb-4">Centres d’intérêt</h2>
+                <h2 className="text-2xl font-semibold mb-4">{interetT('title')}</h2>
                 <div className='space-y-3'>
-                    <span className='font-semibold' >Mes centres d’intérêt</span>
+                    <span className='font-semibold' >{interetT('subtitle')}</span>
 
                     <Card className='h-[126px]'>
                         <CardBody>
@@ -49,7 +52,7 @@ export const InteretProfileComponent = () => {
             {/* Bouton sauvegarder */}
             <div className="mt-6">
                 <Button className="bg-red-500 text-white px-6 py-2" radius='full' >
-                    Sauvegarder
+                    {buttonT('save')}
                 </Button>
             </div>
         </div>

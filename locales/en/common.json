@@ -18,11 +18,22 @@
   "input.serachEventPlaceholder": "Search event",
   "input.location": "Location",
   "button.search": "Search",
+  "button.save": "Save",
+  "button.cancel": "Cancel",
+  "button.confirm": "Confirm",
   "profil.personalInfo": "Personal information",
   "personalInfo.firstName": "FirstName",
   "personalInfo.lastName": "LastName",
   "personalInfo.userName": "Username",
   "personalInfo.email": "Email",
   "personalInfo.location": "Location",
-  "personalInfo.picture": "Profile picture"
+  "personalInfo.picture": "Profile picture",
+  "notification.remember": "Reminder of events 1 hour in advance",
+  "notification.alert": "Alert for new messages",
+  "interet.title": "Your interests",
+  "interet.subtitle": "My points of interest",
+  "account.deactive": "Would you like to deactivate your account?",
+  "account.deactiveMessage": " You will not be able to log in to your account.",
+  "deleteAccount.question": "Would you like to delete your account?",
+  "deleteAccount.message": "This action is irreversible and will delete all your data."
 }

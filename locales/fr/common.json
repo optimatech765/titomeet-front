@@ -18,11 +18,22 @@
   "input.serachEventPlaceholder": "Rechercher un évènement",
   "input.location": "Localisation",
   "button.search": "Rechercher",
+  "button.save": "Sauvegarder",
+  "button.cancel": "Annuler",
+  "button.confirm": "Confirmer",
   "profil.personalInfo": "Informations personnelles",
   "personalInfo.firstName": "Prénom",
   "personalInfo.lastName": "Nom",
   "personalInfo.userName": "Nom d'utilisateur",
   "personalInfo.email": "Adresse email",
   "personalInfo.location": "Localisation",
-  "personalInfo.picture": "Photo de profil"
+  "personalInfo.picture": "Photo de profil",
+  "notification.remember": "Rappel des évènements 1h à l’avance",
+  "notification.alert": "Alerte pour nouveaux messages",
+  "interet.title": "Centres d’intérêt",
+  "interet.subtitle": "Mes centres d’intérêt",
+  "account.deactive": " Souhaitez vous désactiver votre compte ?",
+  "account.deactiveMessage": "  Il sera impossible de vous connecter à votre compte.",
+  "deleteAccount.question": "Souhaitez vous supprimer votre compte ?",
+  "deleteAccount.message": " Cette action est irréversible et supprimera toutes vos données."
 }

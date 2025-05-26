@@ -18,11 +18,22 @@
   "input.serachEventPlaceholder": "",
   "input.location": "",
   "button.search": "",
+  "button.save": "",
+  "button.cancel": "",
+  "button.confirm": "",
   "profil.personalInfo": "",
   "personalInfo.firstName": "",
   "personalInfo.lastName": "",
   "personalInfo.userName": "",
   "personalInfo.email": "",
   "personalInfo.location": "",
-  "personalInfo.picture": ""
+  "personalInfo.picture": "",
+  "notification.remember": "",
+  "notification.alert": "",
+  "interet.title": "",
+  "interet.subtitle": "",
+  "account.deactive": "",
+  "account.deactiveMessage": "",
+  "deleteAccount.question": "",
+  "deleteAccount.message": ""
 }
