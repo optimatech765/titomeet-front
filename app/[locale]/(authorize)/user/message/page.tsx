@@ -1,10 +1,12 @@
 "use client"
+import { ChatStore } from "@/stores/chat.store";
 import { Avatar, Card, Input, Button, Divider, CardBody, Switch, Link } from "@heroui/react";
 import clsx from "clsx";
 import { Search, Send, Info, Image as Picture, CheckCheck, Link2, ExternalLink, AlignHorizontalDistributeCenter, File, Play, X, EllipsisVertical, Share2, Mic } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ChatInterface() {
+    const { fetchChatList,chats } = ChatStore();
 
     const [showInfo, setShowInfo] = useState(true);
 
@@ -37,6 +39,9 @@ export default function ChatInterface() {
         setRecording(false);
     };
 
+    useEffect(() => {
+        fetchChatList();
+    }, [])
 
     return (
         <div className="  m-2 section-container h-screen overflow-hidden">
@@ -55,7 +60,7 @@ export default function ChatInterface() {
                     <div className="relative overflow-scroll max-h-[400px] navscroll ">
 
                         <div className="space-y-3 mt-4 pt-2 ">
-                            {[...Array(15)].map((_, index) => (
+                            {chats.map((_, index) => (
                                 <Card key={index} className={clsx({ "bg-[#F8F8F8]": index != 0, "bg-white": index === 0 }, "flex shadow-none border-none items-center p-3 cursor-pointer hover:bg-gray-200 rounded-lg")}>
                                     <CardBody className="grid grid-cols-12 gap-2 p-0">
                                         <div className="col-span-2">

@@ -1,17 +1,19 @@
 "use client";
 
+import { useScopedI18n } from "@/locales/client";
 import Image from "next/image";
 
 export const PartenairesSection = () => {
+    const partnerT = useScopedI18n('partner');
     return (
         <section className=" bg-white text-center">
             {/* bg-gradient-to-b from-white to-orange-200 */}
             <div className="space-y-1">
                 
-                <h2 className="text-xl md:text-4xl font-bold text-primary">Nos partenaires</h2>
+                <h2 className="text-xl md:text-4xl font-bold text-primary">{partnerT("title")}</h2>
 
                 <p className="text-gray-600 relative inline-block mt-2">
-                    Un réseau de partenaires pour des évènements sans limites
+                   {partnerT("description")}
                 </p>
                 <div className="bg-primary h-2 max-w-36 mt-1 rounded-tl-md mx-auto" />
             </div>

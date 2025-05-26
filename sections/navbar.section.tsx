@@ -6,10 +6,15 @@ import { Menu } from "lucide-react"; // Icône de menu
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 export const NavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeHash, setActiveHash] = useState("/");
+    const pathName = usePathname();
+    const navbarT = useScopedI18n('navbar');
+    const buttonT = useScopedI18n('button');
 
     // Écoute les changements de hash
     useEffect(() => {
@@ -18,8 +23,7 @@ export const NavbarSection = () => {
             "#evenements",
             "#categories",
             "#fonctionnalites",
-            "#providers",
-            "#auth"
+            "#providers"
         ];
 
         const handleScroll = () => {
@@ -33,7 +37,12 @@ export const NavbarSection = () => {
                     }
                 }
             }
-            setActiveHash(current);
+
+            if (pathName === "/fr/auth" || pathName === "/en/auth") {
+                setActiveHash("/auth");
+            } else {
+                setActiveHash(current);
+            }
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -42,7 +51,7 @@ export const NavbarSection = () => {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [pathName]);
 
 
     const isActive = (href: string) => {
@@ -52,6 +61,14 @@ export const NavbarSection = () => {
     const changeLink = (lien: string) => {
         setActiveHash(lien);
     }
+
+    const linksList = [
+        { href: "/", label: navbarT("home") },
+        { href: "#evenements", label: navbarT("event") },
+        { href: "#categories", label: navbarT("categotie") },
+        { href: "#fonctionnalites", label: navbarT("functions") },
+        { href: "#providers", label: navbarT("provider") }
+    ]
 
 
     return (
@@ -84,14 +101,7 @@ export const NavbarSection = () => {
             <Drawer className="lg:hidden" isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4">
-                        {[
-                            { href: "/", label: "Accueil" },
-                            { href: "/#evenements", label: "Évènements" },
-                            { href: "/#categories", label: "Catégories" },
-                            { href: "/#fonctionnalites", label: "Fonctionnalités" },
-                            { href: "/#providers", label: "Prestataires" },
-                            { href: "/auth", label: "Se connecter" },
-                        ].map(({ href, label }) => (
+                        {linksList.map(({ href, label }) => (
                             <LinkH
                                 as={Link}
                                 key={href}
@@ -107,8 +117,23 @@ export const NavbarSection = () => {
                                 {label}
                             </LinkH>
                         ))}
+                        <LinkH
+                            as={Link}
+                            key={"/auth"}
+                            href={"/auth"}
+                            onPress={() => {
+                                changeLink("/auth")
+                                setIsOpen(false)
+                            }
+                            }
+
+                            className={clsx({ "text-primary": isActive("/auth"), "text-black": !isActive("/auth") }, "text-lg font-semibold")}
+                        >
+                            {buttonT("login")}
+                        </LinkH>
+
                         <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
-                            S’inscrire
+                            {buttonT("register")}
                         </Button>
                     </nav>
                 </DrawerContent>
@@ -116,14 +141,7 @@ export const NavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                {[
-                    { href: "/", label: "Accueil" },
-                    { href: "/#evenements", label: "Évènements" },
-                    { href: "/#categories", label: "Catégories" },
-                    { href: "/#fonctionnalites", label: "Fonctionnalités" },
-                    { href: "/#providers", label: "Prestataires" },
-                    { href: "/auth", label: "Se connecter" },
-                ].map(({ href, label }) => (
+                {linksList.map(({ href, label }) => (
                     <NavbarItem key={href}   >
                         <LinkH
                             underline={isActive(href) ? "active" : "none"}
@@ -136,6 +154,22 @@ export const NavbarSection = () => {
                         </LinkH>
                     </NavbarItem>
                 ))}
+                <NavbarItem key={"/auth"}   >
+                    <LinkH
+                        underline={isActive("/auth") ? "active" : "none"}
+                        onPress={() => changeLink("/auth")}
+                        as={Link}
+                        href={"/auth"}
+                        className={clsx({ "active-link": isActive("/auth"), "text-black underline-hover": !isActive("/auth") }, "text-lg font-semibold text-black ")}
+                    >
+                        {buttonT("login")}
+                    </LinkH>
+                </NavbarItem>
+                <NavbarItem>
+                    <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
+                        {buttonT("register")}
+                    </Button>
+                </NavbarItem>
 
             </NavbarContent>
 

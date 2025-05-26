@@ -1,10 +1,23 @@
 "use client";
+import { useScopedI18n } from '@/locales/client';
 import { Button, Input } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export const FooterSection = () => {
+    const mailingT = useScopedI18n('mailing');
+    const buttonT = useScopedI18n('button');
+    const websiteT = useScopedI18n('website');
+    const navbarT = useScopedI18n('navbar');
+
+    const linksList = [
+        { href: "/", label:navbarT("home") },
+        { href: "#evenements", label: navbarT("event") },
+        { href: "#categories", label: navbarT("categotie") },
+        { href: "#fonctionnalites", label: navbarT("functions") },
+        { href: "#providers", label: navbarT("provider") }
+    ]
     return (
         <div className="mt-7">
             <footer className="bg-footer-pattern bg-cover min-h-56 pt-11 px-5 md:px-10">
@@ -16,28 +29,27 @@ export const FooterSection = () => {
 
                                 <Image alt='logo ' src={"/img/footer.png"} height={100} width={300} className={""} />
                                 <p className={"font-poppins footer-link "} >
-                                    Rejoignez une communauté dynamique et vivez des évènements uniques
+                                  {websiteT("slogan")}
                                 </p>
 
                             </div>
 
                             <div>
-                                <span className={"font-semibold font-poppins "} >Recevez les dernières actualités</span>
+                                <span className={"font-semibold font-poppins "} >{websiteT("lastInfo")}</span>
                                 <div>
-                                    <Link href={"/"} scroll={true} className='block footer-link'>Accueil</Link>
-                                    <Link href={"#evenements"} scroll={true} className='block footer-link'>évènements</Link>
-                                    <Link href={"/user/our-events"} scroll={true} className='block footer-link'>Mes évènements</Link>
-                                    <Link href={"#fonctionnalites"} scroll={true} className='block footer-link'>Services</Link>
+                                    {linksList.map(({ href, label }) => (
+                                        <Link key={href} href={href} scroll={true} className='block footer-link'>{label}</Link>
+                                    ))}
                                 </div>
                             </div>
 
                             <div>
-                                <span className={"font-semibold font-poppins "} >Aides</span>
+                                <span className={"font-semibold font-poppins "} >{websiteT("help")}</span>
                                 <div>
                                     <Link href={"#"} scroll={true} className='block footer-link'>FAQ</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Conditions générales</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Politiques de confidentialité</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>Support client</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("terms")}</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("policy")}</Link>
+                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("support")}</Link>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +57,7 @@ export const FooterSection = () => {
                     </div>
 
                     <div className='space-y-1'>
-                        <label className={"font-semibold font-poppins m:ml-4  "} >Recevez les dernières actualités</label>
+                        <label className={"font-semibold font-poppins m:ml-4  "} >{mailingT("label")}</label>
                         <Input
                             radius='full'
                             size='lg'
@@ -55,7 +67,8 @@ export const FooterSection = () => {
                             endContent={
 
                                 <Button className="bg-primary text-white rounded-full -mr-4 ">
-                                    S&apos;inscrire
+                                
+                                   {buttonT("register")}
                                 </Button>
 
                             }

@@ -1,3 +1,4 @@
+import { useScopedI18n } from '@/locales/client';
 import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
 import { Trash2 } from 'lucide-react';
 import React from 'react';
@@ -6,6 +7,9 @@ export const DeleteAccountModal = ({ isOpen, onClose }: {
     isOpen: boolean;
     onClose: () => void;
 }) => {
+
+     const buttonT = useScopedI18n('button');
+        const deleteAccountT = useScopedI18n('deleteAccount');
     return (
         <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
             <ModalContent >
@@ -18,10 +22,10 @@ export const DeleteAccountModal = ({ isOpen, onClose }: {
                             </div>
                          
                             <h3 className="text-2xl  font-semibold  text-center">
-                                Souhaitez vous supprimer votre compte ?
+                               {deleteAccountT("question")}
                             </h3>
                             <p className="text-sm font-light text-center">
-                                Cette action est irréversible et supprimera toutes vos données.
+                               {deleteAccountT("message")}
                             </p>
 
                         </div>
@@ -30,11 +34,11 @@ export const DeleteAccountModal = ({ isOpen, onClose }: {
                             <div className="flex justify-center justify-items-stretch items-center gap-3 mb-2">
 
                                 <Button className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
-                                    Confirmer
+                                    {buttonT("confirm")}
                                 </Button>
 
                                 <Button variant='bordered' className="w-full border-primary text-primary  " radius="full" onPress={onClose}>
-                                    Annuler
+                                  {buttonT("cancel")}
                                 </Button>
 
                             </div>
