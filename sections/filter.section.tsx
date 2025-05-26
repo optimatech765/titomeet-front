@@ -1,5 +1,6 @@
 
 
+import { useScopedI18n } from '@/locales/client';
 import { EventCategorieStore } from '@/stores/event.categories.store';
 import { useEventsStore } from '@/stores/events.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
@@ -21,6 +22,9 @@ export const FilterSection = () => {
 
     const { fetchEventList } = useEventsStore();
     const { dataList, fetchCategoriesList, isLoading } = EventCategorieStore()
+    const interetT = useScopedI18n('interet');
+    const findT = useScopedI18n('find');
+    const distanceT = useScopedI18n('distance');
 
     useEffect(() => {
         fetchCategoriesList()
@@ -32,7 +36,7 @@ export const FilterSection = () => {
             <Input
                 className={"col-span-2"}
                 startContent={<Search className={"text-primary "} />}
-                placeholder="Rechercher"
+                placeholder={findT("title")}
                 radius='full'
                 width={300}
                 onChange={(e) => fetchEventList({ search: e.target.value })}
@@ -43,7 +47,7 @@ export const FilterSection = () => {
                 onChange={(e) => fetchEventList({ distance: e.target.value })}
                 className={"col-span-1"}
                 radius='full'
-                placeholder="Distance"
+                placeholder={distanceT("title")}
                 startContent={<Image src={"/icon/distance.png"} height={25} width={25} alt={"distance"} className={"text-primary "} />}
             >
                 {(ditance) => <SelectItem>{ditance.label}</SelectItem>}
@@ -55,9 +59,9 @@ export const FilterSection = () => {
                 isLoading={isLoading}
                 className={"col-span-2"}
                 radius='full'
-                placeholder="Centre d'intérêt"
+                placeholder={interetT("title")}
                 startContent={<LayoutGrid fill='currentColor' className={"text-primary w-6 h-6  "} />}
-                
+
             >
                 {(animal) => <SelectItem>{animal.label}</SelectItem>}
             </Select>

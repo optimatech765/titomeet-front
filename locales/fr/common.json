@@ -44,6 +44,7 @@
   "personalInfo.picture": "Photo de profil",
   "notification.remember": "Rappel des évènements 1h à l’avance",
   "notification.alert": "Alerte pour nouveaux messages",
+  "notification.label": "Notifications",
   "interet.title": "Centres d’intérêt",
   "interet.subtitle": "Mes centres d’intérêt",
   "account.deactive": " Souhaitez vous désactiver votre compte ?",
@@ -88,7 +89,12 @@
   "navbar.categotie": "Catégories",
   "navbar.functions": "Fonctionnalités",
   "navbar.provider": "Prestataires",
+  "navbar.ourevent": "Mes évènements",
   "register.title": "Créez votre compte",
   "register.subtitle": " Inscrivez-vous en quelques secondes",
-  "register.with": "Ou inscrivez vous avec"
+  "register.with": "Ou inscrivez vous avec",
+  "user.welcome": "Bienvenue",
+  "user.welcomeSubtitle": "Découvrez les évènements autour de vous",
+  "find.title": "Rechercher",
+  "distance.title": "Distance"
 }

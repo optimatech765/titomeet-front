@@ -44,6 +44,7 @@
   "personalInfo.picture": "",
   "notification.remember": "",
   "notification.alert": "",
+  "notification.label": "",
   "interet.title": "",
   "interet.subtitle": "",
   "account.deactive": "",
@@ -88,7 +89,12 @@
   "navbar.categotie": "",
   "navbar.functions": "",
   "navbar.provider": "",
+  "navbar.ourevent": "",
   "register.title": "",
   "register.subtitle": "",
-  "register.with": ""
+  "register.with": "",
+  "user.welcome": "",
+  "user.welcomeSubtitle": "",
+  "find.title": "",
+  "distance.title": ""
 }

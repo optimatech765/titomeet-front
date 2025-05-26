@@ -44,6 +44,7 @@
   "personalInfo.picture": "Profile picture",
   "notification.remember": "Reminder of events 1 hour in advance",
   "notification.alert": "Alert for new messages",
+  "notification.label": "Notifications",
   "interet.title": "Your interests",
   "interet.subtitle": "My points of interest",
   "account.deactive": "Would you like to deactivate your account?",
@@ -88,7 +89,12 @@
   "navbar.categotie": "Categories",
   "navbar.functions": "Functionalities",
   "navbar.provider": "Providers",
+  "navbar.ourevent": "Our Events",
   "register.title": "Create your account",
   "register.subtitle": "Register in just a few seconds",
-  "register.with": "Or sign up with"
+  "register.with": "Or sign up with",
+  "user.welcome": "Welcome",
+  "user.welcomeSubtitle": "Find out about events in your area",
+  "find.title": "Find",
+  "distance.title": "Distance"
 }
