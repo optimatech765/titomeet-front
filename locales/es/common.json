@@ -19,9 +19,10 @@
   "input.location": "",
   "button.search": "",
   "profil.personalInfo": "",
-  "presonalInfo.firstName": "",
-  "presonalInfo.lastName": "",
+  "personalInfo.firstName": "",
+  "personalInfo.lastName": "",
   "personalInfo.userName": "",
   "personalInfo.email": "",
-  "personalInfo.location": ""
+  "personalInfo.location": "",
+  "personalInfo.picture": ""
 }

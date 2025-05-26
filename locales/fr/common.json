@@ -19,9 +19,10 @@
   "input.location": "Localisation",
   "button.search": "Rechercher",
   "profil.personalInfo": "Informations personnelles",
-  "presonalInfo.firstName": "Prénom",
-  "presonalInfo.lastName": "Nom",
+  "personalInfo.firstName": "Prénom",
+  "personalInfo.lastName": "Nom",
   "personalInfo.userName": "Nom d'utilisateur",
   "personalInfo.email": "Adresse email",
-  "personalInfo.location": "Localisation"
+  "personalInfo.location": "Localisation",
+  "personalInfo.picture": "Photo de profil"
 }
