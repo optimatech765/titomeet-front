@@ -1,0 +1,21 @@
+{
+  "hero.title1": "Pour les Professionnels",
+  "hero.description1": "Développez votre réseau professionnel dans une ambiance décontractée",
+  "hero.title2": "Pour les Étudiants",
+  "hero.description2": "Construisez votre futur professionnel dès aujourd’hui",
+  "hero.title3": "Pour les Passionnés",
+  "hero.description3": "Partagez vos passions avec une communauté dynamique",
+  "hero.title4": "Pour les Expatriés",
+  "hero.description4": "Intégrez - vous naturellement dans la vie du Bénin",
+  "hero.title5": "Pour les partenaires(Sponsors)",
+  "hero.description5": "Dénichez des clients facilement",
+  "hero.title6": "Pour le Bénin",
+  "hero.description6": "Faire rayonner l’image du Bénin à l’extérieur",
+  "hero.discover": "Découvrir les évènements",
+  "hero.create": "Créer un évènement",
+  "event.titleUpcomming": "Evènements à venir",
+  "event.descriptionUpcomming": "Des évènements exclusifs, des places limitées",
+  "input.serachEventPlaceholder": "Rechercher un évènement",
+  "input.location": "Localisation",
+  "button.search": "Rechercher"
+}

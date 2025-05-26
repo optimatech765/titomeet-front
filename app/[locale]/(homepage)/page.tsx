@@ -1,6 +1,7 @@
 
+"use client"
 import { VideoPlayer } from "@/components/video.player.component";
-import { getScopedI18n } from "@/locales/server";
+import { useScopedI18n } from "@/locales/client";
 import { BecomeProviderSection } from "@/sections/become-provider.section";
 import { CategorieSection } from "@/sections/categorie.section";
 import { EventsSection } from "@/sections/events.section";
@@ -8,9 +9,9 @@ import { HeroSection } from "@/sections/hero.section";
 import { PartenairesSection } from "@/sections/partner.section";
 
 
-export default async function Home() {
+export default  function Home() {
 
-  const landingTEvent = await getScopedI18n('landing.event')
+ const eventT = useScopedI18n('event');
 
 
   return (
@@ -27,8 +28,8 @@ export default async function Home() {
 
 
           <div id="evenements">
-            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins ">{landingTEvent('title')}</h3>
-            <span className="text-[#1E1E1E] text-base">{landingTEvent('description')}</span>
+            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins ">{eventT('titleUpcomming')}</h3>
+            <span className="text-[#1E1E1E] text-base">{eventT('descriptionUpcomming')}</span>
             <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
           </div>
           <EventsSection />

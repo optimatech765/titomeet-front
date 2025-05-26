@@ -8,16 +8,22 @@ import Image from "next/image";
 import { getInitials } from "@/utils/functions/other.functions";
 import { useAppContext } from "@/context";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuth } = useAppContext();
     const router = useRouter();
+    const [activeNavbar, setActiveNavbar] = useState("/user");
 
     const logOut = () => {
         localStorage.removeItem("accessToken");
         router.push("/auth");
     }
+
+    const isActive = (href: string) => {
+        return activeNavbar === href;
+    };
 
     return (
         <Navbar
@@ -53,19 +59,22 @@ export const AuthentificatedNavbarSection = () => {
             <Drawer isOpen={isOpen} onOpenChange={setIsOpen} placement="left" className="lg:hidden">
                 <DrawerContent className="w-64 p-4">
                     <nav className="flex flex-col gap-4 ">
-                        <LinkH as={Link} href="/user" onPress={() => setIsOpen(false)} className="text-lg font-semibold text-black">
-                            Accueil
-                        </LinkH>
-                        <LinkH as={Link} href="/user/events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            évènements
-                        </LinkH>
-                        <LinkH as={Link} href="/user/our-events" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Mes évènements
-                        </LinkH>
-                        <LinkH as={Link} href="/user/services" onPress={() => setIsOpen(false)} className="text-lg font-semibold">
-                            Services
-                        </LinkH>
-                        <LinkH  onPress={logOut} className="text-lg font-semibold">
+                        {navBarLink.map(({ href, label }) => (
+                            <LinkH
+                                as={Link}
+                                key={href}
+                                href={href}
+                                onPress={() => {
+                                    setActiveNavbar(href);
+                                    setIsOpen(false);
+                                }}
+                                className={clsx({ "text-primary": isActive(href), "text-black": !isActive(href) }, "text-lg font-semibold")}
+                            >
+                                {label}
+                            </LinkH>
+                        ))}
+
+                        <LinkH onPress={logOut} className="text-lg font-semibold">
                             Se déconnecter
                         </LinkH>
 
@@ -77,26 +86,20 @@ export const AuthentificatedNavbarSection = () => {
 
             {/* Liens de navigation (cachés sur mobile) */}
             <NavbarContent className="hidden lg:flex gap-6">
-                <NavbarItem isActive>
-                    <LinkH aria-current="page" as={Link} href="/user" className="font-semibold underline-hover text-black">
-                        Accueil
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH underline="active" as={Link} href="/user/events" className="font-semibold underline-hover text-black">
-                        évènements
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/user/our-events" className="font-semibold underline-hover text-black">
-                        Mes évènements
-                    </LinkH>
-                </NavbarItem>
-                <NavbarItem>
-                    <LinkH as={Link} href="/user/services" className="font-semibold underline-hover text-black">
-                        Services
-                    </LinkH>
-                </NavbarItem>
+                {navBarLink2.map(({ href, label }) => (
+                    <NavbarItem key={href} >
+                        <LinkH
+                            underline={isActive(href) ? "active" : "none"}
+                            onPress={() => setActiveNavbar(href)}
+                            as={Link}
+                            href={href}
+                            className={clsx({ "active-link": isActive(href), "text-black underline-hover": !isActive(href) }, "text-lg font-semibold text-black ")}
+                        >
+                            {label}
+                        </LinkH>
+                    </NavbarItem>
+                ))}
+                
 
                 <NavbarItem>
                     <LinkH
@@ -152,3 +155,25 @@ export const AuthentificatedNavbarSection = () => {
     );
 }
 
+
+
+const navBarLink = [
+    { href: "/user", label: "Accueil" },
+    { href: "/user/events", label: "évènements" },
+    { href: "/user/our-events", label: "Mes évènements" },
+    { href: "/user/services", label: "Services" },
+    { href: "/user/message", label: "Message" },
+    { href: "/user/notifications", label: "Notifications" },
+    { href: "/user/profil", label: "Profil" },
+
+]
+
+
+const navBarLink2 = [
+    { href: "/user", label: "Accueil" },
+    { href: "/user/events", label: "évènements" },
+    { href: "/user/our-events", label: "Mes évènements" },
+    { href: "/user/services", label: "Services" },
+   
+
+]

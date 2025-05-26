@@ -16,9 +16,10 @@ import Link from "next/link";
 
 
 export const HeroSection = () => {
-    const landingText = useScopedI18n('landing.hero');
-    const landingTButton = useScopedI18n('landing.button');
-    const [activeIndex, setActiveIndex] = useState(0);
+    const hero = useScopedI18n('hero');
+    const inputT = useScopedI18n('input');
+    const buttonT = useScopedI18n('button');
+    const [activeIndex, setActiveIndex] = useState(1);
     const [searchParameter, setSearchParameter] = useState({
         keyWord: "",
         localisation: ""
@@ -44,12 +45,12 @@ export const HeroSection = () => {
 
                     <div className="text-4xl md:text-5xl font-bold text-black leading-tight space-y-2">
                         <p className="text-primary">Tit<span className="text-secondary" >o</span>meet,</p>
-                        <p className="text-black">{landingText(activeIndex + '.title' as any)}</p>
+                        <p className="text-black">{hero(`title${activeIndex}` as any)}</p>
                     </div>
 
                     <div>
                         <p className="text-gray-600 text-lg">
-                            {landingText(activeIndex + '.description' as any)}
+                            {hero(`description${activeIndex}` as any)}
                         </p>
                     </div>
 
@@ -61,14 +62,14 @@ export const HeroSection = () => {
                             href="#evenements"
                             className="bg-primary text-white"
                             radius="full" size="lg">
-                            {landingTButton('first')}
+                     {hero("discover")}
                         </Button>
                         <Button
                             as={Link}
                             href="/user/events/new"
                             className="border-primary text-primary"
                             variant="bordered" radius={"full"} size="lg">
-                            {landingTButton('second')}
+                            {hero("create")}
                         </Button>
                     </div>
 
@@ -78,7 +79,7 @@ export const HeroSection = () => {
                         <Input
                             onChange={(e) => setSearchParameter({ ...searchParameter, keyWord: e.target.value })}
                             type="text"
-                            placeholder="Rechercher événement"
+                            placeholder={inputT("serachEventPlaceholder")}
                             radius="full"
                             startContent={<SearchIcon className="w-4 h-4 text-primary " />}
                             className=""
@@ -87,7 +88,7 @@ export const HeroSection = () => {
                         <Input
                             type="text"
                             onChange={(e) => setSearchParameter({ ...searchParameter, localisation: e.target.value })}
-                            placeholder="Localisation"
+                            placeholder={inputT("location")}
                             radius="full"
                             startContent={<MapPinIcon className="w-4 h-4 text-primary " />}
                             className=""
@@ -96,11 +97,11 @@ export const HeroSection = () => {
 
                         <Button onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-secondary rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
-                            <span className="md:hidden">Rechercher</span>
+                            <span className="md:hidden">{buttonT('search') }</span>
                         </Button>
                         <Button onPress={handleFindEvent} className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
-                            <span className="">Rechercher</span>
+                            <span className="">{buttonT('search') }</span>
                         </Button>
                     </div>
 
@@ -129,7 +130,7 @@ export const HeroSection = () => {
                             // lazy={true}
                             grabCursor={true} // Rend le défilement plus fluide
                             direction="horizontal" // Assure un glissement horizontal
-                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex+1)}
 
                         >
                             {SlidesImages.map((item: any, index: number) => (
