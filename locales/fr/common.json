@@ -109,5 +109,13 @@
   "personnise.subtitle": " Sélectionnez vos centres d’intérêts pour découvrir des évènements qui vous correspondent",
   "personnise.selection": " Sélectionnez au moins",
   "personnise.number": "trois",
-  "personnise.interest": "centres d’intérêts"
+  "personnise.interest": "My interests",
+  "updatProfil.interestTitle": "Centres d’intérêt",
+  "updatProfil.interestSubTitle": "Mes centres d’intérêt",
+  "updateProfil.advancedTitle": " Paramètres avancés",
+  "updateProfil.advancedFr": "Français",
+  "updateProfil.advancedEn": "Anglais",
+  "updateProfil.advancedLan": "Langue",
+  "updateProfil.deactive": " Desactiver mon compte",
+  "updateProfil.delete": " Supprimer mon compte"
 }

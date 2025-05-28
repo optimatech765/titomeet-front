@@ -109,5 +109,13 @@
   "personnise.subtitle": "",
   "personnise.selection": "",
   "personnise.number": "",
-  "personnise.interest": ""
+  "personnise.interest": "",
+  "updatProfil.interestTitle": "",
+  "updatProfil.interestSubTitle": "",
+  "updateProfil.advancedTitle": "",
+  "updateProfil.advancedFr": "",
+  "updateProfil.advancedEn": "",
+  "updateProfil.advancedLan": "",
+  "updateProfil.deactive": "",
+  "updateProfil.delete": ""
 }

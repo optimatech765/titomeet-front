@@ -109,5 +109,13 @@
   "personnise.subtitle": "Select your areas of interest to discover events that suit you",
   "personnise.selection": " Select at least",
   "personnise.number": "three",
-  "personnise.interest": "interests"
+  "personnise.interest": "interests",
+  "updatProfil.interestTitle": "Interests",
+  "updatProfil.interestSubTitle": "My interests",
+  "updateProfil.advancedTitle": " Advanced settings",
+  "updateProfil.advancedFr": "French",
+  "updateProfil.advancedEn": "English",
+  "updateProfil.advancedLan": "Language",
+  "updateProfil.deactive": "Deactivate my account",
+  "updateProfil.delete": "Delete my account"
 }
