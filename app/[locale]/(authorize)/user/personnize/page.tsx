@@ -1,5 +1,6 @@
 "use client";
 
+import { useScopedI18n } from "@/locales/client";
 import { Button } from "@heroui/button";
 import { Card} from "@heroui/react";
 import clsx from "clsx";
@@ -39,6 +40,8 @@ const interests = [
 
 export default function InterestsSelection() {
     const [selected, setSelected] = useState<string[]>([]);
+    const personniseT = useScopedI18n("personnise");
+    const buttonT = useScopedI18n("button");
 
     const toggleSelection = (option: string) => {
         setSelected((prev) =>
@@ -58,15 +61,14 @@ export default function InterestsSelection() {
                     width={50}
                     height={50}
 
-                />  Personnalisez votre expérience TITOMEET
+                />  {personniseT("title")}
             </h1>
             <p className="footer-link text-center">
-                Sélectionnez vos centres d’intérêts pour découvrir des évènements qui
-                vous correspondent
+                 {personniseT("subtitle")}
             </p>
             <p className="footer-link">
-                Sélectionnez au moins <span className="font-bold">trois (03)</span>{" "}
-                centres d’intérêts
+                 {personniseT("selection")} <span className="font-bold"> {personniseT("number")} (03)</span>{" "}
+                 {personniseT("interest")}
             </p>
 
             <div className="grid space-y-5 md:space-y-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-full max-w-5xl">
@@ -121,7 +123,7 @@ export default function InterestsSelection() {
                 className="mt-4 px-28"
                 radius="full"
             >
-                Enregistrer
+                {buttonT("save")}
             </Button>
         </div>
     );

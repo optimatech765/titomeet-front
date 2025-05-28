@@ -104,5 +104,10 @@
   "resetPassword.title": "Forgot password",
   "resetPassword.subTitle": " Enter your email address and we'll send you a link to reset your password.",
   "forgotPassword.title": " A password reset link has been sent to the email address you provided.",
-  "forgotPassword.subTitle": " Enter your email address and we'll send you a link to reset your password."
+  "forgotPassword.subTitle": " Enter your email address and we'll send you a link to reset your password.",
+  "personnise.title": "Personalize your TITOMEET experience",
+  "personnise.subtitle": "Select your areas of interest to discover events that suit you",
+  "personnise.selection": " Select at least",
+  "personnise.number": "three",
+  "personnise.interest": "interests"
 }

@@ -104,5 +104,10 @@
   "resetPassword.title": "Mot de pasee oublié",
   "resetPassword.subTitle": " Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe",
   "forgotPassword.title": " Un lien de réinitialisation de mot de passe vous a été envoyé à l'adresse email que vous avez fournie.",
-  "forgotPassword.subTitle": " Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe"
+  "forgotPassword.subTitle": " Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+  "personnise.title": "Personnalisez votre expérience TITOMEET",
+  "personnise.subtitle": " Sélectionnez vos centres d’intérêts pour découvrir des évènements qui vous correspondent",
+  "personnise.selection": " Sélectionnez au moins",
+  "personnise.number": "trois",
+  "personnise.interest": "centres d’intérêts"
 }

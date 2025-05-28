@@ -104,5 +104,10 @@
   "resetPassword.title": "",
   "resetPassword.subTitle": "",
   "forgotPassword.title": "",
-  "forgotPassword.subTitle": ""
+  "forgotPassword.subTitle": "",
+  "personnise.title": "",
+  "personnise.subtitle": "",
+  "personnise.selection": "",
+  "personnise.number": "",
+  "personnise.interest": ""
 }
