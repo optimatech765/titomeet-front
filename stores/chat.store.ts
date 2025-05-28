@@ -4,24 +4,27 @@ import { messagesSevices } from "@/services/messages/messages.services";
 import { create } from "zustand";
 
 
-interface ChatStoreDto{
+interface ChatStoreDto {
     chats: any[];
-    messages: any[];
+    messages: any;
     currentChat: any;
     currentMessage: any;
     isLoading: boolean;
     isError: boolean;
-    fetchChatList : () => void;
+    fetchChatList: () => void;
     fetchMessages: (chatId: string) => void;
-    sendMessage: (chatId: string, message: string) => void;
+    sendMessage: (chatId: string, message: string, medialUrl: string) => void;
     setCurrentChat: (chat: any) => void;
-    chatMembers: any[];
+    chatMembers: any;
     fetchChatMembers: (chatId: string) => void;
+    addNewMessageToMessages: (chatId: string, message: any) => void;
+    reorderChatList: (chatId: string) => void;
+
 }
 
 export const ChatStore = create<ChatStoreDto>((set) => ({
     chats: [],
-    messages: [],
+    messages: {},
     currentChat: null,
     currentMessage: null,
     isLoading: true,
@@ -29,8 +32,10 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
     fetchChatList: () => {
         try {
             messagesSevices.getChats().then((response) => {
+
                 set(() => ({
-                    chats: response.data,
+                    chats: response.data.items,
+                    currentChat: response.data.items?.[0],
                     isLoading: false,
                 }));
             },
@@ -42,19 +47,18 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
                     error: error.response.data.message,
                 }));
             });
-             
+
         } catch (error) {
             console.log(error);
-             set(() => ({
-            isLoading: false,
-        }));
+            set(() => ({
+                isLoading: false,
+            }));
         }
-       
+
     },
-    fetchMessages: (chatId:string) => {
+    fetchMessages: (chatId: string) => {
         messagesSevices.getMessages(chatId).then((response) => {
-            set((state:ChatStoreDto) => ({
-                ...state,
+            set(() => ({
                 messages: response.data,
                 isLoading: false,
             }));
@@ -67,10 +71,16 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
             }));
         });
     },
-    sendMessage: (chatId: string, message: string) => {
-        messagesSevices.createMessage({ chatId, message }).then((response) => {
+    sendMessage: (chatId: string, message: string, mediaUrl: string) => {
+        messagesSevices.createMessage({ chatId, text: message, mediaUrl }).then((response) => {
+            console.log(response.data);
             set((state: ChatStoreDto) => ({
-                messages: [...state.messages, response.data],
+                messages: {
+                    ...state.messages,
+                    items: [response.data, ...state.messages.items,
+
+                    ]
+                },
             }));
         }).catch((error) => {
             console.log(error);
@@ -81,11 +91,12 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
         });
     },
     setCurrentChat: (chat: any) => {
+        console.log(chat);
         set(() => ({
             currentChat: chat,
         }));
     },
-    chatMembers: [],
+    chatMembers: {},
     fetchChatMembers: (chatId: string) => {
         messagesSevices.getChatMembers(chatId).then((response) => {
             set(() => ({
@@ -99,4 +110,36 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
             }));
         });
     },
+    addNewMessageToMessages: (chatId: string, message: any) => {
+        set((state: ChatStoreDto) => {
+            const isCurrentChat = chatId === state.currentChat?.id;
+
+            return {
+                messages: {
+                    ...state.messages,
+                    items: isCurrentChat
+                        ? [ message,...state.messages.items]
+                        : [...state.messages.items]
+                }
+            };
+        });
+    },
+    reorderChatList: (chatId: string) => {
+        set((state: ChatStoreDto) => {
+            const index = state.chats.findIndex((item) => item.id === chatId);
+
+            if (index !== -1) {
+                const chats = [...state.chats];
+                const [chat] = chats.splice(index, 1);
+                chats.unshift(chat);
+
+                return { chats };
+            }
+
+            // Important : toujours retourner l'état inchangé si aucune modification
+            return { chats: state.chats };
+        });
+    }
+
+
 }))
