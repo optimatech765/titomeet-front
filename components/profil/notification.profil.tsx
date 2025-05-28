@@ -1,12 +1,15 @@
+import { useScopedI18n } from '@/locales/client';
 import { Button } from '@heroui/button';
 import { cn, Switch } from '@heroui/react';
 import React from 'react';
 
 const NotificationProfil = () => {
+     const updateProfilT = useScopedI18n("updateProfil");
+     const buttonT = useScopedI18n("button");
     return (
         <div className='flex flex-col justify-between h-full'>
             <div>
-                <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
+                <h2 className="text-2xl font-semibold mb-4">{updateProfilT("notiticationTitle")}</h2>
                 <div className='space-y-6'>
                     <Switch
 
@@ -17,7 +20,7 @@ const NotificationProfil = () => {
 
                             ),
                             label: "w-full font-semibold",
-                        }}>Activation
+                        }}>{updateProfilT("notiticatioActivation")}
                     </Switch>
 
                     <Switch
@@ -30,7 +33,7 @@ const NotificationProfil = () => {
                             ),
                             label: "w-full font-semibold",
                         }}>
-                           Rappel des évènements 1h à l’avance
+                           {updateProfilT("notiticatioRemainber")}
                     </Switch>
 
                     <Switch
@@ -43,7 +46,7 @@ const NotificationProfil = () => {
                             ),
                             label: "w-full font-semibold",
                         }}>
-                            Alerte pour nouveaux messages
+                            {updateProfilT("notiticatioAlert")}
                     </Switch>
                 </div>
             </div>
@@ -51,7 +54,7 @@ const NotificationProfil = () => {
             {/* Bouton sauvegarder */}
             <div className="mt-6">
                 <Button className="bg-red-500 text-white px-6 py-2" radius='full' >
-                    Sauvegarder
+                   {buttonT("save")}
                 </Button>
             </div>
         </div>

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { useScopedI18n } from '@/locales/client';
 import { formatDate, getHourMinute, verifyIsPastDate } from '@/utils/functions/date.function';
 import { Card,Button, CardBody } from '@heroui/react';
 import { Check, Clock, Eclipse, FilePenLine, MapPin, MessageCircleMore, Ticket } from "lucide-react";
@@ -7,6 +8,8 @@ import Image from 'next/image';
 import React from 'react';
 
 export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }) => {
+     const eventT = useScopedI18n("event");
+     const buttonT = useScopedI18n("button");
     return (
         <Card
             isBlurred
@@ -74,7 +77,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 radius='full'
                                 color='primary'
                                 className="mt-2 w-full border-1 text-xs font-semibold text-primary">
-                                Discussion
+                                {buttonT("discus")}
                             </Button>
 
                             <Button
@@ -84,7 +87,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 radius='full'
                                 color='primary'
                                 className="mt-2 border-1 w-full text-xs font-semibold text-primary">
-                                Participation
+                                {eventT("join")}
                             </Button>
                         </div>
                     </CardBody>

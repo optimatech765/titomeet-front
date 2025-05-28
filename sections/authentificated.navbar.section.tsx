@@ -9,13 +9,16 @@ import { getInitials } from "@/utils/functions/other.functions";
 import { useAppContext } from "@/context";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { useScopedI18n } from "@/locales/client";
 
 export const AuthentificatedNavbarSection = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuth } = useAppContext();
     const router = useRouter();
     const [activeNavbar, setActiveNavbar] = useState("/user");
-
+    const navbarT = useScopedI18n('navbar');
+    const notificationT = useScopedI18n('notification');
+    const inputT = useScopedI18n('input');
     const logOut = () => {
         localStorage.removeItem("accessToken");
         router.push("/auth");
@@ -24,6 +27,27 @@ export const AuthentificatedNavbarSection = () => {
     const isActive = (href: string) => {
         return activeNavbar === href;
     };
+
+    const navBarLink = [
+        { href: "/user", label: navbarT("home") },
+        { href: "/user/events", label: navbarT("event") },
+        { href: "/user/our-events", label: "Mes évènements" },
+        { href: "/user/services", label: "Services" },
+        { href: "/user/message", label: "Message" },
+        { href: "/user/notifications", label: notificationT("label") },
+        { href: "/user/profil", label: "Profil" },
+
+    ]
+
+
+    const navBarLink2 = [
+        { href: "/user", label: navbarT("home") },
+        { href: "/user/events", label: navbarT("event") },
+        { href: "/user/our-events", label: navbarT("ourevent") },
+        { href: "/user/services", label: "Services" },
+
+
+    ]
 
     return (
         <Navbar
@@ -47,7 +71,7 @@ export const AuthentificatedNavbarSection = () => {
                     <Input
                         startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
                         radius="full"
-                        placeholder="Localisation"
+                        placeholder={inputT("location")}
                         className="ml-4 rounded-full hidden sm:block max-w-xs"
                         size="sm"
                     />
@@ -99,7 +123,7 @@ export const AuthentificatedNavbarSection = () => {
                         </LinkH>
                     </NavbarItem>
                 ))}
-                
+
 
                 <NavbarItem>
                     <LinkH
@@ -157,23 +181,3 @@ export const AuthentificatedNavbarSection = () => {
 
 
 
-const navBarLink = [
-    { href: "/user", label: "Accueil" },
-    { href: "/user/events", label: "évènements" },
-    { href: "/user/our-events", label: "Mes évènements" },
-    { href: "/user/services", label: "Services" },
-    { href: "/user/message", label: "Message" },
-    { href: "/user/notifications", label: "Notifications" },
-    { href: "/user/profil", label: "Profil" },
-
-]
-
-
-const navBarLink2 = [
-    { href: "/user", label: "Accueil" },
-    { href: "/user/events", label: "évènements" },
-    { href: "/user/our-events", label: "Mes évènements" },
-    { href: "/user/services", label: "Services" },
-   
-
-]

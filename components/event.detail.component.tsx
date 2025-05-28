@@ -20,10 +20,11 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
-import { EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
 import { EventMapComponent } from './events/event.map.component';
+import { useScopedI18n } from '@/locales/client';
 
 
 export const EventDetails = () => {
@@ -34,6 +35,11 @@ export const EventDetails = () => {
     const router = useRouter()
     const params = useParams();
     const event = params?.eventId
+     const eventT = useScopedI18n("event");
+     const eventDetailT = useScopedI18n("eventDetail");
+     const inputT = useScopedI18n("input");
+     const paymentT = useScopedI18n("payment");
+    
 
     useEffect(() => {
         fetchSingleEventDetails(event as string);
@@ -49,7 +55,7 @@ export const EventDetails = () => {
                 <div className=" mx-auto p-6 mb-12 section-container md:px-10">
                     <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                         <ChevronLeft className="text-black cursor-pointer " onClick={() => router.back()} />
-                        Détails de l’évènement
+                       {eventDetailT("title")}
                     </h2>
 
                     <div className="relative w-full h-64">
@@ -65,13 +71,12 @@ export const EventDetails = () => {
                     <div className="mt-3">
                         <h1 className="text-2xl font-extrabold">{singleEvent?.name}</h1>
                         <p className="information-text ">
-                            Rencontrez des passionnés de la
-                            tech autour d’un verre !
+                              {eventDetailT("slogan")}
                         </p>
                         <p className="space-x-2 mt-2">
-                            <span className="information-text ">Organisée par </span>
+                            <span className="information-text ">{eventT("organizer")} </span>
                             <span className={"intormation-title"}>{`${singleEvent?.postedBy?.firstName} ${singleEvent?.postedBy?.lastName}`}</span>
-                            <span className="information-text ">publié le </span>
+                            <span className="information-text ">{eventT("publish")} </span>
                             <span className={"intormation-title"}>{singleEvent?.createdAt?.split("T")[0]}</span>
                         </p>
                         <div className="flex flex-wrap items-center gap-4 text-sm text-black mt-4">
@@ -98,7 +103,7 @@ export const EventDetails = () => {
                         <div className="col-span-2">
                             {/* Description */}
                             <div className="mt-6 space-y-2.5">
-                                <h2 className="information-title1">Description</h2>
+                                <h2 className="information-title1">{eventT("description")}</h2>
                                 <p className="information-text ">
                                     {singleEvent?.description}
                                 </p>
@@ -107,14 +112,14 @@ export const EventDetails = () => {
 
                             {/* Participants */}
                             <div className="mt-6 space-y-2.5">
-                                <h2 className="information-title1">Participants</h2>
+                                <h2 className="information-title1">{eventT("participant")}</h2>
                                 <Card className="">
                                     <CardBody>
                                         <CardHeader  >
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?.ticketsSold || 0} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?.ticketsSold || 0} {eventT("participanton")} {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -137,7 +142,6 @@ export const EventDetails = () => {
                                             {singleEvent?.participants?.map((participant: any) => (
                                                 <div key={participant?.id} className="border-1 rounded-md flex items-center gap-2 p-2 flex-1">
                                                     <Avatar src="/img/user.png" size="md" />
-                                                    hello la team
                                                 </div>
                                             ))}
                                         </div>
@@ -146,11 +150,11 @@ export const EventDetails = () => {
                             </div>
 
                             <div className="mt-6 flex gap-2">
-                                <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Participer</Button>
+                                <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("join")}</Button>
 
                                 <Dropdown>
                                     <DropdownTrigger>
-                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
+                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("share")}</Button>
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="Static Actions">
 
@@ -208,7 +212,7 @@ export const EventDetails = () => {
                         <div className='space-y-6'>
                             {/* Localisation */}
                             <div className="">
-                                <h2 className="information-title1">Localisation</h2>
+                                <h2 className="information-title1">{inputT("location")}</h2>
                                 {singleEvent?.address?.longitude &&
                                     <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center">
                                         {/* <MapPin size={32} className="text-red-500" /> */}
@@ -248,7 +252,7 @@ export const EventDetails = () => {
                 {/* évènements similaires */}
                 <div className="mt-10 bg-[#F8F8F8] pb-12 ">
                     <div className="section-container mx-auto p-6 ">
-                        <h2 className="information-title1">évènements que vous pourriez aimer</h2>
+                        <h2 className="information-title1">{eventT("mayLike")}</h2>
                         <div className={clsx("lg:grid-cols-4 mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")}>
                             {dataList?.map((event: EventDtoResponse, index: number) => (
                                 <EventCardComponent key={index} event={event} />
@@ -284,10 +288,10 @@ export const EventDetails = () => {
                                         <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28" />
                                     </h3>
                                     <h4 className="text-2xl  font-semibold  flex justify-center text-center">
-                                        Paiement réussi
+                                       {paymentT("success")}
                                     </h4>
                                     <p className="text-sm font-light text-center">
-                                        Retrouvé vos tickets dans votre boîte mail
+                                       {paymentT("mail")}
                                     </p>
 
                                 </div>

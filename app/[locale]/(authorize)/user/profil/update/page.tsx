@@ -8,6 +8,7 @@ import { PaiementProfile } from '@/components/profil/paiement.profile';
 import { PersonnalInfoComponent } from '@/components/profil/personnal.info.component';
 import { SecurityProfil } from '@/components/profil/security.profil';
 import { useAppContext } from '@/context';
+import { useScopedI18n } from '@/locales/client';
 import { Button, Card, Divider, User } from '@heroui/react';
 import clsx from 'clsx';
 import { Bell, CreditCard, LayoutDashboard, Lock, LogOut, Menu, Settings, User2, X } from 'lucide-react';
@@ -20,6 +21,7 @@ const Page = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+    const updateProfilT = useScopedI18n("updateProfil");
 
     useEffect(() => {
         setSidebarOpen(false)
@@ -70,12 +72,12 @@ const Page = () => {
 
                         {/* Menu */}
                         <div className="flex flex-col gap-2 flex-1">
-                            <SidebarButton label="Informations personnelles" active={activeMenu === "informations"} onClick={() => setActiveMenu("informations")} icon={<User2 className="w-4 h-4" />} />
-                            <SidebarButton label="Mes centres d’intérêt" active={activeMenu === "interet"} onClick={() => setActiveMenu("interet")} icon={<LayoutDashboard className="w-4 h-4" />} />
-                            <SidebarButton label="Notifications" active={activeMenu === "notifications"} onClick={() => setActiveMenu("notifications")} icon={<Bell className="w-4 h-4" />} />
-                            <SidebarButton label="Sécurité du compte" active={activeMenu === "security"} onClick={() => setActiveMenu("security")} icon={<Lock className="w-4 h-4" />} />
-                            <SidebarButton label="Paiements" active={activeMenu === "paiement"} onClick={() => setActiveMenu("paiement")} icon={<CreditCard className="w-4 h-4" />} />
-                            <SidebarButton label="Paramètres avancés" active={activeMenu === "advanced"} onClick={() => setActiveMenu("advanced")} icon={<Settings className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle1")} active={activeMenu === "informations"} onClick={() => setActiveMenu("informations")} icon={<User2 className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle2")} active={activeMenu === "interet"} onClick={() => setActiveMenu("interet")} icon={<LayoutDashboard className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle3")} active={activeMenu === "notifications"} onClick={() => setActiveMenu("notifications")} icon={<Bell className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle4")} active={activeMenu === "security"} onClick={() => setActiveMenu("security")} icon={<Lock className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle5")} active={activeMenu === "paiement"} onClick={() => setActiveMenu("paiement")} icon={<CreditCard className="w-4 h-4" />} />
+                            <SidebarButton label={updateProfilT("sideBarTitle6")} active={activeMenu === "advanced"} onClick={() => setActiveMenu("advanced")} icon={<Settings className="w-4 h-4" />} />
                         </div>
 
                         <Button radius='full' className="mt-4 bg-primary  text-white px-4 py-2 flex items-center gap-2 w-full">

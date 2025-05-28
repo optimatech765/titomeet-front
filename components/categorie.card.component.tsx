@@ -12,7 +12,7 @@ interface CategoryCardProps {
 export const CategoryCard: React.FC<CategoryCardProps> = ({ icon, title,index }) => {
     return (
         <Card className=" bg-white p-4 text-center shadow-md transition-all hover:shadow-lg">
-            <CardBody className=" gap-3">
+            <CardBody className="gap-3 flex flex-col items-center justify-center">
                 {/* Icône */}
                 <div className= {clsx({"bg-secondary":index%2===0,"bg-secondary-blue":index%2!==0},"flex items-center justify-center w-20 h-[75px] rounded-lg text-white text-3xl")} >
                     {icon}

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { useScopedI18n } from '@/locales/client';
 import { authSevices } from '@/services/auth/authServices';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { emailValidator } from '@/utils/validator/auth.validator';
@@ -17,6 +18,11 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(false);
     const errorFields = InputErrorStore((state: any) => state.errorField);
     const setMessageError = InputErrorStore((state: any) => state.setMessageError);
+    const forgotPasswordT = useScopedI18n("forgotPassword");
+    const resetPasswordT = useScopedI18n("resetPassword");
+    const inputT = useScopedI18n("input");
+    const buttonT = useScopedI18n("button");
+    const loginT = useScopedI18n("login");
 
     const handleSubmit = async () => {
 
@@ -86,24 +92,24 @@ const Page = () => {
             {sendingEmail ? <>
                 <div className="text-center mt-6 shadow-lg p-4 rounded-lg">
                     <div className="flex tems-center justify-center">
-                        <CheckCircleIcon className="h-14 w-14 text-emerald-500" />
+                        <CheckCircleIcon className="h-14 w-14 text-secondary-blue" />
                     </div>
 
                     <p>
-                        Un lien de réinitialisation de mot de passe vous a été envoyé à l&lsquo;adresse email que vous avez fournie.
+                      {forgotPasswordT("title")}
                     </p>
                 </div>
 
             </> : <>
                 <div className="text-center mb-6">
-                    <h2 className="text-base font-semibold">Mot de pasee oublié</h2>
+                    <h2 className="text-base font-semibold">{resetPasswordT("title")}</h2>
                     <p className="text-gray-500 text-xs font-light">
-                        Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe
+                        {forgotPasswordT("subTitle")}
                     </p>
                 </div>
 
                 <div className="mb-2 space-y-0.5">
-                    <label className="block text-sm font-medium">Email</label>
+                    <label className="block text-sm font-medium">{inputT("emailLabel")}</label>
                     <Input
                         isInvalid={errorFields.field === "email"}
                         errorMessage={errorFields?.message}
@@ -112,17 +118,19 @@ const Page = () => {
                         radius={"full"}
                         type="email"
                         className='rounded-full'
-                        placeholder="Entrez votre adresse email"
+                        placeholder={inputT("emailPlaceholder")}
                     />
                 </div>
                 <Button
                     onPress={handleSubmit}
                     isLoading={isLoading}
                     radius='full'
-                    className="w-full bg-red-500 hover:bg-red-600 text-white">Envoyer</Button>
+                    className="w-full bg-red-500 hover:bg-red-600 text-white">
+                         {buttonT("confirm")}
+                    </Button>
 
                 <p className="text-center mt-4 text-sm">
-                    Se connecter avec son mot de passe <Link href="/auth" className="text-red-500 underline">Se connecter</Link>
+                    {loginT("withEmail")} <Link href="/auth" className="text-red-500 underline">{buttonT("login")}</Link>
                 </p>
             </>}
 

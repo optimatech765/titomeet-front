@@ -13,7 +13,7 @@ class MessageServices {
     }
 
     getMessages(chatId:string) {
-        return axios.get(`${this.baseUrl}/${chatId}/messages`);
+        return axios.get(`${this.baseUrl}/messages?chatId=${chatId}`);
     }
 
     getMessage(id: string) {

@@ -34,6 +34,7 @@ interface UserInfoDto {
     fetchUserInfo: () => void;
     isLoading: boolean;
     handleUpdateUser: (user: any) => void;
+    handleDeactiveAccount: (onClose: any) => void;
 }
 
 export const useUserInfoStore = create<UserInfoDto>((set) => ({
@@ -74,6 +75,7 @@ export const useUserInfoStore = create<UserInfoDto>((set) => ({
                 lastName: user.lastName,
                 firstName: user.firstName,
                 username: user.username,
+                profilePicture: user.profilePicture,
             };
 
             usersServices.updateUser(data).then((response) => {
@@ -106,6 +108,48 @@ export const useUserInfoStore = create<UserInfoDto>((set) => ({
         } catch (error) {
             set({ isLoading: false })
             toast.error(`Erreur lors de la mise à jour`)
+            console.error(error)
+        }
+    },
+    handleDeactiveAccount: async (onClose: any) => {
+        set({ isLoading: true })
+        try {
+            const token = localStorage.getItem('accessToken');
+            const usersServices = new UsersServices(token || "");
+
+            const toastId = toast.loading(`Désactivation de la demande...`);
+
+            usersServices.deactiveAccount().then((response) => {
+                console.log(response);
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
+
+                toast.update(toastId, {
+                    render: "Désactivation réussie",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 5000,
+                });
+                onClose();
+
+                window.location.reload();
+
+
+            }).catch((error) => {
+                console.log(error);
+                set({ isLoading: false })
+                toast.update(toastId, {
+                    render: "Erreur lors de la désactivation",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 5000
+                })
+                console.error(error)
+            })
+
+        } catch (error) {
+            set({ isLoading: false })
+            toast.error(`Erreur lors de la désactivation`)
             console.error(error)
         }
     }

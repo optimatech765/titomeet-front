@@ -34,6 +34,7 @@ export const RegisterPage = () => {
     const inputT = useScopedI18n("input");
     const buttonT = useScopedI18n("button");
     const registerT = useScopedI18n("register");
+    const passwordT = useScopedI18n("password");
 
     const handleSubmit = async () => {
         try {
@@ -98,14 +99,15 @@ export const RegisterPage = () => {
 
     const errors: any = [];
 
+
     if (registerInfo.password.length < 8) {
-        errors.push("le mot de passe doit contenir au moins 8 caractères");
+        errors.push(passwordT("lengthe"));
     }
     if ((registerInfo.password.match(/[A-Z]/g) || []).length < 1) {
-        errors.push("Le mot de passe doit contenir au moins 1 lettre majuscule");
+        errors.push(passwordT("expression"));
     }
     if ((registerInfo.password.match(/[^a-z]/gi) || []).length < 1) {
-        errors.push("Le mot de passe doit contenir au moins 1 symbole");
+        errors.push(passwordT("specialCha"));
     }
 
     return (

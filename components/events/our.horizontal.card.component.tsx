@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { useScopedI18n } from '@/locales/client';
 import { formatDate, getHourMinute } from '@/utils/functions/date.function';
 import { Card, Progress, Button, CardBody } from '@heroui/react';
 import { Clock, MapPin, MessageCircleMore, PencilLine, Ticket, Users } from "lucide-react";
@@ -7,6 +8,7 @@ import Image from 'next/image';
 import React from 'react';
 
 export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
+    const buttonT = useScopedI18n("button");
     return (
         <Card
             isBlurred
@@ -72,7 +74,7 @@ export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
                                 size="sm"
                                 className={"p-1 "}
                             >
-                                Modifier
+                                {buttonT("update")}
                             </Button>
                             <Button
                                 startContent={<MessageCircleMore size={12} />}
@@ -82,7 +84,7 @@ export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
                                 size="sm"
                                 className='text-xs px-1 py-1'
                             >
-                                Discussion
+                                {buttonT("discus")}
                             </Button>
                         </div>
                     </CardBody>

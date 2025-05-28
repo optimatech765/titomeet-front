@@ -4,6 +4,7 @@ import { DateSelectComponent } from '@/components/date.select.component';
 import { FutureEventCardComponent } from '@/components/future.event.card.component';
 import { MyEventEventCardComponent } from '@/components/myevent.card.component';
 import { useAppContext } from '@/context';
+import { useScopedI18n } from '@/locales/client';
 import { EventsSection } from '@/sections/events.section';
 import { FilterSection } from '@/sections/filter.section';
 import { Divider } from '@heroui/react';
@@ -12,12 +13,15 @@ import React from 'react';
 
 const Page = () => {
     const { isAuth } = useAppContext();
+    const userT = useScopedI18n('user');
+    const eventT = useScopedI18n('event');
+
 
     return (
         <div className={"py-6 text-foreground space-y-3 section-container"}>
 
             <h1 className="text-2xl font-extrabold md:flex gap-1 items-center">
-                Bienvenue, {isAuth?.username}
+                {userT("welcome")}, {isAuth?.username}
                 <Image
                     src="/img/face.png"
                     alt="logo"
@@ -27,7 +31,7 @@ const Page = () => {
                 />
             </h1>
             <p className={"text-lg font-light  "}>
-                Découvrez les évènements autour de vous
+                {userT("welcomeSubtitle")}
             </p>
 
             <section className='lg:grid grid-cols-1 gap-4 md:grid-cols-12'>
@@ -52,7 +56,7 @@ const Page = () => {
                         <DateSelectComponent />
                     </div>
 
-                    <FutureEventCardComponent />
+                    <FutureEventCardComponent title={eventT("upcoming")} subtitle={eventT("registered")} />
 
                     <MyEventEventCardComponent />
                 </div>
