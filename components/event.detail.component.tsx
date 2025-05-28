@@ -20,7 +20,7 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
-import { EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
 import { EventMapComponent } from './events/event.map.component';
@@ -37,6 +37,9 @@ export const EventDetails = () => {
     const event = params?.eventId
      const eventT = useScopedI18n("event");
      const eventDetailT = useScopedI18n("eventDetail");
+     const inputT = useScopedI18n("input");
+     const paymentT = useScopedI18n("payment");
+    
 
     useEffect(() => {
         fetchSingleEventDetails(event as string);
@@ -209,7 +212,7 @@ export const EventDetails = () => {
                         <div className='space-y-6'>
                             {/* Localisation */}
                             <div className="">
-                                <h2 className="information-title1">Localisation</h2>
+                                <h2 className="information-title1">{inputT("location")}</h2>
                                 {singleEvent?.address?.longitude &&
                                     <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center">
                                         {/* <MapPin size={32} className="text-red-500" /> */}
@@ -249,7 +252,7 @@ export const EventDetails = () => {
                 {/* évènements similaires */}
                 <div className="mt-10 bg-[#F8F8F8] pb-12 ">
                     <div className="section-container mx-auto p-6 ">
-                        <h2 className="information-title1">évènements que vous pourriez aimer</h2>
+                        <h2 className="information-title1">{eventT("mayLike")}</h2>
                         <div className={clsx("lg:grid-cols-4 mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")}>
                             {dataList?.map((event: EventDtoResponse, index: number) => (
                                 <EventCardComponent key={index} event={event} />
@@ -285,10 +288,10 @@ export const EventDetails = () => {
                                         <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28" />
                                     </h3>
                                     <h4 className="text-2xl  font-semibold  flex justify-center text-center">
-                                        Paiement réussi
+                                       {paymentT("success")}
                                     </h4>
                                     <p className="text-sm font-light text-center">
-                                        Retrouvé vos tickets dans votre boîte mail
+                                       {paymentT("mail")}
                                     </p>
 
                                 </div>

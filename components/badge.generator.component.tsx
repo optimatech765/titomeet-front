@@ -4,8 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Image as KonvaImage, Transformer } from 'react-konva';
 import Konva from 'konva';
 import { Card, Input } from '@heroui/react';
+import { useScopedI18n } from '@/locales/client';
 
 export const BadgeGenerator = ({imageUrl}: {imageUrl: string}) => {
+     const buttonT = useScopedI18n("button");
     const [badgeImage, setBadgeImage] = useState<HTMLImageElement | null>(null);
     const [uploadedImage, setUploadedImage] = useState<{
         image: HTMLImageElement;
@@ -214,7 +216,7 @@ export const BadgeGenerator = ({imageUrl}: {imageUrl: string}) => {
                     onPress={handleDownload}
                     className="px-6 py-2 bg-primary text-white rounded w-full transition-colors"
                 >
-                    Télécharger le badge
+                   {buttonT("downloadBadge")}
                 </Button>
             </div>
         </Card>

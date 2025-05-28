@@ -37,6 +37,7 @@
   "button.register": "S'inscrire",
   "button.login": "Se connecter",
   "button.discus": "Discussion",
+  "button.downloadBadge": " Télécharger le badge",
   "profil.personalInfo": "Informations personnelles",
   "personalInfo.firstName": "Prénom",
   "personalInfo.lastName": "Nom",
@@ -147,5 +148,8 @@
   "event.publish": "publié le",
   "event.participanton": "Participants sur",
   "event.join": "Participer",
-  "event.xhare": "Partager"
+  "event.share": "Partager",
+  "event.mayLike": "Evènements que vous pourriez aimer",
+  "payment.mail": "Retrouvé vos tickets dans votre boîte mail",
+  "payment.success": "Paiement réussi"
 }
