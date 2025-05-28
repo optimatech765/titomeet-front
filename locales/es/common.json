@@ -138,5 +138,14 @@
   "event.showAll": "",
   "event.empty": "",
   "event.upcoming": "",
-  "event.registered": ""
+  "event.registered": "",
+  "event.description": "",
+  "event.participant": "",
+  "eventDetail.title": "",
+  "eventDetail.slogan": "",
+  "event.organizer": "",
+  "event.publish": "",
+  "event.participanton": "",
+  "event.join": "",
+  "event.xhare": ""
 }

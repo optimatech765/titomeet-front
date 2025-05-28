@@ -24,6 +24,7 @@ import { EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, Link
 import Image from 'next/image';
 import clsx from 'clsx';
 import { EventMapComponent } from './events/event.map.component';
+import { useScopedI18n } from '@/locales/client';
 
 
 export const EventDetails = () => {
@@ -34,6 +35,8 @@ export const EventDetails = () => {
     const router = useRouter()
     const params = useParams();
     const event = params?.eventId
+     const eventT = useScopedI18n("event");
+     const eventDetailT = useScopedI18n("eventDetail");
 
     useEffect(() => {
         fetchSingleEventDetails(event as string);
@@ -49,7 +52,7 @@ export const EventDetails = () => {
                 <div className=" mx-auto p-6 mb-12 section-container md:px-10">
                     <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                         <ChevronLeft className="text-black cursor-pointer " onClick={() => router.back()} />
-                        Détails de l’évènement
+                       {eventDetailT("title")}
                     </h2>
 
                     <div className="relative w-full h-64">
@@ -65,13 +68,12 @@ export const EventDetails = () => {
                     <div className="mt-3">
                         <h1 className="text-2xl font-extrabold">{singleEvent?.name}</h1>
                         <p className="information-text ">
-                            Rencontrez des passionnés de la
-                            tech autour d’un verre !
+                              {eventDetailT("slogan")}
                         </p>
                         <p className="space-x-2 mt-2">
-                            <span className="information-text ">Organisée par </span>
+                            <span className="information-text ">{eventT("organizer")} </span>
                             <span className={"intormation-title"}>{`${singleEvent?.postedBy?.firstName} ${singleEvent?.postedBy?.lastName}`}</span>
-                            <span className="information-text ">publié le </span>
+                            <span className="information-text ">{eventT("publish")} </span>
                             <span className={"intormation-title"}>{singleEvent?.createdAt?.split("T")[0]}</span>
                         </p>
                         <div className="flex flex-wrap items-center gap-4 text-sm text-black mt-4">
@@ -98,7 +100,7 @@ export const EventDetails = () => {
                         <div className="col-span-2">
                             {/* Description */}
                             <div className="mt-6 space-y-2.5">
-                                <h2 className="information-title1">Description</h2>
+                                <h2 className="information-title1">{eventT("description")}</h2>
                                 <p className="information-text ">
                                     {singleEvent?.description}
                                 </p>
@@ -107,14 +109,14 @@ export const EventDetails = () => {
 
                             {/* Participants */}
                             <div className="mt-6 space-y-2.5">
-                                <h2 className="information-title1">Participants</h2>
+                                <h2 className="information-title1">{eventT("participant")}</h2>
                                 <Card className="">
                                     <CardBody>
                                         <CardHeader  >
                                             <div className="flex gap-3 w-full items-center justify-between">
                                                 <h2 className="text-lg font-normal flex items-center gap-1">
                                                     <Users2Icon size={18} className="text-primary" />
-                                                    {singleEvent?.ticketsSold || 0} Participants sur {singleEvent?.capacity}
+                                                    {singleEvent?.ticketsSold || 0} {eventT("participanton")} {singleEvent?.capacity}
                                                 </h2>
                                                 <div className={"flex-1"}>
 
@@ -137,7 +139,6 @@ export const EventDetails = () => {
                                             {singleEvent?.participants?.map((participant: any) => (
                                                 <div key={participant?.id} className="border-1 rounded-md flex items-center gap-2 p-2 flex-1">
                                                     <Avatar src="/img/user.png" size="md" />
-                                                    hello la team
                                                 </div>
                                             ))}
                                         </div>
@@ -146,11 +147,11 @@ export const EventDetails = () => {
                             </div>
 
                             <div className="mt-6 flex gap-2">
-                                <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Participer</Button>
+                                <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("join")}</Button>
 
                                 <Dropdown>
                                     <DropdownTrigger>
-                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">Partager</Button>
+                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("share")}</Button>
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="Static Actions">
 

@@ -138,5 +138,14 @@
   "event.showAll": "Voir tout",
   "event.empty": " Il n'y a pas de data",
   "event.upcoming": "Évènement à venir",
-  "event.registered": "Evènements auxquels vous êtes inscrits"
+  "event.registered": "Evènements auxquels vous êtes inscrits",
+  "event.description": "Description",
+  "event.participant": "Participants",
+  "eventDetail.title": " Détails de l’évènement",
+  "eventDetail.slogan": "Rencontrez des passionnés de la tech autour d’un verre !",
+  "event.organizer": "Organisée par ",
+  "event.publish": "publié le",
+  "event.participanton": "Participants sur",
+  "event.join": "Participer",
+  "event.xhare": "Partager"
 }
