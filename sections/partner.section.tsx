@@ -15,7 +15,7 @@ export const PartenairesSection = () => {
                 <p className="text-gray-600 relative inline-block mt-2">
                    {partnerT("description")}
                 </p>
-                <div className="bg-primary h-2 max-w-36 mt-1 rounded-tl-md mx-auto" />
+                <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md mx-auto" />
             </div>
 
             <div className="mt-8 flex justify-center items-center gap-8 flex-wrap section-container">
