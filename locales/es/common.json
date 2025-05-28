@@ -32,6 +32,7 @@
   "button.search": "",
   "button.save": "",
   "button.cancel": "",
+  "button.update": "",
   "button.confirm": "",
   "button.register": "",
   "button.login": "",
@@ -117,5 +118,18 @@
   "updateProfil.advancedEn": "",
   "updateProfil.advancedLan": "",
   "updateProfil.deactive": "",
-  "updateProfil.delete": ""
+  "updateProfil.delete": "",
+  "updateProfil.sideBarTitle1": "",
+  "updateProfil.sideBarTitle2": "",
+  "updateProfil.sideBarTitle3": "",
+  "updateProfil.sideBarTitle4": "",
+  "updateProfil.sideBarTitle5": "",
+  "updateProfil.sideBarTitle6": "",
+  "updateProfil.notiticationTitle": "",
+  "updateProfil.notiticatioActivation": "",
+  "updateProfil.notiticatioRemainber": "",
+  "updateProfil.notiticatioAlert": "",
+  "updateProfil.securityAuth": "",
+  "updateProfil.securityLinkAccount": "",
+  "updateProfil.historie": ""
 }

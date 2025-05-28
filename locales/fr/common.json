@@ -32,6 +32,7 @@
   "button.search": "Rechercher",
   "button.save": "Sauvegarder",
   "button.cancel": "Annuler",
+  "button.update": "Modifier",
   "button.confirm": "Confirmer",
   "button.register": "S'inscrire",
   "button.login": "Se connecter",
@@ -117,5 +118,18 @@
   "updateProfil.advancedEn": "Anglais",
   "updateProfil.advancedLan": "Langue",
   "updateProfil.deactive": " Desactiver mon compte",
-  "updateProfil.delete": " Supprimer mon compte"
+  "updateProfil.delete": " Supprimer mon compte",
+  "updateProfil.sideBarTitle1": "Informations personnelles",
+  "updateProfil.sideBarTitle2": "Mes centres d’intérêt",
+  "updateProfil.sideBarTitle3": "Notifications",
+  "updateProfil.sideBarTitle4": "Sécurité du compte",
+  "updateProfil.sideBarTitle5": "Paiements",
+  "updateProfil.sideBarTitle6": "Paramètres avancés",
+  "updateProfil.notiticationTitle": "Notifications",
+  "updateProfil.notiticatioActivation": "Activation",
+  "updateProfil.notiticatioRemainber": "Rappel des évènements 1h à l’avance",
+  "updateProfil.notiticatioAlert": "Alerte pour nouveaux messages",
+  "updateProfil.securityAuth": "Authentification",
+  "updateProfil.securityLinkAccount": "Lier le compte",
+  "updateProfil.historie": "Historique"
 }

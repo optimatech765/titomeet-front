@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useScopedI18n } from '@/locales/client';
 import { Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@heroui/react';
 import { Dot, EllipsisIcon } from 'lucide-react';
 
@@ -20,6 +21,8 @@ const statusColorMap = {
 } as any;
 
 export const PaiementProfile = () => {
+
+      const updateProfilT = useScopedI18n("updateProfil");
 
     const renderCell = React.useCallback((user: any, columnKey: string) => {
         const cellValue = user[columnKey];
@@ -67,10 +70,10 @@ export const PaiementProfile = () => {
         <div className='flex flex-col justify-between h-full'>
             <div>
                 <h2 className="text-2xl font-semibold mb-4">
-                    Paiements
+                    {updateProfilT("sideBarTitle5")}
                 </h2>
 
-                <h4 className='text-sm font-medium text-gray-700'>Historique</h4>
+                <h4 className='text-sm font-medium text-gray-700'>{updateProfilT("historie")}</h4>
                 <Table
 
                     isVirtualized={true}
