@@ -7,6 +7,7 @@ import { useAppContext } from '@/context';
 import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
 import { PartcipateEventCardHorizontalComponent } from './events/partcipate.event.card.horizontal.component';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
+import { useScopedI18n } from '@/locales/client';
 
 interface FutureEventCardComponentProps {
     title?: string;
@@ -17,6 +18,7 @@ interface FutureEventCardComponentProps {
 
 export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> = ({ titleClass = "text-primary", title = " Évènement à venir", subtitle = "  Evènements auxquels vous êtes inscrits", data }) => {
     const { isAuth } = useAppContext();
+    const eventT = useScopedI18n('event');
 
     const { fetchEventList, dataList, isLoading: eventLoading } = useAttendeeEventsStore();
 
@@ -38,7 +40,7 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
                 </div>
                 <div>
                     <Link href={"#"} className="text-xs font-medium text-primary">
-                        Voir tout
+                       {eventT("showAll")}
                     </Link>
                 </div>
 

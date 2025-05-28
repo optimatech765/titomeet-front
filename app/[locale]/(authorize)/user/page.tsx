@@ -14,6 +14,7 @@ import React from 'react';
 const Page = () => {
     const { isAuth } = useAppContext();
     const userT = useScopedI18n('user');
+    const eventT = useScopedI18n('event');
 
 
     return (
@@ -55,7 +56,7 @@ const Page = () => {
                         <DateSelectComponent />
                     </div>
 
-                    <FutureEventCardComponent />
+                    <FutureEventCardComponent title={eventT("upcoming")} subtitle={eventT("registered")} />
 
                     <MyEventEventCardComponent />
                 </div>

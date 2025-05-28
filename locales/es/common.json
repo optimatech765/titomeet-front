@@ -36,6 +36,7 @@
   "button.confirm": "",
   "button.register": "",
   "button.login": "",
+  "button.discus": "",
   "profil.personalInfo": "",
   "personalInfo.firstName": "",
   "personalInfo.lastName": "",
@@ -131,5 +132,11 @@
   "updateProfil.notiticatioAlert": "",
   "updateProfil.securityAuth": "",
   "updateProfil.securityLinkAccount": "",
-  "updateProfil.historie": ""
+  "updateProfil.historie": "",
+  "event.myEvent": "",
+  "event.create": "",
+  "event.showAll": "",
+  "event.empty": "",
+  "event.upcoming": "",
+  "event.registered": ""
 }

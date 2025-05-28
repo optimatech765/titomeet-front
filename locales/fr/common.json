@@ -36,6 +36,7 @@
   "button.confirm": "Confirmer",
   "button.register": "S'inscrire",
   "button.login": "Se connecter",
+  "button.discus": "Discussion",
   "profil.personalInfo": "Informations personnelles",
   "personalInfo.firstName": "Prénom",
   "personalInfo.lastName": "Nom",
@@ -131,5 +132,11 @@
   "updateProfil.notiticatioAlert": "Alerte pour nouveaux messages",
   "updateProfil.securityAuth": "Authentification",
   "updateProfil.securityLinkAccount": "Lier le compte",
-  "updateProfil.historie": "Historique"
+  "updateProfil.historie": "Historique",
+  "event.myEvent": " Evènements organisés",
+  "event.create": " Créer un évènement",
+  "event.showAll": "Voir tout",
+  "event.empty": " Il n'y a pas de data",
+  "event.upcoming": "Évènement à venir",
+  "event.registered": "Evènements auxquels vous êtes inscrits"
 }

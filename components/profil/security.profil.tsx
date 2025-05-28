@@ -14,7 +14,7 @@ export const SecurityProfil = () => {
 
                 <div className='md:w-1/2 flex flex-col gap-4'>
                     <InputContainerComponent title={inputT("passwordLabel")} >
-                        <Button variant='bordered' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button variant='bordered'  size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                             {buttonT("update")}
                         </Button>
 
@@ -22,14 +22,14 @@ export const SecurityProfil = () => {
                
                     <h2 className="text-2xl font-semibold mb-4">{updateProfilT("securityAuth")}</h2>
                     <InputContainerComponent title={"Google"} >
-                        <Button variant='bordered' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                           {updateProfilT("securityLinkAccount")}
                         </Button>
 
                     </InputContainerComponent>
 
                     <InputContainerComponent title={"Facebook"} >
-                        <Button variant='bordered' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button variant='bordered'  size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                               {updateProfilT("securityLinkAccount")}
                         </Button>
 
