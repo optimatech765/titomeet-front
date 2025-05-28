@@ -3,6 +3,7 @@ import { FutureEventCardComponent } from "@/components/future.event.card.compone
 import { LoadingComponent2 } from "@/components/loading.component";
 import { MyEventEventCardComponent } from "@/components/myevent.card.component";
 import { useAppContext } from "@/context";
+import { useScopedI18n } from "@/locales/client";
 import { useAttendeeEventsStore } from "@/stores/attendee.event.store";
 import { useEventsStore } from "@/stores/events.store";
 import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
@@ -16,6 +17,9 @@ const UserProfile = () => {
 
 
     const { fetchEventList, dataList, isLoading } = useEventsStore();
+    const interetT = useScopedI18n("interet");
+    const navbarT = useScopedI18n("navbar");
+    const buttonT = useScopedI18n("button")
 
     useEffect(() => {
 
@@ -73,7 +77,7 @@ const UserProfile = () => {
                         </div>
                         <div className="flex justify-center">
                             <Button href={"/user/profil/update"} as={Link} size="sm" radius="full" color='primary' variant={"ghost"} className="" startContent={<Pencil size={16} />}>
-                                Modifier profil
+                                {buttonT("update")}
                             </Button>
                         </div>
                     </div>
@@ -86,7 +90,7 @@ const UserProfile = () => {
                     {/* Interest Section */}
                     <Card >
                         <CardBody>
-                            <h3 className="font-semibold flex items-center gap-3">Mes centres d’intérêt
+                            <h3 className="font-semibold flex items-center gap-3">{interetT("subtitle")}
                                 <FilePenLine className="w-4 h-4 text-primary ml-2" />
                             </h3>
                             <div className="flex flex-wrap gap-2 mt-2">
@@ -103,7 +107,7 @@ const UserProfile = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
                         <FutureEventCardComponent
-                            title="Evènements"
+                            title={navbarT("event")}
                             subtitle=""
                             titleClass={"text-foreground"}
                             data={[]}

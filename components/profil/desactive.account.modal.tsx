@@ -1,5 +1,6 @@
 
 import { useScopedI18n } from '@/locales/client';
+import { useUserInfoStore } from '@/stores/userinfo.store';
 import { Button, Modal, ModalBody, ModalContent } from '@heroui/react';
 import { ShieldBan } from 'lucide-react';
 import React from 'react';
@@ -10,6 +11,11 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
 }) => {
     const accountT = useScopedI18n('account');
     const buttonT = useScopedI18n('button');
+    const {handleDeactiveAccount} = useUserInfoStore();
+
+    const handleSubmit = async () => {
+        handleDeactiveAccount(onClose)
+    }
     return (
         <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
             <ModalContent >
@@ -32,7 +38,7 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
                         <ModalBody>
                             <div className="flex justify-center justify-items-stretch items-center gap-3 mb-2">
 
-                                <Button className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
+                                <Button  className="w-full bg-primary text-white  " radius="full" onPress={handleSubmit}>
                                     {buttonT("confirm")}
                                 </Button>
 

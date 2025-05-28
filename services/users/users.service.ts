@@ -32,5 +32,9 @@ export class UsersServices {
         return axios.put(`${this.baseUrl}/users/me`,data);
     }
 
+    deactiveAccount(){
+        return axios.patch(`${this.baseUrl}/users/me/status`,{status:"INACTIVE"});
+    }
+
 
 }
