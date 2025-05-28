@@ -58,6 +58,7 @@
   "login.forgotPass": "",
   "login.register": "",
   "login.connectWith": "",
+  "login.withEmail": "",
   "register.policy": "",
   "register.accept": "",
   "register.question": "",
@@ -96,5 +97,12 @@
   "user.welcome": "",
   "user.welcomeSubtitle": "",
   "find.title": "",
-  "distance.title": ""
+  "distance.title": "",
+  "password.lengthe": "",
+  "password.expression": "",
+  "password.specialCha": "",
+  "resetPassword.title": "",
+  "resetPassword.subTitle": "",
+  "forgotPassword.title": "",
+  "forgotPassword.subTitle": ""
 }

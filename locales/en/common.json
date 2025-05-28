@@ -58,6 +58,7 @@
   "login.forgotPass": "Forgot your password?",
   "login.register": "Register",
   "login.connectWith": "Or log in with",
+  "login.withEmail": " Login with password",
   "register.policy": "Privacy policy",
   "register.accept": "I accept the",
   "register.question": "Already have an account?",
@@ -96,5 +97,12 @@
   "user.welcome": "Welcome",
   "user.welcomeSubtitle": "Find out about events in your area",
   "find.title": "Find",
-  "distance.title": "Distance"
+  "distance.title": "Distance",
+  "password.lengthe": "Password must contain at least 8 characters",
+  "password.expression": "Password must contain at least 1 uppercase letter",
+  "password.specialCha": "Password must contain at least 1 symbol",
+  "resetPassword.title": "Forgot password",
+  "resetPassword.subTitle": " Enter your email address and we'll send you a link to reset your password.",
+  "forgotPassword.title": " A password reset link has been sent to the email address you provided.",
+  "forgotPassword.subTitle": " Enter your email address and we'll send you a link to reset your password."
 }
