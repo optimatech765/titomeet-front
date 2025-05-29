@@ -2,14 +2,15 @@
 "use client"
 import { useScopedI18n } from '@/locales/client';
 import { formatDate, getHourMinute, verifyIsPastDate } from '@/utils/functions/date.function';
-import { Card,Button, CardBody } from '@heroui/react';
+import { Card, Button, CardBody } from '@heroui/react';
 import { Check, Clock, Eclipse, FilePenLine, MapPin, MessageCircleMore, Ticket } from "lucide-react";
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }) => {
-     const eventT = useScopedI18n("event");
-     const buttonT = useScopedI18n("button");
+    const eventT = useScopedI18n("event");
+    const buttonT = useScopedI18n("button");
     return (
         <Card
             isBlurred
@@ -25,7 +26,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                             layout="fill"
                             objectFit="cover"
                             src={event.coverPicture}
-                            
+
                         />
                     </div>
 
@@ -71,6 +72,8 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex flex-col gap-3  md:flex-row justify-between items-center">
                             <Button
+                                as={Link}
+                                href={`/user/message?eventId=${event.id}`}
                                 startContent={<MessageCircleMore className="w-4 h-4" />}
                                 size='sm'
                                 variant='ghost'
@@ -80,7 +83,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 {buttonT("discus")}
                             </Button>
 
-                            <Button
+                            {/* <Button
                                 startContent={<FilePenLine className="w-4 h-4" />}
                                 size='sm'
                                 variant='ghost'
@@ -88,7 +91,7 @@ export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }
                                 color='primary'
                                 className="mt-2 border-1 w-full text-xs font-semibold text-primary">
                                 {eventT("join")}
-                            </Button>
+                            </Button> */}
                         </div>
                     </CardBody>
                 </div>
