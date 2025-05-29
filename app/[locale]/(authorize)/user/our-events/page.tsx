@@ -9,22 +9,27 @@ import React, { useEffect, useState } from 'react';
 import { PublishEventCardComponent } from '@/components/publish.event.card.component';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
-import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { LoadingComponent2 } from '@/components/loading.component';
 import { useAppContext } from '@/context';
 import { EventCardHorizontalComponent } from '@/components/event.card.horizontal.component';
+import { useOurEventsStore } from '@/stores/our.events.store';
 
 const Page = () => {
     const [activeTab, setActiveTab] = useState("PUBLISHED");
     const { isAuth } = useAppContext();
 
-    const { fetchEventList, dataList, isLoading: eventLoading, resetData } = useEventsStore();
+    const { fetchEventList, dataList, isLoading: eventLoading, resetData } = useOurEventsStore();
 
     useEffect(() => {
         resetData()
         fetchEventList({ page: 1, limit: 25, createdById: isAuth?.id, status: activeTab });
     }, [activeTab]);
+
+    useEffect(() => {
+        resetData()
+        fetchEventList({ page: 1, limit: 25, createdById: isAuth?.id, status: activeTab });
+    }, []);
 
     return (
         <div className='space-y-9 my-7 section-container'>
