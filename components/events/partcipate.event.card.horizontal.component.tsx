@@ -3,13 +3,12 @@
 import { useScopedI18n } from '@/locales/client';
 import { formatDate, getHourMinute, verifyIsPastDate } from '@/utils/functions/date.function';
 import { Card, Button, CardBody } from '@heroui/react';
-import { Check, Clock, Eclipse, FilePenLine, MapPin, MessageCircleMore, Ticket } from "lucide-react";
+import { Check, Clock, Eclipse, MapPin, MessageCircleMore, Ticket } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export const PartcipateEventCardHorizontalComponent = ({ event }: { event: any }) => {
-    const eventT = useScopedI18n("event");
     const buttonT = useScopedI18n("button");
     return (
         <Card
