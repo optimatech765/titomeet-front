@@ -20,14 +20,18 @@ export const AddressSelector = ({ value, onChange, withIcon = false }: { withIco
     return (
         <div>
             <Autocomplete
+                allowsCustomValue={true}
                 startContent={withIcon && <MapPin className={"text-white "} fill='#ee3540' />}
                 items={lieux}
                 inputValue={searchValue}
                 onInputChange={setSearchValue}
                 isInvalid={errorField.field === 'addressId'}
                 onSelectionChange={(e) => {
-                    console.log(e);
-                    onChange(e);
+                    if (e !== "") {
+                        console.log(e);
+                        onChange(e);
+                    }
+
                 }}
                 errorMessage={errorField?.message}
                 isLoading={isLoading}

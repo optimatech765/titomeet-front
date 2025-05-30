@@ -15,6 +15,8 @@ const GeneralInforComponent = () => {
     useEffect(() => {
         console.log(eventData)
     }, [eventData]);
+
+    
     return (
         <div className={"border rounded-md border-[#00000026] p-6 "}>
             <div className={"flex flex-col md:grid grid-cols-1 md:gap-6 md:grid-cols-2"}>

@@ -16,7 +16,7 @@ export const ServiceAddComponent = ({ item, removePass }: { item: any, removePas
             {/* Service ajouté */}
             <InputContainerComponent2 title={"Service ajouté"} >
                 <Input
-                    value={item?.name}
+                    value={item?.category?.name}
                     variant="bordered"
                     classNames={{
                         "mainWrapper": "flex-1 ",
@@ -31,7 +31,7 @@ export const ServiceAddComponent = ({ item, removePass }: { item: any, removePas
             {/* Prestataire ajouté */}
             <InputContainerComponent2 title={"Prestataire ajouté"} >
                 <Textarea
-                    value={item.description}
+                    value={item.name}
                     readOnly={true}
                     className=" border-slate-300"
                     variant="bordered"

@@ -141,7 +141,7 @@ export const useEventsStore = create<EventStore>((set) => ({
             const queryString = paramsToQueryString(searchParams || {});
             set(() => ({
                 isLoading: true,
-                dataList:[]
+                dataList: []
             }));
 
             eventSevices
@@ -205,6 +205,10 @@ export const useEventsStore = create<EventStore>((set) => ({
                             },
                             data: {
                                 ...response.data,
+                                coverPicture: coverPicture,
+                                isDraft: response.data.status==='DRAFT',
+                                badge: badge,
+                                categories: response.data.categories.map((item: any) => item.id).join(","),
                                 startDate: parseDate(response.data.startDate.split('T')[0]),
                                 endDate: parseDate(response.data.endDate.split('T')[0]),
                                 startTime: parseAbsoluteToLocal(response.data.startDate.split('T')[0] + "T" + response.data.startTime + "Z"),
@@ -264,7 +268,20 @@ export const useEventsStore = create<EventStore>((set) => ({
     },
     resetData: () =>
         set(() => {
-            return { dataList: [] };
+            return {
+                DataListConfig: {
+                    page: 1,
+                    totalItems: 0,
+                    perPageItems: 25,
+                    isSearch: false,
+                    searchValue: "",
+                },
+                singleEvent: {} as EventDtoResponse,
+                dataList: [],
+                data: initialEventState,
+                isLoading: false,
+            };
+
         }),
 }));
 

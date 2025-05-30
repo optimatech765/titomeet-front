@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import AdvanceComponent from '@/components/create-event/advance.component';
@@ -6,7 +7,7 @@ import ResumeComponent from '@/components/create-event/resume.component';
 import VisibilityCommunicationComponent from '@/components/create-event/visibility.communication.component';
 import { eventSevices } from '@/services/events/event.services';
 import { useEventsStore } from '@/stores/events.store';
-import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsValidator } from '@/utils/validator/events.validator';
+import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsUpdateValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
@@ -22,7 +23,7 @@ const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
     // const [validateStep, setValidateStep] = useState([]);
-    const { data: eventData, resetData, fetchSingleEvent, singleEvent, setEventData, isLoading } = useEventsStore();
+    const { data: eventData, resetData, fetchSingleEvent, singleEvent, isLoading } = useEventsStore();
 
     const params = useParams();
     const event = params?.eventId
@@ -84,7 +85,7 @@ const Page = () => {
                 startTime: new Date().toLocaleTimeString(),
                 endTime: new Date().toLocaleTimeString(),
             }
-            const { error, errorData } = EventsValidator(newData);
+            const { error, errorData } = eventData.id && eventData.id !== "" ? EventsUpdateValidator(newData) : EventsValidator(newData);
             if (error) {
                 toast.error(errorData.message, {
                     position: "top-right",
@@ -113,37 +114,88 @@ const Page = () => {
                     amount: parseInt(item.amount, 10)
                 }));
 
-                eventSevices.createEvent({
-                    ...eventData,
-                    prices: updatedData,
-                    categories: eventData?.categories?.split(","),
-                    capacity: +eventData.capacity,
-                    coverPicture: coverFile?.downloadUrl,
-                    badge: badgeFile?.downloadUrl,
-                    startDate: startDate,
-                    endDate: endDate,
-                    startTime: new Date().toLocaleTimeString(),
-                    endTime: new Date().toLocaleTimeString(),
-                }).then(
-                    (response) => {
-                        console.log(response);
-                        toast.update(toastId, {
-                            render: "Sauvegarde réussie",
-                            type: "success",
-                            isLoading: false,
-                            autoClose: 3000,
-                        });
-                    },
-                    (error) => {
-                        console.log(error);
-                        toast.update(toastId, {
-                            render: "Erreur lors de la sauvegarde",
-                            type: "error",
-                            isLoading: false,
-                            autoClose: 3000,
-                        });
-                    }
-                );
+                if (eventData.id && eventData.id !== "") {
+                    const {address,
+                        postedBy,
+                        id,
+                        postedById,
+                        ticketsSold,
+                        ticketsSoldByEventPrice,
+                        updatedAt,
+                        createdAt,
+                        orders,
+                        favorites,
+                        ...other
+                    } = eventData;
+                    eventSevices.updateEvent(id, {
+                        ...other,
+                        id:id,
+                        prices: updatedData,
+                        categories: eventData?.categories?.split(","),
+                        capacity: +eventData.capacity,
+                        coverPicture: coverFile?.downloadUrl,
+                        badge: badgeFile?.downloadUrl,
+                        startDate: startDate,
+                        isDraft: false,
+                        endDate: endDate,
+                        status: 'PUBLISHED',
+                        startTime: new Date().toLocaleTimeString(),
+                        endTime: new Date().toLocaleTimeString(),
+                    }).then(
+                        (response) => {
+                            console.log(response);
+                            toast.update(toastId, {
+                                render: "Modification réussie",
+                                type: "success",
+                                isLoading: false,
+                                autoClose: 3000,
+                            });
+                        },
+                        (error) => {
+                            console.log(error);
+                            toast.update(toastId, {
+                                render: "Erreur lors de la Modification",
+                                type: "error",
+                                isLoading: false,
+                                autoClose: 3000,
+                            });
+                        }
+                    );
+                } else {
+                    eventSevices.createEvent({
+                        ...eventData,
+                        prices: updatedData,
+                        categories: eventData?.categories?.split(","),
+                        capacity: +eventData.capacity,
+                        coverPicture: coverFile?.downloadUrl,
+                        badge: badgeFile?.downloadUrl,
+                        startDate: startDate,
+                        endDate: endDate,
+                        startTime: new Date().toLocaleTimeString(),
+                        endTime: new Date().toLocaleTimeString(),
+                    }).then(
+                        (response) => {
+                            console.log(response);
+                            toast.update(toastId, {
+                                render: "Sauvegarde réussie",
+                                type: "success",
+                                isLoading: false,
+                                autoClose: 3000,
+                            });
+                        },
+                        (error) => {
+                            console.log(error);
+                            toast.update(toastId, {
+                                render: "Erreur lors de la sauvegarde",
+                                type: "error",
+                                isLoading: false,
+                                autoClose: 3000,
+                            });
+                        }
+                    );
+                }
+
+
 
             }
 
@@ -235,10 +287,10 @@ const Page = () => {
         console.log("salut ici", singleEvent);
     }, []);
 
-    useEffect
-        (() => {
-            setEventData({ ...singleEvent });
-        }, [singleEvent]);
+    // useEffect
+    //     (() => {
+    //         setEventData({ ...singleEvent });
+    //     }, [singleEvent]);
 
 
     return (
