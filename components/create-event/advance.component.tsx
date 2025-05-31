@@ -189,12 +189,9 @@ const AdvanceComponent = () => {
                 </div>
             </div>
 
-            {eventData?.providers?.map((item: any, index: number) => (
-                <ServiceAddComponent key={index} item={dataList.find((item: ProviderDto) => item.id === item.id)} removePass={() => removeService(index)} />
+            {eventData?.providers?.map((item2: any, index: number) => (
+                <ServiceAddComponent key={index} item={dataList.find((item: ProviderDto) => item.id === item2.id)} removePass={() => removeService(index)} />
             ))}
-            {/* <ServiceAddComponent />
-
-            <ServiceAddComponent /> */}
 
 
             {/* Ajout de prestataire */}
@@ -232,7 +229,8 @@ const AdvanceComponent = () => {
                                             value={newProviders?.id?.split(",")}
                                             onChange={(e: any) => setNewProviders({
                                                 ...newProviders,
-                                                id: e
+                                                id: e,
+                                                ...dataList.find((item: ProviderDto) => item.id === e)
                                             })}
                                             withIcon={false}
                                         />

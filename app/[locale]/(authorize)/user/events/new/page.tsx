@@ -21,9 +21,11 @@ import { useRouter } from 'next/navigation';
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
+    const [validStepper, setvalidStepper] = useState<any>([]);
     const [isLoading, setIsLoading] = useState(false);
     // const [validateStep, setValidateStep] = useState([]);
     const { data: eventData, resetData } = useEventsStore();
+    const [userAction, setUserAction] = useState("save");
 
     const { setMessageError } = InputErrorStore()
 
@@ -53,6 +55,7 @@ const Page = () => {
                 });
             }
             else {
+                setUserAction("draft")
                 setIsLoading(true)
 
                 const toastId = toast.loading("Sauvegarde en cours...", {
@@ -173,7 +176,7 @@ const Page = () => {
                 endTime: new Date().toLocaleTimeString(),
                 providers: eventData?.providers?.map((item: any) => (item.id))
             }
-           
+
             const { error, errorData } = EventsValidator(newData);
             if (error) {
                 toast.error(errorData.message, {
@@ -185,6 +188,7 @@ const Page = () => {
                 setIsLoading(false)
             }
             else {
+                setUserAction("save")
                 setIsLoading(true)
                 const toastId = toast.loading("Sauvegarde en cours...", {
                     position: "top-right",
@@ -206,7 +210,7 @@ const Page = () => {
 
                 eventSevices.createEvent({
                     ...newData,
-                    prices: newData.accessType==='PAID'? updatedData : [{
+                    prices: newData.accessType === 'PAID' ? updatedData : [{
                         name: "Gratuit",
                         amount: 0
                     }],
@@ -220,7 +224,7 @@ const Page = () => {
                     endTime: new Date().toLocaleTimeString(),
                 }).then(
                     (response) => {
-                        console.log(response);
+                        resetAllData();
                         toast.update(toastId, {
                             render: "Sauvegarde réussie",
                             type: "success",
@@ -228,7 +232,6 @@ const Page = () => {
                             autoClose: 3000,
                         });
                         setIsLoading(false)
-                        resetAllData();
                         router.push("/user/events");
                     },
                     (error) => {
@@ -276,6 +279,7 @@ const Page = () => {
 
             }
             else {
+                setvalidStepper(["general"]);
                 setActiveStep("advanced");
                 setMessageError(errorData);
             }
@@ -293,6 +297,7 @@ const Page = () => {
 
             }
             else {
+                setvalidStepper(["general", "advanced"]);
                 setActiveStep("communication");
                 setMessageError(errorData);
             }
@@ -309,6 +314,7 @@ const Page = () => {
                 setMessageError(errorData);
             }
             else {
+                setvalidStepper(["general", "advanced", "communication", "resume"]);
                 setActiveStep("resume");
                 setMessageError(errorData);
             }
@@ -334,6 +340,17 @@ const Page = () => {
         resetData();
     }
 
+    const handleVerifyStep = (steppe: string) => {
+        const isVerify = validStepper.includes(steppe);
+        if (isVerify) {
+            setActiveStep(steppe);
+        } else {
+            toast.error("Vous devez valider l'étape précédente avant de continuer")
+        }
+        return isVerify
+
+    }
+
     return (
         <div className={"flex flex-col gap-2 pb-6"}>
             <div>
@@ -345,16 +362,16 @@ const Page = () => {
                                 <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-slate-300"></div>
                                 {/* w-1/4 pour le premier 2/4 pour le second 3/4 pour le troisième et w-full pour le dernier */}
                                 <div className={clsx({
-                                    "w-1/4": activeStep === "general",
-                                    "w-2/4": activeStep === "advanced",
-                                    "w-3/4": activeStep === "communication",
-                                    "w-full": activeStep === "resume",
+                                    "w-1/4": activeStep === "general" || validStepper.includes("general"),
+                                    "w-2/4": activeStep === "advanced" || validStepper.includes("advanced"),
+                                    "w-3/4": activeStep === "communication" || validStepper.includes("communication"),
+                                    "w-full": activeStep === "resume" || validStepper.includes("resume"),
                                 },
                                     "absolute left-0 top-2/4 h-0.5  -translate-y-2/4 bg-secondary transition-all duration-500")}
                                 >
                                 </div>
                                 <div
-                                    onClick={() => setActiveStep("general")}
+                                    onClick={() => handleVerifyStep("general")}
                                     className="relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  !bg-secondary font-bold text-[#1E1E1E] ring-0 transition-all duration-300">
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
@@ -364,10 +381,10 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div
-                                    onClick={() => setActiveStep("advanced")}
+                                    onClick={() => handleVerifyStep("advanced")}
                                     className={clsx({
-                                        "!bg-secondary": activeStep === "advanced",
-                                        "!bg-slate-300": activeStep !== "advanced"
+                                        "!bg-secondary": activeStep === "advanced" || validStepper.includes("advanced"),
+                                        "!bg-slate-300": activeStep !== "advanced" && !validStepper.includes("advanced")
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
@@ -377,10 +394,10 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div
-                                    onClick={() => setActiveStep("communication")}
+                                    onClick={() => handleVerifyStep("communication")}
                                     className={clsx({
-                                        "!bg-secondary": activeStep === "communication",
-                                        "!bg-slate-300": activeStep !== "communication",
+                                        "!bg-secondary": activeStep === "communication" || validStepper.includes("communication"),
+                                        "!bg-slate-300": activeStep !== "communication" && !validStepper.includes("communication"),
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
@@ -391,10 +408,10 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div
-                                    onClick={() => setActiveStep("resume")}
+                                    onClick={() => handleVerifyStep("resume")}
                                     className={clsx({
-                                        "!bg-secondary": activeStep === "resume",
-                                        "!bg-slate-300": activeStep !== "resume"
+                                        "!bg-secondary": activeStep === "resume" || validStepper.includes("resume"),
+                                        "!bg-slate-300": activeStep !== "resume" && !validStepper.includes("resume"),
                                     }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
                                     <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                         <h6
@@ -470,18 +487,18 @@ const Page = () => {
                     <ResumeComponent setActiveStep={setActiveStep} />
                     <div className='flex flex-wrap gap-4 items-center justify-between'>
                         <div className="flex gap-2">
-                            <Button isLoading={isLoading} onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                            <Button disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "draft"} onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                 Enregistrer brouillon
                             </Button>
-                            <Button onPress={resetAllData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button disabled={isLoading} isDisabled={isLoading} onPress={resetAllData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Supprimer
                             </Button>
                         </div>
                         <div className="flex  gap-2">
-                            <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                            <Button disabled={isLoading} isDisabled={isLoading} onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button isLoading={isLoading} onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "save"} onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Publier
                             </Button>
                         </div>

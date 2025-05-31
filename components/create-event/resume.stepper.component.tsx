@@ -9,7 +9,7 @@ import { Pen } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (value:string) => void }) => {
+export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (value: string) => void }) => {
 
     const { data: eventData } = useEventsStore();
     const { dataList } = EventCategorieStore()
@@ -27,8 +27,10 @@ export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (valu
 
     const returnAddress = () => {
         const address = eventData?.addressId;
-        return AddressList
-            .find((item: any) => item.id === address)?.['name']
+        const value = AddressList
+            .find((item: any) => item.id === address)
+        console.log(value)
+        return value
 
     }
 
@@ -54,8 +56,8 @@ export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (valu
                                     <p><strong>Date fin :</strong> {GetDate(eventData.endDate)}</p>
                                     <p><strong>Heure début :</strong> {new Date().toLocaleTimeString()}</p>
                                     <p><strong>Heure fin :</strong> {new Date().toLocaleTimeString()}</p>
-                                    <p><strong>Lieu :</strong> {returnAddress()}</p>
-                                    <p><strong>Adresse :</strong> Adresse complète</p>
+                                    <p><strong>Lieu :</strong> {returnAddress()?.city}</p>
+                                    <p><strong>Adresse :</strong> {returnAddress()?.state} / {returnAddress()?.country}</p>
                                     <p><strong>Nombre de places :</strong> {eventData?.capacity}</p>
                                 </div>
                             </CardBody>
@@ -96,9 +98,10 @@ export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (valu
                                 <div className='flex gap-8'>
                                     <p className="text-sm mt-3"><strong>Services :</strong></p>
                                     <div className="mt-1 text-[#1E1E1E]">
-                                        <p> Location salle - Prestataire</p>
-                                        <p> Location salle - Prestataire</p>
-                                        <p> Location salle - Prestataire</p>
+                                        {eventData?.providers?.map((item: any, index: number) => (
+                                            <p key={index}> {item?.category?.name} - {item?.name}</p>
+                                        ))}
+
                                     </div>
                                 </div>
 
