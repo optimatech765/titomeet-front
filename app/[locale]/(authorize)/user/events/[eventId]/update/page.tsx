@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { GetDate } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
-import { cleanResponse } from '@/utils/functions/other.functions';
+import { cleanResponse, EventDataFilter } from '@/utils/functions/other.functions';
 import { useParams } from 'next/navigation';
 import { LoadingComponent2 } from '@/components/loading.component';
 
@@ -115,18 +115,8 @@ const Page = () => {
                 }));
 
                 if (eventData.id && eventData.id !== "") {
-                    const {address,
-                        postedBy,
-                        id,
-                        postedById,
-                        ticketsSold,
-                        ticketsSoldByEventPrice,
-                        updatedAt,
-                        createdAt,
-                        orders,
-                        favorites,
-                        ...other
-                    } = eventData;
+                    const {id,other} = EventDataFilter(eventData);
+                    console.log()
                     eventSevices.updateEvent(id, {
                         ...other,
                         id:id,

@@ -49,3 +49,19 @@ export const getInitials = (firstname: string, lastname: string) => {
     if (!firstname || !lastname) return '';
     return firstname[0].toUpperCase() + lastname[0].toUpperCase();
 }
+
+export const EventDataFilter = (data: any) => {
+    const { address,
+        postedBy,
+        id,
+        postedById,
+        ticketsSold,
+        ticketsSoldByEventPrice,
+        updatedAt,
+        createdAt,
+        orders,
+        favorites,
+        ...other
+    } = data;
+    return {id,other};
+}
