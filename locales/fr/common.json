@@ -151,5 +151,11 @@
   "event.share": "Partager",
   "event.mayLike": "Evènements que vous pourriez aimer",
   "payment.mail": "Retrouvé vos tickets dans votre boîte mail",
-  "payment.success": "Paiement réussi"
+  "payment.success": "Paiement réussi",
+  "tabs.event": "Evènements",
+  "tabs.discover": "Découvrir",
+  "tabs.favorite": "Favoris",
+  "tabs.history": "Historiques",
+  "loarder.emptyMessage": "Aucune donnée disponible pour le moment",
+  "loader.message": "Chargement des données en cours"
 }

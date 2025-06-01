@@ -151,5 +151,11 @@
   "event.share": "Share",
   "event.mayLike": "Events you may like",
   "payment.mail": "Find your tickets in your mailbox",
-  "payment.success": "Successful payment"
+  "payment.success": "Successful payment",
+  "tabs.event": "Events",
+  "tabs.discover": "Discover",
+  "tabs.favorite": "Favorites",
+  "tabs.history": "History",
+  "loarder.emptyMessage": "No data available at the moment",
+  "loader.message": "Loading data in progress"
 }

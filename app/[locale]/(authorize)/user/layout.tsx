@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     {/* navbar */}
                     <AuthentificatedNavbarSection />
                     {/* main */}
-                    <main >
+                    <main className='min-h-[75vh]' >
                         {children}
                     </main>
 

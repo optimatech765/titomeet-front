@@ -9,6 +9,7 @@ import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { AwaitDataLoader } from '../await.data.loader';
 import { useAppContext } from '@/context';
+import { EmptyDateComponent } from '../empty.date.component';
 
 const HistoryTabs = () => {
 
@@ -34,7 +35,7 @@ const HistoryTabs = () => {
 
                         <div className='space-y-3.5 sm:block'>
 
-                            <AwaitDataLoader emptyMessage={<span className='text-red-500'>Pas de data</span>} dataLength={dataList.length} isLoading={eventLoading}>
+                            <AwaitDataLoader emptyMessage={<EmptyDateComponent />} dataLength={dataList.length} isLoading={eventLoading}>
                                 <>
                                     {dataList.map((event: EventDtoResponse, index: number) => (
                                         <PastEndEventCard event={event} key={index} />
