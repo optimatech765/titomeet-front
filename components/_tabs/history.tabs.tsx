@@ -25,12 +25,12 @@ const HistoryTabs = () => {
     return (
         <div>
             <Divider className='mt-5 mb-2' />
-            <section className='lg:grid grid-cols-1 gap-20 md:grid-cols-12'>
+            <section className=' flex flex-col-reverse lg:grid grid-cols-1 gap-20 md:grid-cols-12'>
 
                 <div className='md:col-span-8 space-y-3'>
 
                     <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
+                       
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>

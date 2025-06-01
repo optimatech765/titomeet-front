@@ -9,7 +9,7 @@ import {
     useDisclosure,
     Textarea,
 } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPin, MapPinIcon, Share2, Star, Ticket } from 'lucide-react';
+import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPin, Star, Ticket } from 'lucide-react';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 import { RaitingComponent } from '../raiting.component';

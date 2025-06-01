@@ -120,7 +120,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                     }
                 />
 
-                <Tab
+                {/* <Tab
                     onClick={() => setActiveTab("PROGRAMMING")}
                     key="PROGRAMMING"
                     title={
@@ -130,7 +130,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
 
                         </div>
                     }
-                />
+                /> */}
 
                 <Tab
                     onClick={() => setActiveTab("FINISHED")}

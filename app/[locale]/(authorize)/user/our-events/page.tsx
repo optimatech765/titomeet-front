@@ -16,6 +16,8 @@ import { EventCardHorizontalComponent } from '@/components/event.card.horizontal
 import { useOurEventsStore } from '@/stores/our.events.store';
 import { useScopedI18n } from '@/locales/client';
 import { EmptyDateComponent } from '@/components/empty.date.component';
+import { PublishedEventComponent } from '@/components/event-cards/published.event.component';
+import { PastPublishedEventComponent } from '@/components/event-cards/past.published.event.component';
 
 const Page = () => {
     const [activeTab, setActiveTab] = useState("PUBLISHED");
@@ -80,8 +82,7 @@ const Page = () => {
                                             </> :
                                                 <>
                                                     {dataList.map((event: EventDtoResponse, index: number) => (
-                                                        // <PublishEventCardComponent event={event} status={"published"} key={index} />
-                                                        <EventCardHorizontalComponent event={event} status={"PUBLISHED"} key={index} />
+                                                        <PublishedEventComponent event={event} key={index} />
                                                     ))}
 
                                                 </>
@@ -186,8 +187,7 @@ const Page = () => {
                                             </> :
                                                 <>
                                                     {dataList.map((event: EventDtoResponse, index: number) => (
-                                                        // <PublishEventCardComponent event={event} status={"FINISHED"} key={index} />
-                                                        <EventCardHorizontalComponent event={event} status={"FINISHED"} key={index} />
+                                                        <PastPublishedEventComponent event={event} key={index} />
                                                     ))}
 
                                                 </>
