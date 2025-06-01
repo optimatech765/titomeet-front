@@ -17,7 +17,7 @@ export const BecomeProviderSection = () => {
   return (
     <section className="bg-white from-[#fff1f1] to-white py-10 section-container flex flex-col md:flex-row items-center justify-between gap-10">
       {/* Images */}
-      <div className="relative flex-1 flex justify-center items-center gap-4 flex-wrap max-w-xl">
+      <div className="relative flex-1 flex justify-center items-center gap-4 flex-wrap max-w-2xl">
 
         <div className=" w-full md:w-5/6 h-48 relative rounded-md overflow-hidden shadow-lg">
           <Image src="/img/buffet2.jpg" alt="Service 2" fill className="object-cover" />
@@ -31,7 +31,7 @@ export const BecomeProviderSection = () => {
       </div>
 
       {/* Texte */}
-      <div className="flex-1 max-w-xl">
+      <div className="flex-1 max-w-2xl">
         <h2 className="text-2xl md:text-3xl font-bold mb-2">{prestataireT("title")}  <span className="text-red-600 block">TITOMEET</span></h2>
         <p className="text-gray-600 mb-6">
           {prestataireT("description")}

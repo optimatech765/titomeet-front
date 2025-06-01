@@ -150,12 +150,20 @@
   "event.join": "Participer",
   "event.share": "Partager",
   "event.mayLike": "Evènements que vous pourriez aimer",
+  "event.showReview": "Voir les avis",
+  "event.joinDiscussion": " Accéder à la discussion",
+  "event.editInformation": "Modifier évènement",
+  "event.userOpinion": "Avis des utilisateurs",
   "payment.mail": "Retrouvé vos tickets dans votre boîte mail",
   "payment.success": "Paiement réussi",
   "tabs.event": "Evènements",
   "tabs.discover": "Découvrir",
   "tabs.favorite": "Favoris",
   "tabs.history": "Historiques",
-  "loarder.emptyMessage": "Aucune donnée disponible pour le moment",
-  "loader.message": "Chargement des données en cours"
+  "loader.emptyMessage": "Aucune donnée disponible pour le moment",
+  "loader.message": "Chargement des données en cours",
+  "tabs.published": "Publiés",
+  "tabs.draft": "Brouillons",
+  "tabs.sche": "Programmés",
+  "tabs.past": "Passé"
 }

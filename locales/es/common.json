@@ -150,12 +150,20 @@
   "event.join": "",
   "event.share": "",
   "event.mayLike": "",
+  "event.showReview": "",
+  "event.joinDiscussion": "",
+  "event.editInformation": "",
+  "event.userOpinion": "",
   "payment.mail": "",
   "payment.success": "",
   "tabs.event": "",
   "tabs.discover": "",
   "tabs.favorite": "",
   "tabs.history": "",
-  "loarder.emptyMessage": "",
-  "loader.message": ""
+  "loader.emptyMessage": "",
+  "loader.message": "",
+  "tabs.published": "",
+  "tabs.draft": "",
+  "tabs.sche": "",
+  "tabs.past": ""
 }
