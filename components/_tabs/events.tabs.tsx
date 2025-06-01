@@ -4,10 +4,10 @@ import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { Divider } from '@heroui/react';
 import React, { useEffect } from 'react';
 import { LoadingComponent2 } from '../loading.component';
-import { PartcipateEventCardHorizontalComponent } from '../events/partcipate.event.card.horizontal.component';
 import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
 import { useAppContext } from '@/context';
 import { EmptyDateComponent } from '../empty.date.component';
+import { AttendedEventComponent } from '../event-cards/attended.event.component';
 
 export const EventsTabs = () => {
     const { isAuth } = useAppContext();
@@ -31,7 +31,6 @@ export const EventsTabs = () => {
                 <div className='md:col-span-8 space-y-3'>
 
                     <div className=''>
-                        <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
                         <Divider className='mt-1.5 mb-2' />
 
                         <div className='space-y-3.5 sm:block'>
@@ -45,7 +44,7 @@ export const EventsTabs = () => {
                                 </> :
                                     <>
                                         {dataList.map((event: EventDtoResponse, index: number) => (
-                                            <PartcipateEventCardHorizontalComponent event={event} key={index} />
+                                            <AttendedEventComponent event={event} key={index} />
                                         ))}
 
                                     </>

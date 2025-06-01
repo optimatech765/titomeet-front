@@ -4,7 +4,7 @@ import { Tabs, Tab, } from "@heroui/react";
 
 export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
 
-     const tabsT = useScopedI18n("tabs");
+    const tabsT = useScopedI18n("tabs");
     return (
         <div className="flex w-full flex-col">
             <Tabs
@@ -78,6 +78,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
 }
 
 export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
+    const tabsT = useScopedI18n("tabs");
     return (
         <div className="flex w-full flex-col">
             <Tabs
@@ -101,7 +102,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("PUBLISHED")}>
 
-                            <span>Publiés</span>
+                            <span>{tabsT("published")}</span>
 
                         </div>
                     }
@@ -113,7 +114,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("DRAFT")}>
 
-                            <span>Brouillons</span>
+                            <span>{tabsT("draft")}</span>
 
                         </div>
                     }
@@ -125,7 +126,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("PROGRAMMING")}>
 
-                            <span>Programmés</span>
+                            <span>{tabsT("sche")}</span>
 
                         </div>
                     }
@@ -137,7 +138,7 @@ export const OurEventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab:
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("FINISHED")}>
 
-                            <span>Passé</span>
+                            <span>{tabsT("past")}</span>
 
                         </div>
                     }

@@ -5,9 +5,9 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useAppContext } from '@/context';
 import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
-import { PartcipateEventCardHorizontalComponent } from './events/partcipate.event.card.horizontal.component';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { useScopedI18n } from '@/locales/client';
+import { AttendedEventComponent } from './event-cards/attended.event.component';
 
 interface FutureEventCardComponentProps {
     title?: string;
@@ -46,7 +46,7 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
 
             </div>
             {dataList.map((event: EventDtoResponse, index: number) => (
-                <PartcipateEventCardHorizontalComponent event={event} key={index} />
+                <AttendedEventComponent event={event} key={index} />
             ))}
         </div>
     );

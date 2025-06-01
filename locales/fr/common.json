@@ -156,6 +156,10 @@
   "tabs.discover": "Découvrir",
   "tabs.favorite": "Favoris",
   "tabs.history": "Historiques",
-  "loarder.emptyMessage": "Aucune donnée disponible pour le moment",
-  "loader.message": "Chargement des données en cours"
+  "loader.emptyMessage": "Aucune donnée disponible pour le moment",
+  "loader.message": "Chargement des données en cours",
+  "tabs.published": "Publiés",
+  "tabs.draft": "Brouillons",
+  "tabs.sche": "Programmés",
+  "tabs.past": "Passé"
 }

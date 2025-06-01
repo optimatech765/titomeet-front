@@ -156,6 +156,10 @@
   "tabs.discover": "Discover",
   "tabs.favorite": "Favorites",
   "tabs.history": "History",
-  "loarder.emptyMessage": "No data available at the moment",
-  "loader.message": "Loading data in progress"
+  "loader.emptyMessage": "No data available at the moment",
+  "loader.message": "Loading data in progress",
+  "tabs.published": "Published",
+  "tabs.draft": "Drafts",
+  "tabs.sche": "Scheduled",
+  "tabs.past": "Past"
 }

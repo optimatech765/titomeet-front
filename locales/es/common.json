@@ -156,6 +156,10 @@
   "tabs.discover": "",
   "tabs.favorite": "",
   "tabs.history": "",
-  "loarder.emptyMessage": "",
-  "loader.message": ""
+  "loader.emptyMessage": "",
+  "loader.message": "",
+  "tabs.published": "",
+  "tabs.draft": "",
+  "tabs.sche": "",
+  "tabs.past": ""
 }

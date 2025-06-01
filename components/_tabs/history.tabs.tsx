@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PastEndEventCard } from '@/components/past.end.event.card';
 import { DateInput, Divider } from '@heroui/react';
 import { CalendarIcon } from 'lucide-react';
 import React, { useEffect } from 'react';
@@ -10,6 +9,7 @@ import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { AwaitDataLoader } from '../await.data.loader';
 import { useAppContext } from '@/context';
 import { EmptyDateComponent } from '../empty.date.component';
+import { PastAttendedEventComponent } from '../event-cards/past.attended.event.component';
 
 const HistoryTabs = () => {
 
@@ -38,7 +38,7 @@ const HistoryTabs = () => {
                             <AwaitDataLoader emptyMessage={<EmptyDateComponent />} dataLength={dataList.length} isLoading={eventLoading}>
                                 <>
                                     {dataList.map((event: EventDtoResponse, index: number) => (
-                                        <PastEndEventCard event={event} key={index} />
+                                        <PastAttendedEventComponent event={event} key={index} />
                                     ))}
                                 </>
                             </AwaitDataLoader>

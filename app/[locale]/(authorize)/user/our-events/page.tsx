@@ -14,10 +14,14 @@ import { LoadingComponent2 } from '@/components/loading.component';
 import { useAppContext } from '@/context';
 import { EventCardHorizontalComponent } from '@/components/event.card.horizontal.component';
 import { useOurEventsStore } from '@/stores/our.events.store';
+import { useScopedI18n } from '@/locales/client';
+import { EmptyDateComponent } from '@/components/empty.date.component';
 
 const Page = () => {
     const [activeTab, setActiveTab] = useState("PUBLISHED");
     const { isAuth } = useAppContext();
+    const navbarT = useScopedI18n("navbar");
+    const eventT = useScopedI18n("event");
 
     const { fetchEventList, dataList, isLoading: eventLoading, resetData } = useOurEventsStore();
 
@@ -34,7 +38,7 @@ const Page = () => {
     return (
         <div className='space-y-9 my-7 section-container'>
             <section className='sm:flex '>
-                <h3 className='font-extrabold text-2xl'>Mes évènements</h3>
+                <h3 className='font-extrabold text-2xl'>{navbarT("ourevent")}</h3>
                 <div className='flex items-center flex-1 justify-center justify-items-center space-x-3'>
 
                     <div>
@@ -43,7 +47,7 @@ const Page = () => {
                 </div>
                 <div>
                     <Button href={"/user/events/new"} as={Link} startContent={<Plus className="w-4 h-4 text-white" />} size='sm' radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
-                        Créer un évènement
+                       {eventT("create")}
                     </Button>
                 </div>
 
@@ -62,7 +66,7 @@ const Page = () => {
                             <div className='flex-1 space-y-3'>
 
                                 <div className=''>
-                                    <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
+                                   
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 sm:block'>
@@ -71,7 +75,7 @@ const Page = () => {
                                         </> : <>
                                             {dataList?.length === 0 ? <>
                                                 <div className="text-center h-full flex justify-center items-center">
-                                                    <h3>Aucun évènement</h3>
+                                                    <h3><EmptyDateComponent /></h3>
                                                 </div>
                                             </> :
                                                 <>
@@ -98,7 +102,6 @@ const Page = () => {
                             <div className='flex-1 space-y-3'>
 
                                 <div className=''>
-                                    <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
@@ -107,7 +110,7 @@ const Page = () => {
                                         </> : <>
                                             {dataList?.length === 0 ? <>
                                                 <div className="text-center">
-                                                    Il n&apos;y a pas de data
+                                                    <EmptyDateComponent />
                                                 </div>
                                             </> :
                                                 <>
@@ -135,7 +138,6 @@ const Page = () => {
                             <div className='flex-1 space-y-3'>
 
                                 <div className=''>
-                                    <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
@@ -145,7 +147,7 @@ const Page = () => {
                                         </> : <>
                                             {dataList?.length === 0 ? <>
                                                 <div className="text-center">
-                                                    Il n&apos;y a pas de data
+                                                   <EmptyDateComponent />
                                                 </div>
                                             </> :
                                                 <>
@@ -171,7 +173,6 @@ const Page = () => {
                             <div className='flex-1 space-y-3'>
 
                                 <div className=''>
-                                    <h5 className='font-semibold text-xl'>Aujourd’hui</h5>
                                     <Divider className='mt-1.5 mb-2' />
 
                                     <div className='space-y-3.5 flex justify-around flex-wrap md:block'>
@@ -180,7 +181,7 @@ const Page = () => {
                                         </> : <>
                                             {dataList?.length === 0 ? <>
                                                 <div className="text-center">
-                                                    Il n&apos;y a pas de data
+                                                   <EmptyDateComponent />
                                                 </div>
                                             </> :
                                                 <>
