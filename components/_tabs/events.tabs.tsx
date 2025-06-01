@@ -26,7 +26,7 @@ export const EventsTabs = () => {
     return (
         <div>
             <Divider className='mt-5 mb-2' />
-            <section className='lg:grid grid-cols-1 gap-20 md:grid-cols-12'>
+            <section className='flex flex-col-reverse lg:grid grid-cols-1 gap-20 md:grid-cols-12'>
 
                 <div className='md:col-span-8 space-y-3'>
 
@@ -54,6 +54,8 @@ export const EventsTabs = () => {
                     </div>
 
                 </div>
+
+                {/* Date Select */}
                 <div className='md:col-span-4 space-y-3'>
                     <DateSelectComponent onChange={onChange} />
 
