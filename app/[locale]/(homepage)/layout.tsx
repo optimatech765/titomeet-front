@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 
             {/* main */}
-            <main >
+            <main className='min-h-[75vh]' >
 
                 {children}
 

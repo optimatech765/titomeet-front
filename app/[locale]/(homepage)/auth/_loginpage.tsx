@@ -125,7 +125,7 @@ export const Loginpage = () => {
 
             <div className="flex gap-4 justify-center mb-1">
                 <Button variant="flat" className="flex items-center gap-1 flex-1 h-9">
-                    <Image alt='dd' src={'/img/google.png'} width={120} height={70} className='h-5 w-6' /> Google
+                    <Image alt='dd' src={'/img/google.png'} width={100} height={50} className='h-4 w-4' /> Google
                 </Button>
                 <Button variant="flat" className="flex items-center gap-1 flex-1 h-9 ">
                     <Image alt='dd' src={'/img/facebook.png'} width={100} height={50} className='h-4 w-4' /> Facebook
@@ -154,6 +154,7 @@ export const Loginpage = () => {
                     onChange={(e) => setLoginInfo({ ...loginInfo, email: e.target.value })}
                 />
             </div>
+            
             <div className="mb-1 space-y-0.5">
                 <label className="block text-sm font-medium text-black">{inputT("passwordLabel")}</label>
                 <Input
