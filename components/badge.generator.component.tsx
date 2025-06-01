@@ -38,7 +38,7 @@ export const BadgeGenerator = ({imageUrl}: {imageUrl: string}) => {
         return () => {
             image.onload = null;
         };
-    }, []);
+    }, [imageUrl]);
 
     // Mise à jour du transformer quand l'image sélectionnée change
     useEffect(() => {
@@ -133,7 +133,7 @@ export const BadgeGenerator = ({imageUrl}: {imageUrl: string}) => {
         <Card className="flex flex-col items-center gap-4 p-4">
             <Input
                 type="file"
-                accept="image/*"
+                accept=".png, .jpg, .jpeg"
                 onChange={handleFileChange}
                 className="p-2 border rounded"
             />
