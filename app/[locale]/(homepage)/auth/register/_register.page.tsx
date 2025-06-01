@@ -229,7 +229,7 @@ export const RegisterPage = () => {
 
                     et la
                     <span className="text-sm font-normal ml-1">
-                      {registerT("policy")}
+                        {registerT("policy")}
                     </span>
 
                 </Checkbox>
@@ -243,10 +243,12 @@ export const RegisterPage = () => {
                 disabled={isLoading}
                 className={clsx({
                     "cursor-wait": isLoading
-                }, "w-full bg-red-500 hover:bg-red-600 text-white")} >{buttonT("register")}</Button>
+                }, "w-full bg-red-500 hover:bg-red-600 text-white")} >
+                {buttonT("register")}
+            </Button>
 
             <p className="text-center mt-4 font-light text-sm">
-               {registerT("question")} <Link href="/auth" className="text-red-500 underline"> {registerT("login")}</Link>
+                {registerT("question")} <Link href="/auth" className="text-red-500 underline"> {registerT("login")}</Link>
             </p>
         </div>
     );

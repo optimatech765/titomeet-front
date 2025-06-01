@@ -7,8 +7,8 @@ import Link from 'next/link';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="flex  justify-center py-16 bg-gray-100">
-            <Card className="flex w-fit md:w-[900px] overflow-hidden rounded-lg shadow-lg bg-white">
+        <div className="flex  justify-center py-16 ">
+            <Card className="flex w-full mx-12 md:mx-0 md:w-[900px] overflow-hidden rounded-lg shadow-lg bg-white">
 
                 <div className=" md:grid grid-cols-2 justify-center">
                     <div className=" md:block hidden">
