@@ -41,6 +41,7 @@ export const LoadingComponent = () => {
 
 
 export const LoadingComponent2 = () => {
+
     return (
         <div>
             <motion.div

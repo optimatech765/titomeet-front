@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import { EmptyDateComponent } from "@/components/empty.date.component";
-import { EventCardComponent } from "@/components/event.card.component";
-import { LoadingComponent2 } from "@/components/loading.component";
-import { useEventsStore } from "@/stores/events.store";
-import { EventDtoResponse } from "@/utils/dto/events.dto";
-import clsx from "clsx";
-import { useState, useEffect, useRef } from "react";
+import { EmptyDateComponent } from '@/components/empty.date.component';
+import { EventCardComponent } from '@/components/event.card.component';
+import { LoadingComponent2 } from '@/components/loading.component';
+import { useEventsStore } from '@/stores/events.store';
+import { EventDtoResponse } from '@/utils/dto/events.dto';
+import clsx from 'clsx';
+import React, { useEffect, useRef, useState } from 'react';
 
-export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { withSearch?: boolean, status?: string }) => {
+export const FavoriteEventSection = () => {
     const [isLoading, setIsLoading] = useState(false);
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
@@ -26,11 +24,9 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
         if (loadMoreRef.current) {
             observer.observe(loadMoreRef.current);
         }
-        if (status) {
-            fetchEventList({ page: 1, limit: 25, status: status,startDate:new Date().toLocaleDateString("en") });
-        } else {
-            fetchEventList({ page: 1, limit: 25,startDate:new Date().toLocaleDateString("en")});
-        }
+
+        fetchEventList({ page: 1, limit: 25, status: "FAVORITE"});
+
         return () => {
             if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
         };
@@ -58,7 +54,7 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
                         </div>
                     </> :
                         <>
-                            <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3")} >
+                            <div className={clsx("lg:grid-cols-4 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3")} >
 
                                 {dataList.map((event: EventDtoResponse, index: number) => (
                                     <EventCardComponent event={event} key={index} />
@@ -71,4 +67,4 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
 
         </div>
     );
-};
+}

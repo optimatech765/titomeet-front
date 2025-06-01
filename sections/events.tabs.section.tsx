@@ -1,7 +1,10 @@
 
+import { useScopedI18n } from "@/locales/client";
 import { Tabs, Tab, } from "@heroui/react";
 
 export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
+
+     const tabsT = useScopedI18n("tabs");
     return (
         <div className="flex w-full flex-col">
             <Tabs
@@ -24,7 +27,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("events")}>
 
-                            <span>Evènements</span>
+                            <span>{tabsT("event")}</span>
 
                         </div>
                     }
@@ -36,7 +39,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("showmore")}>
 
-                            <span>Découvrir</span>
+                            <span>{tabsT("discover")}</span>
 
                         </div>
                     }
@@ -49,7 +52,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("favoris")}>
 
-                            <span>Favoris</span>
+                            <span>{tabsT("favorite")}</span>
 
                         </div>
                     }
@@ -63,7 +66,7 @@ export const EventsTabsComponent = ({ activeTab, setActiveTab }: { activeTab: st
                     title={
                         <div className="flex items-center space-x-2" onClick={() => setActiveTab("history")}>
 
-                            <span>Historiques</span>
+                            <span>{tabsT("history")}</span>
 
                         </div>
                     }

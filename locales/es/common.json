@@ -151,5 +151,11 @@
   "event.share": "",
   "event.mayLike": "",
   "payment.mail": "",
-  "payment.success": ""
+  "payment.success": "",
+  "tabs.event": "",
+  "tabs.discover": "",
+  "tabs.favorite": "",
+  "tabs.history": "",
+  "loarder.emptyMessage": "",
+  "loader.message": ""
 }

@@ -7,6 +7,7 @@ import { LoadingComponent2 } from '../loading.component';
 import { PartcipateEventCardHorizontalComponent } from '../events/partcipate.event.card.horizontal.component';
 import { useAttendeeEventsStore } from '@/stores/attendee.event.store';
 import { useAppContext } from '@/context';
+import { EmptyDateComponent } from '../empty.date.component';
 
 export const EventsTabs = () => {
     const { isAuth } = useAppContext();
@@ -39,7 +40,7 @@ export const EventsTabs = () => {
                             </> : <>
                                 {dataList?.length === 0 ? <>
                                     <div className="text-center">
-                                        Il n&apos;y a pas de data
+                                       <EmptyDateComponent />
                                     </div>
                                 </> :
                                     <>

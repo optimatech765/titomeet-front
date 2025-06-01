@@ -1,4 +1,4 @@
-import { EventsSection } from '@/sections/events.section';
+import { FavoriteEventSection } from '@/sections/events-sections/nears-events/favorite.event.section';
 import { Divider } from '@heroui/react';
 import React from 'react';
 
@@ -7,7 +7,7 @@ const FavorisTabs = () => {
         <div>
             <Divider className='mt-5 mb-2' />
             <section>
-                <EventsSection status="FAVORITE" />
+                <FavoriteEventSection />
             </section>
         </div>
     );

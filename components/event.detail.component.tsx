@@ -250,7 +250,7 @@ export const EventDetails = () => {
                 </div>
 
                 {/* évènements similaires */}
-                <div className="mt-10 bg-[#F8F8F8] pb-12 ">
+                <div className="mt-10 pb-12 ">
                     <div className="section-container mx-auto p-6 ">
                         <h2 className="information-title1">{eventT("mayLike")}</h2>
                         <div className={clsx("lg:grid-cols-4 mb-7 md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3 mt-2")}>
