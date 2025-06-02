@@ -3,7 +3,7 @@
 import { AddressStore } from '@/stores/address.store';
 import { EventCategorieStore } from '@/stores/event.categories.store';
 import { useEventsStore } from '@/stores/events.store';
-import { GetDate } from '@/utils/functions/date.function';
+import { GetDate, GetHour } from '@/utils/functions/date.function';
 import { Card, CardBody, Checkbox, DatePicker, TimeInput } from '@heroui/react';
 import { Pen } from 'lucide-react';
 import Image from 'next/image';
@@ -54,8 +54,8 @@ export const ResumeStepperComponent = ({ setActiveStep }: { setActiveStep: (valu
                                     <p><strong>Catégorie :</strong> {returnCategories()}</p>
                                     <p><strong>Date début :</strong> {GetDate(eventData.startDate)}</p>
                                     <p><strong>Date fin :</strong> {GetDate(eventData.endDate)}</p>
-                                    <p><strong>Heure début :</strong> {new Date().toLocaleTimeString()}</p>
-                                    <p><strong>Heure fin :</strong> {new Date().toLocaleTimeString()}</p>
+                                    <p><strong>Heure début :</strong> {GetHour(eventData?.startTime)}</p>
+                                    <p><strong>Heure fin :</strong> {GetHour(eventData?.endTime)}</p>
                                     <p><strong>Lieu :</strong> {returnAddress()?.city}</p>
                                     <p><strong>Adresse :</strong> {returnAddress()?.state} / {returnAddress()?.country}</p>
                                     <p><strong>Nombre de places :</strong> {eventData?.capacity}</p>

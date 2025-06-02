@@ -29,6 +29,10 @@ export const GetDate = (value: any) => {
     return `${value.year.toString().padStart(4, "0")}-${value.month.toString().padStart(2, "0")}-${value.day.toString().padStart(2, "0")}`;
 }
 
+export const GetHour = (value: any) => {
+    return `${value.hour.toString().padStart(2, "0")}:${value.minute.toString().padStart(2, "0")}:${value.second.toString().padStart(2, "0")}`;
+}
+
 export const convertToISO = (dateString: string): string => {
     const [day, month, year] = dateString.split("-").map(Number);
     const date = new Date(Date.UTC(year, month - 1, day)); // UTC 0
