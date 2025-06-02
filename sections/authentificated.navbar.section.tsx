@@ -66,7 +66,7 @@ export const AuthentificatedNavbarSection = () => {
             <NavbarBrand className="px-0">
                 <div className="flex items-center justify-end md:justify-start gap-2 flex-1">
 
-                    <Image height={200} width={400} src="/img/logo.png" alt="Logo" className="h-16  w-auto " />
+                    <Image height={200} width={400} src={"/img/logo.png"} alt="Logo" className="h-16  w-auto " />
 
                     <Input
                         startContent={<MapPinIcon fill="red" className="w-4 h-4 text-white" />}
@@ -148,7 +148,7 @@ export const AuthentificatedNavbarSection = () => {
 
                     <Dropdown>
                         <DropdownTrigger>
-                            <Avatar name={getInitials(isAuth?.firstName, isAuth?.lastName)} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
+                            <Avatar src={isAuth?.profilePicture} name={getInitials(isAuth?.firstName, isAuth?.lastName)} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
                             <DropdownItem key="new">

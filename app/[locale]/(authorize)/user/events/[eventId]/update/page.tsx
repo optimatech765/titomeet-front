@@ -16,23 +16,21 @@ import { GetDate } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse, EventDataFilter } from '@/utils/functions/other.functions';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { LoadingComponent2 } from '@/components/loading.component';
 
 const Page = () => {
 
     const [activeStep, setActiveStep] = useState("general");
-    // const [validateStep, setValidateStep] = useState([]);
+    const [validStepper, setvalidStepper] = useState<any>([]);
+
     const { data: eventData, resetData, fetchSingleEvent, singleEvent, isLoading } = useEventsStore();
 
     const params = useParams();
     const event = params?.eventId
+    const router = useRouter();
 
     const { setMessageError } = InputErrorStore()
-
-    const handleSaveDraftEvent = async () => {
-        console.log(eventData);
-    }
 
     const uploadFile = async (file: File) => {
 
@@ -71,7 +69,8 @@ const Page = () => {
         }
     }
 
-    const handleSaveEvent = async () => {
+
+    const handleSaveEvent = async (action: "DRAFT" | "PUBLISH") => {
         try {
 
 
@@ -114,32 +113,32 @@ const Page = () => {
                     amount: parseInt(item.amount, 10)
                 }));
 
+
                 if (eventData.id && eventData.id !== "") {
-                    const {id,other} = EventDataFilter(eventData);
-                    console.log()
+                    const { id, other } = EventDataFilter(eventData);
                     eventSevices.updateEvent(id, {
                         ...other,
-                        id:id,
+                        id: id,
                         prices: updatedData,
                         categories: eventData?.categories?.split(","),
                         capacity: +eventData.capacity,
                         coverPicture: coverFile?.downloadUrl,
                         badge: badgeFile?.downloadUrl,
                         startDate: startDate,
-                        isDraft: false,
+                        isDraft: action === "DRAFT",
                         endDate: endDate,
-                        status: 'PUBLISHED',
                         startTime: new Date().toLocaleTimeString(),
                         endTime: new Date().toLocaleTimeString(),
                     }).then(
                         (response) => {
-                            console.log(response);
                             toast.update(toastId, {
                                 render: "Modification réussie",
                                 type: "success",
                                 isLoading: false,
                                 autoClose: 3000,
                             });
+                            resetAllData();
+                            router.push("/user/our-events");
                         },
                         (error) => {
                             console.log(error);
@@ -220,6 +219,7 @@ const Page = () => {
 
             }
             else {
+                setvalidStepper(["general"]);
                 setActiveStep("advanced");
                 setMessageError(errorData);
             }
@@ -237,6 +237,7 @@ const Page = () => {
 
             }
             else {
+                setvalidStepper(["general", "advanced"]);
                 setActiveStep("communication");
                 setMessageError(errorData);
             }
@@ -253,6 +254,7 @@ const Page = () => {
                 setMessageError(errorData);
             }
             else {
+                setvalidStepper(["general", "advanced", "communication", "resume"]);
                 setActiveStep("resume");
                 setMessageError(errorData);
             }
@@ -272,16 +274,15 @@ const Page = () => {
         }
     }
 
+    const resetAllData = () => {
+        setActiveStep("general");
+        resetData();
+    }
+
     useEffect(() => {
         fetchSingleEvent(event as string);
         console.log("salut ici", singleEvent);
     }, []);
-
-    // useEffect
-    //     (() => {
-    //         setEventData({ ...singleEvent });
-    //     }, [singleEvent]);
-
 
     return (
         <>
@@ -296,10 +297,10 @@ const Page = () => {
                                         <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-slate-300"></div>
                                         {/* w-1/4 pour le premier 2/4 pour le second 3/4 pour le troisième et w-full pour le dernier */}
                                         <div className={clsx({
-                                            "w-1/4": activeStep === "general",
-                                            "w-2/4": activeStep === "advanced",
-                                            "w-3/4": activeStep === "communication",
-                                            "w-full": activeStep === "resume",
+                                            "w-1/4": activeStep === "general" || validStepper.includes("general"),
+                                            "w-2/4": activeStep === "advanced" || validStepper.includes("advanced"),
+                                            "w-3/4": activeStep === "communication" || validStepper.includes("communication"),
+                                            "w-full": activeStep === "resume" || validStepper.includes("resume"),
                                         },
                                             "absolute left-0 top-2/4 h-0.5  -translate-y-2/4 bg-secondary transition-all duration-500")}
                                         >
@@ -317,8 +318,8 @@ const Page = () => {
                                         <div
                                             onClick={() => setActiveStep("advanced")}
                                             className={clsx({
-                                                "!bg-secondary": activeStep === "advanced",
-                                                "!bg-slate-300": activeStep !== "advanced"
+                                                "!bg-secondary": activeStep === "advanced" || validStepper.includes("advanced"),
+                                                "!bg-slate-300": activeStep !== "advanced" && !validStepper.includes("advanced")
                                             }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                             <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                                 <h6
@@ -330,8 +331,8 @@ const Page = () => {
                                         <div
                                             onClick={() => setActiveStep("communication")}
                                             className={clsx({
-                                                "!bg-secondary": activeStep === "communication",
-                                                "!bg-slate-300": activeStep !== "communication",
+                                                "!bg-secondary": activeStep === "communication" || validStepper.includes("communication"),
+                                                "!bg-slate-300": activeStep !== "communication" && !validStepper.includes("communication"),
                                             }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full  font-bold text-[#1E1E1E] transition-all duration-300")}  >
                                             <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                                 <h6
@@ -343,8 +344,8 @@ const Page = () => {
                                         <div
                                             onClick={() => setActiveStep("resume")}
                                             className={clsx({
-                                                "!bg-secondary": activeStep === "resume",
-                                                "!bg-slate-300": activeStep !== "resume"
+                                                "!bg-secondary": activeStep === "resume" || validStepper.includes("resume"),
+                                                "!bg-slate-300": activeStep !== "resume" && !validStepper.includes("resume"),
                                             }, "relative z-10 grid h-4 w-4 cursor-pointer place-items-center rounded-full   font-semibold text-[#1E1E1E] transition-all duration-300")}  >
                                             <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                                                 <h6
@@ -365,7 +366,7 @@ const Page = () => {
                             <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
                             <GeneralInforComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
 
@@ -382,7 +383,7 @@ const Page = () => {
                             <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
                             <AdvanceComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
                                 <div className="flex  gap-2">
@@ -403,7 +404,7 @@ const Page = () => {
                             <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
                             <VisibilityCommunicationComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
                                 <div className="flex  gap-2">
@@ -425,7 +426,7 @@ const Page = () => {
                             <ResumeComponent setActiveStep={setActiveStep} />
                             <div className='flex flex-wrap gap-4 items-center justify-between'>
                                 <div className="flex gap-2">
-                                    <Button onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                                    <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                         Enregistrer brouillon
                                     </Button>
                                     <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
@@ -436,7 +437,7 @@ const Page = () => {
                                     <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                    <Button onPress={() => handleSaveEvent("PUBLISH")} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                         Publier
                                     </Button>
                                 </div>

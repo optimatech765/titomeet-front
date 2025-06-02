@@ -60,7 +60,7 @@ const Page = () => {
                             <div className="mb-4">
                                 <User
                                     avatarProps={{
-                                        src: "/img/user.png",
+                                        src: isAuth?.profilePicture,
                                     }}
                                     description={isAuth?.username}
                                     name={`` + isAuth?.firstName + " " + isAuth?.lastName}

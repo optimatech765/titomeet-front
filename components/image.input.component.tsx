@@ -49,8 +49,8 @@ const ImageInputComponent = ({ title, onChange, value }: { onChange: (a: File) =
                             </div>
                         )}
 
-                        <Image className="h-16 z-50" />
-                        <span className="block text-base text-black z-50">Ajouter une image</span>
+                        <Image className="h-16 z-10" />
+                        <span className="block text-base text-black z-10">Ajouter une image</span>
 
                     </div>
                 </InputContainerComponent>

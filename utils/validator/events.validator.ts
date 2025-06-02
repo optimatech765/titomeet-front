@@ -6,7 +6,7 @@ export const EventsValidator = (data: EventDto) => {
     const eventSchema = Joi.object({
         name: Joi.string().required().label('Nom de l\'événement'),
         categories: Joi.string().required().label('Catégories'),
-        description: Joi.string().required().label('Description'),
+        description: Joi.string().required().label("Description de l'évènement"),
         coverPicture: Joi.any().required().label('Photo de couverture'),
         badge: Joi.any().required().label('Badge'),
         addressId: Joi.string().required().label('ID de l\'adresse'),
@@ -15,9 +15,9 @@ export const EventsValidator = (data: EventDto) => {
         accessType: Joi.string().required().label('Type d\'accès'),
         prices: Joi.array().items(Joi.object({
             name: Joi.string().required().label('Nom du pass'),
-            description: Joi.string().optional().label('Description'),
+            description: Joi.any().optional().label('Description'),
             amount: Joi.number().required().label('Montant'),
-        })).optional().label('Prix'),
+        }).unknown(false)).optional().label('Prix'),
         startDate: Joi.string().required().label('Date de début'),
         endDate: Joi.string().required().label('Date de fin'),
         startTime: Joi.string().required().label("Heure de début"), // Format HH:mm
@@ -41,7 +41,7 @@ export const EventsUpdateValidator = (data: EventDto) => {
     const eventSchema = Joi.object({
         name: Joi.string().required().label('Nom de l\'événement'),
         categories: Joi.string().required().label('Catégories'),
-        description: Joi.string().required().label('Description'),
+        description: Joi.string().required().label("Description de l'évènement"),
         coverPicture: Joi.any().required().label('Photo de couverture'),
         badge: Joi.any().required().label('Badge'),
         addressId: Joi.string().required().label('ID de l\'adresse'),
@@ -50,9 +50,9 @@ export const EventsUpdateValidator = (data: EventDto) => {
         accessType: Joi.string().required().label('Type d\'accès'),
         prices: Joi.array().items(Joi.object({
             name: Joi.string().required().label('Nom du pass'),
-            description: Joi.string().optional().label('Description'),
+            description: Joi.any().optional().label('Description du prix'),
             amount: Joi.number().required().label('Montant'),
-        })).optional().label('Prix'),
+        }).unknown(true)).optional().label('Prix'),
         startDate: Joi.string().required().label('Date de début'),
         endDate: Joi.string().required().label('Date de fin'),
         startTime: Joi.string().required().label("Heure de début"), // Format HH:mm
@@ -95,9 +95,10 @@ export const EventStepTwoValidator = (data: EventDto) => {
         accessType: Joi.string().valid("FREE", "PAID").required().label('Type d\'accès'),
         prices: Joi.array().items(Joi.object({
             name: Joi.string().required().label('Nom du pass'),
-            description: Joi.string().optional().label('Description'),
+            description: Joi.any().optional().label('Description'),
             amount: Joi.number().required().label('Montant'),
-        })).when('accessType', {
+        }).unknown(true)
+        ).when('accessType', {
             is: 'PAID',
             then: Joi.required(),
             otherwise: Joi.optional(),
