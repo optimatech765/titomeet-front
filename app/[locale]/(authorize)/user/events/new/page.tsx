@@ -99,7 +99,7 @@ const Page = () => {
                         });
                         setIsLoading(false);
                         resetAllData();
-                        router.push("/user/events");
+                       router.push("/user/our-events");
                     },
                     (error) => {
                         console.log(error);
@@ -232,7 +232,7 @@ const Page = () => {
                             autoClose: 3000,
                         });
                         setIsLoading(false)
-                        router.push("/user/events");
+                       router.push("/user/our-events");
                     },
                     (error) => {
                         console.log(error);

@@ -42,7 +42,7 @@ const UserProfile = () => {
                 <Card className="p-6 relative  -mt-32 flex  items-center shadow-lg">
                     <div className="flex-1 flex flex-col justify-between w-full gap-4">
                         <div>
-                            <Avatar src="/img/user.png" size="lg" className="border-4  mx-auto md:mx-0 z-10 w-52 h-52 border-white" />
+                            <Avatar src={isAuth?.profilePicture} size="lg" className="border-4  mx-auto md:mx-0 z-10 w-52 h-52 border-white" />
                             <h2 className="text-xl font-semibold mt-2 text-center">{isAuth?.username}</h2>
                             <p className="text-gray-500 text-center">{isAuth?.email}</p>
                             <div className="flex items-center gap-2 text-gray-600 mt-2 text-center justify-center">

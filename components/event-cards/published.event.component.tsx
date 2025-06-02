@@ -5,7 +5,6 @@ import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, CardBody, Progress } from "@heroui/react";
 import {
     Clock,
-    FilePenLine,
     MapPin,
     MessageCircleMore,
     Ticket,
@@ -16,7 +15,7 @@ import Link from "next/link";
 import React from "react";
 
 export const PublishedEventComponent = ({ event }: { event: EventDtoResponse }) => {
-      const eventT = useScopedI18n("event");
+    const eventT = useScopedI18n("event");
     return (
         <Card
             isBlurred
@@ -77,7 +76,7 @@ export const PublishedEventComponent = ({ event }: { event: EventDtoResponse }) 
 
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex flex-col-reverse gap-3  md:flex-row justify-between items-center">
-                            <Button
+                            {/* <Button
                                 href={`/user/events/${event?.id}/update`}
                                 as={Link}
                                 startContent={<FilePenLine className="w-4 h-4" />}
@@ -87,18 +86,20 @@ export const PublishedEventComponent = ({ event }: { event: EventDtoResponse }) 
                                 color="primary"
                                 className="flex-1 border"
                             >
-                               {eventT("editInformation")}
-                            </Button>
+                                {eventT("editInformation")}
+                            </Button> */}
 
                             <Button
                                 startContent={<MessageCircleMore className="w-4 h-4" />}
+                                as={Link}
+                                href={`/user/message?eventId=${event.id}`}
                                 size="sm"
                                 variant="ghost"
                                 radius="full"
                                 color="primary"
                                 className="flex-1 border"
                             >
-                              {eventT("joinDiscussion")}
+                                {eventT("joinDiscussion")}
                             </Button>
                         </div>
                     </CardBody>
