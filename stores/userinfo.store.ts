@@ -28,6 +28,7 @@ const initialUserInfo: UserDto = {
 }
 
 interface UserInfoDto {
+    interests: any;
     userInfo: UserDto | null;
     setUserInfo: (userInfo: UserDto) => void;
     updateUserInfo: (key: string, value: string) => void;
@@ -35,10 +36,12 @@ interface UserInfoDto {
     isLoading: boolean;
     handleUpdateUser: (user: any) => void;
     handleDeactiveAccount: (onClose: any) => void;
+    fetchInterests: () => void;
+    addInterest: (data: any) => void;
 }
 
 export const useUserInfoStore = create<UserInfoDto>((set) => ({
-
+    interests: [],
     userInfo: initialUserInfo,
     setUserInfo: (userInfo) => set({ userInfo }),
     isLoading: false,
@@ -152,5 +155,45 @@ export const useUserInfoStore = create<UserInfoDto>((set) => ({
             toast.error(`Erreur lors de la désactivation`)
             console.error(error)
         }
-    }
+    },
+    fetchInterests: async () => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const usersServices = new UsersServices(token || "");
+            set(() => ({
+                isLoading: true,
+            }));
+            const response = await usersServices.getInterests();
+            set((state: any) => ({
+                ...state,
+                interests: response.data?.interests,
+                isLoading: false
+            }));
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.log(error);
+        }
+    },
+    addInterest: async (data: any) => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const usersServices = new UsersServices(token || "");
+            set(() => ({
+                isLoading: true,
+            }));
+            const response = await usersServices.addInterest(data);
+            set((state: any) => ({
+                ...state,
+                interests: response.data?.interests,
+                isLoading: false
+            }));
+        } catch (error) {
+            set(() => ({
+                isLoading: false,
+            }));
+            console.log(error);
+        }
+    },
 }));

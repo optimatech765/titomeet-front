@@ -52,7 +52,6 @@ export const TagTextarea = ({ maxTags = 5, tags = [], onChange }: TagTextareaPro
                 </div>
                 <input
                     type="text"
-                    placeholder="Tagues"
                     className="flex-1 border-none outline-none focus:ring-0 h-full"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}

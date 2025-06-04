@@ -36,5 +36,21 @@ export class UsersServices {
         return axios.patch(`${this.baseUrl}/users/me/status`,{status:"INACTIVE"});
     }
 
+    getInterests(){
+        return axios.get(`${this.baseUrl}/users/me/interests`);
+    }
+
+    addInterest(data:any){
+        return axios.post(`${this.baseUrl}/users/me/interests`,data);
+    }
+
+    deleteInterest(data:any){
+        return axios.delete(`${this.baseUrl}/users/me/interests`,data);
+    }
+
+    putInterest(data:any){
+        return axios.put(`${this.baseUrl}/users/me/interests`,data);
+    }
+
 
 }
