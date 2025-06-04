@@ -13,6 +13,7 @@ const initialVaue = {
     id: "",
     name: "",
     description: "",
+    children: []
 }
 
 const Page = () => {
@@ -42,6 +43,7 @@ const Page = () => {
                 id: "",
                 name: "",
                 description: "",
+                children: []
             });
         }
     }, [isSubmitLoading]);

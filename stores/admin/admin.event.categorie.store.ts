@@ -25,6 +25,7 @@ interface HookInterface {
     updateItem: (item: any) => void;
     fetchItems: (searchParams?: any) => void;
     submitItem: (item: any) => void;
+    submitItemsChildren: (items: any, parentId: string) => void;
     submitDeleteItem: (item: any) => void;
     submitUpdateItem: (item: any) => void;
     fetchSingleItem: (id: string) => void;
@@ -67,7 +68,7 @@ export const useAdminEventCategoriesStore = create<HookInterface>((set) => ({
                     DataListConfig: {
                         page,
                         totalItems: total,
-                        perPageItems: limit ,
+                        perPageItems: limit,
                         totalPages,
                         isSearch: false,
                         searchValue: "",
@@ -115,7 +116,7 @@ export const useAdminEventCategoriesStore = create<HookInterface>((set) => ({
 
                 set((state: any) => ({
                     isSubmitLoading: false,
-                    items: [data,...state.items],
+                    items: [data, ...state.items],
 
                 }));
                 toast.update(toastId, {
@@ -260,5 +261,50 @@ export const useAdminEventCategoriesStore = create<HookInterface>((set) => ({
             console.error(error)
         }
     },
+    submitItemsChildren: async (items: any[], parentId: string) => {
+        const toastId = toast.loading(`Soumission de la demande...`);
+        try {
+            const token = localStorage.getItem("accessToken") || "";
+            const apiRouting = new AdminEventCategorieServices(token);
+
+            set({ isSubmitLoading: true });
+
+
+
+            // Crée un tableau de promesses avec les objets formatés
+            const promises = items.map((item) => {
+                const payload = {
+                    name: item,
+                    parentId: parentId,
+                    description: item,
+                };
+                return apiRouting.add(payload);
+            });
+
+            await Promise.all(promises);
+
+            // Met à jour l’état
+            set(() => ({
+                isSubmitLoading: false,
+
+            }));
+
+            toast.update(toastId, {
+                render: "Tous les éléments ont été enregistrés avec succès",
+                type: "success",
+                isLoading: false,
+                autoClose: 5000,
+            });
+        } catch (error) {
+            set({ isSubmitLoading: false });
+           toast.update(toastId, {
+                render: "Certains éléments n'ont pas été enregistrés",
+                type: "error",
+                isLoading: false,
+                autoClose: 5000,
+            });
+            console.error(error);
+        }
+    }
 
 }))

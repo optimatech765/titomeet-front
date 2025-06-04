@@ -12,7 +12,7 @@ import { Button } from '@heroui/button';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { GetDate } from '@/utils/functions/date.function';
+import { GetDate, GetHour } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
@@ -42,8 +42,9 @@ const Page = () => {
                 ...eventData,
                 startDate: startDate,
                 endDate: endDate,
-                startTime: new Date().toLocaleTimeString(),
-                endTime: new Date().toLocaleTimeString(),
+                startTime: GetHour(eventData?.startTime),
+                endTime: GetHour(eventData?.endTime),
+                providers: eventData?.providers?.map((item: any) => (item.id))
             }
             const { error, errorData } = EventsValidator(newData);
             if (error) {
@@ -78,15 +79,18 @@ const Page = () => {
 
                 eventSevices.createEvent({
                     ...eventData,
-                    prices: updatedData,
+                    prices: newData.accessType === 'PAID' ? updatedData : [{
+                        name: "Gratuit",
+                        amount: 0
+                    }],
                     categories: eventData?.categories?.split(","),
                     capacity: +eventData.capacity,
                     coverPicture: coverFile?.downloadUrl,
                     badge: badgeFile?.downloadUrl,
                     startDate: startDate,
                     endDate: endDate,
-                    startTime: new Date().toLocaleTimeString(),
-                    endTime: new Date().toLocaleTimeString(),
+                    startTime: GetHour(eventData?.startTime),
+                    endTime: GetHour(eventData?.endTime),
                     isDraft: true,
                 }).then(
                     (response) => {
@@ -99,7 +103,7 @@ const Page = () => {
                         });
                         setIsLoading(false);
                         resetAllData();
-                       router.push("/user/our-events");
+                        router.push("/user/our-events");
                     },
                     (error) => {
                         console.log(error);
@@ -172,8 +176,8 @@ const Page = () => {
                 ...eventData,
                 startDate: startDate,
                 endDate: endDate,
-                startTime: new Date().toLocaleTimeString(),
-                endTime: new Date().toLocaleTimeString(),
+                startTime: GetHour(eventData?.startTime),
+                endTime: GetHour(eventData?.endTime),
                 providers: eventData?.providers?.map((item: any) => (item.id))
             }
 
@@ -220,8 +224,8 @@ const Page = () => {
                     badge: badgeFile?.downloadUrl,
                     startDate: startDate,
                     endDate: endDate,
-                    startTime: new Date().toLocaleTimeString(),
-                    endTime: new Date().toLocaleTimeString(),
+                    startTime: GetHour(eventData?.startTime),
+                    endTime: GetHour(eventData?.endTime),
                 }).then(
                     (response) => {
                         resetAllData();
@@ -232,7 +236,7 @@ const Page = () => {
                             autoClose: 3000,
                         });
                         setIsLoading(false)
-                       router.push("/user/our-events");
+                        router.push("/user/our-events");
                     },
                     (error) => {
                         console.log(error);

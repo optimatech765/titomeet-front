@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
 import { LoadingComponent2 } from "@/components/loading.component";
@@ -6,7 +7,8 @@ import { useAppContext } from "@/context";
 import { useScopedI18n } from "@/locales/client";
 import { useAttendeeEventsStore } from "@/stores/attendee.event.store";
 import { useEventsStore } from "@/stores/events.store";
-import { Avatar, Button, Card, CardBody, Chip, Image } from "@heroui/react";
+import { useUserInfoStore } from "@/stores/userinfo.store";
+import { Avatar, Button, Card, CardBody, Chip, Image, Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/react";
 import { Camera, FilePenLine, MapPinIcon, Pencil } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -14,9 +16,10 @@ import { useEffect } from "react";
 const UserProfile = () => {
     const { isAuth } = useAppContext();
     const { fetchEventList: fetchAttendeeEvent, dataList: attendeeList, isLoading: attendeeLoading } = useAttendeeEventsStore();
-
+    const { isOpen, onOpen ,onClose } = useDisclosure();
 
     const { fetchEventList, dataList, isLoading } = useEventsStore();
+    const { fetchInterests, interests, isLoading: interestsLoading } = useUserInfoStore();
     const interetT = useScopedI18n("interet");
     const navbarT = useScopedI18n("navbar");
     const buttonT = useScopedI18n("button")
@@ -25,6 +28,7 @@ const UserProfile = () => {
 
         fetchEventList({ page: 1, limit: 25, createdById: isAuth?.id });
         fetchAttendeeEvent({ page: 1, limit: 25, attendeeId: isAuth?.id });
+        fetchInterests();
     }, []);
 
     return (
@@ -91,14 +95,25 @@ const UserProfile = () => {
                     <Card >
                         <CardBody>
                             <h3 className="font-semibold flex items-center gap-3">{interetT("subtitle")}
-                                <FilePenLine className="w-4 h-4 text-primary ml-2" />
+                                <FilePenLine onClick={onOpen} className="w-4 h-4 text-primary ml-2 cursor-pointer " />
                             </h3>
                             <div className="flex flex-wrap gap-2 mt-2">
-                                {["Coding Weekend", "Jam Session", "Innovation Lab"].map((tag, index) => (
-                                    <Chip key={index} className="bg-tertiary text-primary" variant="flat">
-                                        {tag}
-                                    </Chip>
-                                ))}
+                                {interestsLoading ? (
+                                    // Skeletons à la place des chips
+                                    Array(3).fill(null).map((_, index) => (
+                                        <div
+                                            key={index}
+                                            className="h-6 w-24 bg-gray-300 animate-pulse rounded-full"
+                                        />
+                                    ))
+                                ) : (
+                                    // Contenu réel une fois chargé
+                                    interests.map((tag: string, index: number) => (
+                                        <Chip key={index} className="bg-tertiary text-primary" variant="flat">
+                                            {tag}
+                                        </Chip>
+                                    ))
+                                )}
                             </div>
 
                         </CardBody>
@@ -120,7 +135,29 @@ const UserProfile = () => {
 
             </div>
 
+            <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose} classNames={{ closeButton: 'text-primary' }}>
+                <ModalContent >
+                    {(onClose) => (
+                        <>
 
+                            <div className='px-6 pt-5 mb-2'>
+                                <h3 className="text-2xl  font-semibold  text-center">
+                                   Mes centres d’intérêt
+                                </h3>
+                                <p className="text-sm font-light text-center">
+                                    Selectionnez vos centres d’intérêt
+                                </p>
+
+                            </div>
+
+                            <ModalBody>
+                                
+                            </ModalBody>
+                            
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </div>
     );
 };

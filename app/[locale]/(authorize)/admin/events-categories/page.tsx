@@ -1,19 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { AwaitDataLoader } from '@/components/await.data.loader';
+import { InputContainerComponent2, InputContainerComponentTop } from '@/components/create-event/input.container.component';
 import { TableComponent } from '@/components/table.component';
+import { TagTextarea } from '@/components/tague.input.component';
 import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
-import { Ellipsis, Plus, Trash } from 'lucide-react';
+import { Check, Ellipsis, Plus, Trash } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
-type actionType = "edit" | "add" | "delete"
+type actionType = "edit" | "add" | "delete" | "children"
 
 const initialVaue = {
     id: "",
     name: "",
     description: "",
+    children: [],
+    active:true
 }
 
 const Page = () => {
@@ -23,7 +28,9 @@ const Page = () => {
 
     const [action, setAction] = useState<actionType>("add");
 
-    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem,submitDeleteItem } = useAdminEventCategoriesStore()
+    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitItemsChildren, submitUpdateItem, submitDeleteItem } = useAdminEventCategoriesStore()
+
+    const [interestListe, setInterestListe] = useState<string[]>([]);
 
     useEffect(() => {
         fetchItems();
@@ -39,11 +46,7 @@ const Page = () => {
     useEffect(() => {
         if (isSubmitLoading === false) {
             onClose();
-            setCategorieData({
-                id: "",
-                name: "",
-                description: "",
-            });
+            setCategorieData(initialVaue);
         }
     }, [isSubmitLoading]);
 
@@ -54,7 +57,12 @@ const Page = () => {
         } else if (action === "delete") {
             setAction("delete");
             setCategorieData(item);
+        } else if (action === "children") {
+            setAction("children");
+            setInterestListe(item.children.map((child: any) => child.name));
+            setCategorieData(item);
         } else {
+
             setCategorieData(initialVaue);
             setAction("add");
         }
@@ -63,6 +71,19 @@ const Page = () => {
 
     const handleUpdateItem = () => {
         submitUpdateItem({
+            id: categorieData.id,
+            name: categorieData.name,
+            description: categorieData.description,
+        });
+        setCategorieData(initialVaue);
+        setAction("add");
+        onClose();
+
+    }
+
+    const handleDeleteItem = (active: boolean) => {
+        submitUpdateItem({
+            active: active,
             id: categorieData.id,
             name: categorieData.name,
             description: categorieData.description,
@@ -98,8 +119,11 @@ const Page = () => {
                             <TableCell className="w-1/4">{item.name}</TableCell>
                             <TableCell className="w-1/4">{item.description}</TableCell>
                             <TableCell className="w-1/4">
-                                <Button isIconOnly radius="full" color="danger" onPress={() => handleselectItem(item, "delete")}>
-                                    <Trash size={14} />
+                                <Button isIconOnly radius="full" color="danger" className='mx-2' onPress={() => handleselectItem(item, "delete")}>
+                                   {!item.active ? <Check size={14} /> : <Trash size={14} />}
+                                </Button>
+                                <Button color="danger" onPress={() => handleselectItem(item, "children")}>
+                                    Sous catégories
                                 </Button>
                             </TableCell>
 
@@ -122,75 +146,98 @@ const Page = () => {
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                    {action === "add" ? "Ajout de catégorie" : action==="edit"? "Edition de catégorie" : "Suppression de catégorie"}
+                                    {action === "add" ? "Ajout de catégorie" : action === "edit" ? "Edition de catégorie" : action === "children" ? "Ajout de sous catégorie" : `   ${categorieData.active ? "Désactiver" : "Activé"} catégorie`}
                                 </h3>
                             </div>
 
                             <ModalBody>
-                                {action === "delete" ? (
-                                    <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
-                                        <p className='text-lg font-semibold'>Voulez-vous vraiment supprimer cette catégorie ?</p>
-                                        <p className='text-sm text-gray-500'>Cette action est irréversible.</p>
-                                    </div>
-                                ) : (
-                                    <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
-                                        <Input
-                                            value={categorieData.name}
-                                            onChange={(e) => setCategorieData({ ...categorieData, name: e.target.value })}
-                                            classNames={{
-                                                input: "w-full bg-white",
-                                                base: "w-full bg-white",
-                                                inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
-                                            }}
-                                            placeholder="Nom de la catégorie"
-                                            labelPlacement={"outside"}
-                                            label={<span className="text-sm font-medium text-gray-700">Nom de la catégorie</span>}
-                                        />
+                                {action === "children" ? <>
+                                    <div className="flex-1">
+                                        <InputContainerComponentTop title={"Sous Catégories"} >
+                                            <TagTextarea
+                                                maxTags={20}
+                                                tags={interestListe}
+                                                onChange={(value) => setInterestListe(value)}
+                                            />
 
-                                        <Textarea
-                                            value={categorieData.description}
-                                            onChange={(e) => setCategorieData({ ...categorieData, description: e.target.value })}
-                                            classNames={{
-                                                input: "w-full bg-white",
-                                                base: "w-full bg-white",
-                                                inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
-                                            }}
-                                            placeholder="Description de la catégorie"
-                                            rows={5}
-                                            labelPlacement={"outside"}
-                                            label={<span className="text-sm font-medium text-gray-700">Description de la catégorie</span>}
+                                        </InputContainerComponentTop>
 
-                                        />
                                     </div>
-                                )
-                                }
+                                </> : <>
+                                    {action === "delete" ? (
+                                        <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
+                                            <p className='text-lg font-semibold'>Voulez-vous vraiment    {categorieData.active ? "Désactiver" : "Activé"} cette catégorie ?</p>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col justify-center justify-items-stretch items-center gap-3">
+                                            <Input
+                                                value={categorieData.name}
+                                                onChange={(e) => setCategorieData({ ...categorieData, name: e.target.value })}
+                                                classNames={{
+                                                    input: "w-full bg-white",
+                                                    base: "w-full bg-white",
+                                                    inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
+                                                }}
+                                                placeholder="Nom de la catégorie"
+                                                labelPlacement={"outside"}
+                                                label={<span className="text-sm font-medium text-gray-700">Nom de la catégorie</span>}
+                                            />
+
+                                            <Textarea
+                                                value={categorieData.description}
+                                                onChange={(e) => setCategorieData({ ...categorieData, description: e.target.value })}
+                                                classNames={{
+                                                    input: "w-full bg-white",
+                                                    base: "w-full bg-white",
+                                                    inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
+                                                }}
+                                                placeholder="Description de la catégorie"
+                                                rows={5}
+                                                labelPlacement={"outside"}
+                                                label={<span className="text-sm font-medium text-gray-700">Description de la catégorie</span>}
+
+                                            />
+                                        </div>
+                                    )
+                                    }
+                                </>}
+
                             </ModalBody>
 
                             <ModalFooter>
-                                {action !== "delete" ? (
-                                    <Button
-                                        onPress={action === "add" ? handleSubmi : handleUpdateItem}
+                                {action !== "delete" ? (<>
+                                    {action === "children" ? <Button
+                                        onPress={() => submitItemsChildren(interestListe, categorieData.id as string)}
                                         disabled={isSubmitLoading}
                                         className="w-full bg-primary text-white  "
                                         radius="full"
                                         isLoading={isSubmitLoading}
-
                                     >
-                                        {action === "add" ? "Ajouter" : "Modifier"}
+                                        Ajouter
 
-                                    </Button>
+                                    </Button> :
+                                        <Button
+                                            onPress={action === "add" ? handleSubmi : handleUpdateItem}
+                                            disabled={isSubmitLoading}
+                                            className="w-full bg-primary text-white  "
+                                            radius="full"
+                                            isLoading={isSubmitLoading}
+                                        >
+                                            {action === "add" ? "Ajouter" : "Modifier"}
+
+                                        </Button>}
+
+                                </>
+
                                 ) : <>
 
                                     <Button
-                                        onPress={() => {
-                                            submitDeleteItem(categorieData);
-                                            onClose();
-                                        }}
+                                        onPress={()=>handleDeleteItem(!categorieData.active)}
                                         className="w-full bg-danger text-white  "
                                         radius="full"
                                         isLoading={isSubmitLoading}
                                     >
-                                        Supprimer
+                                    {categorieData.active ? "Désactiver" : "Activé"}
                                     </Button>
                                     <Button
                                         onPress={onClose}
