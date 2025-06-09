@@ -22,6 +22,10 @@ class AuthServices {
         return axios.post(`${this.baseUrl}/auth/reset-password`, data)
     }
 
+    updatePassword(data: UpdatePasswordtDto) {
+        return axios.post(`${this.baseUrl}/auth/update-password`, data)
+    }
+
 }
 
 const authSevices = new AuthServices();
@@ -31,4 +35,9 @@ export { authSevices }
 interface ResetPasswordtDto {
     password: string;
     token: string
+}
+
+interface UpdatePasswordtDto {
+    newPassword: string;
+    oldPassword: string
 }
