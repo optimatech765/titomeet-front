@@ -100,7 +100,7 @@ export const NavbarSection = () => {
 
             <Drawer className="lg:hidden" isOpen={isOpen} onOpenChange={setIsOpen} placement="left">
                 <DrawerContent className="w-64 p-4">
-                    <nav className="flex flex-col gap-4">
+                    <nav className="flex flex-col gap-4  ">
                         {linksList.map(({ href, label }) => (
                             <LinkH
                                 as={Link}
@@ -166,7 +166,7 @@ export const NavbarSection = () => {
                     </LinkH>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} href="/auth/register" className="font-bold mt-4 bg-primary text-white">
+                    <Button as={Link} href="/auth/register" className="font-bold bg-primary text-white">
                         {buttonT("register")}
                     </Button>
                 </NavbarItem>
