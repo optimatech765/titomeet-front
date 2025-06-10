@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { FutureEventCardComponent } from "@/components/future.event.card.component";
@@ -95,7 +96,7 @@ const UserProfile = () => {
                     <Card >
                         <CardBody>
                             <h3 className="font-semibold flex items-center gap-3">{interetT("subtitle")}
-                                <FilePenLine onClick={onOpen} className="w-4 h-4 text-primary ml-2 cursor-pointer " />
+                                <FilePenLine  className="w-4 h-4 text-primary ml-2 cursor-pointer " />
                             </h3>
                             <div className="flex flex-wrap gap-2 mt-2">
                                 {interestsLoading ? (
@@ -108,9 +109,9 @@ const UserProfile = () => {
                                     ))
                                 ) : (
                                     // Contenu réel une fois chargé
-                                    interests.map((tag: string, index: number) => (
+                                    interests.map((tag: any, index: number) => (
                                         <Chip key={index} className="bg-tertiary text-primary" variant="flat">
-                                            {tag}
+                                            {tag.name}
                                         </Chip>
                                     ))
                                 )}

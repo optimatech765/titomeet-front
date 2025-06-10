@@ -26,10 +26,11 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
         if (loadMoreRef.current) {
             observer.observe(loadMoreRef.current);
         }
+
         if (status) {
             fetchEventList({ page: 1, limit: 25, status: status,startDate:new Date().toLocaleDateString("en") });
         } else {
-            fetchEventList({ page: 1, limit: 25,startDate:new Date().toLocaleDateString("en")});
+            fetchEventList({ page: 1, limit: 25,status:"PUBLISHED",startDate:new Date().toLocaleDateString("en") });
         }
         return () => {
             if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
