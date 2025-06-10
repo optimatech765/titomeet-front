@@ -11,10 +11,11 @@ import ChatInfoComponent from "./chatInfo.component";
 import { useSearchParams } from "next/navigation";
 
 export default function ChatInterface() {
-    const { fetchChatList, chats,setCurrentChat, reorderChatList } = ChatStore();
+    const { fetchChatList, chats, setCurrentChat, reorderChatList } = ChatStore();
     const [isMobile, setIsMobile] = useState(false);
     const [showConversations, setShowConversations] = useState(false);
     const [showInformations, setShowInformations] = useState(false);
+    const [filterData, setFilterData] = useState("");
     const params = useSearchParams();
     const chatId = params.get("chatId");
     useSocketIoListener("events.sockets.newMessage", (message: any) => {
@@ -25,38 +26,47 @@ export default function ChatInterface() {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
         };
-        
+
         handleResize(); // initial
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [])
 
     useEffect(() => {
-      if(chatId && chatId !== "undefined"){
-        const chat  = chats.find((item:any)=>chatId===item.eventId);
-        setCurrentChat(chat);
-      }
+        if (chatId && chatId !== "undefined") {
+            const chat = chats.find((item: any) => chatId === item.eventId);
+            setCurrentChat(chat);
+        }
     }, [chatId]);
+
+    const filteredList = filterData === "" ? chats : chats.filter((chat: any) => chat.name.toLowerCase().includes(filterData.toLowerCase()));
 
     return (
         <Suspense fallback={<div className="h-screen"></div>}>
-            <div className="m-2 section-container h-screen overflow-hidden">
+            <div className="m-2 section-container h-[93vh] overflow-hidden">
                 <div className="grid grid-cols-12 gap-1 h-screen relative md:border rounded-md">
 
                     {/* === Sidebar Conversations === */}
                     {!isMobile ? (
                         <div className="col-span-3 md:bg-[#F8F8F8] rounded-s-xl p-4">
                             <h2 className="text-lg font-semibold mb-4">
-                                Messages <span className="text-blue-500">(15)</span>
+                                Messages <span className="text-blue-500">({filteredList?.length})</span>
                             </h2>
                             <Divider className="my-2" />
                             <div className="relative mb-4">
-                                <Input radius="full" startContent={<Search className=" text-primary" size={18} />} className="border-gray-500 border-1 rounded-full" placeholder="Rechercher" />
+                                <Input
+                                    value={filterData}
+                                    onChange={(e) => setFilterData(e.target.value)}
+                                    radius="full"
+                                    startContent={<Search className=" text-primary" size={18} />}
+                                    className="border-gray-500 border-1 rounded-full"
+                                    placeholder="Rechercher"
+                                />
                             </div>
                             <div className="relative overflow-scroll max-h-[400px] navscroll ">
 
                                 <div className="space-y-3 mt-4 pt-2 ">
-                                    {chats.map((chat, index) => (
+                                    {filteredList.map((chat, index) => (
                                         < ChatListComponent key={index} chat={chat} index={index} />
                                     ))}
                                 </div>
@@ -107,7 +117,7 @@ export default function ChatInterface() {
 
                     {/* === Sidebar Informations === */}
                     {!isMobile && showInformations && (
-                        <div className="col-span-3 bg-[#F8F8F8] p-4 rounded-e-xl shadow-lg">
+                        <div className="col-span-3 bg-[#F8F8F8] px-4 rounded-e-xl shadow-lg">
                             <ChatInfoComponent setShowInfo={setShowInformations} />
                         </div>
                     )}
