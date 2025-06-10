@@ -27,12 +27,12 @@ export const HeroSection = () => {
     const { fetchEventList } = useEventsStore();
 
     const handleFindEvent = () => {
-        fetchEventList({ search: searchParameter.keyWord })
+        fetchEventList({ search: searchParameter.keyWord,page: 1, limit: 25,status:"PUBLISHED", })
     }
 
     useEffect(() => {
         if (searchParameter.keyWord === "") {
-            fetchEventList()
+            fetchEventList({ page: 1, limit: 25,status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0] })
         }
     }, [searchParameter.keyWord]);
 

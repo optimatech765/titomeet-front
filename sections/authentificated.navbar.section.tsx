@@ -151,10 +151,10 @@ export const AuthentificatedNavbarSection = () => {
                             <Avatar src={isAuth?.profilePicture} name={getInitials(isAuth?.firstName, isAuth?.lastName)} alt="Avatar" className="w-10 font-bold h-10 rounded-full cursor-pointer" />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
-                            <DropdownItem key="new">
-                                <Link href={"/user/profil"}>
+                            <DropdownItem key="new" as={Link} href={"/user/profil"}>
+                                
                                     Profil
-                                </Link>
+                                
                             </DropdownItem>
                             <DropdownItem key="delete" className="text-danger" color="danger">
                                 <span className={"cursor-pointer"} onClick={logOut} >Se déconnecter</span>
