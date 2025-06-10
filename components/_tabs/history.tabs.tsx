@@ -1,20 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DateInput, Divider } from '@heroui/react';
-import { CalendarIcon } from 'lucide-react';
-import React, { useEffect } from 'react';
+import {DateRangePicker, Divider } from '@heroui/react';
+
+import React, { useEffect, useState } from 'react';
 import { PubCardComponent } from '@/components/pub.card.component';
-import { CalendarDate, parseDate } from "@internationalized/date";
 import { useEventsStore } from '@/stores/events.store';
 import { EventDtoResponse } from '@/utils/dto/events.dto';
 import { AwaitDataLoader } from '../await.data.loader';
 import { useAppContext } from '@/context';
 import { EmptyDateComponent } from '../empty.date.component';
 import { PastAttendedEventComponent } from '../event-cards/past.attended.event.component';
+import {parseDate} from "@internationalized/date";
 
 const HistoryTabs = () => {
 
     const { isAuth } = useAppContext();
     const { fetchEventList, dataList, isLoading: eventLoading } = useEventsStore();
+    const [selectedDate, setSelectedDate] = useState({ startDate: new Date().toISOString().split("T")[0], endDate: new Date().toISOString().split("T")[0] });
+
+    
+     const onDateChange = React.useCallback((startDate: any, endDate: any) => {
+        const value = { startDate: startDate.toString(), endDate: endDate.toString() }
+        setSelectedDate(value)
+        fetchEventList({ startDate: value.startDate, endDate: value.endDate,status: "FINISHED", attendeeId: isAuth?.id, });
+    }, [selectedDate]);
 
     useEffect(() => {
 
@@ -48,27 +56,26 @@ const HistoryTabs = () => {
 
                 <div className='md:col-span-4 space-y-3'>
                     <div className='flex items-center gap-2  justify-between'>
-                        <DateInput
-                            size='md'
-                            radius='full'
-                            defaultValue={parseDate("2024-04-04")}
-                            labelPlacement="outside"
-                            placeholderValue={new CalendarDate(1995, 11, 6) as any}
-                            startContent={
-                                <CalendarIcon className="text-2xl cursor-pointer text-primary pointer-events-none flex-shrink-0" />
-                            }
-                        />
+                        
+                        <DateRangePicker
 
-                        <DateInput
-                            size='md'
-                            radius='full'
-                            defaultValue={parseDate("2024-04-04")}
-                            labelPlacement="outside"
-                            placeholderValue={new CalendarDate(1995, 11, 6) as any}
-                            startContent={
-                                <CalendarIcon className="text-2xl cursor-pointer text-primary pointer-events-none flex-shrink-0" />
-                            }
-                        />
+                                    classNames={{
+                                        selectorIcon: "text-primary",
+                                        inputWrapper: "w-full bg-white ring-1 ring-slate-300 focus:none hover:none ",
+                                    }}
+                                    selectorButtonPlacement={"start"}
+                                    size='md' className="max-w-xs"
+                                    aria-label='Intervalle de date'
+                                    value={{
+                                        start: parseDate(selectedDate.startDate),
+                                        end: parseDate(selectedDate.endDate)
+                                    } as any}
+                                    onChange={(value: any) => {
+
+                                        onDateChange(value?.start, value?.end)
+                                    }
+                                    }
+                                />
 
                     </div>
                     <PubCardComponent />

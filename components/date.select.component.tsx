@@ -99,12 +99,12 @@ export const DateSelectComponent = ({ onChange }: { onChange?: any }) => {
             onChange(`${newDate.getFullYear()}-${(selectedMonth+1).toString().padStart(2, "0")}-${newDate.getDate()}`)
         } else {
             fetchEventList({
+                status:"PUBLISHED",
                 startDate: `${newDate.getFullYear()}-${(selectedMonth+1).toString().padStart(2, "0")}-${newDate.getDate()}`,
             })
         }
 
     }, [selectedDate]);
-
 
     return (
         <Card className="p-4 border border-gray-200 rounded-xl shadow-sm w-full">

@@ -39,12 +39,18 @@ export const FilterSection = () => {
                 placeholder={findT("title")}
                 radius='full'
                 width={300}
-                onChange={(e) => fetchEventList({ search: e.target.value })}
+                onChange={(e) =>{
+                    if(e.target.value===""){
+                        fetchEventList({status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0]})
+                    }else{
+                        fetchEventList({ search: e.target.value,status:"PUBLISHED" })
+                    }
+                }}
             />
 
             <Select
                 items={distanceList}
-                onChange={(e) => fetchEventList({ distance: e.target.value })}
+                onChange={(e) => fetchEventList({ distance: e.target.value,status:"PUBLISHED" })}
                 className={"col-span-1"}
                 radius='full'
                 placeholder={distanceT("title")}
@@ -55,7 +61,7 @@ export const FilterSection = () => {
 
             <Select
                 items={dataList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
-                onChange={(e) => fetchEventList({ categories: e.target.value })}
+                onChange={(e) => fetchEventList({ categories: e.target.value,status:"PUBLISHED" })}
                 isLoading={isLoading}
                 className={"col-span-2"}
                 radius='full'
@@ -79,7 +85,7 @@ export const FilterSection2 = () => {
     });
 
     const handleFindEvent = () => {
-        fetchEventList({ search: searchParameter.keyWord })
+        fetchEventList({ search: searchParameter.keyWord,status:"PUBLISHED" })
     }
 
 
@@ -89,7 +95,7 @@ export const FilterSection2 = () => {
             <Input
                 onClear={() => {
                     setSearchParameter({ keyWord: "", localisation: "" })
-                    fetchEventList()
+                    fetchEventList({status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0]})
                 }}
                 type='search'
                 startContent={<Search className={"text-primary "} />}

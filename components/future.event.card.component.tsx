@@ -24,7 +24,7 @@ export const FutureEventCardComponent: React.FC<FutureEventCardComponentProps> =
 
     useEffect(() => {
 
-        fetchEventList({ page: 1, limit: 2, attendeeId: isAuth?.id });
+        fetchEventList({ page: 1, limit: 2, attendeeId: isAuth?.id,startDate:new Date().toISOString().split("T")[0] });
     }, []);
 
     return (
