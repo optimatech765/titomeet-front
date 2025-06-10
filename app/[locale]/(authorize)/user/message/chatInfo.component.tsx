@@ -47,7 +47,7 @@ const ChatInfoComponent = ({ setShowInfo }: { setShowInfo: React.Dispatch<React.
 
                         <div className="space-y-2">
                             <div className="flex flex-col items-center">
-                                <Avatar className="mr-3 text-white font-extrabold text-lg bg-[#28B0E6] text-center" name="AW" />
+                                <Avatar className="mr-3 text-white font-extrabold text-lg bg-[#28B0E6] text-center"  name={currentChat?.name.charAt(0)+currentChat?.name.charAt(1)} />
                                 <p className="text-sm font-medium">{currentChat?.name}</p>
                                 <p className="text-sm text-gray-500 font-extralight ">{chatMembers?.total} Membres</p>
                                 <Button onPress={goto} className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"}>
@@ -72,7 +72,7 @@ const ChatInfoComponent = ({ setShowInfo }: { setShowInfo: React.Dispatch<React.
                                 </span>
                             </div>
                         </div>
-                        <div className="space-y-3 mt-2 mx-h-[30vh] overflow-y-auto ">
+                        <div className="space-y-3 mt-2 max-h-[40vh] overflow-y-auto ">
                             {chatMembers?.items?.map((member: any, index: number) => (
                                 <div
                                     key={index}
