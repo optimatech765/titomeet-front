@@ -43,7 +43,7 @@ export default function ChatInterface() {
 
     return (
         <Suspense fallback={<div className="h-screen"></div>}>
-            <div className="m-2 section-container h-[93vh] overflow-hidden">
+            <div className="m-2 section-container h-[90vh] overflow-hidden">
                 <div className="grid grid-cols-12 gap-1 h-screen relative md:border rounded-md">
 
                     {/* === Sidebar Conversations === */}
@@ -94,12 +94,19 @@ export default function ChatInterface() {
                                         </h2>
                                         <Divider className="my-2" />
                                         <div className="relative mb-4">
-                                            <Input radius="full" startContent={<Search className=" text-primary" size={18} />} className="border-gray-500 border-1 rounded-full" placeholder="Rechercher" />
+                                            <Input
+                                                value={filterData}
+                                                onChange={(e) => setFilterData(e.target.value)}
+                                                radius="full"
+                                                startContent={<Search className=" text-primary" size={18} />}
+                                                className="border-gray-500 border-1 rounded-full"
+                                                placeholder="Rechercher"
+                                            />
                                         </div>
                                         <div className="relative overflow-scroll max-h-[400px] navscroll ">
 
                                             <div className="space-y-3 mt-4 pt-2 ">
-                                                {chats.map((chat, index) => (
+                                                {filteredList.map((chat, index) => (
                                                     < ChatListComponent key={index} chat={chat} index={index} />
                                                 ))}
                                             </div>

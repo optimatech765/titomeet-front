@@ -5,7 +5,7 @@ import { ChatStore } from '@/stores/chat.store';
 import { Avatar, Divider, Input } from '@heroui/react';
 import clsx from 'clsx';
 
-import { EllipsisVertical, Mic, Send, Share2, Image as Picture } from 'lucide-react';
+import { EllipsisVertical, Mic, Send,Image as Picture } from 'lucide-react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 
@@ -69,10 +69,10 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
 
 
     return (
-        <div className={clsx({ "col-span-9": !showInfo, "col-span-6": showInfo }, " bg-white h-[93vh] px-4 shadow-lg flex flex-col ")} >
+        <div className={clsx({ "col-span-9": !showInfo, "col-span-6": showInfo }, " bg-white h-[90vh] px-4 shadow-lg flex flex-col ")} >
             <div className="flex justify-between items-center border-b pb-3 ">
                 <div className="flex items-center gap-2">
-                    <Avatar isBordered color="warning" name={"AW"} className="mr-3" />
+                    <Avatar isBordered color="warning" name={currentChat?.name.charAt(0)+currentChat?.name.charAt(1)} className="mr-3" />
                     <div>
                         <h3 className="text-lg font-semibold">{currentChat?.name}</h3>
                         <p className="text-sm text-gray-500">{chatMembers?.total} Membres, <span className="text-green-500">50 En ligne</span></p>
@@ -80,7 +80,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
 
                 </div>
                 <div className="flex items-center gap-2">
-                    <Share2 className="cursor-pointer text-gray-500" onClick={() => setShowInfo(true)} />
+                    {/* <Share2 className="cursor-pointer text-gray-500" onClick={() => setShowInfo(true)} /> */}
                     <EllipsisVertical className="cursor-pointer text-gray-500" onClick={() => setShowInfo(true)} />
                 </div>
 
