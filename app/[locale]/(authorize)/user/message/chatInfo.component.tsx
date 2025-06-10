@@ -1,9 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ChatStore } from '@/stores/chat.store';
 import { Button } from '@heroui/button';
-import { Avatar, Switch } from '@heroui/react';
-import { AlignHorizontalDistributeCenter,Image as Picture, ExternalLink, File, Link, Link2, X, Info, Play } from 'lucide-react';
+import { Avatar } from '@heroui/react';
+import { Image as Picture, ExternalLink, File, X, Info, Play, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const ChatInfoComponent = ({setShowInfo}: {setShowInfo: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const ChatInfoComponent = ({ setShowInfo }: { setShowInfo: React.Dispatch<React.SetStateAction<boolean>> }) => {
+    const { currentChat, chatMembers } = ChatStore();
+
+    const router = useRouter();
+    const goto = () => {
+        router.push(`/user/events/${currentChat.eventId}`);
+    }
     return (
         <>
             <div className="flex justify-between items-center border-b pb-3">
@@ -14,10 +23,10 @@ const ChatInfoComponent = ({setShowInfo}: {setShowInfo: React.Dispatch<React.Set
 
                 </p>
             </div>
-            <div className="relative overflow-scroll max-h-[500px] navscroll ">
+            <div className="relative overflow-scroll max-h-[80vh] navscroll ">
                 <div className="justify-between flex flex-col ">
 
-                    <div>
+                    {/* <div>
 
                         <span className="text-xs font-thin" >Description</span>
                         <p className="text-gray-500 mt-2 text-sm">
@@ -27,21 +36,21 @@ const ChatInfoComponent = ({setShowInfo}: {setShowInfo: React.Dispatch<React.Set
                             <Link2 className="" /> Copier le lien du groupe
                         </Button>
 
-                    </div>
+                    </div> */}
 
                     <div>
-                        <div className="flex items-center mt-4 justify-between">
+                        {/* <div className="flex items-center mt-4 justify-between">
 
                             <span>Notifications</span>
                             <Switch className="ml-auto" checked={true} color="success" />
-                        </div>
+                        </div> */}
 
                         <div className="space-y-2">
                             <div className="flex flex-col items-center">
                                 <Avatar className="mr-3 text-white font-extrabold text-lg bg-[#28B0E6] text-center" name="AW" />
-                                <p className="text-sm font-medium">After Work Event</p>
-                                <p className="text-sm text-gray-500 font-extralight ">132 Membres</p>
-                                <Button className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"} >
+                                <p className="text-sm font-medium">{currentChat?.name}</p>
+                                <p className="text-sm text-gray-500 font-extralight ">{chatMembers?.total} Membres</p>
+                                <Button onPress={goto} className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"}>
                                     <ExternalLink className="" />
                                     Acceder à l’évènement
                                 </Button>
@@ -54,29 +63,29 @@ const ChatInfoComponent = ({setShowInfo}: {setShowInfo: React.Dispatch<React.Set
                     <div>
                         <div className="text-md font-semibold flex justify-between items-center mt-4">
                             <div className="flex items-center gap-2 text-sm font-medium">
-                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
-                                <span className="text-gray-500">Membres</span> (132)
+                                <User className="w-4 h-4 text-white" fill="red" />
+                                <span className="text-gray-500">Membres</span> ({chatMembers?.total})
                             </div>
                             <div>
-                                <Link href={"#"} className="text-xs font-medium text-primary">
+                                <span className="text-xs font-medium text-primary cursor-pointer ">
                                     Voir tout
-                                </Link>
+                                </span>
                             </div>
                         </div>
-                        <div className="px-5">
-                            <Link href="#" className="text-xs text-black font-medium flex items-center gap-1 mt-4 cursor-pointer">
-                                <Avatar src="/img/women.png" className="" size="sm" />
-                                <span>Jane</span>
-                            </Link>
-                            <Link href="#" className="text-xs text-black font-medium flex items-center gap-1 mt-4 cursor-pointer">
-                                <Avatar src="/img/women2.png" className="" size="sm" />
-                                <span>Brooklyn Simmons</span>
-                            </Link>
-                            <Link href="#" className="text-xs text-black font-medium flex items-center gap-1 mt-4 cursor-pointer">
-                                <Avatar src="/img/men.png" className="" size="sm" />
-                                <span>Leslie Alexander</span>
-                            </Link>
+                        <div className="space-y-3 mt-2 mx-h-[30vh] overflow-y-auto ">
+                            {chatMembers?.items?.map((member: any, index: number) => (
+                                <div
+                                    key={index}
+                                    className="flex items-center gap-4 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                                >
+                                    <Avatar src={member.profilePicture} size="md" className="rounded-full" />
+                                    <p className="text-gray-900 font-semibold text-base leading-snug">
+                                        {member.user.firstName} {member.user.lastName}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
+
                     </div>
 
 
@@ -109,7 +118,7 @@ const ChatInfoComponent = ({setShowInfo}: {setShowInfo: React.Dispatch<React.Set
                 </div>
             </div>
         </>
-        
+
     );
 }
 

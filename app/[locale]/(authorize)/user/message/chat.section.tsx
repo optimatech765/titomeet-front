@@ -69,7 +69,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
 
 
     return (
-        <div className={clsx({ "col-span-9": !showInfo, "col-span-6": showInfo }, " bg-white max-h-[93vh] p-4 shadow-lg flex flex-col h-screen")} >
+        <div className={clsx({ "col-span-9": !showInfo, "col-span-6": showInfo }, " bg-white h-[93vh] px-4 shadow-lg flex flex-col ")} >
             <div className="flex justify-between items-center border-b pb-3 ">
                 <div className="flex items-center gap-2">
                     <Avatar isBordered color="warning" name={"AW"} className="mr-3" />
@@ -85,7 +85,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                 </div>
 
             </div>
-            <div className="flex-1 overflow-y-auto space-y-3 p-4 max-h-full navscroll">
+            <div className="flex-1 overflow-y-auto space-y-3 p-4 h-[80vh] navscroll ">
 
                 {messages?.items?.map((message: any, index: number) => (
                     <Fragment key={`message-${index}`}>
@@ -136,7 +136,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                 {/* <MultiImageUploader /> */}
 
             </div>
-            <div className=" border-t pt-3">
+            <div className=" border-t pt-3 h-[10vh]">
                 <Input
                     startContent={<Avatar alt="photo" src={"/img/men.png"} className="w-8 h-8 text-gray-500" />}
                     className="flex-1 -pl-2"
