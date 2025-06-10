@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {DateRangePicker, Divider } from '@heroui/react';
-
 import React, { useEffect, useState } from 'react';
 import { PubCardComponent } from '@/components/pub.card.component';
 import { useEventsStore } from '@/stores/events.store';
