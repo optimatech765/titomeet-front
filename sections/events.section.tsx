@@ -59,7 +59,7 @@ export const EventsSection = ({ withSearch = false, status="PUBLISHED" }: { with
                         </div>
                     </> :
                         <>
-                            <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "md:grid space-y-3 md:space-y-0 md:grid-cols-2  gap-3")} >
+                            <div className={clsx({ "lg:grid-cols-4": !withSearch, "lg:grid-cols-3": withSearch }, "md:grid md:space-y-0 md:grid-cols-2  gap-3")} >
 
                                 {dataList.map((event: EventDtoResponse, index: number) => (
                                     <EventCardComponent event={event} key={index} />
