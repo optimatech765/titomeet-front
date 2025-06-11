@@ -16,11 +16,12 @@ export const ChatListComponent = ({ chat, index }: ChatListComponentProps) => {
         <div
             onClick={() => setCurrentChat(chat)}
             key={index}
-            className={clsx({ "bg-[#F8F8F8]": currentChat.id !== chat.id, "bg-white": currentChat.id === chat.id }, "flex shadow-none border-none items-center p-3 cursor-pointer hover:bg-gray-200 rounded-lg")}>
+            className={clsx({ "bg-[#F8F8F8]": currentChat.id !== chat.id, "bg-white": currentChat.id === chat.id }, "flex shadow-none border-none items-center p-1 cursor-pointer hover:bg-gray-200 rounded-lg")}>
             <div className="grid grid-cols-12 gap-2 p-0">
                 {/* Avatar dans la colonne 2 */}
                 <div className="col-span-2 flex items-center justify-center">
                     <Avatar
+                        src={chat?.event?.coverPicture}
                         size="sm"
                         name={
                             currentChat?.name

@@ -72,7 +72,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
         <div className={clsx({ "col-span-9": !showInfo, "col-span-6": showInfo }, " bg-white h-[90vh] px-4 shadow-lg flex flex-col ")} >
             <div className="flex justify-between items-center border-b pb-3 ">
                 <div className="flex items-center gap-2">
-                    <Avatar isBordered color="warning" name={currentChat?.name.charAt(0)+currentChat?.name.charAt(1)} className="mr-3" />
+                    <Avatar src={currentChat?.event?.coverPicture} isBordered color="warning" name={currentChat?.name.charAt(0)+currentChat?.name.charAt(1)} className="mr-3" />
                     <div>
                         <h3 className="text-lg font-semibold">{currentChat?.name}</h3>
                         <p className="text-sm text-gray-500">{chatMembers?.total} Membres, <span className="text-green-500">50 En ligne</span></p>
