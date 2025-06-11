@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@heroui/button';
 import { useScopedI18n } from '@/locales/client';
+import Link from 'next/link';
 
 export const BecomeProviderSection = () => {
   const prestataireT = useScopedI18n('prestataire');
@@ -44,7 +45,7 @@ export const BecomeProviderSection = () => {
             </li>
           ))}
         </ul>
-        <Button className="bg-red-500 rounded-full  hover:bg-red-600 text-white text-sm font-semibold py-2 px-4  transition duration-200">
+        <Button as={Link} href={"/auth"} className="bg-red-500 rounded-full  hover:bg-red-600 text-white text-sm font-semibold py-2 px-4  transition duration-200">
           {prestataireT("cta")}
         </Button>
       </div>
