@@ -10,6 +10,7 @@
     "fetch-translations": "ts-node utils/functions/fetch-translations.js"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
     "@heroui/button": "^2.2.10",
     "@heroui/react": "^2.7.5",
     "@heroui/select": "2.4.10",

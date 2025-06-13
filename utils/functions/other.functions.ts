@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { assetsServices } from "@/services/assets/assets.services";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const cleanResponse = (response: any): any => {
     if (typeof response === 'string') {
@@ -65,3 +68,35 @@ export const EventDataFilter = (data: any) => {
     } = data;
     return {id,other};
 }
+
+export const uploadMultipleFiles = async (files: File[]) => {
+  const results = await Promise.all(
+    files.map(async (file) => {
+      const response = await assetsServices.getPresignUrl({
+        fileName: "" + new Date().getTime() + file.name,
+        fileType: file.type,
+      });
+
+      const { uploadUrl, fields, downloadUrl } = cleanResponse(response.data);
+
+      const formData = new FormData();
+      Object.entries(fields).forEach(([key, value]) => {
+        formData.append(key, value as string);
+      });
+      formData.append("file", file);
+
+      const uploadResponse = await fetch(uploadUrl, {
+        method: "POST",
+        body: formData,
+      });
+
+      // Même si le téléchargement échoue, on renvoie quand même l'objet (optionnel : à filtrer si besoin)
+      return {
+        url: downloadUrl,
+        type: file.type.includes("image") ? "image" :file.type.includes("audio") ? "audio" : "pdf",
+      };
+    })
+  );
+
+  return results; // tableau de { url: string, type: string }
+};
