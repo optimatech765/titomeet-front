@@ -76,7 +76,7 @@ export default function ChatInterface() {
                         <>
                             <Button
                                 onPress={() => setShowConversations(true)}
-                                className=" left-4 bg-secondary-blue text-white p-2 rounded-full shadow"
+                                className=" left-4 bg-secondary-blue text-white p-2 rounded-lg shadow"
                             >
                                 Discussions
                             </Button>

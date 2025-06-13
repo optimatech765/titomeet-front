@@ -13,7 +13,7 @@ interface ChatStoreDto {
     isError: boolean;
     fetchChatList: () => void;
     fetchMessages: (chatId: string) => void;
-    sendMessage: (chatId: string, message: string, medialUrl: string) => void;
+    sendMessage: (chatId: string, content: string, flies: any[]) => void;
     setCurrentChat: (chat: any) => void;
     chatMembers: any;
     fetchChatMembers: (chatId: string) => void;
@@ -71,9 +71,9 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
             }));
         });
     },
-    sendMessage: (chatId: string, message: string, mediaUrl: string) => {
-        messagesSevices.createMessage({ chatId, text: message, mediaUrl }).then((response) => {
-            console.log(response.data);
+    sendMessage: (chatId: string, message: string, files: any[]) => {
+        messagesSevices.createMessage({ chatId, text: message, files:files }).then((response) => {
+
             set((state: ChatStoreDto) => ({
                 messages: {
                     ...state.messages,

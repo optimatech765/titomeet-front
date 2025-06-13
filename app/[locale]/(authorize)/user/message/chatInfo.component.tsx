@@ -26,24 +26,7 @@ const ChatInfoComponent = ({ setShowInfo }: { setShowInfo: React.Dispatch<React.
             <div className="relative overflow-scroll max-h-[80vh] navscroll ">
                 <div className="justify-between flex flex-col ">
 
-                    {/* <div>
-
-                        <span className="text-xs font-thin" >Description</span>
-                        <p className="text-gray-500 mt-2 text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                        <Button className="mt-3 text-[#28B0E6] bg-white" radius="full" >
-                            <Link2 className="" /> Copier le lien du groupe
-                        </Button>
-
-                    </div> */}
-
                     <div>
-                        {/* <div className="flex items-center mt-4 justify-between">
-
-                            <span>Notifications</span>
-                            <Switch className="ml-auto" checked={true} color="success" />
-                        </div> */}
 
                         <div className="space-y-2">
                             <div className="flex flex-col items-center">

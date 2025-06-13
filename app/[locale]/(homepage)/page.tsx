@@ -53,7 +53,7 @@ export default  function Home() {
       <section className="bg-footer py-10 md:pb-0 pb-16" id="fonctionnalites">
         <VideoPlayer
           poster="/img/function-Imagea.jpg"
-          videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          videoUrl={"/videos/spote.mp4"}
         />
 
       </section>
