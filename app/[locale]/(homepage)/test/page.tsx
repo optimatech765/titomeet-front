@@ -11,7 +11,7 @@ import {
 import { Button, Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/react";
 import Image from "next/image";
 
-const MessageInput = ({ onSend }: { onSend: (message: any) => void }) => {
+function MessageInput ({ onSend }: { onSend: (message: any) => void }){
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [files, setFiles] = useState<File[]>([]);
     const [text, setText] = useState("");
