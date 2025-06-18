@@ -40,6 +40,7 @@ export type UserDto = {
     lastName: string;
     role: 'SUPER_ADMIN' | 'ADMIN' | 'USER';
     accounts: AccountDto[];
+    profilePicture?: string | null;
 };
 
 export type AuthResponse = {
