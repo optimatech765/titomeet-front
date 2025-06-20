@@ -76,6 +76,6 @@ jobs:
           cd ${{ env.DEPLOY_PATH }}
 
           # Run the new container with environment variables
-          docker run -d --name ${{env.CONTAINER_NAME}} --env-file .env -p ${{env.APP_PORT}}:3000 ${{env.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
+          docker run -d --name ${{env.CONTAINER_NAME}} --env-file .env -p ${{env.APP_PORT}}:3001 ${{env.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
           # Clean up old Docker images
           docker image prune -f
