@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 import React, { ReactNode, useState } from 'react';
 import { Card, CardBody, CardHeader, DateRangePicker, Input, Pagination, Select, SelectItem, Table, TableBody, TableColumn, TableHeader } from '@heroui/react';
 import { ChevronsUpDown, Search } from 'lucide-react';
