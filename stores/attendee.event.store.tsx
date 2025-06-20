@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+"use client"
 import { parseAbsoluteToLocal, parseDate } from '@internationalized/date';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { eventSevices } from "@/services/events/event.services";
