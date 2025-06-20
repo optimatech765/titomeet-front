@@ -1,3 +1,4 @@
+"use client"
 import { addressServices } from "@/services/address/address.services";
 import { AddressDto } from "@/utils/dto/address.dto";
 import { create } from "zustand";

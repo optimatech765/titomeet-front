@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // stores/useGenericStore.ts
-
+"use client"
 import { create } from 'zustand'
 import { toast } from 'react-toastify'
 import { paramsToQueryString } from '@/utils/functions/other.functions';
