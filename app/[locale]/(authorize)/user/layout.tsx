@@ -5,6 +5,7 @@ import { AuthentificatedNavbarSection } from '@/sections/authentificated.navbar.
 import { FooterSection } from '@/sections/footer.section';
 import React from 'react';
 
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
