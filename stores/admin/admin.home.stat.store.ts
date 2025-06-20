@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 import { AdminState } from "@/services/admin/admin.state.services";
 import { toast } from "react-toastify";
 import { create } from "zustand";

@@ -1,3 +1,4 @@
+"use client"
 import { LoadingComponent2 } from '@/components/loading.component';
 import React from 'react';
 
