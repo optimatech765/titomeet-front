@@ -1,3 +1,4 @@
+"use client"
 import { UserAuthWrapper } from '@/context';
 import { SocketIoProvider } from '@/context/socket/provider';
 import { AuthentificatedNavbarSection } from '@/sections/authentificated.navbar.section';
