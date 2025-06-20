@@ -38,7 +38,7 @@ jobs:
         if [[ "${{ github.ref_name }}" == "main" ]]; then
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
           echo "CONTAINER_NAME=titomeet-front" >> $GITHUB_ENV
-          echo "APP_PORT=5000" >> $GITHUB_ENV
+          echo "APP_PORT=3001" >> $GITHUB_ENV
         elif [[ "${{ github.ref_name }}" == "dev" ]]; then
           echo "IMAGE_TAG=dev" >> $GITHUB_ENV
           echo "CONTAINER_NAME=titomeet-front-dev" >> $GITHUB_ENV
