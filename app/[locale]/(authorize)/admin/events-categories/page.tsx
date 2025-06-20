@@ -7,8 +7,8 @@ import { TableComponent } from '@/components/table.component';
 import { TagTextarea } from '@/components/tague.input.component';
 import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
-import { Check, Ellipsis, Plus, Trash } from 'lucide-react';
+import { Button,Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
+import { Check, Plus, Trash } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 type actionType = "edit" | "add" | "delete" | "children"
