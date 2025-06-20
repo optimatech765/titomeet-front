@@ -24,84 +24,82 @@ export const UserAuthWrapper = ({ children }: { children: React.ReactNode }) => 
 
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
+    const fetchClientData = async () => {
+        const token = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
 
-    useEffect(() => {
-        const fetchClientData = async () => {
-            const token = localStorage.getItem('accessToken');
-            const refreshToken = localStorage.getItem('refreshToken');
+        const userServices = new UsersServices(token || "");
 
-            const userServices = new UsersServices(token || "");
+        try {
 
-            try {
+            userServices.userInfo().then(
+                (res) => {
+                    const { status, data } = res;
+                    if (data?.role === "USER") {
 
-                userServices.userInfo().then(
-                    (res) => {
-                        const { status, data } = res;
-                        if (data?.role === "USER") {
-
-                            setIsAuth({ ...data })
-                            setIsLoading(false)
-
-                        }
-                        else if (status === 401) {
-                            const userService = new UsersServices(refreshToken || "");
-                            userService.refreshToken().then(
-                                (response) => {
-
-                                    const { data: refreshData } = response;
-                                    localStorage.setItem("accessToken", refreshData?.accessToken);
-                                    localStorage.setItem("refreshToken", refreshData?.refreshToken);
-                                    if (refreshData?.user?.role === "USER") {
-
-                                        setIsAuth({ ...refreshData })
-                                        setIsLoading(false)
-                                    }
-                                },
-                                (error) => {
-                                    console.log(error)
-                                    router.push('/auth')
-                                }
-                            )
-                        } else {
-                            router.push('/auth')
-                        }
-                    },
-                    (error) => {
-                        if (error.status === 401) {
-                            const userService = new UsersServices(refreshToken || "");
-                            userService.refreshToken().then(
-                                (response) => {
-
-                                    const { data: refreshData } = response;
-                                    localStorage.setItem("accessToken", refreshData?.accessToken);
-                                    localStorage.setItem("refreshToken", refreshData?.refreshToken);
-                                    if (refreshData?.user?.role === "USER") {
-
-                                        setIsAuth({ ...refreshData })
-                                        setIsLoading(false)
-                                    }
-                                },
-                                (error) => {
-                                    console.log(error)
-                                    router.push('/auth')
-                                    
-                                }
-                            )
-                        }
-                        else {
-                            console.log(error)
-                            router.push('/auth')
-                        }
+                        setIsAuth({ ...data })
+                        setIsLoading(false)
 
                     }
-                )
-            }
-            catch (error) {
-                console.log(error)
-                router.push('/auth')
-            }
-        }
+                    else if (status === 401) {
+                        const userService = new UsersServices(refreshToken || "");
+                        userService.refreshToken().then(
+                            (response) => {
 
+                                const { data: refreshData } = response;
+                                localStorage.setItem("accessToken", refreshData?.accessToken);
+                                localStorage.setItem("refreshToken", refreshData?.refreshToken);
+                                if (refreshData?.user?.role === "USER") {
+
+                                    setIsAuth({ ...refreshData })
+                                    setIsLoading(false)
+                                }
+                            },
+                            (error) => {
+                                console.log(error)
+                                router.push('/auth')
+                            }
+                        )
+                    } else {
+                        router.push('/auth')
+                    }
+                },
+                (error) => {
+                    if (error.status === 401) {
+                        const userService = new UsersServices(refreshToken || "");
+                        userService.refreshToken().then(
+                            (response) => {
+
+                                const { data: refreshData } = response;
+                                localStorage.setItem("accessToken", refreshData?.accessToken);
+                                localStorage.setItem("refreshToken", refreshData?.refreshToken);
+                                if (refreshData?.user?.role === "USER") {
+
+                                    setIsAuth({ ...refreshData })
+                                    setIsLoading(false)
+                                }
+                            },
+                            (error) => {
+                                console.log(error)
+                                router.push('/auth')
+
+                            }
+                        )
+                    }
+                    else {
+                        console.log(error)
+                        router.push('/auth')
+                    }
+
+                }
+            )
+        }
+        catch (error) {
+            console.log(error)
+            router.push('/auth')
+        }
+    }
+    useEffect(() => {
         fetchClientData()
     }, [])
 
@@ -199,14 +197,14 @@ export const AdminAuthWrapper = ({ children }: { children: React.ReactNode }) =>
                                 (error) => {
                                     console.log(error)
                                     router.push('/auth')
-                                    
+
                                 }
                             )
                         }
                         else {
                             console.log(error)
                             router.push('/auth')
-                            
+
                         }
                     }
                 )
