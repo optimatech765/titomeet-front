@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
-
 import dynamic from 'next/dynamic';
 
 const BadgeGenerator = dynamic(async () => (await import('./badge.generator.component')).BadgeGenerator, {
