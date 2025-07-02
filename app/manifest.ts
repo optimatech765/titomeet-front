@@ -3,27 +3,13 @@ import type { MetadataRoute } from 'next'
 export default function manifest(): MetadataRoute.Manifest {
     return {
         id: "/",
-        name: 'HENRIS HOTEL',
-        short_name: 'HENRIS',
-        description: 'HENRIS HOTEL MANAGEMENT SYSTEM',
+        name: 'Titomeet',
+        short_name: 'Titomeet',
+        description: 'Une plateforme développée par Optima Services au Bénin pour promouvoir des évènements et créer des connexions lors d’after‑works, rencontres entre collègues, etc.',
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#28B0E6',
-        screenshots: [
-            {
-                "src": "/img/pc.png",
-                "sizes": "1280x720",
-                "type": "image/png",
-                "platform": "windows",
-                "form_factor": "wide"
-            },
-            {
-                "src": "/img/mobile.png",
-                "sizes": "640x360",
-                "type": "image/png"
-            }
-        ],
         icons: [
             {
                 "src": "/icons/icon-48x48.png",
@@ -58,21 +44,6 @@ export default function manifest(): MetadataRoute.Manifest {
             {
                 "src": "/icons/icon-192x192.png",
                 "sizes": "192x192",
-                "type": "image/png"
-            },
-            {
-                "src": "/icons/icon-256x256.png",
-                "sizes": "256x256",
-                "type": "image/png"
-            },
-            {
-                "src": "/icons/icon-384x384.png",
-                "sizes": "384x384",
-                "type": "image/png"
-            },
-            {
-                "src": "/icons/icon-512x512.png",
-                "sizes": "512x512",
                 "type": "image/png"
             }
         ],
