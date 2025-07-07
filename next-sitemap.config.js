@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://civodi.bj',
+  siteUrl: 'https://titomeet.com',
   generateRobotsTxt: true,
   sitemapSize: 5000,
   exclude: ['/admin', '/dashboard', '/api/*', '/auth/*', '/settings', '/profile'],
@@ -19,6 +19,6 @@ module.exports = {
         ],
       },
     ],
-    sitemap: 'https://civodi.bj/sitemap.xml',
+    sitemap: 'https://titomeet.com/sitemap.xml',
   },
 }
