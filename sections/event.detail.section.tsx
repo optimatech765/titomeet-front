@@ -37,9 +37,9 @@ export const EventDetailSection = () => {
 
                     </h2>
                         <div className="flex gap-2">
-                            <Button radius="full" className="bg-primary text-white w-32">Accepter</Button>
-                            <Button radius="full" variant={"bordered"} className="border border-primary w-32">Refuser</Button>
-                            <Button radius="full" className="bg-primary text-white w-32">Contacter</Button>
+                            <Button name="Accepter" radius="full" className="bg-primary text-white w-32">Accepter</Button>
+                            <Button name="Refuser" radius="full" variant={"bordered"} className="border border-primary w-32">Refuser</Button>
+                            <Button name="Contacter" radius="full" className="bg-primary text-white w-32">Contacter</Button>
                         </div>
                     </div>
 

@@ -129,10 +129,10 @@ export const DateSelectComponent = ({ onChange }: { onChange?: any }) => {
 
                 {/* Flèches de navigation */}
                 <div className="flex gap-2">
-                    <Button isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("left")}>
+                    <Button name="Left" isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("left")}>
                         <ChevronLeft size={16} />
                     </Button>
-                    <Button isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("right")}>
+                    <Button name="Right" isIconOnly variant="light" size="sm" onPress={() => handleArrowClick("right")}>
                         <ChevronRight size={16} />
                     </Button>
                 </div>
@@ -152,6 +152,7 @@ export const DateSelectComponent = ({ onChange }: { onChange?: any }) => {
                         <div key={index}></div>
                     ) : (
                         <button
+                            name="Day"
                             key={index}
                             className={clsx(
                                 "w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium",

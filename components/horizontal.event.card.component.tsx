@@ -7,7 +7,7 @@ import { AlignHorizontalDistributeCenter, Clock, Eclipse, FilePenLine, Hourglass
 import Image from 'next/image';
 import React from 'react';
 
-export const HorizontalEventCardComponent = ({ withDate = false, status = "programming",event }: { status?: string, withDate?: boolean,event:any }) => {
+export const HorizontalEventCardComponent = ({ withDate = false, status = "programming", event }: { status?: string, withDate?: boolean, event: any }) => {
     return (
         <Card
             isBlurred
@@ -38,17 +38,17 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                         <h2 className='text-xs font-bold'>{event?.name}</h2>
                         <div className="mt-2 flex-wrap flex gap-2 items-center justify-between font-normal text-gray-700 text-sm ">
                             <p className="flex items-center gap-0.5 text-xs font-light">
-                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" /> 
+                                <MapPinIcon fill={"red"} className="w-4 h-4 text-white" />
                                 {event?.address?.city}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <Clock className="w-4 h-4 text-white" fill="red" /> 
+                                <Clock className="w-4 h-4 text-white" fill="red" />
                                 {getHourMinute(event?.startTime)}
                             </p>
 
                             <p className="flex items-center  text-xs font-light gap-0.5">
-                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" /> 
+                                <AlignHorizontalDistributeCenter className="w-4 h-4 text-white" fill="red" />
                                 {event?.accessType === "FREE" ? "Gratuit" : "Payant"}
                             </p>
 
@@ -59,7 +59,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                             <p className="flex items-center  text-xs font-light gap-0.5">
                                 <User className="w-4 h-4 text-white" fill="red" />
                                 <span>
-                                {event?._count?.orders || 0} Par/{event?.capacity}
+                                    {event?._count?.orders || 0} Par/{event?.capacity}
                                 </span>
 
                             </p>
@@ -92,6 +92,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                         <div className={clsx({ "md:flex": !withDate, "sm:flex": withDate }, " gap-1 hidden items-center")} >
                             {status === "past" ?
                                 <Button
+                                    name="See reviews"
                                     startContent={<Star className="w-3 h-3" />}
                                     size='sm'
                                     variant='ghost'
@@ -102,6 +103,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                                 </Button>
                                 : <>
                                     <Button
+                                        name="Edit"
                                         startContent={<FilePenLine className="w-3 h-3" />}
                                         size='sm'
                                         variant='ghost'
@@ -116,6 +118,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
 
                                     {status === "published" ?
                                         <Button
+                                            name="Chat"
                                             startContent={<MessageCircleMore className="w-3 h-3 mx-0" />}
                                             size='sm'
                                             variant='ghost'
@@ -125,6 +128,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                                             Accéder à la discussion
                                         </Button> :
                                         <Button
+                                            name="Publish"
                                             startContent={<Eclipse className="w-3 h-3 mx-0" />}
                                             size='sm'
                                             variant='ghost'
@@ -146,6 +150,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                 {/* Affichage des boutons en version mobile */}
                 <div className="sm:hidden gap-1 p-2 flex flex-col items-center">
                     <Button
+                        name="Edit"
                         startContent={<FilePenLine className="w-3 h-3" />}
                         size='sm'
                         variant='ghost'
@@ -157,6 +162,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
 
                     {status === "published" ?
                         <Button
+                            name="Chat"
                             startContent={<MessageCircleMore className="w-3 h-3 mx-0" />}
                             size='sm'
                             variant='ghost'
@@ -166,6 +172,7 @@ export const HorizontalEventCardComponent = ({ withDate = false, status = "progr
                             Accéder à la discussion
                         </Button> :
                         <Button
+                            name="Publish"
                             startContent={<Eclipse className="w-3 h-3 mx-0" />}
                             size='sm'
                             variant='ghost'

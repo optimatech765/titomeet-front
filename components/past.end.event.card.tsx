@@ -41,7 +41,9 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                             <div className="absolute top-0 right-0 w-full h-full "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
                                 <div className="absolute flex right items-center justify-end  w-full pt-4 pr-4  ">
 
-                                    <Button isIconOnly className=" bg-white rounded-full p-3 ml-2   text-right">
+                                    <Button
+                                        name="Share"
+                                        isIconOnly className=" bg-white rounded-full p-3 ml-2   text-right">
                                         <Share2 className="w-6 h-6 text-red-500  " />
                                     </Button>
 
@@ -83,6 +85,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
 
                                     <div className="flex gap-2 items-center">
                                         <Button
+                                            name="Rate"
                                             onPress={onOpen}
                                             size='sm'
                                             variant='ghost'
@@ -123,10 +126,12 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                                     label="Commentaire" placeholder="Votre commentaire" />
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
+                                <Button
+                                    name="Cancel"
+                                    color="danger" variant="light" onPress={onClose}>
                                     Annuler
                                 </Button>
-                                <Button className='bg-primary text-white' color="primary" onPress={onClose}>
+                                <Button name="Send" className='bg-primary text-white' color="primary" onPress={onClose}>
                                     Envoyer
                                 </Button>
                             </ModalFooter>

@@ -61,6 +61,7 @@ export const HorizontalCardComponent = () => {
                         {/* Bouton Modifier */}
                         <div className="mt-2">
                             <Button
+                                name="Modifier"
                                 startContent={<PencilLine size={16} />}
                                 color="danger"
                                 variant="bordered"

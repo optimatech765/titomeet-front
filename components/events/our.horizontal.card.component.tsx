@@ -67,6 +67,7 @@ export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex justify-between">
                             <Button
+                                name="Modifier"
                                 startContent={<PencilLine size={12} />}
                                 color="danger"
                                 variant="bordered"
@@ -77,6 +78,7 @@ export const OurHorizontalCardComponent = ({ event }: { event: any }) => {
                                 {buttonT("update")}
                             </Button>
                             <Button
+                                name="Discuter"
                                 startContent={<MessageCircleMore size={12} />}
                                 color="danger"
                                 variant="bordered"

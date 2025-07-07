@@ -1,5 +1,6 @@
 'use client' // Error boundaries must be Client Components
 
+import { Button } from '@heroui/button'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -17,14 +18,15 @@ export default function Error({
     return (
         <div>
             <h2>Something went wrong!</h2>
-            <button
-                onClick={
+            <Button
+                name={"try-again"}
+                onPress={
                     // Attempt to recover by trying to re-render the segment
                     () => reset()
                 }
             >
                 Try again
-            </button>
+            </Button>
         </div>
     )
 }

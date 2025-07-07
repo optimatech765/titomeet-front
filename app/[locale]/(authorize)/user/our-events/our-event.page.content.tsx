@@ -48,7 +48,8 @@ export const OurEventPageContent = () => {
                     </div>
                 </div>
                 <div>
-                    <Button href={"/user/events/new"} as={Link} startContent={<Plus className="w-4 h-4 text-white" />} size='sm' radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
+                    <Button 
+                    href={"/user/events/new"} as={Link} startContent={<Plus className="w-4 h-4 text-white" />} size='sm' radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
                        {eventT("create")}
                     </Button>
                 </div>

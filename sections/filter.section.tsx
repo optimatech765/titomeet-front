@@ -39,18 +39,18 @@ export const FilterSection = () => {
                 placeholder={findT("title")}
                 radius='full'
                 width={300}
-                onChange={(e) =>{
-                    if(e.target.value===""){
-                        fetchEventList({status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0]})
-                    }else{
-                        fetchEventList({ search: e.target.value,status:"PUBLISHED" })
+                onChange={(e) => {
+                    if (e.target.value === "") {
+                        fetchEventList({ status: "PUBLISHED", startDate: new Date().toISOString().split("T")[0] })
+                    } else {
+                        fetchEventList({ search: e.target.value, status: "PUBLISHED" })
                     }
                 }}
             />
 
             <Select
                 items={distanceList}
-                onChange={(e) => fetchEventList({ distance: e.target.value,status:"PUBLISHED" })}
+                onChange={(e) => fetchEventList({ distance: e.target.value, status: "PUBLISHED" })}
                 className={"col-span-1"}
                 radius='full'
                 placeholder={distanceT("title")}
@@ -61,7 +61,7 @@ export const FilterSection = () => {
 
             <Select
                 items={dataList.map((item: CategorieDto) => ({ label: item.name, key: item.id }))}
-                onChange={(e) => fetchEventList({ categories: e.target.value,status:"PUBLISHED" })}
+                onChange={(e) => fetchEventList({ categories: e.target.value, status: "PUBLISHED" })}
                 isLoading={isLoading}
                 className={"col-span-2"}
                 radius='full'
@@ -85,7 +85,7 @@ export const FilterSection2 = () => {
     });
 
     const handleFindEvent = () => {
-        fetchEventList({ search: searchParameter.keyWord,status:"PUBLISHED" })
+        fetchEventList({ search: searchParameter.keyWord, status: "PUBLISHED" })
     }
 
 
@@ -95,7 +95,7 @@ export const FilterSection2 = () => {
             <Input
                 onClear={() => {
                     setSearchParameter({ keyWord: "", localisation: "" })
-                    fetchEventList({status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0]})
+                    fetchEventList({ status: "PUBLISHED", startDate: new Date().toISOString().split("T")[0] })
                 }}
                 type='search'
                 startContent={<Search className={"text-primary "} />}
@@ -130,13 +130,14 @@ export const FilterSection2 = () => {
                 <SelectItem key="places">Lieux</SelectItem>
             </Select>
 
-            <Button
+            <Button name="Rechercher"
                 onPress={handleFindEvent}
                 isIconOnly className="bg-white hidden md:block text-primary rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                 <SearchIcon className="w-4 h-4 " />
                 <span className="md:hidden">Rechercher</span>
             </Button>
             <Button
+                name="Rechercher"
                 onPress={handleFindEvent}
                 className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-primary hover:text-white">
                 <SearchIcon className="w-4 h-4 " />

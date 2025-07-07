@@ -59,7 +59,7 @@ export const AuthentificatedNavbarSection = () => {
             position={"sticky"}
             isBordered={true}>
             {/* Menu burger (affiché sur mobile) */}
-            <Button isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
+            <Button name={"Menu"} isIconOnly variant="light" className="lg:hidden" onPress={() => setIsOpen(true)}>
                 <Menu size={24} />
             </Button>
             {/* Logo */}

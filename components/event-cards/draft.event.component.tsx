@@ -76,6 +76,7 @@ export const DraftEventComponent = ({ event }: { event: EventDtoResponse }) => {
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex flex-col-reverse gap-3  md:flex-row justify-between items-center">
                             <Button
+                                name="Modifier évènement"
                                 href={`/user/events/${event?.id}/update`}
                                 as={Link}
                                 startContent={<FilePenLine className="w-4 h-4" />}
@@ -89,6 +90,7 @@ export const DraftEventComponent = ({ event }: { event: EventDtoResponse }) => {
                             </Button>
 
                             <Button
+                                name="Accéder à la discussion"
                                 startContent={<MessageCircleMore className="w-4 h-4" />}
                                 size="sm"
                                 variant="ghost"

@@ -27,12 +27,12 @@ export const HeroSection = () => {
     const { fetchEventList } = useEventsStore();
 
     const handleFindEvent = () => {
-        fetchEventList({ search: searchParameter.keyWord,page: 1, limit: 25,status:"PUBLISHED", })
+        fetchEventList({ search: searchParameter.keyWord, page: 1, limit: 25, status: "PUBLISHED", })
     }
 
     useEffect(() => {
         if (searchParameter.keyWord === "") {
-            fetchEventList({ page: 1, limit: 25,status:"PUBLISHED",startDate:new Date().toISOString().split("T")[0] })
+            fetchEventList({ page: 1, limit: 25, status: "PUBLISHED", startDate: new Date().toISOString().split("T")[0] })
         }
     }, [searchParameter.keyWord]);
 
@@ -58,13 +58,15 @@ export const HeroSection = () => {
                     {/* Boutons */}
                     <div className="flex flex-col sm:flex-row items-center gap-4">
                         <Button
+                            name="Découvrir les évènements"
                             as={Link}
                             href="#evenements"
                             className="bg-primary text-white"
                             radius="full" size="lg">
-                     {hero("discover")}
+                            {hero("discover")}
                         </Button>
                         <Button
+                            name="Créer un événement"
                             as={Link}
                             href="/user/events/new"
                             className="border-primary text-primary"
@@ -95,13 +97,13 @@ export const HeroSection = () => {
                             size="lg"
                         />
 
-                        <Button onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-secondary rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
+                        <Button name="Rechercher" onPress={handleFindEvent} isIconOnly className="bg-white hidden md:block text-secondary rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
-                            <span className="md:hidden">{buttonT('search') }</span>
+                            <span className="md:hidden">{buttonT('search')}</span>
                         </Button>
-                        <Button onPress={handleFindEvent} className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
+                        <Button name="Rechercher" onPress={handleFindEvent} className="md:hidden flex w-full text-lg bg-secondary text-white rounded-full p-3 ml-2 hover:bg-secondary hover:text-white">
                             <SearchIcon className="w-4 h-4 " />
-                            <span className="">{buttonT('search') }</span>
+                            <span className="">{buttonT('search')}</span>
                         </Button>
                     </div>
 
@@ -130,7 +132,7 @@ export const HeroSection = () => {
                             // lazy={true}
                             grabCursor={true} // Rend le défilement plus fluide
                             direction="horizontal" // Assure un glissement horizontal
-                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex+1)}
+                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
 
                         >
                             {SlidesImages.map((item: any, index: number) => (

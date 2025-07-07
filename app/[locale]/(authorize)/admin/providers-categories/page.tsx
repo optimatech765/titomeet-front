@@ -4,7 +4,7 @@ import { TableComponent } from '@/components/table.component';
 import { useAdminProvidersCategoriesStore } from '@/stores/admin/admin.providers.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
-import {Plus, Trash } from 'lucide-react';
+import { Plus, Trash } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 type actionType = "edit" | "add" | "delete"
@@ -23,7 +23,7 @@ const Page = () => {
 
     const [action, setAction] = useState<actionType>("add");
 
-    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem,submitDeleteItem } = useAdminProvidersCategoriesStore()
+    const { items, isLoading, fetchItems, columnsValue, submitItem, isSubmitLoading, submitUpdateItem, submitDeleteItem } = useAdminProvidersCategoriesStore()
 
     useEffect(() => {
         fetchItems();
@@ -77,7 +77,9 @@ const Page = () => {
     return (
         <div className='flex flex-col gap-4'>
             <div className='flex justify-end items-center gap-3'>
-                <Button radius={"full"} onPress={() => handleselectItem(initialVaue, "add")} className='bg-primary text-white'>
+                <Button
+                    name={"Add"}
+                    radius={"full"} onPress={() => handleselectItem(initialVaue, "add")} className='bg-primary text-white'>
                     <Plus />
                     Ajouter une catégorie
                 </Button>
@@ -99,7 +101,9 @@ const Page = () => {
                             <TableCell className="w-1/4">{item.name}</TableCell>
                             <TableCell className="w-1/4">{item.description}</TableCell>
                             <TableCell className="w-1/4">
-                                <Button isIconOnly radius="full" color="danger" onPress={() => handleselectItem(item, "delete")}>
+                                <Button
+                                    name={"icon"}
+                                    isIconOnly radius="full" color="danger" onPress={() => handleselectItem(item, "delete")}>
                                     <Trash size={14} />
                                 </Button>
                             </TableCell>
@@ -123,7 +127,7 @@ const Page = () => {
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  flex justify-center text-center">
-                                    {action === "add" ? "Ajout de catégorie" : action==="edit"? "Edition de catégorie" : "Suppression de catégorie"}
+                                    {action === "add" ? "Ajout de catégorie" : action === "edit" ? "Edition de catégorie" : "Suppression de catégorie"}
                                 </h3>
                             </div>
 
@@ -170,6 +174,7 @@ const Page = () => {
                             <ModalFooter>
                                 {action !== "delete" ? (
                                     <Button
+                                        name={"modifier"}
                                         onPress={action === "add" ? handleSubmi : handleUpdateItem}
                                         disabled={isSubmitLoading}
                                         className="w-full bg-primary text-white  "
@@ -183,6 +188,7 @@ const Page = () => {
                                 ) : <>
 
                                     <Button
+                                        name={"Supprimer"}
                                         onPress={() => {
                                             submitDeleteItem(categorieData);
                                             onClose();
@@ -194,6 +200,7 @@ const Page = () => {
                                         Supprimer
                                     </Button>
                                     <Button
+                                        name={"annuler"}
                                         onPress={onClose}
                                         className="w-full bg-gray-200 text-gray-700  "
                                         radius="full"

@@ -45,7 +45,7 @@ export const BecomeProviderSection = () => {
             </li>
           ))}
         </ul>
-        <Button as={Link} href={"/auth"} className="bg-red-500 rounded-full  hover:bg-red-600 text-white text-sm font-semibold py-2 px-4  transition duration-200">
+        <Button name={"S'inscrire"} as={Link} href={"/auth"} className="bg-red-500 rounded-full  hover:bg-red-600 text-white text-sm font-semibold py-2 px-4  transition duration-200">
           {prestataireT("cta")}
         </Button>
       </div>

@@ -161,7 +161,9 @@ const AdvanceComponent = () => {
                     <div className='flex-1 flex justify-end'>
                         {eventData?.accessType === "PAID" &&
                             <div className='md:w-1/2'>
-                                <Button onPress={onOpen2} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
+                                <Button
+                                    name="Ajouter un prix"
+                                 onPress={onOpen2} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
                                     Ajouter un prix
                                 </Button>
                             </div>
@@ -182,7 +184,9 @@ const AdvanceComponent = () => {
             <div >
                 <div className='w-1/2'>
                     <InputContainerComponent title={" Services disponibles"} >
-                        <Button onPress={onOpen} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
+                        <Button 
+                        name="Ajouter service"
+                        onPress={onOpen} size='sm' className=' bg-secondary text-white px-14 w-full' radius='full'>
                             Ajouter service
                         </Button>
                     </InputContainerComponent>
@@ -258,13 +262,13 @@ const AdvanceComponent = () => {
 
                                     <div className='flex gap-2 justify-between'>
                                         <div className="flex-1">
-                                            <Button onPress={cancelledService} size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
+                                            <Button name="Annuler" onPress={cancelledService} size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
                                                 Annuler
                                             </Button>
                                         </div>
 
                                         <div className="flex-1">
-                                            <Button onPress={addNewService} size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
+                                            <Button name="Ajouter" onPress={addNewService} size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
                                                 Ajouter
                                             </Button>
                                         </div>
@@ -331,13 +335,13 @@ const AdvanceComponent = () => {
 
                                     <div className='flex gap-2 justify-between'>
                                         <div className="flex-1">
-                                            <Button onPress={cancelled} size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
+                                            <Button name="Annuler" onPress={cancelled} size='sm' className='flex-1 bg-[#FACCCF] text-primary px-14 w-full' radius='full'>
                                                 Annuler
                                             </Button>
                                         </div>
 
                                         <div className="flex-1">
-                                            <Button onPress={addNewPass} size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
+                                            <Button name="Ajouter" onPress={addNewPass} size='sm' className='flex-1 bg-primary text-white px-14 w-full' radius='full'>
                                                 Ajouter
                                             </Button>
                                         </div>

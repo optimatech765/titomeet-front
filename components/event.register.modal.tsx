@@ -209,11 +209,11 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                             </ModalBody>
                             {!isLoading &&
                                 <ModalFooter>
-                                    <Button isDisabled={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
+                                    <Button name="Close" isDisabled={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={onClose}>
                                         Annuler
                                     </Button>
 
-                                    <Button isLoading={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={handleShoppingCart}>
+                                    <Button name="Buy" isLoading={buyLoading} className="w-full bg-primary text-white  " radius="full" onPress={handleShoppingCart}>
                                         Acheter ticket
                                     </Button>
 

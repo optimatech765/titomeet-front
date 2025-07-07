@@ -69,7 +69,7 @@ export const SecurityProfil = () => {
                         });
                         const { data } = response
                         console.log(data)
-                       
+
 
                     },
                     (error) => {
@@ -116,9 +116,9 @@ export const SecurityProfil = () => {
                 <h2 className="text-2xl font-semibold mb-4">{updateProfilT("sideBarTitle4")}</h2>
 
                 <div className='md:w-1/2 flex flex-col gap-4'>
-                
+
                     <InputContainerComponent title={inputT("passwordLabel")} >
-                        <Button onPress={() => handleOpenModal("password")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button name={"update"} onPress={() => handleOpenModal("password")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                             {buttonT("update")}
                         </Button>
 
@@ -126,14 +126,14 @@ export const SecurityProfil = () => {
 
                     <h2 className="text-2xl font-semibold mb-4">{updateProfilT("securityAuth")}</h2>
                     <InputContainerComponent title={"Google"} >
-                        <Button onPress={() => handleOpenModal("google")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button name={"securityLinkAccount"} onPress={() => handleOpenModal("google")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                             {updateProfilT("securityLinkAccount")}
                         </Button>
 
                     </InputContainerComponent>
 
                     <InputContainerComponent title={"Facebook"} >
-                        <Button onPress={() => handleOpenModal("facebook")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
+                        <Button name={"securityLinkAccount"} onPress={() => handleOpenModal("facebook")} variant='bordered' size='sm' className="border-secondary-blue w-full text-secondary-blue  px-6 py-2" radius='full' >
                             {updateProfilT("securityLinkAccount")}
                         </Button>
 
@@ -144,7 +144,7 @@ export const SecurityProfil = () => {
 
             {/* Bouton sauvegarder */}
             <div className="mt-6">
-                <Button className="bg-red-500 text-white px-6 py-2" radius='full' >
+                <Button name={"Sauvegarder"} className="bg-red-500 text-white px-6 py-2" radius='full' >
                     {buttonT("save")}
                 </Button>
             </div>
@@ -180,7 +180,7 @@ export const SecurityProfil = () => {
                                                     <Eye size={20} className='text-primary cursor-pointer' onClick={() => setShowPassword(!showPassword)} />}
                                                 fullWidth
                                                 value={passwordInfo?.oldPassword}
-                                              
+
                                                 name="oldPassword"
                                                 isRequired
                                                 errorMessage={() => (
@@ -247,9 +247,10 @@ export const SecurityProfil = () => {
 
                                     <div className="mt-3">
                                         <Button
-                                            onPress={() =>{
-                                                 handleSubmit();
-                                                onClose(); 
+                                            name="Sauvegarder"
+                                            onPress={() => {
+                                                handleSubmit();
+                                                onClose();
                                             }}
                                             isLoading={isLoading}
                                             radius='full'

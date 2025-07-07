@@ -57,15 +57,17 @@ export const StepperNextUI = () => {
             {/* Boutons de navigation */}
             <div className="mt-6 flex gap-4">
                 <Button
+                    name="Précédent"
                     disabled={currentStep === 0}
-                    onClick={() => setCurrentStep((prev) => prev - 1)}
+                    onPress={() => setCurrentStep((prev) => prev - 1)}
                 >
                     Précédent
                 </Button>
                 <Button
+                    name="Suivant"
                     color="primary"
                     disabled={currentStep === steps.length - 1}
-                    onClick={() => setCurrentStep((prev) => prev + 1)}
+                    onPress={() => setCurrentStep((prev) => prev + 1)}
                 >
                     Suivant
                 </Button>
@@ -96,8 +98,8 @@ export const StepperTailwind = () => {
                         {/* Point du step */}
                         <div
                             className={`w-6 h-6 flex items-center justify-center rounded-full border-2 ${index <= currentStep
-                                    ? "border-orange-500 bg-orange-500 text-white"
-                                    : "border-gray-400 bg-white"
+                                ? "border-orange-500 bg-orange-500 text-white"
+                                : "border-gray-400 bg-white"
                                 }`}
                         >
                             {index === currentStep && (
@@ -124,6 +126,7 @@ export const StepperTailwind = () => {
             {/* Boutons de navigation */}
             <div className="mt-6 flex gap-4">
                 <button
+                    name="Précédent"
                     className="px-4 py-2 border rounded disabled:opacity-50"
                     disabled={currentStep === 0}
                     onClick={() => setCurrentStep((prev) => prev - 1)}
@@ -131,6 +134,7 @@ export const StepperTailwind = () => {
                     Précédent
                 </button>
                 <button
+                    name="Suivant"
                     className="px-4 py-2 bg-orange-500 text-white rounded disabled:opacity-50"
                     disabled={currentStep === steps.length - 1}
                     onClick={() => setCurrentStep((prev) => prev + 1)}

@@ -53,7 +53,7 @@ const NotificationProfil = () => {
 
             {/* Bouton sauvegarder */}
             <div className="mt-6">
-                <Button className="bg-red-500 text-white px-6 py-2" radius='full' >
+                <Button name="Sauvegarder" className="bg-red-500 text-white px-6 py-2" radius='full' >
                    {buttonT("save")}
                 </Button>
             </div>

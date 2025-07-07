@@ -38,11 +38,11 @@ export const DesactiveAccountModal = ({ isOpen, onClose }: {
                         <ModalBody>
                             <div className="flex justify-center justify-items-stretch items-center gap-3 mb-2">
 
-                                <Button  className="w-full bg-primary text-white  " radius="full" onPress={handleSubmit}>
+                                <Button name="Confirmer" className="w-full bg-primary text-white  " radius="full" onPress={handleSubmit}>
                                     {buttonT("confirm")}
                                 </Button>
 
-                                <Button variant='bordered' className="w-full border-primary text-primary  " radius="full" onPress={onClose}>
+                                <Button name="Annuler" variant='bordered' className="w-full border-primary text-primary  " radius="full" onPress={onClose}>
                                    { buttonT("cancel")}
                                 </Button>
 

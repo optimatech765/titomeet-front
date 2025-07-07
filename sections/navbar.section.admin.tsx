@@ -21,11 +21,11 @@ export const NavbarSectionAdmin = ({ isOpen, setIsOpen, setOpenSideBar, openSide
 
                 <div className={"flex items-center gap-2 "}>
                     {/* Menu burger medium device */}
-                    <Button onPress={() => setOpenSideBar(!openSideBar)} isIconOnly radius='full' className="hidden  md:flex text-white bg-primary" >
+                    <Button name="Menu" onPress={() => setOpenSideBar(!openSideBar)} isIconOnly radius='full' className="hidden  md:flex text-white bg-primary" >
                         <Menu size={24} fill="#ee3540" />
                     </Button>
                     {/* Mobile device */}
-                    <Button onPress={() => setIsOpen(true)} isIconOnly radius='full' className="md:hidden flex text-white bg-primary" >
+                    <Button name="Menu" onPress={() => setIsOpen(true)} isIconOnly radius='full' className="md:hidden flex text-white bg-primary" >
 
                         <Menu size={24} fill="#ee3540" />
                     </Button>

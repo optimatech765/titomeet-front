@@ -80,6 +80,7 @@ export const PastAttendedEventComponent = ({ event }: { event: EventDtoResponse 
                             {/* Bouton Modifier */}
                             <div className="mt-2 flex flex-col-reverse gap-3  md:flex-row justify-between items-center">
                                 <Button
+                                    name="Laisser un avis"
                                     onPress={onOpen}
                                     size='sm'
                                     variant='ghost'
@@ -117,10 +118,10 @@ export const PastAttendedEventComponent = ({ event }: { event: EventDtoResponse 
                                     label="Commentaire" placeholder="Votre commentaire" />
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
+                                <Button name="Annuler" color="danger" variant="light" onPress={onClose}>
                                     Annuler
                                 </Button>
-                                <Button className='bg-primary text-white' color="primary" onPress={onClose}>
+                                <Button name="Envoyer" className='bg-primary text-white' color="primary" onPress={onClose}>
                                     Envoyer
                                 </Button>
                             </ModalFooter>

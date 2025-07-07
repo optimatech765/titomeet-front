@@ -179,6 +179,7 @@ const Page = () => {
 
                 <div className="mt-3">
                     <Button
+                        name={"Confirm"}
                         onPress={handleSubmit}
                         isLoading={isLoading}
                         radius='full'

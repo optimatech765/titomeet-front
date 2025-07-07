@@ -95,7 +95,7 @@ export const EventCardHorizontalComponent = ({ status = "draft", event }: { even
               <div className="flex flex-col sm:flex-row gap-2 mt-4">
 
                 {status === "past" ? <>
-                  <Button
+                  <Button name="Review"
                     startContent={<Star className="w-4 h-4" fill="red" />}
                     size="sm"
                     variant="ghost"
@@ -107,7 +107,7 @@ export const EventCardHorizontalComponent = ({ status = "draft", event }: { even
                   </Button>
                 </> : <>
 
-                  <Button
+                  <Button name="Update"
                     href={`/user/events/${event?.id}/update`}
                     as={Link}
                     startContent={<FilePenLine className="w-4 h-4" />}
@@ -125,6 +125,7 @@ export const EventCardHorizontalComponent = ({ status = "draft", event }: { even
 
                   {status === "published" ? (
                     <Button
+                      name="Chat"
                       startContent={<MessageCircleMore className="w-4 h-4" />}
                       size="sm"
                       variant="ghost"
@@ -136,6 +137,7 @@ export const EventCardHorizontalComponent = ({ status = "draft", event }: { even
                     </Button>
                   ) : (
                     <Button
+                      name="Publish"
                       startContent={<Eclipse className="w-4 h-4" />}
                       size="sm"
                       variant="ghost"

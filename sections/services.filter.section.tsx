@@ -66,11 +66,11 @@ const ServicesFilterSection = () => {
             </div>
 
             <div>
-                <Button isIconOnly className="bg-white hidden md:block text-primary p-3 hover:bg-primary hover:text-white">
+                <Button name="Rechercher" isIconOnly className="bg-white hidden md:block text-primary p-3 hover:bg-primary hover:text-white">
                     <Search className="w-4 h-4 " />
                     <span className="md:hidden">Rechercher</span>
                 </Button>
-                <Button className="md:hidden flex w-full text-lg bg-secondary text-white  p-3 hover:bg-primary hover:text-white">
+                <Button name="Rechercher" className="md:hidden flex w-full text-lg bg-secondary text-white  p-3 hover:bg-primary hover:text-white">
                     <Search className="w-4 h-4 " />
                     <span className="">Rechercher</span>
                 </Button>

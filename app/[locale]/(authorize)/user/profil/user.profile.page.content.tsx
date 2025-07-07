@@ -17,7 +17,7 @@ import { useEffect } from "react";
 export const UserProfilePageContent = () => {
     const { isAuth } = useAppContext();
     const { fetchEventList: fetchAttendeeEvent, dataList: attendeeList, isLoading: attendeeLoading } = useAttendeeEventsStore();
-    const { isOpen, onOpen ,onClose } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { fetchEventList, dataList, isLoading } = useEventsStore();
     const { fetchInterests, interests, isLoading: interestsLoading } = useUserInfoStore();
@@ -37,7 +37,9 @@ export const UserProfilePageContent = () => {
             {/* Header */}
             <div className="relative w-full h-52 rounded-lg overflow-hidden">
                 <Image src="/img/profil-banner.png" alt="Banner" className="w-full h-full object-cover" />
-                <button className="absolute top-2 z-50 right-2 bg-white p-2 rounded-full shadow-md">
+                <button
+                    name="camera"
+                    className="absolute top-2 z-50 right-2 bg-white p-2 rounded-full shadow-md">
                     <Camera size={20} className="text-red-500" />
                 </button>
             </div>
@@ -81,7 +83,9 @@ export const UserProfilePageContent = () => {
                             </div>
                         </div>
                         <div className="flex justify-center">
-                            <Button href={"/user/profil/update"} as={Link} size="sm" radius="full" color='primary' variant={"ghost"} className="" startContent={<Pencil size={16} />}>
+                            <Button
+                                name="update"
+                                href={"/user/profil/update"} as={Link} size="sm" radius="full" color='primary' variant={"ghost"} className="" startContent={<Pencil size={16} />}>
                                 {buttonT("update")}
                             </Button>
                         </div>
@@ -96,7 +100,7 @@ export const UserProfilePageContent = () => {
                     <Card >
                         <CardBody>
                             <h3 className="font-semibold flex items-center gap-3">{interetT("subtitle")}
-                                <FilePenLine  className="w-4 h-4 text-primary ml-2 cursor-pointer " />
+                                <FilePenLine className="w-4 h-4 text-primary ml-2 cursor-pointer " />
                             </h3>
                             <div className="flex flex-wrap gap-2 mt-2">
                                 {interestsLoading ? (
@@ -143,7 +147,7 @@ export const UserProfilePageContent = () => {
 
                             <div className='px-6 pt-5 mb-2'>
                                 <h3 className="text-2xl  font-semibold  text-center">
-                                   Mes centres d’intérêt
+                                    Mes centres d’intérêt
                                 </h3>
                                 <p className="text-sm font-light text-center">
                                     Selectionnez vos centres d’intérêt
@@ -152,9 +156,9 @@ export const UserProfilePageContent = () => {
                             </div>
 
                             <ModalBody>
-                                
+
                             </ModalBody>
-                            
+
                         </>
                     )}
                 </ModalContent>

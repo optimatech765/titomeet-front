@@ -100,7 +100,9 @@ export const FirstStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
 
                 </div>
                 <div className="flex justify-end mt-6">
-                    <Button size='sm' radius='full' onPress={NextStep} className="bg-primary  font-medium text-white px-6 py-2">
+                    <Button 
+                    name={"NextStep"}
+                    size='sm' radius='full' onPress={NextStep} className="bg-primary  font-medium text-white px-6 py-2">
                         Suivant
                     </Button>
                 </div>

@@ -67,6 +67,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                         <div className={clsx({ "md:flex": !withDate, "sm:flex": withDate }, " gap-1 hidden items-center")} >
                             {status === "active" ? <>
                                 <Button
+                                    name="Discussion"
                                     startContent={<MessageCircleMore className="w-4 h-4" />}
                                     size='sm'
                                     variant='ghost'
@@ -77,6 +78,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                                 </Button>
 
                                 <Button
+                                    name="Participation"
                                     startContent={<FilePenLine className="w-4 h-4" />}
                                     size='sm'
                                     variant='ghost'
@@ -87,6 +89,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                                 </Button>
                             </> : <>
                                 <Button
+                                    name="Avis"
                                     startContent={<Star className="w-4 h-4" />}
                                     size='sm'
                                     variant='ghost'
@@ -106,6 +109,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                 <div className="sm:hidden w-full gap-1 p-2 flex flex-col items-center">
                     {status === "active" ? <>
                         <Button
+                            name="Discussion"
                             startContent={<MessageCircleMore className="w-4 h-4" />}
                             size='sm'
                             variant='ghost'
@@ -116,6 +120,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                         </Button>
 
                         <Button
+                            name="Participation"
                             startContent={<FilePenLine className="w-4 h-4" />}
                             size='sm'
                             variant='ghost'
@@ -126,6 +131,7 @@ export const PastEventJoined = ({ withDate = true, status = "active", event }: {
                         </Button>
                     </> : <>
                         <Button
+                            name="Avis"
                             startContent={<Star className="w-4 h-4" />}
                             size='sm'
                             variant='ghost'

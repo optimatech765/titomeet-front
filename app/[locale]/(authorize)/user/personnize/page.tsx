@@ -2,7 +2,7 @@
 
 import { useScopedI18n } from "@/locales/client";
 import { Button } from "@heroui/button";
-import { Card} from "@heroui/react";
+import { Card } from "@heroui/react";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
@@ -64,11 +64,11 @@ export default function InterestsSelection() {
                 />  {personniseT("title")}
             </h1>
             <p className="footer-link text-center">
-                 {personniseT("subtitle")}
+                {personniseT("subtitle")}
             </p>
             <p className="footer-link">
-                 {personniseT("selection")} <span className="font-bold"> {personniseT("number")} (03)</span>{" "}
-                 {personniseT("interest")}
+                {personniseT("selection")} <span className="font-bold"> {personniseT("number")} (03)</span>{" "}
+                {personniseT("interest")}
             </p>
 
             <div className="grid space-y-5 md:space-y-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-full max-w-5xl">
@@ -76,7 +76,7 @@ export default function InterestsSelection() {
                     <>
                         <div
                             key={category}
-                            className={clsx({ "md:border-e-1 pe-2": index + 1 < interests.length }, )}
+                            className={clsx({ "md:border-e-1 pe-2": index + 1 < interests.length },)}
                         >
                             <Card className="bg-transparent flex items-center justify-center">
 
@@ -90,6 +90,7 @@ export default function InterestsSelection() {
                                 <div className="flex flex-wrap gap-2 ">
                                     {options.map((option) => (
                                         <button
+                                            name={option}
                                             key={option}
                                             className={`px-3 py-1 rounded-full text-xs font-medium border  ${selected.includes(option)
                                                 ? "bg-tertiary text-primary"
