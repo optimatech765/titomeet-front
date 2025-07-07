@@ -3,7 +3,7 @@ import { UserEventPageContent } from './user.event.page.content';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    keywords: "Evènement,Discussion,BENIN,MEET,REUNION,RESEAUTAGE,",
+    keywords: "Évènement Professionnel, Réseautage Bénin, Rencontre Business, Réunion d'Affaires, Networking Bénin, Discussion Professionnelle, Plateforme de Réseautage, Rencontre Entrepreneuriale, Organiser un Évènement, Agenda Bénin, Conférences Bénin, Meet-up Professionnel, Échange Business, Événementiel Bénin, Groupe de Discussion, Inscription Évènement, Salon Professionnel, Événement Interactif, Communauté Pro Bénin",
     generator: "Next.js",
     authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
     applicationName: "TITOMEET",
