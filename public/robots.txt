@@ -1,24 +1,15 @@
-# robots.txt for CIVODI - https://civodi.bj
-
-# Autoriser tous les moteurs de recherche sauf certains dossiers sensibles
+# *
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /api/
 Disallow: /auth/
-Disallow: /profile/
-Disallow: /login/
-Disallow: /register/
 Disallow: /settings/
+Disallow: /profile/
 
-# Fichiers et pages sans intérêt SEO
-Disallow: /_next/
-Disallow: /favicon.ico
-Disallow: /404
-Disallow: /500
+# Host
+Host: https://titomeet.com
 
-# Sitemap
-Sitemap: https://civodi.bj/sitemap.xml
-
-# Crawl-delay pour éviter la surcharge (optionnel)
-# Crawl-delay: 5
+# Sitemaps
+Sitemap: https://titomeet.com/sitemap.xml

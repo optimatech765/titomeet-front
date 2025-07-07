@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Metadata } from 'next';
 import React from 'react';
@@ -5,18 +7,18 @@ import { EventDetailPageContent } from './event.detail.page.content';
 
 
 export const metadata: Metadata = {
-  keywords: "Evènement,Discussion,BENIN,MEET,REUNION,RESEAUTAGE,",
-  generator: "Next.js",
-  authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
-  applicationName: "TITOMEET",
-  title: "TITOMEET-EVENT DETAILS",
-  description: "TITOMEET est un service de réunions en ligne qui vous permet de rencontrer des personnes de votre réseau social, de vos amis, de vos collègues, de vos amis professionnels, et de toute autre personne qui vous intéresse.",
-  referrer: "no-referrer",
-  creator: "@ahstoorx",
-  publisher: "@ahstoorx",
-  robots: "index,follow",
-  appleWebApp: true,
-  alternates: {
+    keywords: "Evènement,Discussion,BENIN,MEET,REUNION,RESEAUTAGE,",
+    generator: "Next.js",
+    authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
+    applicationName: "TITOMEET",
+    title: "TITOMEET-EVENT DETAILS",
+    description: "TITOMEET est un service de réunions en ligne qui vous permet de rencontrer des personnes de votre réseau social, de vos amis, de vos collègues, de vos amis professionnels, et de toute autre personne qui vous intéresse.",
+    referrer: "no-referrer",
+    creator: "@ahstoorx",
+    publisher: "@ahstoorx",
+    robots: "index,follow",
+    appleWebApp: true,
+    alternates: {
         canonical: 'https://titomeet.com/fr',
         languages: {
             'en': 'https://titomeet.com/en',
@@ -39,7 +41,18 @@ export const metadata: Metadata = {
     },
 };
 
-const Route = () => {
+export async function generateStaticParams() {
+    // Simuler l’appel à une base de données ou API
+    const events = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`).then(res => res.json())
+
+    
+    return events.items.map((event: any) => ({
+        id: event.id,
+        locale: 'fr', // ou 'en'
+    }))
+}
+
+const Route = ({params}:{params: Promise<{ locale: string; eventId: string }> }) => {
     return (
         <div>
             <EventDetailPageContent />
