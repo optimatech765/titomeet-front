@@ -1,8 +1,8 @@
 /* TEAM */
-Developer: [Ton nom ici]
-Site: https://civodi.bj
-Email: contact@civodi.bj
-Twitter: @civodiapp
+Developer: ADIVE HYACINTHE
+Site: https://titomeet.com
+Email: contact@titomeet.com
+Twitter: @titomeet
 
 /* SITE */
 Last update: 2025-07-03
@@ -10,4 +10,4 @@ Standards: HTML5, CSS3, ECMAScript 2022
 Components: Next.js, Prisma, PostgreSQL, Tailwind CSS, HeroUI
 
 /* THANKS */
-Merci à toutes les équipes & utilisateurs qui soutiennent Civodi ❤️
+Merci à toutes les équipes & utilisateurs qui soutiennent Titomeet ❤️

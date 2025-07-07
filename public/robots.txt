@@ -1,4 +1,4 @@
-# robots.txt for CIVODI - https://civodi.bj
+# robots.txt for TITOMEET - https://titomeet.com
 
 # Autoriser tous les moteurs de recherche sauf certains dossiers sensibles
 User-agent: *
@@ -18,7 +18,7 @@ Disallow: /404
 Disallow: /500
 
 # Sitemap
-Sitemap: https://civodi.bj/sitemap.xml
+Sitemap: https://titomeet.com/sitemap.xml
 
 # Crawl-delay pour éviter la surcharge (optionnel)
 # Crawl-delay: 5
