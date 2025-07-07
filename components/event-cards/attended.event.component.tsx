@@ -72,6 +72,7 @@ export const AttendedEventComponent = ({ event }: { event: EventDtoResponse }) =
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex flex-col-reverse gap-3  md:flex-row justify-between items-center">
                             <Button
+                                name="Discuter"
                                 as={Link}
                                 href={`/user/message?eventId=${event.id}`}
                                 startContent={<MessageCircleMore className="w-4 h-4" />}

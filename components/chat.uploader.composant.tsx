@@ -52,6 +52,7 @@ export const ChatFileUploader = () => {
             )}
 
             <button
+                name="Send"
                 onClick={handleSend}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
@@ -118,6 +119,7 @@ export const MultiImageUploader = () => {
                     <div key={index} className="relative">
                         <img src={src} alt={`Preview ${index}`} className="w-24 h-24 object-cover rounded-lg" />
                         <button
+                            name="Remove"
                             className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full text-xs"
                             onClick={() => removeImage(index)}
                         >
@@ -128,6 +130,7 @@ export const MultiImageUploader = () => {
             </div>
 
             <button
+                name="Send"
                 onClick={handleSend}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-300"
                 disabled={files.length === 0}

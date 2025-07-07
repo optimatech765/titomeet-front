@@ -53,7 +53,9 @@ export const AdminTableComponent = ({
                     <div className="relative flex justify-end items-center gap-2">
                         <Dropdown>
                             <DropdownTrigger>
-                                <Button isIconOnly size="sm" variant="light">
+                                <Button
+                                    name="Actions"
+                                    isIconOnly size="sm" variant="light">
                                     <EllipsisIcon className="text-default-300" />
                                 </Button>
                             </DropdownTrigger>

@@ -56,13 +56,13 @@ export const SidebarSection = ({ openSideBar, isOpen, setIsOpen }:
 
 
                         {openSideBar ?
-                            <Button isIconOnly={openSideBar} className={clsx({ "px-4 w-full": openSideBar, "px-1 w-fit rounded-full": !openSideBar },
+                            <Button name="Se déconnecter" isIconOnly={openSideBar} className={clsx({ "px-4 w-full": openSideBar, "px-1 w-fit rounded-full": !openSideBar },
                                 " py-4 rounded-full bg-primary  text-white")}>
                                 <LogOut className="w-4 h-4 text-white" />
                                 Se déconnecter
                             </Button> :
 
-                            <Button isIconOnly={true} className='bg-primary rounded-full flex items-center justify-center w-fit text-white'>
+                            <Button name="Se déconnecter" isIconOnly={true} className='bg-primary rounded-full flex items-center justify-center w-fit text-white'>
                                 <LogOut className="w-4 h-4 text-white" />
                             </Button>
 
@@ -121,7 +121,7 @@ export const SidebarSection = ({ openSideBar, isOpen, setIsOpen }:
 
                         <div className='space-y-1'>
 
-                            <Button isIconOnly={openSideBar}
+                            <Button name="Se déconnecter" isIconOnly={openSideBar}
                                 className={clsx({ "px-4 w-full": openSideBar, "px-1 w-fit rounded-full": !openSideBar },
                                     " py-4 rounded-full bg-primary   text-white")}>
                                 <LogOut className="w-4 h-4 text-white" />

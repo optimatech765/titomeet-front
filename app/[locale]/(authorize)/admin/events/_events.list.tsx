@@ -154,15 +154,21 @@ export const EventsList = () => {
                             <ModalFooter>
                                 <div className="flex justify-between items-center flex-1 gap-3">
                                     {selectedEvent.status === "PENDING" &&
-                                        <Button color="danger" onPress={handleApprouve} fullWidth >
+                                        <Button
+                                            name={"approuver"}
+                                            color="danger" onPress={handleApprouve} fullWidth >
                                             Approuver
                                         </Button>
                                     }
-                                    <Button color="primary" onPress={onClose} fullWidth>
-                                    {selectedEvent.status === "PUBLISHED" ?"Annuler": "Refuser"}
+                                    <Button
+                                        name={"annuler"}
+                                        color="primary" onPress={onClose} fullWidth>
+                                        {selectedEvent.status === "PUBLISHED" ? "Annuler" : "Refuser"}
                                     </Button>
                                     {selectedEvent.status === "PENDING" &&
-                                        <Button color="primary" onPress={onClose} fullWidth >
+                                        <Button
+                                            name={"correction"}
+                                            color="primary" onPress={onClose} fullWidth >
                                             Correction
                                         </Button>
                                     }

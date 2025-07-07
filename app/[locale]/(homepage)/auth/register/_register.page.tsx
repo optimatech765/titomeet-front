@@ -126,10 +126,10 @@ export const RegisterPage = () => {
             </div>
 
             <div className="flex gap-4 justify-center mb-1">
-                <Button variant="flat" className="flex items-center gap-1 flex-1 h-9">
+                <Button name={"Google"} variant="flat" className="flex items-center gap-1 flex-1 h-9">
                     <Image alt='dd' src={'/img/google.png'} width={100} height={50} className='h-4 w-4' /> Google
                 </Button>
-                <Button variant="flat" className="flex items-center gap-1 flex-1 h-9 ">
+                <Button name={"Facebook"} variant="flat" className="flex items-center gap-1 flex-1 h-9 ">
                     <Image alt='dd' src={'/img/facebook.png'} width={100} height={50} className='h-4 w-4' /> Facebook
                 </Button>
             </div>
@@ -236,7 +236,9 @@ export const RegisterPage = () => {
 
             </div>
 
-            <Button type='button'
+            <Button
+                name={"Register"}
+                type='button'
                 isLoading={isLoading}
                 onPress={handleSubmit}
                 radius='full'

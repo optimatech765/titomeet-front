@@ -85,7 +85,9 @@ export const NavbarSection = () => {
 
 
             {/* Menu burger (affiché sur mobile) */}
-            <Button isIconOnly variant="light" className="lg:hidden text-primary" onPress={() => setIsOpen(true)}>
+            <Button 
+            name="Menu"
+            isIconOnly variant="light" className="lg:hidden text-primary" onPress={() => setIsOpen(true)}>
                 <Menu size={24} className="text-primary" fill="#ee3540" />
             </Button>
 

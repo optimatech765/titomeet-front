@@ -71,7 +71,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                                     classNames={{
                                         indicator: "bg-[#22d3ee]"
                                     }}
-                                    value={event?.participants?.length*100/event?.capacity} size="md" aria-label="Loading..." className="w-full flex-1" />
+                                    value={event?.participants?.length * 100 / event?.capacity} size="md" aria-label="Loading..." className="w-full flex-1" />
                             </div>
                         </>
                         }
@@ -99,6 +99,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                         <div className={clsx({ "md:flex": !withDate, "sm:flex": withDate }, " gap-1 hidden items-center")} >
                             {status === "past" ?
                                 <Button
+                                    name="Avis"
                                     startContent={<Star className="w-3 h-3" />}
                                     size='sm'
                                     variant='ghost'
@@ -109,6 +110,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                                 </Button>
                                 : <>
                                     <Button
+                                        name="Modifier"
                                         as={Link}
                                         href={`/user/events/${event?.id}/update`}
                                         startContent={<FilePenLine className="w-3 h-3" />}
@@ -125,6 +127,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
 
                                     {status === "published" ?
                                         <Button
+                                            name="Discussion"
                                             startContent={<MessageCircleMore className="w-3 h-3 mx-0" />}
                                             size='sm'
                                             variant='ghost'
@@ -155,6 +158,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                 {/* Affichage des boutons en version mobile */}
                 <div className="sm:hidden gap-1 p-2 flex flex-col items-center">
                     <Button
+                        name="Modifier"
                         as={Link}
                         href={`/user/events/${event?.id}/update`}
                         startContent={<FilePenLine className="w-3 h-3" />}
@@ -168,6 +172,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
 
                     {status === "published" ?
                         <Button
+                            name="Discussion"
                             startContent={<MessageCircleMore className="w-3 h-3 mx-0" />}
                             size='sm'
                             variant='ghost'
@@ -177,6 +182,7 @@ export const PublishEventCardComponent = ({ status = "draft", withDate = true, e
                             Accéder à la discussion
                         </Button> :
                         <Button
+                            name="Publier"
                             startContent={<Eclipse className="w-3 h-3 mx-0" />}
                             size='sm'
                             variant='ghost'

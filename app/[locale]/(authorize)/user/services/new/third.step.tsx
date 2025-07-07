@@ -196,17 +196,17 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                             className="flex items-center ring-1 ring-slate-300 rounded-lg  md:w-1/3 justify-between p-3"
                         >
                             <span className="text-gray-700">{file.name} - {file.size}</span>
-                            <button onClick={() => removeFile(index)} className="text-primary">
+                            <button name={"removeFile"} onClick={() => removeFile(index)} className="text-primary">
                                 <Trash size={20} />
                             </button>
                         </div>
                     ))}
                 </div>
                 <div className="flex justify-end mt-6 gap-3">
-                    <Button isLoading={isLoading} onPress={() => setActiveStep(2)} radius='full' size={"sm"} className="bg-tertiary  font-medium text-primary px-6 py-2">
+                    <Button name={"PreviousStep"} isLoading={isLoading} onPress={() => setActiveStep(2)} radius='full' size={"sm"} className="bg-tertiary  font-medium text-primary px-6 py-2">
                         Précédent
                     </Button>
-                    <Button isLoading={isLoading} onPress={handleSubmitProvider} radius='full' size={"sm"} className="bg-primary  font-medium text-white px-6 py-2">
+                    <Button name={"Submit"} isLoading={isLoading} onPress={handleSubmitProvider} radius='full' size={"sm"} className="bg-primary  font-medium text-white px-6 py-2">
                         Soumettre
                     </Button>
                 </div>

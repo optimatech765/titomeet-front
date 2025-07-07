@@ -96,7 +96,7 @@ const Page = () => {
                     </div>
 
                     <p>
-                      {forgotPasswordT("title")}
+                        {forgotPasswordT("title")}
                     </p>
                 </div>
 
@@ -122,12 +122,13 @@ const Page = () => {
                     />
                 </div>
                 <Button
+                    name={"Confirm"}
                     onPress={handleSubmit}
                     isLoading={isLoading}
                     radius='full'
                     className="w-full bg-red-500 hover:bg-red-600 text-white">
-                         {buttonT("confirm")}
-                    </Button>
+                    {buttonT("confirm")}
+                </Button>
 
                 <p className="text-center mt-4 text-sm">
                     {loginT("withEmail")} <Link href="/auth" className="text-red-500 underline">{buttonT("login")}</Link>

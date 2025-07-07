@@ -109,6 +109,7 @@ export const InteretProfileComponent = () => {
                                             <div className="flex flex-wrap gap-2 ">
                                                 {element.children.map((option: any) => (
                                                     <button
+                                                        name={option.name}
                                                         key={option.name}
                                                         className={`px-3 py-1 rounded-full text-xs font-medium border  ${selected.some(item => item.id === option.id)
                                                             ? "bg-tertiary text-primary"
@@ -138,6 +139,7 @@ export const InteretProfileComponent = () => {
             {/* Bouton sauvegarder */}
             <div className="mt-6">
                 <Button
+                    name="Sauvegarder"
                     disabled={isLoading}
                     onPress={() => addInterest({
                         userId: isAuth?.id,

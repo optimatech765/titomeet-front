@@ -366,11 +366,15 @@ const Page = () => {
                             <h3 className={" font-normal"}>Définissez les bases de l’événement</h3>
                             <GeneralInforComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button
+                                    name={"Enregistrer brouillon"}
+                                    onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
 
-                                <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                <Button
+                                    name={"Suivant"}
+                                    onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                     Suivant
                                 </Button>
                             </div>
@@ -383,14 +387,20 @@ const Page = () => {
                             <h3 className={" font-normal"}> Personnalisez l’événement et ajoutez des services</h3>
                             <AdvanceComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button
+                                    name={"Enregistrer brouillon"}
+                                    onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
                                 <div className="flex  gap-2">
-                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                    <Button
+                                        name={"Précédent"}
+                                        onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                    <Button
+                                        name={"Suivant"}
+                                        onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                         Suivant
                                     </Button>
                                 </div>
@@ -404,14 +414,20 @@ const Page = () => {
                             <h3 className={" font-normal"}>Gérer l’audience de l’événement</h3>
                             <VisibilityCommunicationComponent />
                             <div className='flex items-center justify-between'>
-                                <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
+                                <Button
+                                    name={"Enregistrer brouillon"}
+                                    onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-8 text-primary border-primary "} radius='full' >
                                     Enregistrer brouillon
                                 </Button>
                                 <div className="flex  gap-2">
-                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                    <Button 
+                                    name={"Précédent"}
+                                    onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                    <Button 
+                                    name={"Suivant"}
+                                    onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                         Suivant
                                     </Button>
                                 </div>
@@ -426,18 +442,26 @@ const Page = () => {
                             <ResumeComponent setActiveStep={setActiveStep} />
                             <div className='flex flex-wrap gap-4 items-center justify-between'>
                                 <div className="flex gap-2">
-                                    <Button onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                                    <Button 
+                                    name={"Enregistrer brouillon"}
+                                    onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                         Enregistrer brouillon
                                     </Button>
-                                    <Button onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                    <Button 
+                                    name={"Supprimer"}
+                                    onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                         Supprimer
                                     </Button>
                                 </div>
                                 <div className="flex  gap-2">
-                                    <Button onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                    <Button
+                                    name={"Précédent"}
+                                     onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button onPress={() => handleSaveEvent("PUBLISH")} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                    <Button 
+                                    name={"Publier"}
+                                    onPress={() => handleSaveEvent("PUBLISH")} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                         Publier
                                     </Button>
                                 </div>

@@ -37,7 +37,7 @@ export const MyEventEventCardComponent = ({ showButton = true }: { showButton?: 
 
                 <div>
                     {showButton &&
-                        <Button size={"sm"} as={Link} href={"/user/events/new"} startContent={<Plus className="w-4 h-4 text-white" />} radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
+                        <Button name="Create" size={"sm"} as={Link} href={"/user/events/new"} startContent={<Plus className="w-4 h-4 text-white" />} radius='full' color='primary' className="mt-2 border-1 text-xs font-light text-white">
                             {eventT("create")}
                         </Button>
                     }

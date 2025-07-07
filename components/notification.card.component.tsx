@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 export const NotificationsCardComponent = () => {
 
-    const { notificationsList, isLoading,fetchNotificationsList } = useNotificationsStore();
+    const { notificationsList, isLoading, fetchNotificationsList } = useNotificationsStore();
 
     useEffect(() => {
         fetchNotificationsList()
@@ -41,7 +41,9 @@ export const NotificationsCardComponent = () => {
                                             )}
 
                                             {notif.type === "message" && (
-                                                <Button variant={"ghost"}
+                                                <Button
+                                                    name="Accéder"
+                                                    variant={"ghost"}
                                                     startContent={<MessageCircleMore className="h-3 w-3 md:w-4 md:h-4 font-semibold" />}
                                                     color="danger"
                                                     size="sm"

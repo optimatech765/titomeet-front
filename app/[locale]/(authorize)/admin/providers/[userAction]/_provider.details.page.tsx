@@ -133,6 +133,7 @@ export const DetailsDemande = () => {
 
                     {(item?.status === "PENDING" || item?.status === "REJECTED") &&
                         <Button
+                            name="primary"
                             isLoading={isSubmitLoading}
                             onPress={() => submitUpdateItem({ id: item.id, status: "APPROVED" })}
                             size="sm"
@@ -144,7 +145,7 @@ export const DetailsDemande = () => {
 
                     {item?.status === "APPROVED" &&
                         <Button
-
+                            name={"secondary"}
                             isLoading={isSubmitLoading}
                             onPress={() => submitUpdateItem({ id: item.id, status: "REJECTED" })}
                             size="sm"

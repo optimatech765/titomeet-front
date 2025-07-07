@@ -34,11 +34,11 @@ export const EventDetails = () => {
     const router = useRouter()
     const params = useParams();
     const event = params?.eventId
-     const eventT = useScopedI18n("event");
-     const eventDetailT = useScopedI18n("eventDetail");
-     const inputT = useScopedI18n("input");
-     const paymentT = useScopedI18n("payment");
-    
+    const eventT = useScopedI18n("event");
+    const eventDetailT = useScopedI18n("eventDetail");
+    const inputT = useScopedI18n("input");
+    const paymentT = useScopedI18n("payment");
+
 
     useEffect(() => {
         fetchSingleEventDetails(event as string);
@@ -54,7 +54,7 @@ export const EventDetails = () => {
                 <div className=" mx-auto p-6 mb-12 section-container md:px-10">
                     <h2 className="text-2xl font-extrabold text-black flex items-center gap-2 mb-3">
                         <ChevronLeft className="text-black cursor-pointer " onClick={() => router.back()} />
-                       {eventDetailT("title")}
+                        {eventDetailT("title")}
                     </h2>
 
                     <div className="relative w-full h-64">
@@ -70,7 +70,7 @@ export const EventDetails = () => {
                     <div className="mt-3">
                         <h1 className="text-2xl font-extrabold">{singleEvent?.name}</h1>
                         <p className="information-text ">
-                              {eventDetailT("slogan")}
+                            {eventDetailT("slogan")}
                         </p>
                         <p className="space-x-2 mt-2">
                             <span className="information-text ">{eventT("organizer")} </span>
@@ -149,11 +149,13 @@ export const EventDetails = () => {
                             </div>
 
                             <div className="mt-6 flex gap-2">
-                                <Button onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("join")}</Button>
+                                <Button
+                                    name="Join"
+                                    onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("join")}</Button>
 
                                 <Dropdown>
                                     <DropdownTrigger>
-                                        <Button variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("share")}</Button>
+                                        <Button name="Share" variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("share")}</Button>
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="Static Actions">
 
@@ -287,10 +289,10 @@ export const EventDetails = () => {
                                         <CheckCircle className="text-emerald-500 text-xl font-bold h-28 w-28" />
                                     </h3>
                                     <h4 className="text-2xl  font-semibold  flex justify-center text-center">
-                                       {paymentT("success")}
+                                        {paymentT("success")}
                                     </h4>
                                     <p className="text-sm font-light text-center">
-                                       {paymentT("mail")}
+                                        {paymentT("mail")}
                                     </p>
 
                                 </div>
@@ -301,7 +303,9 @@ export const EventDetails = () => {
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button className="w-full bg-primary text-white  " radius="full" onPress={onCloseConfirm}>
+                                    <Button
+                                        name="Close"
+                                        className="w-full bg-primary text-white  " radius="full" onPress={onCloseConfirm}>
                                         Fermer
                                     </Button>
 

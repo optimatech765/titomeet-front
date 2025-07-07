@@ -33,7 +33,9 @@ const ChatInfoComponent = ({ setShowInfo }: { setShowInfo: React.Dispatch<React.
                                 <Avatar  src={currentChat?.event?.coverPicture} className="mr-3 text-white font-extrabold text-lg bg-[#28B0E6] text-center"  name={currentChat?.name.charAt(0)+currentChat?.name.charAt(1)} />
                                 <p className="text-sm font-medium">{currentChat?.name}</p>
                                 <p className="text-sm text-gray-500 font-extralight ">{chatMembers?.total} Membres</p>
-                                <Button onPress={goto} className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"}>
+                                <Button 
+                                name={"Acceder à l’évènement"}
+                                onPress={goto} className="mt-3 text-primary" color="danger" radius="full" variant={"ghost"}>
                                     <ExternalLink className="" />
                                     Acceder à l’évènement
                                 </Button>

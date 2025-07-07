@@ -123,7 +123,7 @@ export const PersonnalInfoComponent = () => {
 
             {/* Bouton sauvegarder */}
             <div className="mt-6">
-                <Button isLoading={isLoading} className="bg-red-500 text-white px-6 py-2" radius='full' onPress={() => handleUpdateUser(userInfo)} >
+                <Button name={"Sauvegarder"} isLoading={isLoading} className="bg-red-500 text-white px-6 py-2" radius='full' onPress={() => handleUpdateUser(userInfo)} >
                     {buttonT('save')}
                 </Button>
             </div>

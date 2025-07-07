@@ -27,12 +27,14 @@ export const PageProfileUpdateContent = () => {
     }, [activeMenu]);
 
     return (
-        
+
         <div className="min-h-screen section-container py-6 relative">
             {/* Burger menu on mobile */}
             <div className="lg:hidden flex justify-between items-center px-4 mb-2">
                 <h2 className="text-lg font-semibold">Mon Profil</h2>
-                <button onClick={toggleSidebar}>
+                <button
+                    name="menu"
+                    onClick={toggleSidebar}>
                     {sidebarOpen ? <X size={28} className='text-primary' /> : <Menu size={28} className='text-primary' />}
                 </button>
             </div>
@@ -79,7 +81,9 @@ export const PageProfileUpdateContent = () => {
                             <SidebarButton label={updateProfilT("sideBarTitle6")} active={activeMenu === "advanced"} onClick={() => setActiveMenu("advanced")} icon={<Settings className="w-4 h-4" />} />
                         </div>
 
-                        <Button radius='full' className="mt-4 bg-primary  text-white px-4 py-2 flex items-center gap-2 w-full">
+                        <Button
+                            name={"logout"}
+                            radius='full' className="mt-4 bg-primary  text-white px-4 py-2 flex items-center gap-2 w-full">
                             <LogOut className="w-4 h-4" /> Déconnexion
                         </Button>
                     </div>
@@ -106,6 +110,7 @@ export const PageProfileUpdateContent = () => {
 function SidebarButton({ label, active, onClick, icon }: { label: string, active: boolean, onClick: () => void, icon: React.ReactNode }) {
     return (
         <button
+            name={"sidebarButton"}
             onClick={onClick}
             className={clsx(
                 "flex items-center gap-2 px-3 py-2 rounded text-left",

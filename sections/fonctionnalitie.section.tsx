@@ -55,7 +55,9 @@ export const FonctionnalitesSection = () => {
                                 />
                             </div>
                             <div>
-                                <Button startContent={<SearchIcon hanging={20} width={20} />}
+                                <Button 
+                                name="Découvrir les évènements"
+                                startContent={<SearchIcon hanging={20} width={20} />}
                                     as="a"
                                     href="#evenements"
                                     color="primary"
@@ -74,7 +76,9 @@ export const FonctionnalitesSection = () => {
                     <div className="flex justify-center md:justify-end">
 
                         <div className="w-fit space-y-2">
-                            <Button startContent={<PlusIcon hanging={20} width={20} />}
+                            <Button 
+                            name="Créer un événement"
+                            startContent={<PlusIcon hanging={20} width={20} />}
                                 as={Link}
                                 href="/user/events/new"
                                 color="secondary"

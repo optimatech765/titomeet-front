@@ -7,7 +7,7 @@ import { TableComponent } from '@/components/table.component';
 import { TagTextarea } from '@/components/tague.input.component';
 import { useAdminEventCategoriesStore } from '@/stores/admin/admin.event.categorie.store';
 import { CategorieDto } from '@/utils/dto/categorie.dto';
-import { Button,Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, TableCell, TableRow, Textarea, useDisclosure } from '@heroui/react';
 import { Check, Plus, Trash } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
@@ -18,7 +18,7 @@ const initialVaue = {
     name: "",
     description: "",
     children: [],
-    active:true
+    active: true
 }
 
 const Page = () => {
@@ -97,7 +97,7 @@ const Page = () => {
     return (
         <div className='flex flex-col gap-4'>
             <div className='flex justify-end items-center gap-3'>
-                <Button radius={"full"} onPress={() => handleselectItem(initialVaue, "add")} className='bg-primary text-white'>
+                <Button name={"Add"} radius={"full"} onPress={() => handleselectItem(initialVaue, "add")} className='bg-primary text-white'>
                     <Plus />
                     Ajouter une catégorie
                 </Button>
@@ -119,10 +119,14 @@ const Page = () => {
                             <TableCell className="w-1/4">{item.name}</TableCell>
                             <TableCell className="w-1/4">{item.description}</TableCell>
                             <TableCell className="w-1/4">
-                                <Button isIconOnly radius="full" color="danger" className='mx-2' onPress={() => handleselectItem(item, "delete")}>
-                                   {!item.active ? <Check size={14} /> : <Trash size={14} />}
+                                <Button
+                                    name={"icon"}
+                                    isIconOnly radius="full" color="danger" className='mx-2' onPress={() => handleselectItem(item, "delete")}>
+                                    {!item.active ? <Check size={14} /> : <Trash size={14} />}
                                 </Button>
-                                <Button color="danger" onPress={() => handleselectItem(item, "children")}>
+                                <Button
+                                    name={"sous categorie"}
+                                    color="danger" onPress={() => handleselectItem(item, "children")}>
                                     Sous catégories
                                 </Button>
                             </TableCell>
@@ -207,6 +211,7 @@ const Page = () => {
                             <ModalFooter>
                                 {action !== "delete" ? (<>
                                     {action === "children" ? <Button
+                                        name={"ajouter"}
                                         onPress={() => submitItemsChildren(interestListe, categorieData.id as string)}
                                         disabled={isSubmitLoading}
                                         className="w-full bg-primary text-white  "
@@ -217,6 +222,7 @@ const Page = () => {
 
                                     </Button> :
                                         <Button
+                                            name={"modifier"}
                                             onPress={action === "add" ? handleSubmi : handleUpdateItem}
                                             disabled={isSubmitLoading}
                                             className="w-full bg-primary text-white  "
@@ -232,14 +238,16 @@ const Page = () => {
                                 ) : <>
 
                                     <Button
-                                        onPress={()=>handleDeleteItem(!categorieData.active)}
+                                        name={"supprimer"}
+                                        onPress={() => handleDeleteItem(!categorieData.active)}
                                         className="w-full bg-danger text-white  "
                                         radius="full"
                                         isLoading={isSubmitLoading}
                                     >
-                                    {categorieData.active ? "Désactiver" : "Activé"}
+                                        {categorieData.active ? "Désactiver" : "Activé"}
                                     </Button>
                                     <Button
+                                        name={"annuler"}
                                         onPress={onClose}
                                         className="w-full bg-gray-200 text-gray-700  "
                                         radius="full"

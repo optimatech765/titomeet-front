@@ -121,6 +121,7 @@ const ChatInputComponent = ({ files, setFiles, setAudioUrl }: { setAudioUrl: any
                     </div>
                     <div className="text-xl font-mono">{formatTime(seconds)}</div>
                     <Button
+                    name={"Arrêter"}
                         isIconOnly
                         onPress={stopRecording}
                         className="ml-4 bg-red-600 text-white rounded hover:bg-red-700"

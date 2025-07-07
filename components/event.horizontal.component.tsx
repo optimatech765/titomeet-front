@@ -55,6 +55,7 @@ export const  EventCardHorizontal=() =>{
                     {/* Bouton Modifier */}
                     <div className="mt-2">
                         <Button
+                            name="Edit"
                             startContent={<PencilLine size={16} />}
                             color="danger"
                             variant="bordered"

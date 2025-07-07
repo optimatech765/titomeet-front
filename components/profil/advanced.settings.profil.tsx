@@ -56,10 +56,10 @@ export const AdvancedSettingsProfil = () => {
                     <div className={"mt-5"}>
                         <h4 className='text-sm font-medium text-gray-700'>Compte</h4>
                         <div className="flex flex-col gap-3 mt-4 md:w-1/3">
-                            <Button onPress={() => onOpenDesactive()} className="bg-tertiary font-semibold text-primary px-6 py-2  " radius='full' >
+                            <Button name="Desactiver" onPress={() => onOpenDesactive()} className="bg-tertiary font-semibold text-primary px-6 py-2  " radius='full' >
                                 {updateProfilT("deactive")}
                             </Button>
-                            <Button onPress={() => onOpen()} className="bg-tertiary font-semibold text-primary px-6 py-2  " radius='full' >
+                            <Button name="Supprimer" onPress={() => onOpen()} className="bg-tertiary font-semibold text-primary px-6 py-2  " radius='full' >
                                 {updateProfilT("delete")}
                             </Button>
                         </div>

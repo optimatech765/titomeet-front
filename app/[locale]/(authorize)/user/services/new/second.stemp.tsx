@@ -67,10 +67,14 @@ export const SecondStemp = ({ setActiveStep }: { setActiveStep: (activeStep: num
                         placeholder="Informations tarifaires" />
                 </div>
                 <div className="flex justify-end mt-6 gap-3">
-                    <Button radius='full' size={"sm"} onPress={() => setActiveStep(1)} className="bg-tertiary  font-medium text-primary px-6 py-2">
+                    <Button
+                        name={"PreviousStep"}
+                        radius='full' size={"sm"} onPress={() => setActiveStep(1)} className="bg-tertiary  font-medium text-primary px-6 py-2">
                         Précédent
                     </Button>
-                    <Button radius='full' size={"sm"} onPress={NextStep} className="bg-primary  font-medium text-white px-6 py-2">
+                    <Button
+                        name={"NextStep"}
+                        radius='full' size={"sm"} onPress={NextStep} className="bg-primary  font-medium text-white px-6 py-2">
                         Suivant
                     </Button>
                 </div>

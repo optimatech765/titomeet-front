@@ -16,6 +16,7 @@ export const PricingComponent = ({ data }: any) => {
         <div className="relative py-6 bg-[#F8F8F8] rounded-lg shadow-md w-full flex flex-col gap-2">
             {/* Bouton de suppression */}
             <button
+                name="Supprimer"
                 className="absolute top-2 right-2 text-red-500 hover:text-red-700"
                 onClick={handleRemovePrice}
             >

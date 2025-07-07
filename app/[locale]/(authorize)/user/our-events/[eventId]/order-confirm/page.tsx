@@ -68,10 +68,12 @@ const Page = () => {
                         </div>
                         <Divider className='my-3 ' />
                         <div className='flex gap-2 flex-col '>
-                            <Button className="w-full bg-[#FACCCF] text-primary  " radius="full" >
+                            <Button
+                                name={"Confirmer"}
+                                className="w-full bg-[#FACCCF] text-primary  " radius="full" >
                                 Confirmer
                             </Button>
-                            <Button className="w-full bg-primary text-white  " radius="full" >
+                            <Button name={"Modifier"} className="w-full bg-primary text-white  " radius="full" >
                                 Modifier
                             </Button>
                         </div>

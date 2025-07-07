@@ -77,6 +77,7 @@ export const PastPublishedEventComponent = ({ event }: { event: EventDtoResponse
                         {/* Bouton Modifier */}
                         <div className="mt-2 flex flex-col-reverse gap-3  md:flex-row justify-between items-center">
                             <Button
+                                name="Donner votre avis"
                                 href={`/user/our-events/${event?.id}/reviews`}
                                 as={Link}
                                 startContent={<FilePenLine className="w-4 h-4" />}
@@ -86,9 +87,9 @@ export const PastPublishedEventComponent = ({ event }: { event: EventDtoResponse
                                 color="primary"
                                 className="flex-1 border"
                             >
-                               {eventT("showReview")}
+                                {eventT("showReview")}
                             </Button>
-                            
+
                         </div>
                     </CardBody>
                 </div>

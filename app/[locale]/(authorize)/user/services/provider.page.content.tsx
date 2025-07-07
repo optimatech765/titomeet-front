@@ -135,7 +135,9 @@ export const ProviderPageContent = () => {
                                             </p>
                                         </div>
                                         <div className={"flex justify-center"}>
-                                            <Button radius='full' className={"bg-secondary-blue text-white px-10"} onPress={onClose}>
+                                            <Button 
+                                            name={"Contact"}
+                                            radius='full' className={"bg-secondary-blue text-white px-10"} onPress={onClose}>
                                                 Contacter
                                             </Button>
                                         </div>

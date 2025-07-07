@@ -1,5 +1,8 @@
-'use client' // Error boundaries must be Client Components
- 
+'use client'
+import { Button } from "@heroui/button"
+
+// Error boundaries must be Client Components
+
 export default function GlobalError({
   reset,
 }: {
@@ -11,7 +14,15 @@ export default function GlobalError({
     <html>
       <body>
         <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <Button
+          name={"try-again"}
+          onPress={
+            // Attempt to recover by trying to re-render the segment
+            () => reset()
+          }
+        >
+          Try again
+        </Button>
       </body>
     </html>
   )

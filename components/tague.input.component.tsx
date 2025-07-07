@@ -41,6 +41,7 @@ export const TagTextarea = ({ maxTags = 5, tags = [], onChange }: TagTextareaPro
                         >
                             <span>{tag}</span>
                             <button
+                                name="Supprimer"
                                 type="button"
                                 className="ml-2 text-primary"
                                 onClick={() => removeTag(index)}
@@ -51,6 +52,7 @@ export const TagTextarea = ({ maxTags = 5, tags = [], onChange }: TagTextareaPro
                     ))}
                 </div>
                 <input
+                    name="Ajouter un tag"
                     type="text"
                     className="flex-1 border-none outline-none focus:ring-0 h-full"
                     value={inputValue}

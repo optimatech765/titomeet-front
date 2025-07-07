@@ -83,7 +83,9 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                 isOpen={open}
             >
                 <ModalContent>
-                    <Button isIconOnly onPress={onClose} className="absolute top-2 right-2 text-white text-2xl z-10">×</Button>
+                    <Button
+                        name={"Fermer"}
+                        isIconOnly onPress={onClose} className="absolute top-2 right-2 text-white text-2xl z-10">×</Button>
 
                     <ModalBody >
                         {file.type == "image" && (
@@ -130,7 +132,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
 
         return (
             <div className="space-y-2">
-                {selectedFile && <button onClick={onClose} className=" bg-red-400 right-2  text-2xl z-10">×</button>}
+                {selectedFile && <button name={"Fermer"} onClick={onClose} className=" bg-red-400 right-2  text-2xl z-10">×</button>}
                 {message.text && <p>{message.text}</p>}
 
                 {/* Media Preview */}
@@ -180,8 +182,8 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                                 {file.type == "audio" && (
                                     // <audio controls src={file.url} type="audio/webm"  />
                                     <audio controls>
-                                        <source src="https://titomeet.s3.eu-west-3.amazonaws.com/public/598de222-27b5-4389-9894-52837ee62f52-1749744436854.webm" type="audio/webm"/>
-                                           
+                                        <source src="https://titomeet.s3.eu-west-3.amazonaws.com/public/598de222-27b5-4389-9894-52837ee62f52-1749744436854.webm" type="audio/webm" />
+
                                     </audio>
 
                                 )}
@@ -266,7 +268,9 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                     {audioUrl && (
                         <div className="flex flex-wrap gap-2 mb-2 absolute bottom-[20vh] w-full">
                             <audio controls src={audioUrl} className="w-1/2" />
-                            <Button isIconOnly
+                            <Button
+                                name={"Fermer"}
+                                isIconOnly
                                 className=" p-1 rounded-full"
                                 onPress={() => setAudioUrl(null)}
                             >
@@ -283,6 +287,7 @@ export const ChatSection = ({ showInfo, setShowInfo }: ChatSectionProps) => {
                                 <div key={index} className="relative w-20 h-20 bg-gray-100 rounded-md flex items-center justify-center">
                                     {renderPreview(file)}
                                     <button
+                                        name={"Fermer"}
                                         className="absolute top-0 right-0 p-1 bg-white rounded-full"
                                         onClick={() => removeFile(index)}
                                     >

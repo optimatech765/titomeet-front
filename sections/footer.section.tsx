@@ -66,7 +66,9 @@ export const FooterSection = () => {
                             type="email"
                             endContent={
 
-                                <Button className="bg-primary text-white rounded-full -mr-4 ">
+                                <Button 
+                                name="S'inscrire"
+                                className="bg-primary text-white rounded-full -mr-4 ">
                                 
                                    {buttonT("register")}
                                 </Button>

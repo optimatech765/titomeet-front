@@ -90,6 +90,7 @@ export const PublishedEventComponent = ({ event }: { event: EventDtoResponse }) 
                             </Button> */}
 
                             <Button
+                                name="Accéder à la discussion"
                                 startContent={<MessageCircleMore className="w-4 h-4" />}
                                 as={Link}
                                 href={`/user/message?eventId=${event.id}`}

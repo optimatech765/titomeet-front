@@ -75,6 +75,7 @@ export const MessagePageContent = () => {
                     ) : (
                         <>
                             <Button
+                                name={"Discussions"}
                                 onPress={() => setShowConversations(true)}
                                 className=" left-4 bg-secondary-blue text-white p-2 rounded-lg shadow"
                             >
@@ -84,6 +85,7 @@ export const MessagePageContent = () => {
                                 <div className="fixed inset-0 bg-black bg-opacity-50 z-40">
                                     <div className="absolute left-0 top-0 w-4/5 bg-[#F8F8F8] h-full p-4">
                                         <button
+                                            name={"Fermer"}
                                             className="absolute top-4 right-4 text-black"
                                             onClick={() => setShowConversations(false)}
                                         >
@@ -133,6 +135,7 @@ export const MessagePageContent = () => {
                         <div className="fixed inset-0 bg-black bg-opacity-50 z-40">
                             <div className="absolute right-0 top-0 w-4/5 bg-[#F8F8F8] h-full p-4">
                                 <button
+                                    name={"Fermer"}
                                     className="absolute top-4 left-4 text-black"
                                     onClick={() => setShowInformations(false)}
                                 >
