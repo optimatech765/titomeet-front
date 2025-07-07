@@ -64,10 +64,10 @@ export const NavbarSection = () => {
 
     const linksList = [
         { href: "/", label: navbarT("home") },
-        { href: "#evenements", label: navbarT("event") },
-        { href: "#categories", label: navbarT("categotie") },
-        { href: "#fonctionnalites", label: navbarT("functions") },
-        { href: "#providers", label: navbarT("provider") }
+        { href: "/#evenements", label: navbarT("event") },
+        { href: "/#categories", label: navbarT("categotie") },
+        { href: "/#fonctionnalites", label: navbarT("functions") },
+        { href: "/#providers", label: navbarT("provider") }
     ]
 
 
