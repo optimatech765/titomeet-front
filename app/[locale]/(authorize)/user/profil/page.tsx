@@ -13,7 +13,28 @@ export const metadata: Metadata = {
     creator: "@ahstoorx",
     publisher: "@ahstoorx",
     robots: "index,follow",
-    appleWebApp: true
+    appleWebApp: true,
+    alternates: {
+        canonical: 'https://titomeet.com/fr',
+        languages: {
+            'en': 'https://titomeet.com/en',
+            'fr': 'https://titomeet.com/fr',
+        },
+    },
+    openGraph: {
+        title: 'USER HOMEPAGE | TITOMEET',
+        description: 'Participez à des évènements en ligne de manière simple et sécurisée avec TITOMEET.',
+        url: 'https://titomeet.com/user/events',
+        siteName: 'Titomeet',
+        images: [
+            {
+                url: 'https://titomeet.com/img/logo.png',
+                width: 800,
+                height: 600,
+            },
+        ],
+        type: 'website',
+    },
 };
 
 
