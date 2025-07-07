@@ -5,7 +5,7 @@ import { Loginpage } from './_loginpage';
 
 export const metadata: Metadata = {
     title: "TitoMee - Connexion",
-    description: '...',
+    description: 'Page de conexion de titomeet',
   }
 
 const Page = () => {

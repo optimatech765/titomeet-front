@@ -1,74 +1,26 @@
-
-"use client"
-import { VideoPlayer } from "@/components/video.player.component";
-import { useScopedI18n } from "@/locales/client";
-import { BecomeProviderSection } from "@/sections/become-provider.section";
-import { CategorieSection } from "@/sections/categorie.section";
-import { EventsSection } from "@/sections/events.section";
-import { HeroSection } from "@/sections/hero.section";
-import { PartenairesSection } from "@/sections/partner.section";
+import React from 'react';
+import { HomePageContent } from './page.content';
+import { Metadata } from 'next';
 
 
-export default  function Home() {
+export const metadata: Metadata = {
+  keywords: "Evènement,Discussion,BENIN,MEET,REUNION,RESEAUTAGE,",
+  generator: "Next.js",
+  authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
+  applicationName: "TITOMEET",
+  title: "TITOMEET",
+  description: "TITOMEET est un service de réunions en ligne qui vous permet de rencontrer des personnes de votre réseau social, de vos amis, de vos collègues, de vos amis professionnels, et de toute autre personne qui vous intéresse.",
+  referrer: "no-referrer",
+  creator: "@ahstoorx",
+  publisher: "@ahstoorx",
+  robots: "index,follow",
+  appleWebApp: true
+};
 
- const eventT = useScopedI18n('event');
-  const categorieT = useScopedI18n('categorie');
-
-
+const Page = () => {
   return (
-    <div>
-
-      {/* <NavbarSection /> */}
-      {/* Ajout du composant section hero */}
-      <HeroSection />
-
-      {/* Section pour afficher les évènements */}
-      <div className="bg-gradiantBg py-10">
-
-        <section className="section-container">
-
-
-          <div id="evenements">
-            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins ">{eventT('titleUpcomming')}</h3>
-            <span className="text-[#1E1E1E] text-base">{eventT('descriptionUpcomming')}</span>
-            <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md "></div>
-          </div>
-          <EventsSection />
-
-        </section>
-
-        {/* Catégories */}
-        <section className="section-container" id="categories" >
-          <div className="space-y-1">
-            <h3 className="text-primary font-extrabold text-xl md:text-4xl font-poppins text-center ">{categorieT("title")}</h3>
-            <span className="text-[#1E1E1E] text-base text-center block">{categorieT("description")}</span>
-            <div className="bg-secondary h-2 max-w-36 mt-1 rounded-tl-md mx-auto rounded-r-full "></div>
-          </div>
-          <div>
-            <CategorieSection />
-          </div>
-        </section>
-      </div>
-
-      <section className="bg-footer py-10 md:pb-0 pb-16" id="fonctionnalites">
-        <VideoPlayer
-          poster="/img/function-Imagea.jpg"
-          videoUrl={"/videos/spote.mp4"}
-        />
-
-      </section>
-
-      {/* Fonctionnalités */}
-      <section className="py-5" id="providers">
-        <BecomeProviderSection />
-      </section>
-
-
-      {/* Partenaires */}
-      <section className="" id="partenaires">
-        <PartenairesSection />
-      </section>
-
-    </div>
+    <HomePageContent />
   );
 }
+
+export default Page;

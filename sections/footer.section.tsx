@@ -13,10 +13,10 @@ export const FooterSection = () => {
 
     const linksList = [
         { href: "/", label:navbarT("home") },
-        { href: "#evenements", label: navbarT("event") },
-        { href: "#categories", label: navbarT("categotie") },
-        { href: "#fonctionnalites", label: navbarT("functions") },
-        { href: "#providers", label: navbarT("provider") }
+        { href: "/#evenements", label: navbarT("event") },
+        { href: "/#categories", label: navbarT("categotie") },
+        { href: "/#fonctionnalites", label: navbarT("functions") },
+        { href: "/#providers", label: navbarT("provider") }
     ]
     return (
         <div className="mt-7">
@@ -46,10 +46,10 @@ export const FooterSection = () => {
                             <div>
                                 <span className={"font-semibold font-poppins "} >{websiteT("help")}</span>
                                 <div>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>FAQ</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("terms")}</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("policy")}</Link>
-                                    <Link href={"#"} scroll={true} className='block footer-link'>{websiteT("support")}</Link>
+                                    <Link href={"/faq"} scroll={true} className='block footer-link'>FAQ</Link>
+                                    <Link href={"/terms"} scroll={true} className='block footer-link'>{websiteT("terms")}</Link>
+                                    <Link href={"/policy"} scroll={true} className='block footer-link'>{websiteT("policy")}</Link>
+                                    <Link href={"/support"} scroll={true} className='block footer-link'>{websiteT("support")}</Link>
                                 </div>
                             </div>
                         </div>
