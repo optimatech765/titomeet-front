@@ -1,7 +1,8 @@
 
-import { EventDetails } from '@/components/event.detail.component';
 import { Metadata } from 'next';
 import React from 'react';
+import { EventDetailPageContent } from './event.detail.page.content';
+
 
 export const metadata: Metadata = {
   keywords: "Evènement,Discussion,BENIN,MEET,REUNION,RESEAUTAGE,",
@@ -14,12 +15,34 @@ export const metadata: Metadata = {
   creator: "@ahstoorx",
   publisher: "@ahstoorx",
   robots: "index,follow",
-  appleWebApp: true
+  appleWebApp: true,
+  alternates: {
+        canonical: 'https://titomeet.com/fr',
+        languages: {
+            'en': 'https://titomeet.com/en',
+            'fr': 'https://titomeet.com/fr',
+        },
+    },
+    openGraph: {
+        title: 'USER HOMEPAGE | TITOMEET',
+        description: 'Participez à des évènements en ligne de manière simple et sécurisée avec TITOMEET.',
+        url: 'https://titomeet.com/user/events',
+        siteName: 'Titomeet',
+        images: [
+            {
+                url: 'https://titomeet.com/img/logo.png',
+                width: 800,
+                height: 600,
+            },
+        ],
+        type: 'website',
+    },
 };
+
 const Route = () => {
     return (
-        <div className='section-container'>
-            <EventDetails />
+        <div>
+            <EventDetailPageContent />
         </div>
     );
 }

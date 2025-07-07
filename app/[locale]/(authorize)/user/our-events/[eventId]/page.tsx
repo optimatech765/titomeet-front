@@ -1,7 +1,7 @@
-"use client"
-import { EventDetails } from '@/components/event.detail.component';
+
 import { Metadata } from 'next';
 import React from 'react';
+import { EventDetailPageContent } from './event.detail.page.content';
 
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 const Route = () => {
     return (
         <div>
-            <EventDetails />
+            <EventDetailPageContent />
         </div>
     );
 }
