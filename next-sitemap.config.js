@@ -1,5 +1,9 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
+  siteName: 'TITOMEET',
+  generateIndexSitemap: true,
+  generateSitemaps: true,
+  sitemapBaseFileName: 'sitemap',
   siteUrl: 'https://titomeet.com',
   generateRobotsTxt: true,
   sitemapSize: 5000,
@@ -19,6 +23,6 @@ module.exports = {
         ],
       },
     ],
-    sitemap: 'https://titomeet.com/sitemap.xml',
+    sitemap: 'https://titomeet.com/sitemap-0.xml',
   },
 }

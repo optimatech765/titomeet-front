@@ -44,14 +44,14 @@ export const HeroSection = () => {
                 <div className="lg:w-1/2  lg:text-left space-y-4 mt-9">
 
                     <div className="text-4xl md:text-5xl font-bold text-black leading-tight space-y-2">
-                        <p className="text-primary">Tit<span className="text-secondary" >o</span>meet,</p>
-                        <p className="text-black">{hero(`title${activeIndex}` as any)}</p>
+                        <h1 className="text-primary">Tit<span className="text-secondary" >o</span>meet,</h1>
+                        <h2 className="text-black">{hero(`title${activeIndex}` as any)}</h2>
                     </div>
 
                     <div>
-                        <p className="text-gray-600 text-lg">
+                        <h3 className="text-gray-600 text-lg">
                             {hero(`description${activeIndex}` as any)}
-                        </p>
+                        </h3>
                     </div>
 
 
