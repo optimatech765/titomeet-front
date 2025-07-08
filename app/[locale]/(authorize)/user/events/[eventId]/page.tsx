@@ -45,7 +45,6 @@ export async function generateStaticParams() {
     // Simuler l’appel à une base de données ou API
     const events = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`).then(res => res.json())
 
-    
     return events.items.map((event: any) => ({
         id: event.id,
         locale: 'fr', // ou 'en'
