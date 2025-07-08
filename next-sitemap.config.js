@@ -23,6 +23,6 @@ module.exports = {
         ],
       },
     ],
-    sitemap: 'https://titomeet.com/sitemap-0.xml',
+    sitemap: 'https://titomeet.com/sitemap.xml',
   },
 }
