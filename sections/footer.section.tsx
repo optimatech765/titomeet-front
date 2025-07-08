@@ -47,7 +47,7 @@ export const FooterSection = () => {
                                 <span className={"font-semibold font-poppins "} >{websiteT("help")}</span>
                                 <div>
                                     <Link href={"/faq"} scroll={true} className='block footer-link'>FAQ</Link>
-                                    <Link href={"/terms"} scroll={true} className='block footer-link'>{websiteT("terms")}</Link>
+                                    <Link href={"/cgu"} scroll={true} className='block footer-link'>{websiteT("terms")}</Link>
                                     <Link href={"/policy"} scroll={true} className='block footer-link'>{websiteT("policy")}</Link>
                                     <Link href={"/support"} scroll={true} className='block footer-link'>{websiteT("support")}</Link>
                                 </div>
