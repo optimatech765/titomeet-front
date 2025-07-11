@@ -41,9 +41,9 @@ export const HeroSection = () => {
         <section className="bg-white  py-3">
             <div className="section-container mx-auto lg:flex lg:flex-row items-center  justify-between">
                 {/* Texte et boutons */}
-                <div className="lg:w-1/2  lg:text-left space-y-4 mt-9">
+                <div className="lg:w-1/2  lg:text-left flex flex-col gap-4 mt-9">
 
-                    <div className="text-4xl md:text-5xl font-bold text-black leading-tight space-y-2">
+                    <div className="text-4xl md:text-5xl font-bold text-black leading-tight">
                         <h1 className="text-primary">Tit<span className="text-secondary" >o</span>meet,</h1>
                         <h2 className="text-black">{hero(`title${activeIndex}` as any)}</h2>
                     </div>
@@ -77,7 +77,7 @@ export const HeroSection = () => {
 
                     {/* Barre de recherche */}
 
-                    <div className=" min-h-[93px] bg-hero-pattern bg-red-100 py-3 px-2  md:p-6 rounded-lg md:rounded-full mt-3  flex flex-col md:flex-row items-center gap-4 shadow-md">
+                    <div className=" min-h-[93px] bg-hero-pattern bg-red-100 p-2  md:p-4 rounded-lg md:rounded-full mt-1.5  flex flex-col md:flex-row items-center gap-4 shadow-md">
                         <Input
                             onChange={(e) => setSearchParameter({ ...searchParameter, keyWord: e.target.value })}
                             type="text"
@@ -106,8 +106,6 @@ export const HeroSection = () => {
                             <span className="">{buttonT('search')}</span>
                         </Button>
                     </div>
-
-
 
                 </div>
 
