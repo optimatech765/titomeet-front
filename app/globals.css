@@ -28,7 +28,7 @@
     }
 
     .footer-link{
-        @apply text-sm font-light;
+        @apply text-base font-light;
     }
 
     .section-container{
