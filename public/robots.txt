@@ -9,7 +9,10 @@ Disallow: /settings/
 Disallow: /profile/
 
 # Host
-Host: https://titomeet.com
+Host: https://www.titomeet.com
 
 # Sitemaps
 Sitemap: https://titomeet.com/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge (optionnel)
+# Crawl-delay: 5
