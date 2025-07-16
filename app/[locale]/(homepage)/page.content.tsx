@@ -66,7 +66,7 @@ export const HomePageContent = () => {
 
       {/* Partenaires */}
       <section className="" id="partenaires">
-        <PartenairesSection />
+        {/* <PartenairesSection /> */}
       </section>
 
     </div>
