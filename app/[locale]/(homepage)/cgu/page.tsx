@@ -4,6 +4,7 @@ import React from 'react';
 
 export const metadata: Metadata = {
     keywords: keywords,
+    title: "Titomeet - Conditions générales d'utilisation (CGU)",
     metadataBase: new URL(process.env.NEXT_PUBLIC_FRONT_URL as string),
     description: description,
     openGraph: {
