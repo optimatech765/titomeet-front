@@ -54,7 +54,6 @@ export const emailValidator = (data: string) => {
     const schema = Joi.string().email({ tlds: { allow: false } }).required().label('Email')
         .messages({
             ...customMessages,
-            'any.only': '{{#label}} doit être identique à Mot de passe.'
         })
 
     return returnError(schema.validate(data));
