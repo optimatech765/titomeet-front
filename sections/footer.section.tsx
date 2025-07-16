@@ -17,6 +17,7 @@ export const FooterSection = () => {
     const [email, setEmail] = useState("");
     const [isLoading, setisLoading] = useState(false);
 
+    
     const linksList = [
         { href: "/", label: navbarT("home") },
         { href: "/#evenements", label: navbarT("event") },
