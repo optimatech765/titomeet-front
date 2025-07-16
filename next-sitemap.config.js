@@ -36,6 +36,14 @@ module.exports = {
     await config.transform(config, '/#categories'),
     await config.transform(config, '/#fonctionnalites'),
     await config.transform(config, '/#providers'),
+    await config.transform(config, '/favicon.ico'),
+    await config.transform(config, '/500'),
+    await config.transform(config, '/404'),
+    await config.transform(config, '/sitemap.xml'),
+    await config.transform(config, '/robots.txt'),
+    await config.transform(config, '/manifest.webmanifest'),
+    await config.transform(config, '/apple-icon.png'),
+    await config.transform(config, '/img/logo.png'),
     // Ajoute toutes les routes publiques ici
   ],
 }
