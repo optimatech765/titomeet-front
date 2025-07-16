@@ -33,10 +33,10 @@ export const metadata: Metadata = {
         creator:"@ahstoorx",
     },
     alternates:{
-        canonical: 'https://titomeet.com/fr',
+        canonical: 'https://titomeet.com/faq',
         languages: {
-            'en': 'https://titomeet.com/en',
-            'fr': 'https://titomeet.com/fr',
+            'en': 'https://titomeet.com/en/faq',
+            'fr': 'https://titomeet.com/fr/faq',
         },
     },
     robots:{

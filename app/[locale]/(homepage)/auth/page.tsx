@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   robots: "index,follow",
   appleWebApp: true,
   alternates: {
-        canonical: 'https://titomeet.com/fr',
+        canonical: 'https://titomeet.com/auth',
         languages: {
-            'en': 'https://titomeet.com/en',
-            'fr': 'https://titomeet.com/fr',
+            'en': 'https://titomeet.com/en/auth',
+            'fr': 'https://titomeet.com/fr/auth',
         },
     },
     openGraph: {

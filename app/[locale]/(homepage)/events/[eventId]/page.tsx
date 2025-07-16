@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     robots: "index,follow",
     appleWebApp: true,
     alternates: {
-        canonical: 'https://titomeet.com/fr',
+        canonical: 'https://titomeet.com/events',
         languages: {
-            'en': 'https://titomeet.com/en',
-            'fr': 'https://titomeet.com/fr',
+            'en': 'https://titomeet.com/en/events',
+            'fr': 'https://titomeet.com/fr/events',
         },
     },
     openGraph: {
         title: 'USER HOMEPAGE | TITOMEET',
         description: 'Participez à des évènements en ligne de manière simple et sécurisée avec TITOMEET.',
-        url: 'https://titomeet.com/user/events',
+        url: 'https://titomeet.com/events',
         siteName: 'Titomeet',
         images: [
             {
