@@ -25,4 +25,18 @@ module.exports = {
     ],
     sitemap: 'https://titomeet.com/sitemap.xml',
   },
+  additionalPaths: async (config) => [
+    await config.transform(config, '/'),
+    await config.transform(config, '/cgu'),
+    await config.transform(config, '/policy'),
+    await config.transform(config, '/faq'),
+    await config.transform(config, '/support'),
+    await config.transform(config, '/events'),
+    await config.transform(config, '/#evenements'),
+    await config.transform(config, '/#categories'),
+    await config.transform(config, '/#fonctionnalites'),
+    await config.transform(config, '/#providers'),
+    // Ajoute toutes les routes publiques ici
+  ],
 }
+
