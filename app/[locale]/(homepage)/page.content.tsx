@@ -6,7 +6,6 @@ import { BecomeProviderSection } from "@/sections/become-provider.section";
 import { CategorieSection } from "@/sections/categorie.section";
 import { EventsSection } from "@/sections/events.section";
 import { HeroSection } from "@/sections/hero.section";
-import { PartenairesSection } from "@/sections/partner.section";
 
 
 export const HomePageContent = () => {
