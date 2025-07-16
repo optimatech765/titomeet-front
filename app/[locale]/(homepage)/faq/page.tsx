@@ -7,6 +7,7 @@ import type { Metadata, NextPage } from "next";
 
 export const metadata: Metadata = {
     keywords: keywords,
+    title:"Titomeet - Questions fréquentes (FAQ)",
     metadataBase: new URL(process.env.NEXT_PUBLIC_FRONT_URL as string),
     description: description,
     openGraph: {

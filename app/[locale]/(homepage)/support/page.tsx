@@ -6,6 +6,7 @@ export const metadata: Metadata = {
     keywords: keywords,
     metadataBase: new URL(process.env.NEXT_PUBLIC_FRONT_URL as string),
     description: description,
+    title: "Titomeet - Support",
     openGraph: {
         title: "Titomeet",
         url: process.env.NEXT_PUBLIC_FRONT_URL as string,

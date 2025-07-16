@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   generator: "Next.js",
   authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
   applicationName: "TITOMEET",
-  title: "TITOMEET",
+  title: "Titomeet - Accueil",
   description: "TITOMEET est un service de réunions en ligne qui vous permet de rencontrer des personnes de votre réseau social, de vos amis, de vos collègues, de vos amis professionnels, et de toute autre personne qui vous intéresse.",
   referrer: "no-referrer",
   creator: "@ahstoorx",
