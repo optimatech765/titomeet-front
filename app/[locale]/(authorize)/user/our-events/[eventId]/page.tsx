@@ -4,48 +4,66 @@
 import { Metadata } from 'next';
 import React from 'react';
 import { EventDetailPageContent } from './event.detail.page.content';
+import { keywords } from '@/utils/metadata-contant';
 
 
-export const metadata: Metadata = {
-    keywords: "Évènement Professionnel, Réseautage Bénin, Rencontre Business, Réunion d'Affaires, Networking Bénin, Discussion Professionnelle, Plateforme de Réseautage, Rencontre Entrepreneuriale, Organiser un Évènement, Agenda Bénin, Conférences Bénin, Meet-up Professionnel, Échange Business, Événementiel Bénin, Groupe de Discussion, Inscription Évènement, Salon Professionnel, Événement Interactif, Communauté Pro Bénin",
-    generator: "Next.js",
-    authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
-    applicationName: "TITOMEET",
-    title: "TITOMEET-EVENT DETAILS",
-    description: "TITOMEET est un service de réunions en ligne qui vous permet de rencontrer des personnes de votre réseau social, de vos amis, de vos collègues, de vos amis professionnels, et de toute autre personne qui vous intéresse.",
-    referrer: "no-referrer",
-    creator: "@ahstoorx",
-    publisher: "@ahstoorx",
-    robots: "index,follow",
-    appleWebApp: true,
-    alternates: {
-        canonical: 'https://titomeet.com/fr',
-        languages: {
-            'en': 'https://titomeet.com/en',
-            'fr': 'https://titomeet.com/fr',
-        },
-    },
-    openGraph: {
-        title: 'USER HOMEPAGE | TITOMEET',
-        description: 'Participez à des évènements en ligne de manière simple et sécurisée avec TITOMEET.',
-        url: 'https://titomeet.com/user/events',
-        siteName: 'Titomeet',
-        images: [
-            {
-                url: 'https://titomeet.com/img/logo.png',
-                width: 800,
-                height: 600,
+export async function generateMetadata({ params }: { params: Promise<{ eventId: string }> }): Promise<Metadata> {
+    const { eventId } = await params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events/${eventId}`, {
+        cache: 'no-store' // ou 'force-cache' selon le besoin
+    });
+    const event = await res.json();
+
+    return {
+        title: `TITOMEET | ${event.name}`,
+        description: event.description,
+        keywords: keywords,
+        generator: "Next.js",
+        authors: [{ name: "ADIVE HYACINTHE", url: "https://github.com/ahstoorx" }],
+        applicationName: "TITOMEET",
+        referrer: "no-referrer",
+        creator: "@ahstoorx",
+        publisher: "@ahstoorx",
+        robots: "index,follow",
+        appleWebApp: true,
+        alternates: {
+            canonical: `https://titomeet.com/events/${eventId}`,
+            languages: {
+                'en': `https://titomeet.com/en/events/${eventId}`,
+                'fr': `https://titomeet.com/fr/events/${eventId}`,
             },
-        ],
-        type: 'website',
-    },
-};
+        },
+        openGraph: {
+            title: `TITOMEET | ${event.name}`,
+            description: event.description,
+            url: `https://titomeet.com/events/${eventId}`,
+            siteName: 'Titomeet',
+            images: [
+                {
+                    url: 'https://titomeet.com/img/logo.png',
+                    width: 800,
+                    height: 600,
+                },
+            ],
+            type: 'website',
+        },
+        twitter: {
+            images: "https://titomeet.com/img/logo.png",
+            card: "summary_large_image",
+            title: `TITOMEET | ${event.name}`,
+            description: event.description,
+            site: `https://titomeet.com/events/${eventId}`,
+            creator: "@ahstoorx",
+        },
+
+    };
+}
 
 export async function generateStaticParams() {
     // Simuler l’appel à une base de données ou API
     const events = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`).then(res => res.json())
 
-    
+
     return events.items.map((event: any) => ({
         id: event.id,
         locale: 'fr', // ou 'en'

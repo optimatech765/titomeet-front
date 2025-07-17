@@ -7,10 +7,11 @@ import { useEventsStore } from "@/stores/events.store";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { formatDate, getHourMinute } from "@/utils/functions/date.function";
 import { Button, Card, CardBody, CardHeader } from "@heroui/react";
-import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Share2, Ticket } from "lucide-react";
+import { Clock, MapPinIcon, AlignHorizontalDistributeCenter, Heart, Ticket } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { ShareEventComponent } from "./share-event.component";
 
 export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
   const { isAuth } = useAppContext();
@@ -58,9 +59,11 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
         <div className="absolute z-50 top-0 left-0 w-full h-fit "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
           <div className="absolute flex items-center justify-items-end justify-end w-full pt-4 pr-4  ">
 
-            <Button name="Share" isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
+            {/* <Button name="Share" isIconOnly className=" bg-white rounded-full p-3 ml-2  ">
               <Share2 className="w-6 h-6 text-red-500 text-right " />
-            </Button>
+            </Button> */}
+
+            <ShareEventComponent singleEvent={event} iconly={true} />
 
 
             <Button name="Favoris" isIconOnly
