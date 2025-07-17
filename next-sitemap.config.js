@@ -1,10 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteName: 'TITOMEET',
   generateIndexSitemap: true,
-  generateSitemaps: true,
   sitemapBaseFileName: 'sitemap',
-  siteUrl: 'https://titomeet.com',
+  siteUrl: 'https://www.titomeet.com',
   generateRobotsTxt: true,
   sitemapSize: 5000,
   exclude: ['/admin', '/dashboard', '/api/*', '/auth/*', '/settings', '/profile'],
@@ -48,7 +46,7 @@ module.exports = {
         ],
       },
     ],
-    sitemap: 'https://titomeet.com/sitemap.xml',
+    sitemap: 'https://www.titomeet.com/sitemap.xml',
   },
   additionalPaths: async (config) => [
     await config.transform(config, '/'),
