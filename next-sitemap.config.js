@@ -27,6 +27,8 @@ module.exports = {
   },
   additionalPaths: async (config) => [
     await config.transform(config, '/'),
+    await config.transform(config, '/fr'),
+    await config.transform(config, '/en'),
     await config.transform(config, '/cgu'),
     await config.transform(config, '/policy'),
     await config.transform(config, '/faq'),
