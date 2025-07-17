@@ -1,15 +1,24 @@
-# *
+# robots.txt for TITOMEET - https://titomeet.com
+
+# Autoriser tous les moteurs de recherche sauf certains dossiers sensibles
 User-agent: *
-Allow: /
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /api/
 Disallow: /auth/
-Disallow: /settings/
 Disallow: /profile/
+Disallow: /login/
+Disallow: /register/
+Disallow: /settings/
 
-# Host
-Host: https://titomeet.com
+# Fichiers et pages sans intérêt SEO
+Disallow: /_next/
+Disallow: /favicon.ico
+Disallow: /404
+Disallow: /500
 
-# Sitemaps
+# Sitemap
 Sitemap: https://titomeet.com/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge (optionnel)
+# Crawl-delay: 5
