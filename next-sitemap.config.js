@@ -8,6 +8,31 @@ module.exports = {
   generateRobotsTxt: true,
   sitemapSize: 5000,
   exclude: ['/admin', '/dashboard', '/api/*', '/auth/*', '/settings', '/profile'],
+  transform: async (config, path) => {
+    let priority = 0.7;
+    let changefreq = 'monthly';
+
+    if (path === '/') {
+      priority = 1.0;
+      changefreq = 'daily';
+    } else if (['/fr', '/en'].includes(path)) {
+      priority = 0.8;
+      changefreq = 'weekly';
+    } else if (['/faq', '/support', '/cgu', '/policy'].includes(path)) {
+      priority = 0.6;
+      changefreq = 'yearly';
+    } else if (path === '/events') {
+      priority = 0.9;
+      changefreq = 'daily';
+    }
+
+    return {
+      loc: config.siteUrl + path,
+      changefreq,
+      priority,
+      lastmod: new Date().toISOString(),
+    };
+  },
   robotsTxtOptions: {
     policies: [
       {
