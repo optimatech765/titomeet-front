@@ -5,7 +5,6 @@ import AdvanceComponent from '@/components/create-event/advance.component';
 import GeneralInforComponent from '@/components/create-event/general.infor.component';
 import ResumeComponent from '@/components/create-event/resume.component';
 import VisibilityCommunicationComponent from '@/components/create-event/visibility.communication.component';
-import { eventSevices } from '@/services/events/event.services';
 import { useEventsStore } from '@/stores/events.store';
 import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
@@ -14,9 +13,10 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetDate, GetHour } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
-import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
 import { useRouter } from 'next/navigation';
+import { EventServices } from '@/services/events/event.services';
+import { AssetsServices } from '@/services/assets/assets.services';
 
 export const CreateEventPageContent = () => {
 
@@ -77,6 +77,9 @@ export const CreateEventPageContent = () => {
                     amount: parseInt(item.amount, 10)
                 }));
 
+                const token = localStorage.getItem('accessToken') || "";
+                const eventSevices = new EventServices(token);
+
                 eventSevices.createEvent({
                     ...eventData,
                     prices: newData.accessType === 'PAID' ? updatedData : [{
@@ -93,7 +96,7 @@ export const CreateEventPageContent = () => {
                     endTime: GetHour(eventData?.endTime),
                     isDraft: true,
                 }).then(
-                    (response) => {
+                    (response: any) => {
                         console.log(response);
                         toast.update(toastId, {
                             render: "Sauvegarde réussie",
@@ -105,7 +108,7 @@ export const CreateEventPageContent = () => {
                         resetAllData();
                         router.push("/user/our-events");
                     },
-                    (error) => {
+                    (error: any) => {
                         console.log(error);
                         toast.update(toastId, {
                             render: "Erreur lors de la sauvegarde",
@@ -129,6 +132,8 @@ export const CreateEventPageContent = () => {
 
     const uploadFile = async (file: File) => {
 
+        const token = localStorage?.getItem('accessToken') || "";
+        const assetsServices = new AssetsServices(token);
         const response = await assetsServices.getPresignUrl({
             fileName: "" + new Date().getTime() + file.name,
             fileType: file?.type
@@ -211,6 +216,9 @@ export const CreateEventPageContent = () => {
                     ...item,
                     amount: parseInt(item.amount, 10)
                 }));
+
+                const token = localStorage?.getItem('accessToken') || "";
+                const eventSevices = new EventServices(token);
 
                 eventSevices.createEvent({
                     ...newData,
@@ -438,9 +446,9 @@ export const CreateEventPageContent = () => {
                     <div className='flex items-center justify-end'>
 
 
-                        <Button 
-                        name={"Suivant"}
-                        onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                        <Button
+                            name={"Suivant"}
+                            onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                             Suivant
                         </Button>
                     </div>
@@ -455,14 +463,14 @@ export const CreateEventPageContent = () => {
                     <div className='flex items-center justify-end'>
 
                         <div className="flex  gap-2">
-                            <Button 
-                            name={"Précédent"}
-                            onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                            <Button
+                                name={"Précédent"}
+                                onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button 
-                            name={"Suivant"}
-                            onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                            <Button
+                                name={"Suivant"}
+                                onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                 Suivant
                             </Button>
                         </div>
@@ -479,14 +487,14 @@ export const CreateEventPageContent = () => {
                     <div className='flex items-center justify-end'>
 
                         <div className="flex  gap-2">
-                            <Button 
-                            name={"Précédent"}
-                            onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                            <Button
+                                name={"Précédent"}
+                                onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button 
-                            name={"Suivant"}
-                            onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                            <Button
+                                name={"Suivant"}
+                                onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                 Suivant
                             </Button>
                         </div>
@@ -501,26 +509,26 @@ export const CreateEventPageContent = () => {
                     <ResumeComponent setActiveStep={setActiveStep} />
                     <div className='flex flex-wrap gap-4 items-center justify-between'>
                         <div className="flex gap-2">
-                            <Button 
-                            name={"Enregistrer brouillon"}
-                            disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "draft"} onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                            <Button
+                                name={"Enregistrer brouillon"}
+                                disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "draft"} onPress={handleSaveDraftEvent} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                 Enregistrer brouillon
                             </Button>
-                            <Button 
-                            name={"Supprimer"}
-                            disabled={isLoading} isDisabled={isLoading} onPress={resetAllData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button
+                                name={"Supprimer"}
+                                disabled={isLoading} isDisabled={isLoading} onPress={resetAllData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Supprimer
                             </Button>
                         </div>
                         <div className="flex  gap-2">
-                            <Button 
-                            name={"Précédent"}
-                            disabled={isLoading} isDisabled={isLoading} onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                            <Button
+                                name={"Précédent"}
+                                disabled={isLoading} isDisabled={isLoading} onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                 Précédent
                             </Button>
-                            <Button 
-                            name={"Publier"}
-                            disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "save"} onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                            <Button
+                                name={"Publier"}
+                                disabled={isLoading} isDisabled={isLoading} isLoading={isLoading && userAction === "save"} onPress={handleSaveEvent} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                 Publier
                             </Button>
                         </div>

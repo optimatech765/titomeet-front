@@ -1,5 +1,5 @@
 
-import { notificationsServices } from "@/services/notifications/notifcations.services";
+import { NotificationsServices } from "@/services/notifications/notifcations.services";
 import { NotificationDto } from "@/utils/dto/notification.dto";
 import { create } from "zustand";
 
@@ -33,7 +33,8 @@ export const useNotificationsStore = create<EventStore>((set) => ({
                 isLoading: true,
             }));
 
-            console.log("fetchNotificationsList")
+            const token = localStorage?.getItem('accessToken') || "";
+            const notificationsServices = new NotificationsServices(token);
             notificationsServices
                 .getNotifications()
                 .then(

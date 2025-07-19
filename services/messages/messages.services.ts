@@ -2,12 +2,13 @@
 import axios from 'axios';
 import { tokenServices } from '../tokenService';
 
-class MessageServices {
+export class MessageServices {
     baseUrl = process.env.NEXT_PUBLIC_API_CHAT;
 
-    constructor() {
-        tokenServices.setHeader();
+     constructor(token:string) {
+        tokenServices.setHeaderToken(token);
     }
+
     getChats() {
         return axios.get(`${this.baseUrl}/list`);
     }
@@ -38,7 +39,3 @@ class MessageServices {
 
 
 }
-
-const messagesSevices = new MessageServices();
-
-export { messagesSevices }

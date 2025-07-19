@@ -2,12 +2,12 @@
 import axios from "axios";
 import { tokenServices } from "../tokenService";
 
-class AssetsServices {
+export class AssetsServices {
 
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor() {
-        tokenServices.setHeader();
+    constructor(token:string) {
+        tokenServices.setHeaderToken(token);
     }
 
     getPresignUrl(data: Asset) {
@@ -24,10 +24,6 @@ class AssetsServices {
     }
 
 }
-
-const assetsServices = new AssetsServices();
-
-export { assetsServices }
 
 interface Asset {
 

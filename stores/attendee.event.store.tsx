@@ -2,10 +2,10 @@
 "use client"
 import { parseAbsoluteToLocal, parseDate } from '@internationalized/date';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { eventSevices } from "@/services/events/event.services";
 import { EventDto, EventDtoResponse } from "@/utils/dto/events.dto";
 import { create } from "zustand";
 import { paramsToQueryString, QyeryParamsDto } from '@/utils/functions/other.functions';
+import { EventServices } from '@/services/events/event.services';
 
 
 type EventStore = {
@@ -143,8 +143,9 @@ export const useAttendeeEventsStore = create<EventStore>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
-
-            eventSevices
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventServices = new EventServices(token);
+            eventServices
                 .getEvents(queryString)
                 .then(
                     (response) => {
@@ -183,8 +184,9 @@ export const useAttendeeEventsStore = create<EventStore>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
-
-            eventSevices
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventServices = new EventServices(token);
+            eventServices
                 .getEvent(id)
                 .then(
                     async (response) => {
@@ -232,8 +234,10 @@ export const useAttendeeEventsStore = create<EventStore>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventServices = new EventServices(token);
 
-            eventSevices
+            eventServices
                 .getEvent(id)
                 .then(
                     async (response) => {

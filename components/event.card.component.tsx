@@ -2,7 +2,6 @@
 
 
 import { useAppContext } from "@/context";
-import { eventSevices } from "@/services/events/event.services";
 import { useEventsStore } from "@/stores/events.store";
 import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { formatDate, getHourMinute } from "@/utils/functions/date.function";
@@ -12,6 +11,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { ShareEventComponent } from "./share-event.component";
+import { EventServices } from "@/services/events/event.services";
 
 export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
   const { isAuth } = useAppContext();
@@ -21,8 +21,9 @@ export const EventCardComponent = ({ event }: { event: EventDtoResponse }) => {
   const handleFavoris = (id: string) => {
     try {
       if (isAuth?.id && isAuth?.id !== "") {
-
-        eventSevices.toggleFavorit(id).then((response) => {
+        const token = localStorage?.getItem('accessToken') || "";
+        const eventServices = new EventServices(token);
+        eventServices.toggleFavorit(id).then((response) => {
           console.log(response);
           toast.success("Evènement favoris modifié avec succès", {
             position: "top-center",

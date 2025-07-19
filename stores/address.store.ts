@@ -1,5 +1,5 @@
 "use client"
-import { addressServices } from "@/services/address/address.services";
+import { AddressServices } from "@/services/address/address.services";
 import { AddressDto } from "@/utils/dto/address.dto";
 import { create } from "zustand";
 
@@ -32,7 +32,8 @@ export const AddressStore = create<AddressStoreDto>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
-
+            const token = localStorage?.getItem('accessToken') || "";
+            const addressServices = new AddressServices(token);
             addressServices
                 .getAddresses(query)
                 .then(

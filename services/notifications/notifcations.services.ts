@@ -1,11 +1,11 @@
 import axios from "axios";
 import { tokenServices } from "../tokenService";
 
-class NotificationsServices {
+export class NotificationsServices {
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor() {
-        tokenServices.setHeader();
+    constructor(token:string) {
+        tokenServices.setHeaderToken(token);
     }
 
     getNotifications() {
@@ -13,7 +13,3 @@ class NotificationsServices {
     }
 
 }
-
-const notificationsServices = new NotificationsServices();
-
-export { notificationsServices }

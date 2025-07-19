@@ -5,7 +5,6 @@ import AdvanceComponent from '@/components/create-event/advance.component';
 import GeneralInforComponent from '@/components/create-event/general.infor.component';
 import ResumeComponent from '@/components/create-event/resume.component';
 import VisibilityCommunicationComponent from '@/components/create-event/visibility.communication.component';
-import { eventSevices } from '@/services/events/event.services';
 import { useEventsStore } from '@/stores/events.store';
 import { EventStepOneValidator, EventStepThreeValidator, EventStepTwoValidator, EventsUpdateValidator, EventsValidator } from '@/utils/validator/events.validator';
 import { Button } from '@heroui/button';
@@ -14,10 +13,11 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetDate } from '@/utils/functions/date.function';
 import { InputErrorStore } from '@/stores/input.error.store';
-import { assetsServices } from '@/services/assets/assets.services';
 import { cleanResponse, EventDataFilter } from '@/utils/functions/other.functions';
 import { useParams, useRouter } from 'next/navigation';
 import { LoadingComponent2 } from '@/components/loading.component';
+import { AssetsServices } from '@/services/assets/assets.services';
+import { EventServices } from '@/services/events/event.services';
 
 const Page = () => {
 
@@ -33,7 +33,8 @@ const Page = () => {
     const { setMessageError } = InputErrorStore()
 
     const uploadFile = async (file: File) => {
-
+        const token = localStorage?.getItem('accessToken') || "";
+        const assetsServices = new AssetsServices(token);
         const response = await assetsServices.getPresignUrl({
             fileName: "" + new Date().getTime() + file.name,
             fileType: eventData.coverPicture?.type
@@ -72,6 +73,8 @@ const Page = () => {
 
     const handleSaveEvent = async (action: "DRAFT" | "PUBLISH") => {
         try {
+              const token = localStorage?.getItem('accessToken') || "";
+              const eventServices = new EventServices(token);
 
 
             const startDate = GetDate(eventData.startDate as any)
@@ -116,7 +119,7 @@ const Page = () => {
 
                 if (eventData.id && eventData.id !== "") {
                     const { id, other } = EventDataFilter(eventData);
-                    eventSevices.updateEvent(id, {
+                    eventServices.updateEvent(id, {
                         ...other,
                         id: id,
                         prices: updatedData,
@@ -151,7 +154,7 @@ const Page = () => {
                         }
                     );
                 } else {
-                    eventSevices.createEvent({
+                    eventServices.createEvent({
                         ...eventData,
                         prices: updatedData,
                         categories: eventData?.categories?.split(","),
@@ -420,14 +423,14 @@ const Page = () => {
                                     Enregistrer brouillon
                                 </Button>
                                 <div className="flex  gap-2">
-                                    <Button 
-                                    name={"Précédent"}
-                                    onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                    <Button
+                                        name={"Précédent"}
+                                        onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button 
-                                    name={"Suivant"}
-                                    onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
+                                    <Button
+                                        name={"Suivant"}
+                                        onPress={handleNextStep} className={" bg-primary px-20 text-white"} radius='full' >
                                         Suivant
                                     </Button>
                                 </div>
@@ -442,26 +445,26 @@ const Page = () => {
                             <ResumeComponent setActiveStep={setActiveStep} />
                             <div className='flex flex-wrap gap-4 items-center justify-between'>
                                 <div className="flex gap-2">
-                                    <Button 
-                                    name={"Enregistrer brouillon"}
-                                    onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
+                                    <Button
+                                        name={"Enregistrer brouillon"}
+                                        onPress={() => handleSaveEvent("DRAFT")} variant="bordered" className={" px-2 lg:px-8 text-primary border-primary "} radius='full' >
                                         Enregistrer brouillon
                                     </Button>
-                                    <Button 
-                                    name={"Supprimer"}
-                                    onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                    <Button
+                                        name={"Supprimer"}
+                                        onPress={resetData} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                         Supprimer
                                     </Button>
                                 </div>
                                 <div className="flex  gap-2">
                                     <Button
-                                    name={"Précédent"}
-                                     onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
+                                        name={"Précédent"}
+                                        onPress={handlePrevStep} className={" md:px-10 lg:px-20 text-primary bg-[#FACCCF] "} radius='full' >
                                         Précédent
                                     </Button>
-                                    <Button 
-                                    name={"Publier"}
-                                    onPress={() => handleSaveEvent("PUBLISH")} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
+                                    <Button
+                                        name={"Publier"}
+                                        onPress={() => handleSaveEvent("PUBLISH")} className={" bg-primary md:px-10 lg:px-20 text-white"} radius='full' >
                                         Publier
                                     </Button>
                                 </div>

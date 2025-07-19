@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { LoadingComponent2 } from '@/components/loading.component';
-import { eventSevices } from '@/services/events/event.services';
+import { EventServices } from '@/services/events/event.services';
 import { useEventsStore } from '@/stores/events.store';
 import { formatDateFrench, getHourMinute } from '@/utils/functions/date.function';
 import { Banknote, Calendar, Clock, MapPin } from 'lucide-react';
@@ -23,9 +23,10 @@ export const OrderConfirmComponent = () => {
     const event = params?.eventId
 
     const handleGetShopInfo = async () => {
-
+        const token = localStorage?.getItem('accessToken') || "";
+        const eventServices = new EventServices(token);
         try {
-            eventSevices.getShopInfo(id as string).then((res) => {
+            eventServices.getShopInfo(id as string).then((res) => {
                 console.log(res?.data)
                 setShoppingInfo(res.data)
 

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { parseAbsoluteToLocal, parseDate } from '@internationalized/date';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { eventSevices } from "@/services/events/event.services";
 import { EventDto, EventDtoResponse } from "@/utils/dto/events.dto";
 import { create } from "zustand";
 import { paramsToQueryString, QyeryParamsDto } from '@/utils/functions/other.functions';
+import { EventServices } from '@/services/events/event.services';
 
 
 type EventStore = {
@@ -143,6 +143,8 @@ export const useEventsStore = create<EventStore>((set) => ({
                 isLoading: true,
                 dataList: []
             }));
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventSevices = new EventServices(token);
 
             eventSevices
                 .getEvents(queryString)
@@ -183,7 +185,8 @@ export const useEventsStore = create<EventStore>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
-
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventSevices = new EventServices(token);
             eventSevices
                 .getEvent(id)
                 .then(
@@ -206,7 +209,7 @@ export const useEventsStore = create<EventStore>((set) => ({
                             data: {
                                 ...response.data,
                                 coverPicture: coverPicture,
-                                isDraft: response.data.status==='DRAFT',
+                                isDraft: response.data.status === 'DRAFT',
                                 badge: badge,
                                 categories: response.data.categories.map((item: any) => item.id).join(","),
                                 startDate: parseDate(response.data.startDate.split('T')[0]),
@@ -237,6 +240,8 @@ export const useEventsStore = create<EventStore>((set) => ({
                 isLoading: true,
             }));
 
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventSevices = new EventServices(token);
             eventSevices
                 .getEvent(id)
                 .then(

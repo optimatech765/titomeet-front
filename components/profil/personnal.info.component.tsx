@@ -6,7 +6,7 @@ import { InputContainerComponentTop } from '../create-event/input.container.comp
 import { useUserInfoStore } from '@/stores/userinfo.store';
 import { useAppContext } from '@/context';
 import { useScopedI18n } from '@/locales/client';
-import { assetsServices } from '@/services/assets/assets.services';
+import { AssetsServices } from '@/services/assets/assets.services';
 import { cleanResponse } from '@/utils/functions/other.functions';
 
 export const PersonnalInfoComponent = () => {
@@ -36,7 +36,8 @@ export const PersonnalInfoComponent = () => {
     };
 
     const uploadFile = async (file: File) => {
-
+        const token = localStorage?.getItem('accessToken') || "";
+        const assetsServices = new AssetsServices(token);
         const response = await assetsServices.getPresignUrl({
             fileName: "" + new Date().getTime() + file.name,
             fileType: file?.type
