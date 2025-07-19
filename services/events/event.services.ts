@@ -2,11 +2,11 @@
 import axios from 'axios';
 import { tokenServices } from '../tokenService';
 
-class EventServices {
+export class EventServices {
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor() {
-        tokenServices.setHeader();
+    constructor(token:string) {
+        tokenServices.setHeaderToken(token);
     }
 
     getEvents(data:string) {
@@ -41,7 +41,3 @@ class EventServices {
         return axios.get(`${this.baseUrl}/orders/${id}`);
     }
 }
-
-const eventSevices = new EventServices();
-
-export { eventSevices }

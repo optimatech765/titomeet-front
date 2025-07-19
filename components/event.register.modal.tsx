@@ -14,9 +14,9 @@ import {
 import { Plus } from "lucide-react";
 import { useEventsStore } from "@/stores/events.store";
 import { useParams, useRouter } from "next/navigation";
-import { eventSevices } from "@/services/events/event.services";
 import { toast } from "react-toastify";
 import { useAppContext } from "@/context";
+import { EventServices } from "@/services/events/event.services";
 
 interface shopInterface {
     productName: string;
@@ -72,7 +72,7 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 items: data,
             }
 
-            if (!isAuth || isAuth?.email==="") {
+            if (!isAuth || isAuth?.email === "") {
                 cartData = {
                     ...cartData,
                     firstName: buyerInfo?.firstName,
@@ -80,18 +80,21 @@ export const EventRegisterModal = ({ isOpen, onClose }: {
                 }
             }
 
-            eventSevices.buyTicket(event as string, cartData).then(
+
+            const token = localStorage?.getItem('accessToken') || "";
+            const eventServices = new EventServices(token);
+            eventServices.buyTicket(event as string, cartData).then(
                 (response) => {
                     console.log(response);
                     toast.success("Vous avez acheté votre ticket");
                     if (singleEvent.accessType === "PAID") {
                         router.push(response.data.url);
                     } else {
-                         if (!isAuth || isAuth?.email==="") {
-                        router.push(`/events/${event}/order-confirm`);
-                         }else{
-                             router.push(`/user/events/${event}/order-confirm`);
-                         }
+                        if (!isAuth || isAuth?.email === "") {
+                            router.push(`/events/${event}/order-confirm`);
+                        } else {
+                            router.push(`/user/events/${event}/order-confirm`);
+                        }
                     }
 
                 },

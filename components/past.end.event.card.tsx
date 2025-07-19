@@ -9,10 +9,11 @@ import {
     useDisclosure,
     Textarea,
 } from '@heroui/react';
-import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPinIcon, Share2, Star } from 'lucide-react';
+import { AlignHorizontalDistributeCenter, Clock, Eclipse, MapPinIcon,  Star } from 'lucide-react';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 import { RaitingComponent } from './raiting.component';
+import { ShareEventComponent } from './share-event.component';
 
 export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
 
@@ -41,12 +42,7 @@ export const PastEndEventCard = ({ event }: { event: EventDtoResponse }) => {
                             <div className="absolute top-0 right-0 w-full h-full "> {/* //bg-gradient-to-b from-transparent to-black opacity-50 */}
                                 <div className="absolute flex right items-center justify-end  w-full pt-4 pr-4  ">
 
-                                    <Button
-                                        name="Share"
-                                        isIconOnly className=" bg-white rounded-full p-3 ml-2   text-right">
-                                        <Share2 className="w-6 h-6 text-red-500  " />
-                                    </Button>
-
+                                     <ShareEventComponent singleEvent={event} iconly={true} />
 
                                 </div>
 

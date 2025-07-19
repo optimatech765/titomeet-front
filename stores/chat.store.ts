@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { messagesSevices } from "@/services/messages/messages.services";
+import { MessageServices } from "@/services/messages/messages.services";
 import { create } from "zustand";
 
 
@@ -31,6 +30,8 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
     isError: false,
     fetchChatList: () => {
         try {
+            const token = localStorage?.getItem('accessToken') || "";
+            const messagesSevices = new MessageServices(token);
             messagesSevices.getChats().then((response) => {
 
                 set(() => ({
@@ -57,6 +58,8 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
 
     },
     fetchMessages: (chatId: string) => {
+        const token = localStorage?.getItem('accessToken') || "";
+        const messagesSevices = new MessageServices(token);
         messagesSevices.getMessages(chatId).then((response) => {
             set(() => ({
                 messages: response.data,
@@ -72,7 +75,9 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
         });
     },
     sendMessage: (chatId: string, message: string, files: any[]) => {
-        messagesSevices.createMessage({ chatId, text: message, files:files }).then((response) => {
+        const token = localStorage?.getItem('accessToken') || "";
+        const messagesSevices = new MessageServices(token);
+        messagesSevices.createMessage({ chatId, text: message, files: files }).then((response) => {
 
             set((state: ChatStoreDto) => ({
                 messages: {
@@ -98,6 +103,8 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
     },
     chatMembers: {},
     fetchChatMembers: (chatId: string) => {
+        const token = localStorage?.getItem('accessToken') || "";
+        const messagesSevices = new MessageServices(token);
         messagesSevices.getChatMembers(chatId).then((response) => {
             set(() => ({
                 chatMembers: response.data,
@@ -118,7 +125,7 @@ export const ChatStore = create<ChatStoreDto>((set) => ({
                 messages: {
                     ...state.messages,
                     items: isCurrentChat
-                        ? [ message,...state.messages.items]
+                        ? [message, ...state.messages.items]
                         : [...state.messages.items]
                 }
             };

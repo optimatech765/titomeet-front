@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { FilePreviewComponent } from '@/components/file.preview.component';
-import { assetsServices } from '@/services/assets/assets.services';
+import { AssetsServices } from '@/services/assets/assets.services';
 import { ProvidersServices } from '@/services/providers/providers.services';
 import { InputErrorStore } from '@/stores/input.error.store';
 import { useProvidersStore } from '@/stores/providers.store';
@@ -29,7 +29,8 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
     const { updateProviderData, providerData, setProviderData } = useProvidersStore();
 
     const uploadFile = async (file: File) => {
-
+        const token = localStorage?.getItem('accessToken') || "";
+        const assetsServices = new AssetsServices(token);
         const response = await assetsServices.getPresignUrl({
             fileName: "" + new Date().getTime() + file.name,
             fileType: file?.type
@@ -116,7 +117,7 @@ export const ThirdStep = ({ setActiveStep }: { setActiveStep: (activeStep: numbe
                         phoneNumber: providerData.phoneNumber,
                         website: providerData.website,
                         pricingDetails: providerData.pricingDetails,
-                        docs:docs
+                        docs: docs
                     })
                     .then(
                         (response) => {

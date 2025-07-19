@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { categoriesServices } from "@/services/categories/categories.services";
+import { CategoriesServices } from "@/services/categories/categories.services";
 import { CategorieDto } from "@/utils/dto/categorie.dto";
 import { toast } from "react-toastify";
 import { create } from "zustand";
@@ -76,6 +76,8 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             set(() => ({
                 isLoading: true,
             }));
+            const token = localStorage?.getItem('accessToken') || "";
+            const categoriesServices = new CategoriesServices(token);
 
             categoriesServices
                 .getCategories()
@@ -116,6 +118,9 @@ export const EventCategorieStore = create<EventCategoriesStoreDto>((set) => ({
             set(() => ({
                 isSubmit: true,
             }));
+
+            const token = localStorage?.getItem('accessToken') || "";
+            const categoriesServices = new CategoriesServices(token);
 
             const toastId = toast.loading("Enregistrement en cours...");
             categoriesServices

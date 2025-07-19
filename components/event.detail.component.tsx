@@ -19,11 +19,11 @@ import { EventDtoResponse } from "@/utils/dto/events.dto";
 import { useParams, useRouter } from "next/navigation";
 import { formatDateFrench, getHourMinute } from "@/utils/functions/date.function";
 import { LoadingComponent2 } from "./loading.component";
-import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import Image from 'next/image';
 import clsx from 'clsx';
 import { EventMapComponent } from './events/event.map.component';
 import { useScopedI18n } from '@/locales/client';
+import { ShareEventComponent } from './share-event.component';
 
 
 export const EventDetails = () => {
@@ -153,57 +153,7 @@ export const EventDetails = () => {
                                     name="Join"
                                     onPress={() => onOpen()} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("join")}</Button>
 
-                                <Dropdown>
-                                    <DropdownTrigger>
-                                        <Button name="Share" variant={"bordered"} size="sm" color="primary" radius="full" className="mt-2 flex-1 w-full">{eventT("share")}</Button>
-                                    </DropdownTrigger>
-                                    <DropdownMenu aria-label="Static Actions">
-
-                                        <DropdownItem key="copy">
-                                            <FacebookShareButton
-                                                url={window.location.href}
-                                                title={"Share this event"}
-                                                hashtag={"tito.me"}
-                                            >
-                                                <div className="flex items-center gap-2">
-                                                    <FacebookIcon size={20} className="text-primary" round={true} />
-                                                    <span>Facebook</span>
-
-                                                </div>
-                                            </FacebookShareButton>
-                                        </DropdownItem>
-                                        <DropdownItem key="edit">
-                                            <WhatsappShareButton url={window.location.href} title="Share this event">
-                                                <div className="flex items-center gap-2">
-                                                    <WhatsappIcon size={20} className="text-primary" round={true} />
-                                                    <span>Whatsapp</span>
-                                                </div>
-                                            </WhatsappShareButton>
-                                        </DropdownItem>
-                                        <DropdownItem key="edit">
-                                            <TwitterShareButton url={window.location.href} title="Share this event">
-                                                <div className="flex items-center gap-2">
-                                                    <TwitterIcon size={20} className="text-primary" round={true} />
-                                                    <span>Twitter</span>
-                                                </div>
-
-                                            </TwitterShareButton>
-                                        </DropdownItem>
-                                        <DropdownItem key="edit">
-                                            <LinkedinShareButton url={window.location.href} title="Share this event" >
-                                                <div className="flex items-center gap-2">
-                                                    <LinkedinIcon size={20} className="text-primary" round={true} />
-
-                                                    <span>Linkedin</span>
-                                                </div>
-
-                                            </LinkedinShareButton>
-                                        </DropdownItem>
-
-
-
-                                    </DropdownMenu>
-                                </Dropdown>
+                                <ShareEventComponent singleEvent={singleEvent} />
 
 
                             </div>

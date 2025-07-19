@@ -2,12 +2,12 @@
 import axios from "axios";
 import { tokenServices } from "../tokenService";
 
-class AddressServices {
+export class AddressServices {
 
     baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor() {
-        tokenServices.setHeader();
+    constructor(token:string) {
+        tokenServices.setHeaderToken(token);
     }
 
     getAddresses(query: string) {
@@ -15,7 +15,3 @@ class AddressServices {
     }
 
 }
-
-const addressServices = new AddressServices();
-
-export { addressServices }

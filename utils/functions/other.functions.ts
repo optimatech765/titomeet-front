@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { assetsServices } from "@/services/assets/assets.services";
+import { AssetsServices } from "@/services/assets/assets.services";
+
+
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const cleanResponse = (response: any): any => {
@@ -72,6 +74,8 @@ export const EventDataFilter = (data: any) => {
 export const uploadMultipleFiles = async (files: File[]) => {
   const results = await Promise.all(
     files.map(async (file) => {
+      const token = localStorage?.getItem('accessToken') || "";
+      const assetsServices = new AssetsServices(token);
       const response = await assetsServices.getPresignUrl({
         fileName: "" + new Date().getTime() + file.name,
         fileType: file.type,
