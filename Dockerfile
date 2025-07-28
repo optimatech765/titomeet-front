@@ -1,5 +1,5 @@
 # Use a lightweight Node.js image as the base
-FROM node:20-alpine
+FROM node:alpine
 
 
 # Set the working directory
