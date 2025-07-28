@@ -6,11 +6,12 @@ import { BecomeProviderSection } from "@/sections/become-provider.section";
 import { CategorieSection } from "@/sections/categorie.section";
 import { EventsSection } from "@/sections/events.section";
 import { HeroSection } from "@/sections/hero.section";
+import { SubscriptionPacks } from "@/sections/package.section";
 
 
 export const HomePageContent = () => {
 
- const eventT = useScopedI18n('event');
+  const eventT = useScopedI18n('event');
   const categorieT = useScopedI18n('categorie');
 
 
@@ -61,6 +62,10 @@ export const HomePageContent = () => {
       <section className="py-5" id="providers">
         <BecomeProviderSection />
       </section>
+      <section className="" id="subscription">
+        <SubscriptionPacks />
+      </section>
+
 
 
       {/* Partenaires */}
