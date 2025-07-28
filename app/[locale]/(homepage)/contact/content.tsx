@@ -55,17 +55,17 @@ export const ContactInterface = () => {
     }
   ];
 
-  const handleInputChange = (field:string, value:string) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulation d'envoi
     setTimeout(() => {
       setIsSubmitting(false);
@@ -81,7 +81,7 @@ export const ContactInterface = () => {
     }, 2000);
   };
 
-  const getColorClasses = (color:string) => {
+  const getColorClasses = (color: string) => {
     const colors = {
       'primary': {
         bg: 'bg-[#EE3540]',
@@ -125,7 +125,7 @@ export const ContactInterface = () => {
               {contactMethods.map((method, index) => {
                 const IconComponent = method.icon;
                 const colorClasses = getColorClasses(method.color);
-                
+
                 return (
                   <Card key={index} className="hover:shadow-lg transition-all duration-300">
                     <CardBody className="p-6">
@@ -288,7 +288,7 @@ export const ContactInterface = () => {
                       variant="bordered"
                       className="border-[#28B0E6] text-[#28B0E6] hover:bg-[#28B0E6]/10"
                       size="lg"
-                      onClick={() => setFormData({
+                      onPress={() => setFormData({
                         name: '',
                         email: '',
                         phone: '',
@@ -318,7 +318,7 @@ export const ContactInterface = () => {
                   Trouvez rapidement des réponses à vos questions
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="bg-[#EE3540] p-3 rounded-full w-12 h-12 mx-auto mb-4">
@@ -331,7 +331,7 @@ export const ContactInterface = () => {
                     Inscrivez-vous et choisissez le pack organisateur
                   </p>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="bg-[#F08621] p-3 rounded-full w-12 h-12 mx-auto mb-4">
                     <MessageCircle className="w-6 h-6 text-white" />
@@ -343,7 +343,7 @@ export const ContactInterface = () => {
                     Nous répondons sous 24h maximum
                   </p>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="bg-[#28B0E6] p-3 rounded-full w-12 h-12 mx-auto mb-4">
                     <Headphones className="w-6 h-6 text-white" />
