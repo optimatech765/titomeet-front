@@ -7,6 +7,7 @@ import { Calendar, Users, TrendingUp, DollarSign, Clock, Star, Award, Eye, Heart
 export const EventStatsDashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('month');
 
+  
   // Données simulées pour les statistiques
   const monthlyRevenue = [
     { month: 'Jan', revenue: 45000, events: 12 },
