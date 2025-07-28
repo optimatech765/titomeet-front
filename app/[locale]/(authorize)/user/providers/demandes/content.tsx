@@ -336,7 +336,7 @@ export const PrestataireDemandes = () => {
                     {/* Right: Actions */}
                     <div className="flex flex-col gap-2 min-w-[200px]">
                       <Button
-                        onClick={() => handleVoirDetails(demande)}
+                        onPress={() => handleVoirDetails(demande)}
                         variant="bordered"
                         className="border-[#28B0E6] text-[#28B0E6] hover:bg-[#28B0E6]/10"
                         size="sm"
@@ -348,7 +348,7 @@ export const PrestataireDemandes = () => {
                       {demande.statut === 'en_attente' && (
                         <>
                           <Button
-                            onClick={() => handleAccepter(demande.id)}
+                            onPress={() => handleAccepter(demande.id)}
                             className="bg-green-600 text-white hover:bg-green-700"
                             size="sm"
                           >
@@ -356,7 +356,7 @@ export const PrestataireDemandes = () => {
                             Accepter
                           </Button>
                           <Button
-                            onClick={() => handleRefuser(demande.id)}
+                            onPress={() => handleRefuser(demande.id)}
                             color="danger"
                             size="sm"
                           >
